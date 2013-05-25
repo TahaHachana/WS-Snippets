@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Express 2012 for Web
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Website", "WS-Snippets\Website\Website.fsproj", "{5B7C7F80-F56E-4799-A2F8-4225AB9AEF7B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web", "WS-Snippets\Web\Web.csproj", "{9E758BB8-7056-4CE3-AAF0-4D7229CEB77C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{CA81C2A5-3A82-4F15-8EDF-770FF951FBB2}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5B7C7F80-F56E-4799-A2F8-4225AB9AEF7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B7C7F80-F56E-4799-A2F8-4225AB9AEF7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B7C7F80-F56E-4799-A2F8-4225AB9AEF7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B7C7F80-F56E-4799-A2F8-4225AB9AEF7B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9E758BB8-7056-4CE3-AAF0-4D7229CEB77C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E758BB8-7056-4CE3-AAF0-4D7229CEB77C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E758BB8-7056-4CE3-AAF0-4D7229CEB77C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E758BB8-7056-4CE3-AAF0-4D7229CEB77C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

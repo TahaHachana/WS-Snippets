@@ -17,6 +17,7 @@ module Controls =
         }
 
     let hashset = HashSet<Snippet>()
+    let hashset' = HashSet<string>()
 
     module Snippet1 =
         [<JavaScript>]
@@ -47,6 +48,8 @@ module Controls =
     module Snippets =
         [|
             {Id = 1; Title = "Snippet 1 Title"; MetaDesc = "Snippet 1 meta description."; Description = ""; Tags = []; Control = new Snippet1.Control()}
-            {Id = 2; Title = "Snippet 2 Title"; MetaDesc = "Snippet 2 meta description."; Description = ""; Tags = ["JQUERY"; "JQUERY UI"]; Control = new Snippet2.Control()}
+            {Id = 2; Title = "Snippet 2 Title"; MetaDesc = "Snippet 2 meta description."; Description = ""; Tags = ["JQUERY"; "JQUERY UI"; "WEBSHARPER"; "JAVASCRIPT"; "EXT JS"; "KENDO UI"; "JQUERY MOBILE"; "SENCHA TOUCH"; "FORMLETS"; "SITELETS"; "GEOLOCATION"; "GOOGLE"; "GOOGLE MAPS"; "TWITTER"; "JSON"; "AJAX"; "GOOGLE VISUALIZATION"; "TYPESCRIPT"; "HTML5"; "DRAG AND DROP"; "FACEBOOK"]; Control = new Snippet2.Control()}
         |]
-        |> Array.iter (fun x -> hashset.Add x |> ignore)
+        |> Array.iter (fun x ->
+            hashset.Add x |> ignore
+            x.Tags |> List.iter (fun y -> hashset'.Add y |> ignore))

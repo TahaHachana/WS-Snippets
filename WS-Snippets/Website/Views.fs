@@ -9,12 +9,45 @@ module Views =
     open Content
     open Model
     open Utils.Server
+    open Mongo
 
     let mainTemplate = Skin.MakeDefaultTemplate "~/Main.html" Skin.LoadFrequency.PerRequest
     let withMainTemplate = Skin.WithTemplate<Action> mainTemplate
     let loginInfo' = loginInfo Logout Login
 
+    module List =
+        /// Splits a list into lists of the specified length.
+        let split count list =        
+            let rec loop list =
+                [
+                    yield Seq.truncate count list |> Seq.toList
+                    match List.length list <= count with
+                        | false ->
+                            let list' = Seq.skip count list |> Seq.toList
+                            yield! loop list'
+                        | true -> ()
+                ]
+            loop list
+
     let home =
+        let snippets =
+            Snippets.latest10()
+            |> Seq.toList
+            |> List.split 2
+            |> List.map (fun lst ->
+                let snip = lst.[0]
+                let snip' = lst.[1]
+                Div [Class "row"] -< [
+                    Div [Class "span5"] -< [
+                        H3 [A [HRef <| "/snippet/" + snip.SnipId.ToString()] -< [Text snip.Title]]
+                        P [Text snip.Desc]
+                    ]
+                    Div [Class "offset1 span5"] -< [
+                        H3 [A [HRef <| "/snippet/" + snip'.SnipId.ToString()] -< [Text snip'.Title]]
+                        P [Text snip'.Desc]
+                    ]
+                ])    
+        let tags = Controls.hashset' |> Seq.toList |> List.sort |> List.map (fun x -> Button [Class "btn btn-info"; Style "margin: 5px;"] -< [Text x])
         withMainTemplate Home.title Home.metaDescription <| fun ctx ->
             [
                 Div [Class "wrap"] -< [
@@ -24,11 +57,14 @@ module Views =
                         loginInfo' ctx
                         Div [Class "pull-down"] -< [
                             Home.header
-                            UL [Class "unstyled"] -< [
-                                LI ["Sub 1" => (ctx.Link <| Sub 1)]
-                                LI ["Sub 2" => (ctx.Link <| Sub 2)]
-                                LI ["Sub 3" => (ctx.Link <| Sub 3)]
+                            HTML5.Section [
+                                yield H2 [Text "Latest snippets"]
+                                yield! snippets
                             ]
+                            HTML5.Section [Style "min-height: 300px;"] -< [
+                                yield H2 [Text "Tags"]
+                                yield! tags
+                            ] 
                         ]
                     ]
                 ]
@@ -45,25 +81,6 @@ module Views =
                         loginInfo' ctx
                         Div [Class "pull-down"] -< [
                             About.header
-                        ]
-                    ]
-                ]
-                Shared.footer
-            ]
-
-    let sub pageId =
-        let pageId' = string pageId
-        let title = "Sub Title " + pageId'
-        let metaDescription = "Sub meta description " + pageId' + "."
-        withMainTemplate title metaDescription <| fun ctx ->
-            [
-                Div [Class "wrap"] -< [
-                    Shared.navigation
-                    Div [new Forkme.Control()]
-                    Div [Class "container"] -< [
-                        loginInfo' ctx
-                        Div [Class "pull-down"] -< [
-                            Div [Text <| "Sub page " + pageId']
                         ]
                     ]
                 ]
@@ -97,14 +114,17 @@ module Views =
                     Div [Class "container"] -< [
                         loginInfo' ctx
                         Div [Class "pull-down"] -< [
-                            H1 [Text "Admin page"]
+                            Div [Class "row"] -< [
+                                H3 [Text "Insert a new snippet"]
+                                Div [new InsertSnippet.Control()]
+                            ]
                         ]
                     ]
                 ]
                 Shared.footer
             ]
 
-    let custom404 =
+    let error =
         withMainTemplate "Error - Page Not Found" "" <| fun ctx ->
             [
                 Div [Class "wrap"] -< [
@@ -146,7 +166,7 @@ module Views =
                                 ]
                             ]
                         ]
-                        Div [Style "min-height: 200px;"] -< [
+                        HTML5.Section [Style "min-height: 300px;"] -< [
                             H3 [Text "Tags"]
                             Div [yield! btns]
                         ]

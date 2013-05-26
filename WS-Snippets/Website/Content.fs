@@ -21,16 +21,16 @@ module Content =
 
     module Home =
     
-        let title = "Home Title"
+        let title = "WebSharper Snippets"
 
-        let metaDescription = "Home meta description."
+        let metaDescription = "WebSharper code snippets and examples featuring live demos and complete source code."
 
         let navigation : HtmlElement = nav <| Some "Home"
 
         let header : HtmlElement =
             header
-                "Home page header"
-                "Short home page description"
+                "WebSharper Code Snippets"
+                "Snippets and examples of WebSharper code with live demos and full source."
 
     module About =
     

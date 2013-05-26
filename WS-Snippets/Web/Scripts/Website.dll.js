@@ -1,6 +1,6 @@
 (function()
 {
- var Global=this,Runtime=this.IntelliFactory.Runtime,Website,Controls,Snippet1,WebSharper,Html,Default,List,Snippet2,Operators,JQueryUI,Sortable,Forkme,jQuery,EventsPervasives,Remoting,Concurrency,alert,Highlight,Client,HTML5,Login,Client1,window;
+ var Global=this,Runtime=this.IntelliFactory.Runtime,Website,Controls,Snippet1,WebSharper,Html,Default,List,Snippet2,Operators,JQueryUI,Sortable,Forkme,jQuery,EventsPervasives,Remoting,Concurrency,alert,Highlight,Client,Formlet,Controls1,Enhance,Data,Formlet1,JavaScript,InsertSnippet,Client1,HTML5,Login,Client2,window;
  Runtime.Define(Global,{
   Website:{
    Controls:{
@@ -148,6 +148,89 @@
      }
     })
    },
+   InsertSnippet:{
+    Client:{
+     main:function()
+     {
+      var id,x,f,title,x1,f1,desc,x2,f2,tags,x3,f3,formlet1,x4,x5,x6,f4,f5;
+      id=(x=Controls1.Input(""),(f=function(formlet)
+      {
+       return Enhance.WithTextLabel("Id",formlet);
+      },f(x)));
+      title=(x1=Controls1.Input(""),(f1=function(formlet)
+      {
+       return Enhance.WithTextLabel("Title",formlet);
+      },f1(x1)));
+      desc=(x2=Controls1.TextArea(""),(f2=function(formlet)
+      {
+       return Enhance.WithTextLabel("Description",formlet);
+      },f2(x2)));
+      tags=(x3=Controls1.Input(""),(f3=function(formlet)
+      {
+       return Enhance.WithTextLabel("Tags",formlet);
+      },f3(x3)));
+      formlet1=(x4=(x5=Data.$(Data.$(Data.$(Data.$((x6=function(id1)
+      {
+       return function(title1)
+       {
+        return function(desc1)
+        {
+         return function(tags1)
+         {
+          return[id1,title1,desc1,tags1];
+         };
+        };
+       };
+      },Formlet1.Return(x6)),id),title),desc),tags),(f4=function(formlet)
+      {
+       return Enhance.WithSubmitAndResetButtons(formlet);
+      },f4(x5))),(f5=function(formlet)
+      {
+       return Enhance.WithFormContainer(formlet);
+      },f5(x4)));
+      return Formlet1.Run(Runtime.Tupled(function(x7)
+      {
+       var x8,f6,f8;
+       x8=(f6=function()
+       {
+        var x9,id1,title1,desc1,tags1,f7;
+        JavaScript.Log(x7);
+        x9=(id1=x7[0],(title1=x7[1],(desc1=x7[2],(tags1=x7[3],Remoting.Async("Website:2",[id1,title1,desc1,tags1])))));
+        f7=function(_arg1)
+        {
+         JavaScript.Log(_arg1);
+         if(_arg1)
+          {
+           alert("New snippet inserted successfully.");
+           return Concurrency.Return(null);
+          }
+         else
+          {
+           alert("The query failed.");
+           return Concurrency.Return(null);
+          }
+        };
+        return Concurrency.Bind(x9,f7);
+       },Concurrency.Delay(f6));
+       f8=function(arg00)
+       {
+        var t;
+        t={
+         $:0
+        };
+        return Concurrency.Start(arg00);
+       };
+       return f8(x8);
+      }),formlet1);
+     }
+    },
+    Control:Runtime.Class({
+     get_Body:function()
+     {
+      return Client1.main();
+     }
+    })
+   },
    Login:{
     Client:{
      loginForm:function(redirectUrl)
@@ -164,7 +247,7 @@
          var x3,f2;
          x3=Remoting.Async("Website:1",[{
           Name:userInput.get_Value(),
-          Password:Client1.passInput().get_Value()
+          Password:Client2.passInput().get_Value()
          }]);
          f2=function(_arg11)
          {
@@ -195,7 +278,7 @@
       {
        return EventsPervasives.Events().OnClick(x1,arg10);
       }),(f(x),x)));
-      return Default.Form(List.ofArray([(x4=List.ofArray([(x5=List.ofArray([Default.Text("Login")]),(_this4=Default.Tags(),_this4.NewTag("legend",x5))),(x6=List.ofArray([Default.Text("Username")]),(_this5=Default.Tags(),_this5.NewTag("label",x6))),userInput,(x7=List.ofArray([Default.Text("Password")]),(_this6=Default.Tags(),_this6.NewTag("label",x7))),Client1.passInput()]),(_this7=Default.Tags(),_this7.NewTag("fieldset",x4))),(x8=List.ofArray([submitBtn]),(_this8=Default.Tags(),_this8.NewTag("fieldset",x8)))]));
+      return Default.Form(List.ofArray([(x4=List.ofArray([(x5=List.ofArray([Default.Text("Login")]),(_this4=Default.Tags(),_this4.NewTag("legend",x5))),(x6=List.ofArray([Default.Text("Username")]),(_this5=Default.Tags(),_this5.NewTag("label",x6))),userInput,(x7=List.ofArray([Default.Text("Password")]),(_this6=Default.Tags(),_this6.NewTag("label",x7))),Client2.passInput()]),(_this7=Default.Tags(),_this7.NewTag("fieldset",x4))),(x8=List.ofArray([submitBtn]),(_this8=Default.Tags(),_this8.NewTag("fieldset",x8)))]));
      },
      passInput:Runtime.Field(function()
      {
@@ -227,7 +310,7 @@
     Control:Runtime.Class({
      get_Body:function()
      {
-      return Client1.loginForm(this.redirectUrl);
+      return Client2.loginForm(this.redirectUrl);
      }
     })
    }
@@ -254,13 +337,21 @@
   alert=Runtime.Safe(Global.alert);
   Highlight=Runtime.Safe(Website.Highlight);
   Client=Runtime.Safe(Highlight.Client);
+  Formlet=Runtime.Safe(WebSharper.Formlet);
+  Controls1=Runtime.Safe(Formlet.Controls);
+  Enhance=Runtime.Safe(Formlet.Enhance);
+  Data=Runtime.Safe(Formlet.Data);
+  Formlet1=Runtime.Safe(Formlet.Formlet);
+  JavaScript=Runtime.Safe(WebSharper.JavaScript);
+  InsertSnippet=Runtime.Safe(Website.InsertSnippet);
+  Client1=Runtime.Safe(InsertSnippet.Client);
   HTML5=Runtime.Safe(Default.HTML5);
   Login=Runtime.Safe(Website.Login);
-  Client1=Runtime.Safe(Login.Client);
+  Client2=Runtime.Safe(Login.Client);
   return window=Runtime.Safe(Global.window);
  });
  Runtime.OnLoad(function()
  {
-  Client1.passInput();
+  Client2.passInput();
  });
 }());

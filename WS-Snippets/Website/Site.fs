@@ -9,6 +9,9 @@ module Site =
     let router : Router<Action> =
         Router.Table
             [
+                About      , "/about"
+                Admin      , "/admin"
+                Error      , "/error"
                 Home       , "/"
                 Login None , "/login"
                 Highlight  , "/highlight"

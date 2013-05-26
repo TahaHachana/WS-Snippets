@@ -37,6 +37,9 @@
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <ItemGroup>
     <Compile Include="Utils.fs" />
+    <Compile Include="Secret.fs" />
+    <Compile Include="Mongo.fs" />
+    <Compile Include="InsertSnippet.fs" />
     <Compile Include="Dependencies.fs" />
     <Compile Include="Content.fs" />
     <Compile Include="Forkme.fs" />
@@ -56,6 +59,14 @@
     </Reference>
     <Reference Include="IntelliFactory.WebSharper.JQueryUI">
       <HintPath>..\..\packages\WebSharper.JQueryUi.2.4.56.140\lib\IntelliFactory.WebSharper.JQueryUI.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MongoDB.Bson">
+      <HintPath>..\..\packages\mongocsharpdriver.1.8.1\lib\net35\MongoDB.Bson.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MongoDB.Driver">
+      <HintPath>..\..\packages\mongocsharpdriver.1.8.1\lib\net35\MongoDB.Driver.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="mscorlib" />

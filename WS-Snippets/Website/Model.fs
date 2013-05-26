@@ -7,12 +7,11 @@ module Model =
     type PageId = int
 
     type Action =
-        | [<CompiledName("about")>] About
-        | [<CompiledName("admin")>] Admin
-        | [<CompiledName("custom404")>] Custom404
+        | About
+        | Admin
+        | Error
         | Home
-        | [<CompiledName("login")>] Login of Action option
-        | [<CompiledName("logout")>] Logout
-        | [<CompiledName("sub")>] Sub of PageId
+        | Login of Action option
+        | Logout
         | [<CompiledName("snippet")>] Snippet of PageId
         | Highlight

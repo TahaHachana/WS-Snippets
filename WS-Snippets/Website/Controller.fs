@@ -19,11 +19,10 @@ module Controller =
         let handle = function
             | About        -> Views.about
             | Admin        -> protect Views.admin
-            | Custom404    -> Views.custom404
+            | Error    -> Views.error
             | Home         -> Views.home
             | Login action -> Views.login action
             | Logout       -> logout()
-            | Sub pageId   -> Views.sub pageId
             | Snippet pageId -> Views.snippet pageId
             | Highlight      -> Views.highlight
 

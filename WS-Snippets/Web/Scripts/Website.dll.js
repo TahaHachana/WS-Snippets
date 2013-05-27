@@ -1,6 +1,6 @@
 (function()
 {
- var Global=this,Runtime=this.IntelliFactory.Runtime,Website,Controls,Snippet1,WebSharper,Html,Default,List,Snippet2,Operators,JQueryUI,Sortable,Forkme,jQuery,EventsPervasives,Remoting,Concurrency,alert,Highlight,Client,Formlet,Controls1,Enhance,Data,Formlet1,JavaScript,InsertSnippet,Client1,HTML5,Login,Client2,window;
+ var Global=this,Runtime=this.IntelliFactory.Runtime,Website,Controls,Snippet1,WebSharper,Html,Default,List,alert,EventsPervasives,Snippet2,Operators,JQueryUI,Sortable,Forkme,jQuery,Remoting,Concurrency,Highlight,Client,Formlet,Controls1,Enhance,Data,Formlet1,JavaScript,InsertSnippet,Client1,HTML5,Login,Client2,window;
  Runtime.Define(Global,{
   Website:{
    Controls:{
@@ -13,7 +13,20 @@
      }),
      main:function()
      {
-      return Default.Div(List.ofArray([Default.Text("Snippet")]));
+      var x,f,x1;
+      x=Default.Button(List.ofArray([Default.Text("Press Me"),Default.Attr().Class("btn btn-primary btn-large")]));
+      f=(x1=function()
+      {
+       return function()
+       {
+        return alert("Hello, world!");
+       };
+      },function(arg10)
+      {
+       return EventsPervasives.Events().OnClick(x1,arg10);
+      });
+      f(x);
+      return x;
      }
     },
     Snippet2:{
@@ -325,16 +338,16 @@
   Html=Runtime.Safe(WebSharper.Html);
   Default=Runtime.Safe(Html.Default);
   List=Runtime.Safe(WebSharper.List);
+  alert=Runtime.Safe(Global.alert);
+  EventsPervasives=Runtime.Safe(Html.EventsPervasives);
   Snippet2=Runtime.Safe(Controls.Snippet2);
   Operators=Runtime.Safe(Html.Operators);
   JQueryUI=Runtime.Safe(WebSharper.JQueryUI);
   Sortable=Runtime.Safe(JQueryUI.Sortable);
   Forkme=Runtime.Safe(Website.Forkme);
   jQuery=Runtime.Safe(Global.jQuery);
-  EventsPervasives=Runtime.Safe(Html.EventsPervasives);
   Remoting=Runtime.Safe(WebSharper.Remoting);
   Concurrency=Runtime.Safe(WebSharper.Concurrency);
-  alert=Runtime.Safe(Global.alert);
   Highlight=Runtime.Safe(Website.Highlight);
   Client=Runtime.Safe(Highlight.Client);
   Formlet=Runtime.Safe(WebSharper.Formlet);

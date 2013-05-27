@@ -15,3 +15,4 @@ module Model =
         | Logout
         | [<CompiledName("snippet")>] Snippet of PageId
         | Highlight
+        | [<CompiledName("tagged")>] Tagged of string

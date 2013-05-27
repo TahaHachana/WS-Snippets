@@ -25,5 +25,6 @@ module Controller =
             | Logout       -> logout()
             | Snippet pageId -> Views.snippet pageId
             | Highlight      -> Views.highlight
+            | Tagged tag -> Views.tagged tag
 
         { Handle = handle }

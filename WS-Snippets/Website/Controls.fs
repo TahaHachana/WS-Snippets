@@ -21,7 +21,9 @@ module Controls =
 
     module Snippet1 =
         [<JavaScript>]
-        let private main() = Div [Text "Snippet"]
+        let private main() =
+            Default.Button [Text "Press Me"; Attr.Class "btn btn-primary btn-large"]
+            |>! OnClick (fun _ _ -> JavaScript.Alert "Hello, world!")
 
         type Control() =
             inherit Web.Control()
@@ -46,9 +48,19 @@ module Controls =
             override __.Body = main() :> _        
 
     module Snippets =
+        let private snippet id title metaDesc desc tags control = {Id = id; Title = title; MetaDesc = metaDesc; Description = desc; Tags = tags; Control = control }
+        
+        let snippet1 =
+            snippet
+                1
+                "Hello World"
+                "WebSharper hello world example."
+                "This example inserts a button into the DOM that displays an alert saying \"Hello, world!\" when clicked. WebSharper's HTML combinators are used to generate the markup."
+                ["WEBSHARPER"; "HTML"]
+                <| new Snippet1.Control()
+        
         [|
-            {Id = 1; Title = "Snippet 1 Title"; MetaDesc = "Snippet 1 meta description."; Description = ""; Tags = []; Control = new Snippet1.Control()}
-            {Id = 2; Title = "Snippet 2 Title"; MetaDesc = "Snippet 2 meta description."; Description = ""; Tags = ["JQUERY"; "JQUERY UI"; "WEBSHARPER"; "JAVASCRIPT"; "EXT JS"; "KENDO UI"; "JQUERY MOBILE"; "SENCHA TOUCH"; "FORMLETS"; "SITELETS"; "GEOLOCATION"; "GOOGLE"; "GOOGLE MAPS"; "TWITTER"; "JSON"; "AJAX"; "GOOGLE VISUALIZATION"; "TYPESCRIPT"; "HTML5"; "DRAG AND DROP"; "FACEBOOK"]; Control = new Snippet2.Control()}
+            snippet1
         |]
         |> Array.iter (fun x ->
             hashset.Add x |> ignore

@@ -30,24 +30,26 @@ module Views =
             loop list
 
     let home =
-        let snippets =
-            Snippets.latest10()
-            |> Seq.toList
-            |> List.split 2
-            |> List.map (fun lst ->
-                let snip = lst.[0]
-                let snip' = lst.[1]
-                Div [Class "row"] -< [
-                    Div [Class "span5"] -< [
-                        H3 [A [HRef <| "/snippet/" + snip.SnipId.ToString()] -< [Text snip.Title]]
-                        P [Text snip.Desc]
-                    ]
-                    Div [Class "offset1 span5"] -< [
-                        H3 [A [HRef <| "/snippet/" + snip'.SnipId.ToString()] -< [Text snip'.Title]]
-                        P [Text snip'.Desc]
-                    ]
-                ])    
-        let tags = Controls.hashset' |> Seq.toList |> List.sort |> List.map (fun x -> Button [Class "btn btn-info"; Style "margin: 5px;"] -< [Text x])
+//        let snippets =
+//            Snippets.latest10()
+//            |> Seq.toList
+//            |> List.split 2
+//            |> List.map (fun lst ->
+//                let snip = lst.[0]
+//                let snip' = lst.[1]
+//                Div [Class "row"] -< [
+//                    Div [Class "span5"] -< [
+//                        H3 [A [HRef <| "/snippet/" + snip.SnipId.ToString()] -< [Text snip.Title]]
+//                        P [Text snip.Desc]
+//                    ]
+//                    Div [Class "offset1 span5"] -< [
+//                        H3 [A [HRef <| "/snippet/" + snip'.SnipId.ToString()] -< [Text snip'.Title]]
+//                        P [Text snip'.Desc]
+//                    ]
+//                ])    
+        let tags = Controls.hashset' |> Seq.toList |> List.sort |> List.map (fun x ->
+            let href = "/tagged/" + HttpUtility.UrlEncode(x.ToLower())
+            A [HRef href] -< [Button [Class "btn btn-info"; Style "margin: 5px;"] -< [Text x]])
         withMainTemplate Home.title Home.metaDescription <| fun ctx ->
             [
                 Div [Class "wrap"] -< [
@@ -59,7 +61,7 @@ module Views =
                             Home.header
                             HTML5.Section [
                                 yield H2 [Text "Latest snippets"]
-                                yield! snippets
+                                //yield! snippets
                             ]
                             HTML5.Section [Style "min-height: 300px;"] -< [
                                 yield H2 [Text "Tags"]
@@ -140,19 +142,22 @@ module Views =
             ]
 
     let snippet id =
-        let title, metaDesc, tags, control = Controls.hashset |> Seq.find (fun x -> x.Id = id) |> fun x -> x.Title, x.MetaDesc, x.Tags, x.Control
+        let title, metaDesc, desc, tags, control = Controls.hashset |> Seq.find (fun x -> x.Id = id) |> fun x -> x.Title, x.MetaDesc, x.Description, x.Tags, x.Control
+        let title' = title + " | WebSharper Snippets"
         let path = HttpContext.Current.Server.MapPath <| "~/Source/" + string id + ".txt"
         let source = File.ReadAllText path
         let elt = Element.VerbatimContent source
-        let btns = tags |> List.map (fun x -> Button [Class "btn btn-info"; Style "margin: 5px;"] -< [Text x])
-        withMainTemplate title metaDesc <| fun ctx ->
+        let btns = tags |> List.map (fun x ->
+            let href = "/tagged/" + HttpUtility.UrlEncode(x.ToLower())
+            A [HRef href] -< [Button [Class "btn btn-info"; Style "margin: 5px;"] -< [Text x]])
+        withMainTemplate title' metaDesc <| fun ctx ->
             [
                 Div [Class "wrap"] -< [
                     Shared.navigation
                     Div [Class "container"] -< [
                         Div [Class "pull-down"] -< [
-                            H2 [Text "Snippet Title"]
-                            P [Text "Snippet Description"]
+                            H2 [Text title]
+                            P [Text desc]
                         ]
                         Div [Style "height: 400px;"] -< [
                             Div [Class "tabbable"] -< [
@@ -205,4 +210,50 @@ module Views =
                 ]
                 Shared.footer
                 Script [Src "http://twitter.github.com/bootstrap/assets/js/bootstrap-tab.js"]
+            ]
+
+    let tagged tag =
+        let tag' = HttpUtility.UrlDecode tag |> fun x -> x.ToUpper()
+        let divs =
+            Snippets.hasTag tag'
+            |> Seq.toList
+            |> List.split 2
+            |> List.map (fun lst ->
+                match lst with
+                    | [snip] ->
+                        Div [Class "row"] -< [
+                            Div [Class "span5"] -< [
+                                H3 [A [HRef <| "/snippet/" + snip.SnipId.ToString()] -< [Text snip.Title]]
+                                P [Text snip.Desc]
+                            ]
+                        ]
+                    | _ ->
+                        let snip = lst.[0]
+                        let snip' = lst.[1]
+                        Div [Class "row"] -< [
+                            Div [Class "span5"] -< [
+                                H3 [A [HRef <| "/snippet/" + snip.SnipId.ToString()] -< [Text snip.Title]]
+                                P [Text snip.Desc]
+                            ]
+                            Div [Class "offset1 span5"] -< [
+                                H3 [A [HRef <| "/snippet/" + snip'.SnipId.ToString()] -< [Text snip'.Title]]
+                                P [Text snip'.Desc]
+                            ]
+                        ])
+        withMainTemplate About.title About.metaDescription <| fun ctx ->
+            [
+                Div [Class "wrap"] -< [
+                    About.navigation
+                    Div [new Forkme.Control()]
+                    Div [Class "container"] -< [
+                        loginInfo' ctx
+                        Div [Class "pull-down"] -< [
+                            HTML5.Header [
+                                H1 [Text <| "Snippets tagged \"" + tag' + "\""]
+                            ]
+                        ]
+                        UL [yield! divs]
+                    ]
+                ]
+                Shared.footer
             ]

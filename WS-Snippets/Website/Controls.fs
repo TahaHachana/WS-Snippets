@@ -3,7 +3,6 @@
 module Controls =
     open System.Collections.Generic
     open IntelliFactory.WebSharper
-    open IntelliFactory.WebSharper.ExtJs
     open IntelliFactory.WebSharper.Html
     open IntelliFactory.WebSharper.Html5
     open IntelliFactory.WebSharper.JQueryUI
@@ -63,6 +62,16 @@ module Controls =
             [<JavaScript>]
             override __.Body = main() :> _
 
+    module Snippet4 =
+        [<JavaScript>]
+        let private main() = Button.New("Button")
+
+        type Control() =
+            inherit Web.Control()
+ 
+            [<JavaScript>]
+            override __.Body = main() :> _
+
     module Snippets =
         let private snippet id title metaDesc desc tags control = {Id = id; Title = title; MetaDesc = metaDesc; Description = desc; Tags = tags; Control = control }
         
@@ -92,11 +101,21 @@ module Controls =
                 "Modern browsers feature a JavaScript console that you can use to log almost anything which is very useful for debugging purposes. Open your browser's console to see how this sample logged the text \"Hello\"."
                 ["JAVASCRIPT"]
                 <| new Snippet3.Control()
+
+        let snippet4 =
+            snippet
+                4
+                "jQuery UI Button Widget"
+                "Simple jQuery UI button widget created with WebSharper."
+                "This snippet uses the WebSharper jQuery UI extension to create a simple button widget."
+                ["JQUERY"; "JQUERY UI"]
+                <| new Snippet4.Control()
         
         [|
             snippet1
             snippet2
             snippet3
+            snippet4
         |]
         |> Array.iter (fun x ->
             hashset.Add x |> ignore

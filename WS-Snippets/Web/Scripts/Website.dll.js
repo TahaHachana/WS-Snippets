@@ -1,6 +1,6 @@
 (function()
 {
- var Global=this,Runtime=this.IntelliFactory.Runtime,Website,Controls,Snippet1,WebSharper,Html,Default,List,alert,EventsPervasives,Snippet2,HTML5,Snippet3,JavaScript,Operators,Forkme,jQuery,Remoting,Concurrency,Highlight,Client,Formlet,Controls1,Enhance,Data,Formlet1,InsertSnippet,Client1,Login,Client2,window;
+ var Global=this,Runtime=this.IntelliFactory.Runtime,Website,Controls,Snippet1,WebSharper,Html,Default,List,alert,EventsPervasives,Snippet2,HTML5,Snippet3,JavaScript,Operators,Snippet4,JQueryUI,Button,Forkme,jQuery,Remoting,Concurrency,Highlight,Client,Formlet,Controls1,Enhance,Data,Formlet1,InsertSnippet,Client1,Login,Client2,window;
  Runtime.Define(Global,{
   Website:{
    Controls:{
@@ -69,6 +69,18 @@
       });
       f(x);
       return x;
+     }
+    },
+    Snippet4:{
+     Control:Runtime.Class({
+      get_Body:function()
+      {
+       return Snippet4.main();
+      }
+     }),
+     main:function()
+     {
+      return Button.New4("Button");
      }
     }
    },
@@ -373,6 +385,9 @@
   Snippet3=Runtime.Safe(Controls.Snippet3);
   JavaScript=Runtime.Safe(WebSharper.JavaScript);
   Operators=Runtime.Safe(Html.Operators);
+  Snippet4=Runtime.Safe(Controls.Snippet4);
+  JQueryUI=Runtime.Safe(WebSharper.JQueryUI);
+  Button=Runtime.Safe(JQueryUI.Button);
   Forkme=Runtime.Safe(Website.Forkme);
   jQuery=Runtime.Safe(Global.jQuery);
   Remoting=Runtime.Safe(WebSharper.Remoting);

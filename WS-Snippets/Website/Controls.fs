@@ -4,6 +4,7 @@ module Controls =
     open System.Collections.Generic
     open IntelliFactory.WebSharper
     open IntelliFactory.WebSharper.Html
+    open IntelliFactory.WebSharper.Html5
     open IntelliFactory.WebSharper.JQueryUI
 
     type Snippet =
@@ -33,19 +34,21 @@ module Controls =
 
     module Snippet2 =
         [<JavaScript>]
-        let main() =
-            let style = 
-                "width: 150px; font-size: large; text-align: center; border: 1px solid; margin: 5px;"
-            let elt = 
-                Div [Div [Attr.Style style] -- Text "Sortable item 1"
-                     Div [Attr.Style style] -- Text "Sortable item 2"
-                     Div [Attr.Style style] -- Text "Sortable item 3"]
-            Sortable.New(elt)
-    
-        type Control() = 
+        let private main() =
+            let elt = HTML5.Tags.Canvas [Text "Fallback content goes here."; Attr.Style "border: 1px solid"]
+            let canvas  = As<CanvasElement> elt.Dom
+            canvas.Height <- 100
+            canvas.Width  <- 400
+            let ctx = canvas.GetContext "2d"
+            ctx.Font <- "40px sans-serif"
+            ctx.FillText("Hello Canvas", 90., 50.)
+            elt
+        
+        type Control() =
             inherit Web.Control()
+
             [<JavaScript>]
-            override __.Body = main() :> _        
+            override __.Body = main() :> _
 
     module Snippets =
         let private snippet id title metaDesc desc tags control = {Id = id; Title = title; MetaDesc = metaDesc; Description = desc; Tags = tags; Control = control }
@@ -55,12 +58,22 @@ module Controls =
                 1
                 "Hello World"
                 "WebSharper hello world example."
-                "This example inserts a button into the DOM that displays an alert saying \"Hello, world!\" when clicked. WebSharper's HTML combinators are used to generate the markup."
+                "This example inserts a button in the DOM that displays an alert saying \"Hello, world!\" when clicked. WebSharper's HTML combinators are used to generate the markup."
                 ["WEBSHARPER"; "HTML"]
                 <| new Snippet1.Control()
+
+        let snippet2 =
+            snippet
+                2
+                "Drawing Text on an HTML5 Canvas"
+                "Drawing text on the HTML5 canvas with WebSharper."
+                "The HTML5 canvas supports drawing text on the fly via JavaScript. This snippets uses the \"FillText\" method to draw \"Hello Canvas\" filled with the default black color after setting the font-size to 40px. The \"StrokeText\" method would draw an outline with no fill."
+                ["HTML5"; "Canvas"; "JavaScript"]
+                <| new Snippet2.Control()
         
         [|
             snippet1
+            snippet2
         |]
         |> Array.iter (fun x ->
             hashset.Add x |> ignore

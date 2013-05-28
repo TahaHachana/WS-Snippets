@@ -1,6 +1,6 @@
 (function()
 {
- var Global=this,Runtime=this.IntelliFactory.Runtime,Website,Controls,Snippet1,WebSharper,Html,Default,List,alert,EventsPervasives,Snippet2,Operators,JQueryUI,Sortable,Forkme,jQuery,Remoting,Concurrency,Highlight,Client,Formlet,Controls1,Enhance,Data,Formlet1,JavaScript,InsertSnippet,Client1,HTML5,Login,Client2,window;
+ var Global=this,Runtime=this.IntelliFactory.Runtime,Website,Controls,Snippet1,WebSharper,Html,Default,List,alert,EventsPervasives,Snippet2,HTML5,Forkme,Operators,jQuery,Remoting,Concurrency,Highlight,Client,Formlet,Controls1,Enhance,Data,Formlet1,JavaScript,InsertSnippet,Client1,Login,Client2,window;
  Runtime.Define(Global,{
   Website:{
    Controls:{
@@ -38,9 +38,15 @@
      }),
      main:function()
      {
-      var elt,el,_this,inner,el1,_this1,inner1,el2,_this2,inner2;
-      elt=Default.Div(List.ofArray([(el=Default.Div(List.ofArray([(_this=Default.Attr(),_this.NewAttr("style","width: 150px; font-size: large; text-align: center; border: 1px solid; margin: 5px;"))])),(inner=Default.Text("Sortable item 1"),Operators.add(el,List.ofArray([inner])))),(el1=Default.Div(List.ofArray([(_this1=Default.Attr(),_this1.NewAttr("style","width: 150px; font-size: large; text-align: center; border: 1px solid; margin: 5px;"))])),(inner1=Default.Text("Sortable item 2"),Operators.add(el1,List.ofArray([inner1])))),(el2=Default.Div(List.ofArray([(_this2=Default.Attr(),_this2.NewAttr("style","width: 150px; font-size: large; text-align: center; border: 1px solid; margin: 5px;"))])),(inner2=Default.Text("Sortable item 3"),Operators.add(el2,List.ofArray([inner2]))))]));
-      return Sortable.New2(elt);
+      var elt,_this,x,_this1,canvas,ctx;
+      elt=(_this=HTML5.Tags(),(x=List.ofArray([Default.Text("Fallback content goes here."),(_this1=Default.Attr(),_this1.NewAttr("style","border: 1px solid"))]),_this.NewTag("canvas",x)));
+      canvas=elt.Body;
+      canvas.height=100;
+      canvas.width=400;
+      ctx=canvas.getContext("2d");
+      ctx.font="40px sans-serif";
+      ctx.fillText("Hello Canvas",90,50);
+      return elt;
      }
     }
    },
@@ -341,10 +347,9 @@
   alert=Runtime.Safe(Global.alert);
   EventsPervasives=Runtime.Safe(Html.EventsPervasives);
   Snippet2=Runtime.Safe(Controls.Snippet2);
-  Operators=Runtime.Safe(Html.Operators);
-  JQueryUI=Runtime.Safe(WebSharper.JQueryUI);
-  Sortable=Runtime.Safe(JQueryUI.Sortable);
+  HTML5=Runtime.Safe(Default.HTML5);
   Forkme=Runtime.Safe(Website.Forkme);
+  Operators=Runtime.Safe(Html.Operators);
   jQuery=Runtime.Safe(Global.jQuery);
   Remoting=Runtime.Safe(WebSharper.Remoting);
   Concurrency=Runtime.Safe(WebSharper.Concurrency);
@@ -358,7 +363,6 @@
   JavaScript=Runtime.Safe(WebSharper.JavaScript);
   InsertSnippet=Runtime.Safe(Website.InsertSnippet);
   Client1=Runtime.Safe(InsertSnippet.Client);
-  HTML5=Runtime.Safe(Default.HTML5);
   Login=Runtime.Safe(Website.Login);
   Client2=Runtime.Safe(Login.Client);
   return window=Runtime.Safe(Global.window);

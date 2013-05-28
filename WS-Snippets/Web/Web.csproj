@@ -56,6 +56,7 @@
     <Content Include="Source\2.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Source\3.txt" />
     <Content Include="StyleSheets\StyleSheet1.css" />
     <Content Include="Themes\**\*.*" />
     <Content Include="Views\**\*.*" />

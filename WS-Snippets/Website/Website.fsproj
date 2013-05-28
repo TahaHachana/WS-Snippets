@@ -57,6 +57,10 @@
       <HintPath>..\..\packages\ExtSharper.0.1.13\lib\Net45\ExtSharper.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="IntelliFactory.WebSharper.ExtJs">
+      <HintPath>..\..\packages\WebSharper.ExtJs.2.4.48.145\lib\IntelliFactory.WebSharper.ExtJs.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="IntelliFactory.WebSharper.JQueryUI">
       <HintPath>..\..\packages\WebSharper.JQueryUi.2.4.56.140\lib\IntelliFactory.WebSharper.JQueryUI.dll</HintPath>
       <Private>True</Private>

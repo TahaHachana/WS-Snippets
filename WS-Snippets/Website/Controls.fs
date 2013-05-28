@@ -3,6 +3,7 @@
 module Controls =
     open System.Collections.Generic
     open IntelliFactory.WebSharper
+    open IntelliFactory.WebSharper.ExtJs
     open IntelliFactory.WebSharper.Html
     open IntelliFactory.WebSharper.Html5
     open IntelliFactory.WebSharper.JQueryUI
@@ -50,6 +51,18 @@ module Controls =
             [<JavaScript>]
             override __.Body = main() :> _
 
+    module Snippet3 =
+        [<JavaScript>]
+        let private main() =
+            Div [Text "Hello"]
+            |>! OnAfterRender (fun elt -> JavaScript.Log elt.Text)
+
+        type Control() =
+            inherit Web.Control()
+
+            [<JavaScript>]
+            override __.Body = main() :> _
+
     module Snippets =
         let private snippet id title metaDesc desc tags control = {Id = id; Title = title; MetaDesc = metaDesc; Description = desc; Tags = tags; Control = control }
         
@@ -68,12 +81,22 @@ module Controls =
                 "Drawing Text on an HTML5 Canvas"
                 "Drawing text on the HTML5 canvas with WebSharper."
                 "The HTML5 canvas supports drawing text on the fly via JavaScript. This snippets uses the \"FillText\" method to draw \"Hello Canvas\" filled with the default black color after setting the font-size to 40px. The \"StrokeText\" method would draw an outline with no fill."
-                ["HTML5"; "Canvas"; "JavaScript"]
+                ["HTML5"; "CANVAS"; "JAVASCRIPT"]
                 <| new Snippet2.Control()
+
+        let snippet3 =
+            snippet
+                3
+                "Debugging with the Console"
+                "Debugging code with the browser's JavaScript console."
+                "Modern browsers feature a JavaScript console that you can use to log almost anything which is very useful for debugging purposes. Open your browser's console to see how this sample logged the text \"Hello\"."
+                ["JAVASCRIPT"]
+                <| new Snippet3.Control()
         
         [|
             snippet1
             snippet2
+            snippet3
         |]
         |> Array.iter (fun x ->
             hashset.Add x |> ignore

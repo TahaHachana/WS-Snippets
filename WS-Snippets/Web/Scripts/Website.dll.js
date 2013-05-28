@@ -1,6 +1,6 @@
 (function()
 {
- var Global=this,Runtime=this.IntelliFactory.Runtime,Website,Controls,Snippet1,WebSharper,Html,Default,List,alert,EventsPervasives,Snippet2,HTML5,Forkme,Operators,jQuery,Remoting,Concurrency,Highlight,Client,Formlet,Controls1,Enhance,Data,Formlet1,JavaScript,InsertSnippet,Client1,Login,Client2,window;
+ var Global=this,Runtime=this.IntelliFactory.Runtime,Website,Controls,Snippet1,WebSharper,Html,Default,List,alert,EventsPervasives,Snippet2,HTML5,Snippet3,JavaScript,Operators,Forkme,jQuery,Remoting,Concurrency,Highlight,Client,Formlet,Controls1,Enhance,Data,Formlet1,InsertSnippet,Client1,Login,Client2,window;
  Runtime.Define(Global,{
   Website:{
    Controls:{
@@ -47,6 +47,28 @@
       ctx.font="40px sans-serif";
       ctx.fillText("Hello Canvas",90,50);
       return elt;
+     }
+    },
+    Snippet3:{
+     Control:Runtime.Class({
+      get_Body:function()
+      {
+       return Snippet3.main();
+      }
+     }),
+     main:function()
+     {
+      var x,f,f1;
+      x=Default.Div(List.ofArray([Default.Text("Hello")]));
+      f=(f1=function(elt)
+      {
+       return JavaScript.Log(elt.get_Text());
+      },function(w)
+      {
+       return Operators.OnAfterRender(f1,w);
+      });
+      f(x);
+      return x;
      }
     }
    },
@@ -348,8 +370,10 @@
   EventsPervasives=Runtime.Safe(Html.EventsPervasives);
   Snippet2=Runtime.Safe(Controls.Snippet2);
   HTML5=Runtime.Safe(Default.HTML5);
-  Forkme=Runtime.Safe(Website.Forkme);
+  Snippet3=Runtime.Safe(Controls.Snippet3);
+  JavaScript=Runtime.Safe(WebSharper.JavaScript);
   Operators=Runtime.Safe(Html.Operators);
+  Forkme=Runtime.Safe(Website.Forkme);
   jQuery=Runtime.Safe(Global.jQuery);
   Remoting=Runtime.Safe(WebSharper.Remoting);
   Concurrency=Runtime.Safe(WebSharper.Concurrency);
@@ -360,7 +384,6 @@
   Enhance=Runtime.Safe(Formlet.Enhance);
   Data=Runtime.Safe(Formlet.Data);
   Formlet1=Runtime.Safe(Formlet.Formlet);
-  JavaScript=Runtime.Safe(WebSharper.JavaScript);
   InsertSnippet=Runtime.Safe(Website.InsertSnippet);
   Client1=Runtime.Safe(InsertSnippet.Client);
   Login=Runtime.Safe(Website.Login);

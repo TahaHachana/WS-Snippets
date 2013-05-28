@@ -1,6 +1,6 @@
 (function()
 {
- var Global=this,Runtime=this.IntelliFactory.Runtime,Website,Controls,Snippet1,WebSharper,Html,Default,List,alert,EventsPervasives,Snippet2,HTML5,Snippet3,JavaScript,Operators,Snippet4,JQueryUI,Button,Forkme,jQuery,Remoting,Concurrency,Highlight,Client,Formlet,Controls1,Enhance,Data,Formlet1,InsertSnippet,Client1,Login,Client2,window;
+ var Global=this,Runtime=this.IntelliFactory.Runtime,Website,Controls,Snippet1,WebSharper,Html,Default,List,alert,EventsPervasives,Snippet2,HTML5,Snippet3,JavaScript,Operators,Snippet4,JQueryUI,Button,Snippet5,T,Ext,Forkme,jQuery,Remoting,Concurrency,Highlight,Client,Formlet,Controls1,Enhance,Data,Formlet1,InsertSnippet,Client1,Login,Client2,window;
  Runtime.Define(Global,{
   Website:{
    Controls:{
@@ -82,6 +82,56 @@
      {
       return Button.New4("Button");
      }
+    },
+    Snippet5:{
+     Control:Runtime.Class({
+      get_Body:function()
+      {
+       var _this,_this1;
+       return Default.Div(List.ofArray([Default.IFrame(List.ofArray([(_this=Default.Attr(),_this.NewAttr("src","/extjs/1")),(_this1=Default.Attr(),_this1.NewAttr("style","margin: 0; padding: 0; border: none; width: 100%"))]))]));
+      }
+     }),
+     ExtControl:Runtime.Class({
+      get_Body:function()
+      {
+       return Snippet5.main();
+      }
+     }),
+     main:function()
+     {
+      var x,f,f1;
+      x=Default.Div(Runtime.New(T,{
+       $:0
+      }));
+      f=(f1=function()
+      {
+       return Ext.onReady(function()
+       {
+        return Snippet5.viewport();
+       });
+      },function(w)
+      {
+       return Operators.OnAfterRender(f1,w);
+      });
+      f(x);
+      return x;
+     },
+     viewport:function()
+     {
+      var config,_config_,x,f;
+      config={};
+      _config_={};
+      config.title="Ext JS Panel";
+      config.html="Hello, world!";
+      _config_.layout="fit";
+      _config_.items=[config];
+      x=new Ext.container.Viewport(_config_);
+      f=function(value)
+      {
+       value;
+      };
+      return f(x);
+     }
     }
    },
    Forkme:{
@@ -93,7 +143,7 @@
     }),
     main:function()
     {
-     return Operators.add(Default.A(List.ofArray([Default.HRef("https://github.com/TahaHachana/WebSharperMVC")])),List.ofArray([Default.Img(List.ofArray([Default.Src("https://s3.amazonaws.com/github/ribbons/forkme_left_green_007200.png"),Default.Alt("Fork me on GitHub"),Default.Id("forkme")]))]));
+     return Operators.add(Default.A(List.ofArray([Default.HRef("https://github.com/TahaHachana/WS-Snippets")])),List.ofArray([Default.Img(List.ofArray([Default.Src("https://s3.amazonaws.com/github/ribbons/forkme_left_green_007200.png"),Default.Alt("Fork me on GitHub"),Default.Id("forkme")]))]));
     }
    },
    Highlight:{
@@ -388,6 +438,9 @@
   Snippet4=Runtime.Safe(Controls.Snippet4);
   JQueryUI=Runtime.Safe(WebSharper.JQueryUI);
   Button=Runtime.Safe(JQueryUI.Button);
+  Snippet5=Runtime.Safe(Controls.Snippet5);
+  T=Runtime.Safe(List.T);
+  Ext=Runtime.Safe(Global.Ext);
   Forkme=Runtime.Safe(Website.Forkme);
   jQuery=Runtime.Safe(Global.jQuery);
   Remoting=Runtime.Safe(WebSharper.Remoting);

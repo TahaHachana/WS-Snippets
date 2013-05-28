@@ -257,3 +257,10 @@ module Views =
                 ]
                 Shared.footer
             ]
+
+    let extjs id =
+        let control = Controls.hashset'' |> Seq.find (fun x -> x.Id = id) |> fun x -> x.Control
+        ExtjsSkin.withTemplate //<| fun ctx ->
+            [
+                Div [control]
+            ]

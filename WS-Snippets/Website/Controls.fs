@@ -17,8 +17,15 @@ module Controls =
             Control  : Web.Control
         }
 
+    type ExtSnippet =
+        {
+            Id : int
+            Control : Web.Control
+        }
+
     let hashset = HashSet<Snippet>()
     let hashset' = HashSet<string>()
+    let hashset'' = HashSet<ExtSnippet>()
 
     module Snippet1 =
         [<JavaScript>]
@@ -72,6 +79,38 @@ module Controls =
             [<JavaScript>]
             override __.Body = main() :> _
 
+    module Snippet5 =
+        open IntelliFactory.WebSharper
+        open IntelliFactory.WebSharper.ExtJs
+        open IntelliFactory.WebSharper.Html
+ 
+        [<JavaScript>]
+        let private viewport() =
+            let config = Ext.panel.PanelConfiguration()
+            let config' = Ext.container.ViewportConfiguration()
+            config.Title <- "Ext JS Panel"
+            config.Html <- "Hello, world!"
+            config'.Layout <- "fit"
+            config'.Items <- [|config|]
+            Ext.container.Viewport config' |> ignore
+            
+        [<JavaScript>]
+        let private main() =
+            Div []
+            |>! OnAfterRender (fun _ -> Ext.OnReady(fun _ -> viewport()))
+ 
+        type Control() =
+            inherit Web.Control()
+
+            [<JavaScript>]
+            override __.Body = Div [IFrame [Attr.Src "/extjs/1"; Attr.Style "margin: 0; padding: 0; border: none; width: 100%"]] :> _
+
+        type ExtControl() =
+            inherit Web.Control()
+
+            [<JavaScript>]
+            override __.Body = main() :> _
+
     module Snippets =
         let private snippet id title metaDesc desc tags control = {Id = id; Title = title; MetaDesc = metaDesc; Description = desc; Tags = tags; Control = control }
         
@@ -110,13 +149,33 @@ module Controls =
                 "This snippet uses the WebSharper jQuery UI extension to create a simple button widget."
                 ["JQUERY"; "JQUERY UI"]
                 <| new Snippet4.Control()
+
+        let snippet5 =
+            snippet
+                5
+                "Hello Ext JS"
+                "Ext JS hello world example."
+                "This snippet is a small hello world build with Ext JS. The UI is composed of a panel within a viewport."
+                ["EXT JS"]
+                <| new Snippet5.Control()
         
         [|
             snippet1
             snippet2
             snippet3
             snippet4
+            snippet5
         |]
         |> Array.iter (fun x ->
             hashset.Add x |> ignore
             x.Tags |> List.iter (fun y -> hashset'.Add y |> ignore))
+
+    module ExtSnippets =
+        let private snippet id control = {Id = id; Control = control }
+        
+        let snippet1 = snippet 1 (new Snippet5.ExtControl())
+        
+        [|
+            snippet1
+        |]
+        |> Array.iter (fun x -> hashset''.Add x |> ignore)

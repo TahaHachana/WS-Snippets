@@ -16,3 +16,4 @@ module Model =
         | [<CompiledName("snippet")>] Snippet of PageId
         | Highlight
         | [<CompiledName("tagged")>] Tagged of string
+        | [<CompiledName("extjs")>] Extjs of PageId

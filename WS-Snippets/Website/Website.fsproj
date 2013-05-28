@@ -38,6 +38,7 @@
   <ItemGroup>
     <Compile Include="Utils.fs" />
     <Compile Include="Secret.fs" />
+    <Compile Include="ExtjsSkin.fs" />
     <Compile Include="Mongo.fs" />
     <Compile Include="InsertSnippet.fs" />
     <Compile Include="Dependencies.fs" />
@@ -55,6 +56,10 @@
   <ItemGroup>
     <Reference Include="ExtSharper">
       <HintPath>..\..\packages\ExtSharper.0.1.13\lib\Net45\ExtSharper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="IntelliFactory.WebSharper.ExtJs">
+      <HintPath>..\..\packages\WebSharper.ExtJs.2.4.48.145\lib\IntelliFactory.WebSharper.ExtJs.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="IntelliFactory.WebSharper.JQueryUI">

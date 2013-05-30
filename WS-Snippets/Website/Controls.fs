@@ -235,6 +235,24 @@ module Controls =
             [<JavaScript>]
             override __.Body = main() :> _
 
+    module Snippet10 =
+        [<JavaScript>]
+        let private main() =
+            let elt = HTML5.Tags.Canvas [Text "Fallback content goes here."; Attr.Style "border: 1px solid;"]
+            let canvas  = As<CanvasElement> elt.Dom
+            canvas.Height <- 200
+            canvas.Width  <- 400
+            let ctx = canvas.GetContext "2d"
+            ctx.FillStyle <- "blue"
+            ctx.FillRect(50., 50., 300., 100.)
+            elt
+                    
+        type Control() =
+            inherit Web.Control()
+ 
+            [<JavaScript>]
+            override __.Body = main() :> _
+
     module Snippets =
         let private snippet id title metaDesc desc tags control = {Id = id; Title = title; MetaDesc = metaDesc; Description = desc; Tags = tags; Control = control }
         
@@ -318,6 +336,15 @@ module Controls =
                 "The jQuery UI autocomplete widget gives suggestions selected from a predefined list to the user as he types."
                 ["JQUERY"; "JQUERY UI"]
                 <| new Snippet9.Control()
+
+        let snippet10 =
+            snippet
+                10
+                "Drawing Filled Rectangles on HTML5 Canvas"
+                "HTML5 demo showing how to draw rectangles on the canvas."
+                "The HTML5 canvas element supports drawing filled rectangular shapes through the FillRect method. This WebSharper code sample draws a blue-filled rectangle."
+                ["HTML5"; "CANVAS"]
+                <| new Snippet10.Control()
         
         [|
             snippet1
@@ -329,6 +356,7 @@ module Controls =
             snippet7
             snippet8
             snippet9
+            snippet10
         |]
         |> Array.iter (fun x ->
             hashset.Add x |> ignore

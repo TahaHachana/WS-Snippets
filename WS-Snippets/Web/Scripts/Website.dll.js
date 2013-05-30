@@ -1,6 +1,6 @@
 (function()
 {
- var Global=this,Runtime=this.IntelliFactory.Runtime,Website,Controls,Snippet1,WebSharper,Html,Default,List,alert,EventsPervasives,Snippet2,HTML5,Snippet3,JavaScript,Operators,Snippet4,JQueryUI,Button,Snippet5,T,Ext,Snippet6,jQuery,Seq,Snippet7,DialogConfiguration,Dialog,Snippet8,Snippet9,AutocompleteConfiguration,Autocomplete,Forkme,Remoting,Concurrency,Highlight,Client,Formlet,Controls1,Enhance,Data,Formlet1,InsertSnippet,Client1,Login,Client2,window;
+ var Global=this,Runtime=this.IntelliFactory.Runtime,Website,Controls,Snippet1,WebSharper,Html,Default,List,alert,EventsPervasives,Snippet10,HTML5,Snippet2,Snippet3,JavaScript,Operators,Snippet4,JQueryUI,Button,Snippet5,T,Ext,Snippet6,jQuery,Seq,Snippet7,DialogConfiguration,Dialog,Snippet8,Snippet9,AutocompleteConfiguration,Autocomplete,Forkme,Remoting,Concurrency,Highlight,Client,Formlet,Controls1,Enhance,Data,Formlet1,InsertSnippet,Client1,Login,Client2,window;
  Runtime.Define(Global,{
   Website:{
    Controls:{
@@ -27,6 +27,26 @@
       });
       f(x);
       return x;
+     }
+    },
+    Snippet10:{
+     Control:Runtime.Class({
+      get_Body:function()
+      {
+       return Snippet10.main();
+      }
+     }),
+     main:function()
+     {
+      var elt,_this,x,_this1,canvas,ctx;
+      elt=(_this=HTML5.Tags(),(x=List.ofArray([Default.Text("Fallback content goes here."),(_this1=Default.Attr(),_this1.NewAttr("style","border: 1px solid;"))]),_this.NewTag("canvas",x)));
+      canvas=elt.Body;
+      canvas.height=200;
+      canvas.width=400;
+      ctx=canvas.getContext("2d");
+      ctx.fillStyle="blue";
+      ctx.fillRect(50,50,300,100);
+      return elt;
      }
     },
     Snippet2:{
@@ -605,8 +625,9 @@
   List=Runtime.Safe(WebSharper.List);
   alert=Runtime.Safe(Global.alert);
   EventsPervasives=Runtime.Safe(Html.EventsPervasives);
-  Snippet2=Runtime.Safe(Controls.Snippet2);
+  Snippet10=Runtime.Safe(Controls.Snippet10);
   HTML5=Runtime.Safe(Default.HTML5);
+  Snippet2=Runtime.Safe(Controls.Snippet2);
   Snippet3=Runtime.Safe(Controls.Snippet3);
   JavaScript=Runtime.Safe(WebSharper.JavaScript);
   Operators=Runtime.Safe(Html.Operators);

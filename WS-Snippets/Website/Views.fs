@@ -30,23 +30,23 @@ module Views =
             loop list
 
     let home =
-//        let snippets =
-//            Snippets.latest10()
-//            |> Seq.toList
-//            |> List.split 2
-//            |> List.map (fun lst ->
-//                let snip = lst.[0]
-//                let snip' = lst.[1]
-//                Div [Class "row"] -< [
-//                    Div [Class "span5"] -< [
-//                        H3 [A [HRef <| "/snippet/" + snip.SnipId.ToString()] -< [Text snip.Title]]
-//                        P [Text snip.Desc]
-//                    ]
-//                    Div [Class "offset1 span5"] -< [
-//                        H3 [A [HRef <| "/snippet/" + snip'.SnipId.ToString()] -< [Text snip'.Title]]
-//                        P [Text snip'.Desc]
-//                    ]
-//                ])    
+        let snippets =
+            Snippets.latest10()
+            |> Seq.toList
+            |> List.split 2
+            |> List.map (fun lst ->
+                let snip = lst.[0]
+                let snip' = lst.[1]
+                Div [Class "row"] -< [
+                    Div [Class "span5"] -< [
+                        H3 [A [HRef <| "/snippet/" + snip.SnipId.ToString()] -< [Text snip.Title]]
+                        P [Text snip.Desc]
+                    ]
+                    Div [Class "offset1 span5"] -< [
+                        H3 [A [HRef <| "/snippet/" + snip'.SnipId.ToString()] -< [Text snip'.Title]]
+                        P [Text snip'.Desc]
+                    ]
+                ])    
         let tags = Controls.hashset' |> Seq.toList |> List.sort |> List.map (fun x ->
             let href = "/tagged/" + HttpUtility.UrlEncode(x.ToLower())
             A [HRef href] -< [Button [Class "btn btn-info"; Style "margin-right: 5px;"] -< [Text x]])
@@ -61,7 +61,7 @@ module Views =
                             Home.header
                             HTML5.Section [
                                 yield H2 [Text "Latest snippets"]
-                                //yield! snippets
+                                yield! snippets
                             ]
                             HTML5.Section [Style "min-height: 300px;"] -< [
                                 yield H2 [Text "Tags"]

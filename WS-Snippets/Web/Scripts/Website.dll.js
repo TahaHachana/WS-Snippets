@@ -1,6 +1,6 @@
 (function()
 {
- var Global=this,Runtime=this.IntelliFactory.Runtime,Website,Controls,Snippet1,WebSharper,Html,Default,List,alert,EventsPervasives,Snippet2,HTML5,Snippet3,JavaScript,Operators,Snippet4,JQueryUI,Button,Snippet5,T,Ext,Snippet6,jQuery,Seq,Snippet7,DialogConfiguration,Dialog,Snippet8,Forkme,Remoting,Concurrency,Highlight,Client,Formlet,Controls1,Enhance,Data,Formlet1,InsertSnippet,Client1,Login,Client2,window;
+ var Global=this,Runtime=this.IntelliFactory.Runtime,Website,Controls,Snippet1,WebSharper,Html,Default,List,alert,EventsPervasives,Snippet2,HTML5,Snippet3,JavaScript,Operators,Snippet4,JQueryUI,Button,Snippet5,T,Ext,Snippet6,jQuery,Seq,Snippet7,DialogConfiguration,Dialog,Snippet8,Snippet9,AutocompleteConfiguration,Autocomplete,Forkme,Remoting,Concurrency,Highlight,Client,Formlet,Controls1,Enhance,Data,Formlet1,InsertSnippet,Client1,Login,Client2,window;
  Runtime.Define(Global,{
   Website:{
    Controls:{
@@ -282,6 +282,31 @@
       };
       return f(x);
      }
+    },
+    Snippet9:{
+     Control:Runtime.Class({
+      get_Body:function()
+      {
+       return Snippet9.main();
+      }
+     }),
+     main:function()
+     {
+      var config,returnVal,input,_this,_this1,x,f,el,x1,_this2,_this3,inner;
+      config=(returnVal=[AutocompleteConfiguration.New()],(null,returnVal[0].source=Snippet9.states(),returnVal[0]));
+      input=Default.Input(List.ofArray([(_this=Default.Attr(),_this.NewAttr("id","state-input")),(_this1=HTML5.Attr(),_this1.NewAttr("autofocus","true"))]));
+      x=Autocomplete.New1(input,config);
+      f=function(value)
+      {
+       value;
+      };
+      f(x);
+      return Operators.add(Default.Div(List.ofArray([Default.Attr().Class("ui-widget")])),List.ofArray([(el=(x1=List.ofArray([(_this2=Default.Attr(),_this2.NewAttr("for","state-input"))]),(_this3=Default.Tags(),_this3.NewTag("label",x1))),(inner=Default.Text("State: "),Operators.add(el,List.ofArray([inner])))),input]));
+     },
+     states:Runtime.Field(function()
+     {
+      return["Alabama","Alaska","American Samoa","Arizona","Arkansas","California","Colorado","Connecticut","Delaware","District of Columbia","Florida","Georgia","Guam","Hawaii","Idaho","Illinois","Indiana","Iowa","Kansas","Kentucky","Louisiana","Maine","Maryland","Massachusetts","Michigan","Minnesota","Mississippi","Missouri","Montana","Nebraska","Nevada","New Hampshire","New Jersey","New Mexico","New York","North Carolina","North Dakota","Northern Marianas Islands","Ohio","Oklahoma","Oregon","Pennsylvania","Puerto Rico","Rhode Island","South Carolina","South Dakota","Tennessee","Texas","Utah","Vermont","Virginia","Virgin Islands","Washington","West Virginia","Wisconsin","Wyoming"];
+     })
     }
    },
    Forkme:{
@@ -598,6 +623,9 @@
   DialogConfiguration=Runtime.Safe(JQueryUI.DialogConfiguration);
   Dialog=Runtime.Safe(JQueryUI.Dialog);
   Snippet8=Runtime.Safe(Controls.Snippet8);
+  Snippet9=Runtime.Safe(Controls.Snippet9);
+  AutocompleteConfiguration=Runtime.Safe(JQueryUI.AutocompleteConfiguration);
+  Autocomplete=Runtime.Safe(JQueryUI.Autocomplete);
   Forkme=Runtime.Safe(Website.Forkme);
   Remoting=Runtime.Safe(WebSharper.Remoting);
   Concurrency=Runtime.Safe(WebSharper.Concurrency);
@@ -617,5 +645,6 @@
  Runtime.OnLoad(function()
  {
   Client2.passInput();
+  Snippet9.states();
  });
 }());

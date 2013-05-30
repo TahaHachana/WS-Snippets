@@ -207,6 +207,34 @@ module Controls =
             [<JavaScript>]
             override __.Body = main() :> _
 
+    module Snippet9 =
+        [<JavaScript>]
+        let states =
+            [|"Alabama"; "Alaska"; "American Samoa"; "Arizona"; "Arkansas"; "California"; "Colorado"
+              "Connecticut"; "Delaware"; "District of Columbia"; "Florida"; "Georgia"; "Guam"; "Hawaii"
+              "Idaho"; "Illinois"; "Indiana"; "Iowa"; "Kansas"; "Kentucky"; "Louisiana"; "Maine"
+              "Maryland"; "Massachusetts"; "Michigan"; "Minnesota"; "Mississippi"; "Missouri"; "Montana"
+              "Nebraska"; "Nevada"; "New Hampshire"; "New Jersey"; "New Mexico"; "New York"; "North Carolina"
+              "North Dakota"; "Northern Marianas Islands"; "Ohio"; "Oklahoma"; "Oregon"; "Pennsylvania"
+              "Puerto Rico"; "Rhode Island"; "South Carolina"; "South Dakota"; "Tennessee"; "Texas"; "Utah"
+              "Vermont"; "Virginia"; "Virgin Islands"; "Washington"; "West Virginia"; "Wisconsin"; "Wyoming"|]
+
+        [<JavaScript>]
+        let private main() =
+            let config = AutocompleteConfiguration(source = states)
+            let input = Input [Attr.Id "state-input"; HTML5.Attr.AutoFocus "true"]
+            Autocomplete.New(input, config) |> ignore
+            Div [Attr.Class "ui-widget"] -< [
+                Label [Attr.For "state-input"] -- Text "State: "
+                input
+            ]
+        
+        type Control() =
+            inherit Web.Control()
+ 
+            [<JavaScript>]
+            override __.Body = main() :> _
+
     module Snippets =
         let private snippet id title metaDesc desc tags control = {Id = id; Title = title; MetaDesc = metaDesc; Description = desc; Tags = tags; Control = control }
         
@@ -281,6 +309,15 @@ module Controls =
                 "This snippet creates a button that opens an Ext JS floating window when clicked. You can resize, drag and maximize the created window."
                 ["EXT JS"]
                 <| new Snippet8.Control()
+
+        let snippet9 =
+            snippet
+                9
+                "jQuery UI Autocomplete Widget"
+                "WebSharper snippet featuring a jQuery UI autocomplete widget."
+                "The jQuery UI autocomplete widget gives suggestions selected from a predefined list to the user as he types."
+                ["JQUERY"; "JQUERY UI"]
+                <| new Snippet9.Control()
         
         [|
             snippet1
@@ -291,6 +328,7 @@ module Controls =
             snippet6
             snippet7
             snippet8
+            snippet9
         |]
         |> Array.iter (fun x ->
             hashset.Add x |> ignore

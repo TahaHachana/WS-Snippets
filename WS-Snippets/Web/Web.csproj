@@ -53,6 +53,7 @@
     <Content Include="Source\1.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Source\10.txt" />
     <Content Include="Source\2.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -62,6 +63,7 @@
     <Content Include="Source\6.txt" />
     <Content Include="Source\7.txt" />
     <Content Include="Source\8.txt" />
+    <Content Include="Source\9.txt" />
     <Content Include="StyleSheets\StyleSheet1.css" />
     <Content Include="Themes\**\*.*" />
     <Content Include="Views\**\*.*" />

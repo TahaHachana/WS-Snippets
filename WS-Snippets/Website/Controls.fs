@@ -101,7 +101,7 @@ module Controls =
             inherit Web.Control()
 
             [<JavaScript>]
-            override __.Body = Div [IFrame [Attr.Src "/extjs/1"; Attr.Style "margin: 0; padding: 0; border: none; width: 100%"]] :> _
+            override __.Body = Div [IFrame [Attr.Src "/extjs/1"; Attr.Style "margin: 0; padding: 0; border: none; width: 100%; height: 300px;"]] :> _
 
         type ExtControl() =
             inherit Web.Control()
@@ -156,6 +156,56 @@ module Controls =
 
             [<JavaScript>]
             override __.Body = canvas() :> _
+
+    module Snippet7 =     
+        [<JavaScript>]
+        let private main() =
+            let config = DialogConfiguration()
+            config.autoOpen <- false
+            config.modal <- true
+            config.title <- "Modal Dialog"
+            let dialog = Dialog.New(P [Text "This is a jQuery UI modal dialog."], config)
+            let btn = Button.New "Press Me"
+            dialog.OnClose(fun _ -> btn.Enable())
+            btn.OnClick (fun _ ->
+                btn.Disable()
+                dialog.Open())
+            Div [btn :> IPagelet; dialog :> IPagelet]
+
+        type Control() =
+            inherit Web.Control()
+ 
+            [<JavaScript>]
+            override __.Body = main() :> _
+
+    module Snippet8 =
+        [<JavaScript>]
+        let private window() =
+            let config = Ext.window.WindowConfiguration()
+            config.Title <- "Ext JS Window"
+            config.Width <- 400.
+            config.Height <- 300.
+            config.Maximizable <- true
+            Ext.window.Window config |> fun x -> x.Show()
+
+        [<JavaScript>]
+        let private main() =
+            Div [
+                Default.Button [Text "Open Ext JS Window"; Attr.Class "btn btn-primary"]
+                |>! OnClick (fun elt _ -> Ext.OnReady(fun () -> window()))
+            ]
+
+        type Control() =
+            inherit Web.Control()
+
+            [<JavaScript>]
+            override __.Body = Div [IFrame [Attr.Src "/extjs/2"; Attr.Style "margin: 0; padding: 0; border: none; width: 100%; height: 300px;"]] :> _
+
+        type ExtControl() =
+            inherit Web.Control()
+
+            [<JavaScript>]
+            override __.Body = main() :> _
 
     module Snippets =
         let private snippet id title metaDesc desc tags control = {Id = id; Title = title; MetaDesc = metaDesc; Description = desc; Tags = tags; Control = control }
@@ -213,6 +263,24 @@ module Controls =
                 "This snippet uses the WebSharper bindings to the canvas element to draw the HTML5 logo."
                 ["HTML5"; "CANVAS"]
                 <| new Snippet6.Control()
+
+        let snippet7 =
+            snippet
+                7
+                "jQuery UI Modal Dialog"
+                "jQuery UI snippet showing how to display a simple modal dialog."
+                "The jQuery UI dialog widget displays HTML content in an interactive overlay. Setting the modal property to true results in a modal dialog that needs to be closed in order to resume regular interaction with the page."
+                ["JQUERY UI"; "JQUERY"]
+                <| new Snippet7.Control()
+
+        let snippet8 =
+            snippet
+                8
+                "Ext JS Window"
+                "Ext JS window container demo."
+                "This snippet creates a button that opens an Ext JS floating window when clicked. You can resize, drag and maximize the created window."
+                ["EXT JS"]
+                <| new Snippet8.Control()
         
         [|
             snippet1
@@ -221,6 +289,8 @@ module Controls =
             snippet4
             snippet5
             snippet6
+            snippet7
+            snippet8
         |]
         |> Array.iter (fun x ->
             hashset.Add x |> ignore
@@ -230,8 +300,9 @@ module Controls =
         let private extSnippet id control = {Id = id; Control = control }
         
         let extSnip1 = extSnippet 1 (new Snippet5.ExtControl())
-        
+        let extSnip2 = extSnippet 2 (new Snippet8.ExtControl())
         [|
             extSnip1
+            extSnip2
         |]
         |> Array.iter (fun x -> hashset''.Add x |> ignore)

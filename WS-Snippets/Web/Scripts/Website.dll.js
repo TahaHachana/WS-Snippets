@@ -1,6 +1,6 @@
 (function()
 {
- var Global=this,Runtime=this.IntelliFactory.Runtime,Website,Controls,Snippet1,WebSharper,Html,Default,List,alert,EventsPervasives,Snippet2,HTML5,Snippet3,JavaScript,Operators,Snippet4,JQueryUI,Button,Snippet5,T,Ext,Snippet6,jQuery,Seq,Forkme,Remoting,Concurrency,Highlight,Client,Formlet,Controls1,Enhance,Data,Formlet1,InsertSnippet,Client1,Login,Client2,window;
+ var Global=this,Runtime=this.IntelliFactory.Runtime,Website,Controls,Snippet1,WebSharper,Html,Default,List,alert,EventsPervasives,Snippet2,HTML5,Snippet3,JavaScript,Operators,Snippet4,JQueryUI,Button,Snippet5,T,Ext,Snippet6,jQuery,Seq,Snippet7,DialogConfiguration,Dialog,Snippet8,Forkme,Remoting,Concurrency,Highlight,Client,Formlet,Controls1,Enhance,Data,Formlet1,InsertSnippet,Client1,Login,Client2,window;
  Runtime.Define(Global,{
   Website:{
    Controls:{
@@ -88,7 +88,7 @@
       get_Body:function()
       {
        var _this,_this1;
-       return Default.Div(List.ofArray([Default.IFrame(List.ofArray([(_this=Default.Attr(),_this.NewAttr("src","/extjs/1")),(_this1=Default.Attr(),_this1.NewAttr("style","margin: 0; padding: 0; border: none; width: 100%"))]))]));
+       return Default.Div(List.ofArray([Default.IFrame(List.ofArray([(_this=Default.Attr(),_this.NewAttr("src","/extjs/1")),(_this1=Default.Attr(),_this1.NewAttr("style","margin: 0; padding: 0; border: none; width: 100%; height: 300px;"))]))]));
       }
      }),
      ExtControl:Runtime.Class({
@@ -206,6 +206,81 @@
         return Snippet6.drawPaths(_,coords);
        };
       }))([_2,_3]))(_4);
+     }
+    },
+    Snippet7:{
+     Control:Runtime.Class({
+      get_Body:function()
+      {
+       return Snippet7.main();
+      }
+     }),
+     main:function()
+     {
+      var config,dialog,btn;
+      config=DialogConfiguration.New();
+      config.autoOpen=false;
+      config.modal=true;
+      config.title="Modal Dialog";
+      dialog=Dialog.New1(Default.P(List.ofArray([Default.Text("This is a jQuery UI modal dialog.")])),config);
+      btn=Button.New4("Press Me");
+      dialog.OnClose(function()
+      {
+       return btn.Enable();
+      });
+      btn.OnClick(function()
+      {
+       btn.Disable();
+       return jQuery(dialog.element.Body).dialog("open");
+      });
+      return Default.Div(List.ofArray([btn,dialog]));
+     }
+    },
+    Snippet8:{
+     Control:Runtime.Class({
+      get_Body:function()
+      {
+       var _this,_this1;
+       return Default.Div(List.ofArray([Default.IFrame(List.ofArray([(_this=Default.Attr(),_this.NewAttr("src","/extjs/2")),(_this1=Default.Attr(),_this1.NewAttr("style","margin: 0; padding: 0; border: none; width: 100%; height: 300px;"))]))]));
+      }
+     }),
+     ExtControl:Runtime.Class({
+      get_Body:function()
+      {
+       return Snippet8.main();
+      }
+     }),
+     main:function()
+     {
+      var x,f,x1;
+      return Default.Div(List.ofArray([(x=Default.Button(List.ofArray([Default.Text("Open Ext JS Window"),Default.Attr().Class("btn btn-primary")])),(f=(x1=function()
+      {
+       return function()
+       {
+        return Ext.onReady(function()
+        {
+         return Snippet8.window();
+        });
+       };
+      },function(arg10)
+      {
+       return EventsPervasives.Events().OnClick(x1,arg10);
+      }),(f(x),x)))]));
+     },
+     window:function()
+     {
+      var config,x,f;
+      config={};
+      config.title="Ext JS Window";
+      config.width=400;
+      config.height=300;
+      config.maximizable=true;
+      x=new Ext.window.Window(config);
+      f=function(x1)
+      {
+       return x1.show();
+      };
+      return f(x);
      }
     }
    },
@@ -519,6 +594,10 @@
   Snippet6=Runtime.Safe(Controls.Snippet6);
   jQuery=Runtime.Safe(Global.jQuery);
   Seq=Runtime.Safe(WebSharper.Seq);
+  Snippet7=Runtime.Safe(Controls.Snippet7);
+  DialogConfiguration=Runtime.Safe(JQueryUI.DialogConfiguration);
+  Dialog=Runtime.Safe(JQueryUI.Dialog);
+  Snippet8=Runtime.Safe(Controls.Snippet8);
   Forkme=Runtime.Safe(Website.Forkme);
   Remoting=Runtime.Safe(WebSharper.Remoting);
   Concurrency=Runtime.Safe(WebSharper.Concurrency);

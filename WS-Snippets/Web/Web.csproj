@@ -60,6 +60,8 @@
     <Content Include="Source\4.txt" />
     <Content Include="Source\5.txt" />
     <Content Include="Source\6.txt" />
+    <Content Include="Source\7.txt" />
+    <Content Include="Source\8.txt" />
     <Content Include="StyleSheets\StyleSheet1.css" />
     <Content Include="Themes\**\*.*" />
     <Content Include="Views\**\*.*" />

@@ -3,8 +3,10 @@
 module Controls =
     open System.Collections.Generic
     open IntelliFactory.WebSharper
+    open IntelliFactory.WebSharper.ExtJs
     open IntelliFactory.WebSharper.Html
     open IntelliFactory.WebSharper.Html5
+    open IntelliFactory.WebSharper.JQuery
     open IntelliFactory.WebSharper.JQueryUI
 
     type Snippet =
@@ -79,11 +81,7 @@ module Controls =
             [<JavaScript>]
             override __.Body = main() :> _
 
-    module Snippet5 =
-        open IntelliFactory.WebSharper
-        open IntelliFactory.WebSharper.ExtJs
-        open IntelliFactory.WebSharper.Html
- 
+    module Snippet5 = 
         [<JavaScript>]
         let private viewport() =
             let config = Ext.panel.PanelConfiguration()
@@ -110,6 +108,54 @@ module Controls =
 
             [<JavaScript>]
             override __.Body = main() :> _
+
+    module Snippet6 =
+        [<JavaScript>]
+        let drawLine (ctx : CanvasRenderingContext2D) x y = ctx.LineTo(x, y)
+    
+        [<JavaScript>]
+        let drawPaths ctx coords =
+            coords |> List.iter (fun (x, y) -> drawLine ctx x y)
+            ctx.ClosePath()
+            ctx.Fill()
+
+        [<JavaScript>]
+        let drawShape (ctx : CanvasRenderingContext2D) (style : string) moveTo coords =
+            ctx.FillStyle <- style
+            ctx.BeginPath()
+            ctx.MoveTo moveTo
+            drawPaths ctx coords
+
+        [<JavaScript>]
+        let canvas() =
+            let elt = HTML5.Tags.Canvas [Attr.Style "display: none;"]
+            let canvas  = As<CanvasElement> elt.Dom
+            canvas.Height <- 400
+            canvas.Width <- 600
+            let ctx = canvas.GetContext("2d")
+
+            // draw "HTML"
+            ctx.Font <- "60px 'Gill Sans Ultra Bold'"
+            ctx.FillText("HTML", 40., 60.)
+            // move down
+            ctx.Translate(0., 70.)
+            // draw the background
+            drawShape ctx "#E34C26" (44., 255.) [(22.0, 5.0); (267.0, 5.0); (244.0, 255.0); (144.0, 283.0)]
+            // draw the shield-shaped right part
+            drawShape ctx "#F06529" (144., 262.) [(225.0, 239.0); (244.0, 25.0); (144.0, 25.0)]
+            // draw the 5
+            drawShape ctx "#EBEBEB" (144., 118.) [(103.0, 118.0); (101.0, 87.0); (144.0, 87.0); (144.0, 56.0); (67.0, 56.0); (75.0, 149.0); (144.0, 149.0)]
+            drawShape ctx "#EBEBEB" (144., 198.) [(110.0, 189.0); (108.0, 164.0); (77.0, 164.0); (81.0, 212.0); (144.0, 230.0)]
+            drawShape ctx "#FFFFFF" (144., 118.) [(144.0, 149.0); (182.0, 149.0); (178.0, 189.0); (144.0, 198.0); (144.0, 230.0); (207.0, 212.0); (215.0, 118.0)]
+            drawShape ctx "#FFFFFF" (144., 56.)  [(144.0, 87.0); (218.0, 87.0); (221.0, 56.0)]
+
+            elt |>! OnAfterRender (fun x -> JQuery.Of(x.Dom).FadeIn(1000.).Ignore)
+                
+        type Control() =
+            inherit Web.Control()
+
+            [<JavaScript>]
+            override __.Body = canvas() :> _
 
     module Snippets =
         let private snippet id title metaDesc desc tags control = {Id = id; Title = title; MetaDesc = metaDesc; Description = desc; Tags = tags; Control = control }
@@ -158,6 +204,15 @@ module Controls =
                 "This snippet is a small hello world build with Ext JS. The UI is composed of a panel within a viewport."
                 ["EXT JS"]
                 <| new Snippet5.Control()
+
+        let snippet6 =
+            snippet
+                6
+                "Drawing the HTML5 Logo in Canvas"
+                "HTML5 canvas example showing how to draw the HTML5 logo."
+                "This snippet uses the WebSharper bindings to the canvas element to draw the HTML5 logo."
+                ["HTML5"; "CANVAS"]
+                <| new Snippet6.Control()
         
         [|
             snippet1
@@ -165,17 +220,18 @@ module Controls =
             snippet3
             snippet4
             snippet5
+            snippet6
         |]
         |> Array.iter (fun x ->
             hashset.Add x |> ignore
             x.Tags |> List.iter (fun y -> hashset'.Add y |> ignore))
 
     module ExtSnippets =
-        let private snippet id control = {Id = id; Control = control }
+        let private extSnippet id control = {Id = id; Control = control }
         
-        let snippet1 = snippet 1 (new Snippet5.ExtControl())
+        let extSnip1 = extSnippet 1 (new Snippet5.ExtControl())
         
         [|
-            snippet1
+            extSnip1
         |]
         |> Array.iter (fun x -> hashset''.Add x |> ignore)

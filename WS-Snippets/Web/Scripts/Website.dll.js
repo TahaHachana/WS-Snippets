@@ -1,6 +1,6 @@
 (function()
 {
- var Global=this,Runtime=this.IntelliFactory.Runtime,Website,Controls,Snippet1,WebSharper,Html,Default,List,alert,EventsPervasives,Snippet2,HTML5,Snippet3,JavaScript,Operators,Snippet4,JQueryUI,Button,Snippet5,T,Ext,Forkme,jQuery,Remoting,Concurrency,Highlight,Client,Formlet,Controls1,Enhance,Data,Formlet1,InsertSnippet,Client1,Login,Client2,window;
+ var Global=this,Runtime=this.IntelliFactory.Runtime,Website,Controls,Snippet1,WebSharper,Html,Default,List,alert,EventsPervasives,Snippet2,HTML5,Snippet3,JavaScript,Operators,Snippet4,JQueryUI,Button,Snippet5,T,Ext,Snippet6,jQuery,Seq,Forkme,Remoting,Concurrency,Highlight,Client,Formlet,Controls1,Enhance,Data,Formlet1,InsertSnippet,Client1,Login,Client2,window;
  Runtime.Define(Global,{
   Website:{
    Controls:{
@@ -131,6 +131,81 @@
        value;
       };
       return f(x);
+     }
+    },
+    Snippet6:{
+     Control:Runtime.Class({
+      get_Body:function()
+      {
+       return Snippet6.canvas();
+      }
+     }),
+     canvas:function()
+     {
+      var elt,_this,x,_this1,canvas,ctx,f,f1;
+      elt=(_this=HTML5.Tags(),(x=List.ofArray([(_this1=Default.Attr(),_this1.NewAttr("style","display: none;"))]),_this.NewTag("canvas",x)));
+      canvas=elt.Body;
+      canvas.height=400;
+      canvas.width=600;
+      ctx=canvas.getContext("2d");
+      ctx.font="60px 'Gill Sans Ultra Bold'";
+      ctx.fillText("HTML",40,60);
+      ctx.translate(0,70);
+      Snippet6.drawShape(ctx,"#E34C26",44,255,List.ofArray([[22,5],[267,5],[244,255],[144,283]]));
+      Snippet6.drawShape(ctx,"#F06529",144,262,List.ofArray([[225,239],[244,25],[144,25]]));
+      Snippet6.drawShape(ctx,"#EBEBEB",144,118,List.ofArray([[103,118],[101,87],[144,87],[144,56],[67,56],[75,149],[144,149]]));
+      Snippet6.drawShape(ctx,"#EBEBEB",144,198,List.ofArray([[110,189],[108,164],[77,164],[81,212],[144,230]]));
+      Snippet6.drawShape(ctx,"#FFFFFF",144,118,List.ofArray([[144,149],[182,149],[178,189],[144,198],[144,230],[207,212],[215,118]]));
+      Snippet6.drawShape(ctx,"#FFFFFF",144,56,List.ofArray([[144,87],[218,87],[221,56]]));
+      f=(f1=function(x1)
+      {
+       return jQuery(x1.Body).fadeIn(1000);
+      },function(w)
+      {
+       return Operators.OnAfterRender(f1,w);
+      });
+      f(elt);
+      return elt;
+     },
+     drawLine:function(ctx,x,y)
+     {
+      return ctx.lineTo(x,y);
+     },
+     drawPaths:function(ctx,coords)
+     {
+      var f,action;
+      f=(action=Runtime.Tupled(function(tupledArg)
+      {
+       var x,y;
+       x=tupledArg[0];
+       y=tupledArg[1];
+       return Snippet6.drawLine(ctx,x,y);
+      }),function(list)
+      {
+       return Seq.iter(action,list);
+      });
+      f(coords);
+      ctx.closePath();
+      return ctx.fill();
+     },
+     drawShape:function(_,_1,_2,_3,_4)
+     {
+      return((Runtime.Tupled(function(moveTo)
+      {
+       return function(coords)
+       {
+        _.fillStyle=_1;
+        _.beginPath();
+        (Runtime.Tupled(function(tupledArg)
+        {
+         var arg00,arg01;
+         arg00=tupledArg[0];
+         arg01=tupledArg[1];
+         return _.moveTo(arg00,arg01);
+        }))(moveTo);
+        return Snippet6.drawPaths(_,coords);
+       };
+      }))([_2,_3]))(_4);
      }
     }
    },
@@ -441,8 +516,10 @@
   Snippet5=Runtime.Safe(Controls.Snippet5);
   T=Runtime.Safe(List.T);
   Ext=Runtime.Safe(Global.Ext);
-  Forkme=Runtime.Safe(Website.Forkme);
+  Snippet6=Runtime.Safe(Controls.Snippet6);
   jQuery=Runtime.Safe(Global.jQuery);
+  Seq=Runtime.Safe(WebSharper.Seq);
+  Forkme=Runtime.Safe(Website.Forkme);
   Remoting=Runtime.Safe(WebSharper.Remoting);
   Concurrency=Runtime.Safe(WebSharper.Concurrency);
   Highlight=Runtime.Safe(Website.Highlight);

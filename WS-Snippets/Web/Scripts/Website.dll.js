@@ -1,6 +1,6 @@
 (function()
 {
- var Global=this,Runtime=this.IntelliFactory.Runtime,Website,Controls,Snippet1,WebSharper,Html,Default,List,alert,EventsPervasives,Snippet10,HTML5,Snippet2,Snippet3,JavaScript,Operators,Snippet4,JQueryUI,Button,Snippet5,T,Ext,Snippet6,jQuery,Seq,Snippet7,DialogConfiguration,Dialog,Snippet8,Snippet9,AutocompleteConfiguration,Autocomplete,Forkme,Remoting,Concurrency,Highlight,Client,Formlet,Controls1,Enhance,Data,Formlet1,InsertSnippet,Client1,Login,Client2,window;
+ var Global=this,Runtime=this.IntelliFactory.Runtime,Website,Controls,Snippet1,WebSharper,Html,Default,List,alert,EventsPervasives,Snippet10,HTML5,Snippet2,Snippet3,JavaScript,Operators,Snippet4,JQueryUI,Button,Snippet5,T,Ext,Snippet6,jQuery,Seq,Snippet7,DialogConfiguration,Dialog,Snippet8,Snippet9,AutocompleteConfiguration,Autocomplete,Forkme,Remoting,Concurrency,Highlight,Client,Formlet,Controls1,Enhance,Data,Formlet1,InsertSnippet,Client1,Login,Client2,window,Search,Client3;
  Runtime.Define(Global,{
   Website:{
    Controls:{
@@ -496,7 +496,6 @@
         x9=(id1=x7[0],(title1=x7[1],(desc1=x7[2],(tags1=x7[3],Remoting.Async("Website:2",[id1,title1,desc1,tags1])))));
         f7=function(_arg1)
         {
-         JavaScript.Log(_arg1);
          if(_arg1)
           {
            alert("New snippet inserted successfully.");
@@ -584,10 +583,10 @@
       x=Default.Input(List.ofArray([(_this=Default.Attr(),_this.NewAttr("type","text")),(_this1=HTML5.Attr(),_this1.NewAttr("placeholder","password"))]));
       f=(x1=function()
       {
-       return function(key)
+       return function(keyCode)
        {
         var matchValue;
-        matchValue=key.KeyCode;
+        matchValue=keyCode.KeyCode;
         if(matchValue===13)
          {
           return jQuery("#login-btn").click();
@@ -609,6 +608,79 @@
      get_Body:function()
      {
       return Client2.loginForm(this.redirectUrl);
+     }
+    })
+   },
+   Search:{
+    Client:{
+     main:function()
+     {
+      var id,x,f,title,x1,f1,desc,x2,f2,code,x3,f3,formlet1,x4,x5,x6,f4,f5;
+      id=(x=Controls1.Input(""),(f=function(formlet)
+      {
+       return Enhance.WithTextLabel("Id",formlet);
+      },f(x)));
+      title=(x1=Controls1.Input(""),(f1=function(formlet)
+      {
+       return Enhance.WithTextLabel("Title",formlet);
+      },f1(x1)));
+      desc=(x2=Controls1.TextArea(""),(f2=function(formlet)
+      {
+       return Enhance.WithTextLabel("Description",formlet);
+      },f2(x2)));
+      code=(x3=Controls1.TextArea(""),(f3=function(formlet)
+      {
+       return Enhance.WithTextLabel("Code",formlet);
+      },f3(x3)));
+      formlet1=(x4=(x5=Data.$(Data.$(Data.$(Data.$((x6=function(id1)
+      {
+       return function(title1)
+       {
+        return function(desc1)
+        {
+         return function(code1)
+         {
+          return[id1,title1,desc1,code1];
+         };
+        };
+       };
+      },Formlet1.Return(x6)),id),title),desc),code),(f4=function(formlet)
+      {
+       return Enhance.WithSubmitAndResetButtons(formlet);
+      },f4(x5))),(f5=function(formlet)
+      {
+       return Enhance.WithFormContainer(formlet);
+      },f5(x4)));
+      return Formlet1.Run(Runtime.Tupled(function(x7)
+      {
+       var x8,f6,f8;
+       x8=(f6=function()
+       {
+        var x9,id1,title1,desc1,code1,f7;
+        x9=(id1=x7[0],(title1=x7[1],(desc1=x7[2],(code1=x7[3],Remoting.Async("Website:3",[id1,title1,desc1,code1])))));
+        f7=function()
+        {
+         alert("Document indexed.");
+         return Concurrency.Return(null);
+        };
+        return Concurrency.Bind(x9,f7);
+       },Concurrency.Delay(f6));
+       f8=function(arg00)
+       {
+        var t;
+        t={
+         $:0
+        };
+        return Concurrency.Start(arg00);
+       };
+       return f8(x8);
+      }),formlet1);
+     }
+    },
+    Control:Runtime.Class({
+     get_Body:function()
+     {
+      return Client3.main();
      }
     })
    }
@@ -661,7 +733,9 @@
   Client1=Runtime.Safe(InsertSnippet.Client);
   Login=Runtime.Safe(Website.Login);
   Client2=Runtime.Safe(Login.Client);
-  return window=Runtime.Safe(Global.window);
+  window=Runtime.Safe(Global.window);
+  Search=Runtime.Safe(Website.Search);
+  return Client3=Runtime.Safe(Search.Client);
  });
  Runtime.OnLoad(function()
  {

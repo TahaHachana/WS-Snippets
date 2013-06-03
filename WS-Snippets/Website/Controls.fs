@@ -11,22 +11,22 @@ module Controls =
 
     type Snippet =
         {
-            Id       : int
-            Title    : string
-            MetaDesc : string
+            Id          : int
+            Title       : string
+            MetaDesc    : string
             Description : string
-            Tags     : string list
-            Control  : Web.Control
+            Tags        : string list
+            Control     : Web.Control
         }
 
     type ExtSnippet =
         {
-            Id : int
+            Id      : int
             Control : Web.Control
         }
 
-    let hashset = HashSet<Snippet>()
-    let hashset' = HashSet<string>()
+    let hashset   = HashSet<Snippet>()
+    let hashset'  = HashSet<string>()
     let hashset'' = HashSet<ExtSnippet>()
 
     module Snippet1 =
@@ -363,7 +363,7 @@ module Controls =
             x.Tags |> List.iter (fun y -> hashset'.Add y |> ignore))
 
     module ExtSnippets =
-        let private extSnippet id control = {Id = id; Control = control }
+        let private extSnippet id control = { Id = id; Control = control }
         
         let extSnip1 = extSnippet 1 (new Snippet5.ExtControl())
         let extSnip2 = extSnippet 2 (new Snippet8.ExtControl())

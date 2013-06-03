@@ -11,29 +11,27 @@ module Views =
     open Utils.Server
     open Mongo
 
-    let mainTemplate = Skin.MakeDefaultTemplate "~/Main.html" Skin.LoadFrequency.PerRequest
-    let withMainTemplate = Skin.WithTemplate<Action> mainTemplate
-    let loginInfo' = loginInfo Logout Login
+    let private mainTemplate = Skin.MakeDefaultTemplate "~/Main.html" Skin.LoadFrequency.PerRequest
+    let private withMainTemplate = Skin.WithTemplate<Action> mainTemplate
+    let private loginInfo' = loginInfo Logout Login
 
-    module List =
-        /// Splits a list into lists of the specified length.
-        let split count list =        
-            let rec loop list =
-                [
-                    yield Seq.truncate count list |> Seq.toList
-                    match List.length list <= count with
-                        | false ->
-                            let list' = Seq.skip count list |> Seq.toList
-                            yield! loop list'
-                        | true -> ()
-                ]
-            loop list
+    let private split count list =        
+        let rec loop list =
+            [
+                yield Seq.truncate count list |> Seq.toList
+                match List.length list <= count with
+                    | false ->
+                        let list' = Seq.skip count list |> Seq.toList
+                        yield! loop list'
+                    | true -> ()
+            ]
+        loop list
 
     let home =
         let snippets =
             Snippets.latest10()
             |> Seq.toList
-            |> List.split 2
+            |> split 2
             |> List.map (fun lst ->
                 let snip = lst.[0]
                 let snip' = lst.[1]
@@ -117,8 +115,14 @@ module Views =
                         loginInfo' ctx
                         Div [Class "pull-down"] -< [
                             Div [Class "row"] -< [
-                                H3 [Text "Insert a new snippet"]
-                                Div [new InsertSnippet.Control()]
+                                Div [Class "span6"] -< [
+                                    H3 [Text "Insert a new snippet"]
+                                    Div [new InsertSnippet.Control()]
+                                ]
+                                Div [Class "span6"] -< [
+                                    H3 [Text "Index a new snippet"]
+                                    Div [new Search.Control()]
+                                ]
                             ]
                         ]
                     ]
@@ -217,7 +221,7 @@ module Views =
         let divs =
             Snippets.hasTag tag'
             |> Seq.toList
-            |> List.split 2
+            |> split 2
             |> List.map (fun lst ->
                 match lst with
                     | [snip] ->

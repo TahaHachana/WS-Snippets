@@ -3,22 +3,19 @@
 module InsertSnippet =
     open System
     open IntelliFactory.WebSharper
-    open Mongo
 
     module private Server =
+        open Mongo
+
         [<Rpc>]
         let insert (id, title, (desc : string), (tags : string)) =
             async {
-                let descLength = desc.Length
                 let desc' =
-                    match descLength with
-                        | _ when descLength < 150 -> desc
+                    match desc.Length with
+                        | length when length < 150 -> desc
                         | _ -> desc.[..147] + "..."
-                let tags' =
-                    tags.Split ','
-                    |> Array.map (fun x -> x.Trim().ToUpper())
-                let dt = DateTime.Now
-                let snip = Snippet.New (int id) title desc' tags' dt
+                let tags' = tags.Split ',' |> Array.map (fun x -> x.Trim().ToUpper())
+                let snip = Snippet.New (int id) title desc' tags' DateTime.Now
                 let ok = Snippets.insert snip
                 return ok }
     
@@ -44,7 +41,6 @@ module InsertSnippet =
                 async {
                     JavaScript.Log x
                     let! ok = Server.insert x
-                    JavaScript.Log ok
                     match ok with
                         | false -> JavaScript.Alert "The query failed."
                         | true  -> JavaScript.Alert "New snippet inserted successfully." }

@@ -1,10 +1,5 @@
 ﻿namespace Website
 
-#if INTERACTIVE
-#r "MongoDB.Bson.dll"
-#r "MongoDB.Driver.dll"
-#endif
-
 open System
 open System.Globalization
 open System.Linq
@@ -17,14 +12,14 @@ module Mongo =
     CultureInfo.DefaultThreadCurrentCulture <- culture
 
     [<AutoOpen>]
-    module Utilities =
+    module private Utilities =
         let mongoClient (connectionString: string) = MongoClient connectionString
         let databaseByName (server : MongoServer) (name : string) = server.GetDatabase name
         let collectionByName<'T> (db : MongoDatabase) (name : string) = db.GetCollection<'T> name
 
-    let client = mongoClient Secret.connStr
-    let server = client.GetServer()
-    let database = databaseByName server "WSSnippets"
+        let client = mongoClient Secret.connStr
+        let server = client.GetServer()
+        let database = databaseByName server "WSSnippets"
 
     [<AutoOpen>]
     module RecordTypes =        
@@ -40,27 +35,26 @@ module Mongo =
             }
             static member New id title desc tags date =
                 {
-                    _id = ObjectId.GenerateNewId()
+                    _id    = ObjectId.GenerateNewId()
                     SnipId = id
-                    Title = title
-                    Desc = desc
-                    Tags = tags
-                    Date = date
+                    Title  = title
+                    Desc   = desc
+                    Tags   = tags
+                    Date   = date
                 }
 
             
     [<AutoOpen>]
-    module Collections =
+    module private Collections =
         let snippets  = collectionByName<Snippet> database "snippets"
 
     [<AutoOpen>]
-    module Queryable =
+    module private Queryable =
         let asQueryable (collection : MongoCollection<_>) = collection.FindAll().AsQueryable()
         
         let snipQuery = asQueryable snippets
 
     module Snippets =
-
         let latest10() =
             query {
                 for x in snipQuery do

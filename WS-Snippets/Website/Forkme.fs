@@ -1,7 +1,6 @@
 ﻿namespace Website
 
 module Forkme =
-    
     open IntelliFactory.WebSharper
     open IntelliFactory.WebSharper.Html
 
@@ -16,7 +15,6 @@ module Forkme =
         ]
 
     type Control() =
-                
         inherit Web.Control()
 
         [<JavaScript>]

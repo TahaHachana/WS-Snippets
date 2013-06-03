@@ -3,7 +3,6 @@
 module Utils =
 
     module Server =
-
         open IntelliFactory.Html
         open IntelliFactory.WebSharper.Sitelets
 

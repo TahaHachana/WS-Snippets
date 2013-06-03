@@ -1,7 +1,6 @@
 ﻿namespace Website
 
 module Login =
-
     open IntelliFactory.WebSharper
 
     type private LoginInfo =
@@ -13,21 +12,19 @@ module Login =
     type private Access = Denied | Granted
 
     module private Server =
-        
         open IntelliFactory.WebSharper.Sitelets
 
         [<Rpc>]
         let login loginInfo =
             async {
-                if loginInfo.Password = "" then
-                    UserSession.LoginUser loginInfo.Name
-                    return Granted
-                else
-                    return Denied
-            }
+                let access =
+                    if loginInfo.Password = Secret.password then
+                        UserSession.LoginUser loginInfo.Name
+                        Granted
+                    else Denied
+                return access }
 
     module private Client =
-        
         open IntelliFactory.WebSharper.Html
         open IntelliFactory.WebSharper.Formlet
         open IntelliFactory.WebSharper.JQuery
@@ -35,13 +32,13 @@ module Login =
         [<JavaScript>]
         let passInput =
             Input [Attr.Type "text"; HTML5.Attr.PlaceHolder "password"]
-            |>! OnKeyDown (fun _ key ->
-                match key.KeyCode with
+            |>! OnKeyDown (fun _ keyCode ->
+                match keyCode.KeyCode with
                     | 13 -> JQuery.Of("#login-btn").Click().Ignore
                     | _  -> ())
 
         [<JavaScript>]
-        let loginForm (redirectUrl: string) =
+        let loginForm (redirectUrl : string) =
             let userInput = Input [Attr.Type "text"; HTML5.Attr.AutoFocus "autofocus"; HTML5.Attr.PlaceHolder "username"]
             let submitBtn =
                 Button [Attr.Type "button"; Attr.Class "btn"; Id "login-btn"] -< [Text "Submit"]
@@ -49,10 +46,9 @@ module Login =
                     async {
                         let! access = Server.login {Name = userInput.Value; Password = passInput.Value}
                         match access with
-                            | Denied  -> JavaScript.Alert "Login failed"
+                            | Denied -> JavaScript.Alert "Login failed"
                             | Granted -> Html5.Window.Self.Location.Href <- redirectUrl
                     } |> Async.Start)
-
             Form [
                 FieldSet [
                     Legend [Text "Login"]
@@ -67,7 +63,6 @@ module Login =
             ]
 
     type Control(redirectUrl) =
-        
         inherit Web.Control ()
 
         [<JavaScript>]

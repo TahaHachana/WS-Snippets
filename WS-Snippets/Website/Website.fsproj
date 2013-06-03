@@ -38,6 +38,7 @@
   <ItemGroup>
     <Compile Include="Utils.fs" />
     <Compile Include="Secret.fs" />
+    <Compile Include="Search.fs" />
     <Compile Include="ExtjsSkin.fs" />
     <Compile Include="Mongo.fs" />
     <Compile Include="InsertSnippet.fs" />
@@ -76,8 +77,16 @@
     </Reference>
     <Reference Include="mscorlib" />
     <Reference Include="FSharp.Core" />
+    <Reference Include="ServiceStack.Text">
+      <HintPath>..\..\packages\ServiceStack.Text.3.9.48\lib\net35\ServiceStack.Text.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Numerics" />
     <Reference Include="System.Web" />
+    <Reference Include="TankTop">
+      <HintPath>..\..\packages\TankTop.1.1.26\lib\TankTop.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
 </Project>

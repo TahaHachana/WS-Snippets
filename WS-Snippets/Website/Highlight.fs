@@ -1,13 +1,11 @@
 ﻿namespace Website
 
-open IntelliFactory.WebSharper
-
 module Highlight =
-   
+    open IntelliFactory.WebSharper
+
     type Result = Error | Success of string
 
-    module Server =
-
+    module private Server =
         open System
         open System.Text.RegularExpressions
 
@@ -25,10 +23,10 @@ module Highlight =
         let elseRegex      = Regex("^\w+(\ |\n|$)", RegexOptions.Compiled)
 
         let (|ParseRegex|_|) (regex : Regex) str =
-            let m = regex.Match str
-            match m.Success with
+            let matchObj = regex.Match str
+            match matchObj.Success with
                 | false -> None
-                | true  -> Some (m.Value, str.[m.Length ..])
+                | true -> Some (matchObj.Value, str.[matchObj.Length ..])
 
         let (|ParseString|_|) str =
             match str with
@@ -96,15 +94,13 @@ module Highlight =
         [<Rpc>]
         let format src =
             async {
-                try
-                    let html = highlight src
-                    return Success html
-                with _ -> return Error
-            }
+                let result =
+                    try let html = highlight src in Success html
+                    with _ -> Error
+                return result }
 
     [<JavaScript>]
-    module Client =
-        
+    module private Client =
         open IntelliFactory.WebSharper.Html
         open IntelliFactory.WebSharper.JQuery
 
@@ -141,7 +137,6 @@ module Highlight =
             ]
 
     type Control() =
-        
         inherit Web.Control()
 
         [<JavaScript>]

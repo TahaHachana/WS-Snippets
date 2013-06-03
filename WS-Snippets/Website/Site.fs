@@ -5,7 +5,6 @@ open Model
 open Controller
 
 module Site =
-
     let router : Router<Action> =
         Router.Table
             [
@@ -16,8 +15,7 @@ module Site =
                 Login None , "/login"
                 Highlight  , "/highlight"
             ]
-        <|>
-        Router.Infer()
+        <|> Router.Infer()
 
     let Main =
         {

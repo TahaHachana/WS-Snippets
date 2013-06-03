@@ -1,14 +1,12 @@
 ﻿namespace Website
 
 module Content =
-
-    open IntelliFactory.WebSharper
     open IntelliFactory.Html
+    open IntelliFactory.WebSharper
     open IntelliFactory.WebSharper.Sitelets.Content
     open Utils.Server
 
     module Shared =
-        
         let navigation : HtmlElement = nav None
         let footer : HtmlElement =
             HTML5.Footer [Id "footer"] -< [
@@ -20,11 +18,8 @@ module Content =
             ]
 
     module Home =
-    
         let title = "WebSharper Snippets"
-
         let metaDescription = "WebSharper code snippets and examples featuring live demos and complete source code."
-
         let navigation : HtmlElement = nav <| Some "Home"
 
         let header : HtmlElement =
@@ -33,11 +28,8 @@ module Content =
                 "Snippets and examples of WebSharper code with live demos and full source."
 
     module About =
-    
-        let title = "About Title"
-
-        let metaDescription = "About meta description."
-
+        let title = "About WebSharper Snippets"
+        let metaDescription = ""
         let navigation : HtmlElement = nav <| Some "About"
 
         let header : HtmlElement =

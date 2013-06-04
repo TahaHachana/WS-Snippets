@@ -57,6 +57,7 @@ module Views =
                         loginInfo' ctx
                         Div [Class "pull-down"] -< [
                             Home.header
+                            HTML5.Section [new Search.Control()]
                             HTML5.Section [
                                 yield H2 [Text "Latest snippets"]
                                 yield! snippets
@@ -121,7 +122,7 @@ module Views =
                                 ]
                                 Div [Class "span6"] -< [
                                     H3 [Text "Index a new snippet"]
-                                    Div [new Search.Control()]
+                                    Div [new Index.Control()]
                                 ]
                             ]
                         ]
@@ -268,3 +269,32 @@ module Views =
             [
                 Div [control]
             ]
+
+    let search q =
+        let q' = HttpUtility.UrlDecode q
+        let results =
+            Search.Server.results q'
+            |> Array.map (fun (id, title, description, code) ->
+                LI [
+                    A [HRef <| "/snippet/" + id] -< [Element.VerbatimContent title]
+                    P [Element.VerbatimContent description]
+                    P [Element.VerbatimContent code]
+                ])
+        let ul = UL [yield! results]
+        withMainTemplate "" "" <| fun ctx ->
+            [
+                Div [Class "wrap"] -< [
+                    Shared.navigation
+                    Div [new Forkme.Control()]
+                    Div [Class "container"] -< [
+                        Div [Class "pull-down"] -< [
+                            HTML5.Header [
+                                H1 [Text "Results"]
+                            ]
+                        ]
+                        ul
+                    ]
+                ]
+                Shared.footer
+            ]
+        

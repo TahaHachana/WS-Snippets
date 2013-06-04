@@ -25,4 +25,5 @@ module Controller =
             | Highlight      -> Views.highlight
             | Tagged tag     -> Views.tagged tag
             | Extjs pageId   -> Views.extjs pageId
+            | Search q -> Views.search q
         { Handle = handle }

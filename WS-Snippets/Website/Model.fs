@@ -6,6 +6,7 @@ module Model =
 
     type PageId = int
     type Tag = string
+    type Query = string
 
     type Action =
         | About
@@ -18,3 +19,4 @@ module Model =
         | Highlight
         | [<CompiledName("tagged")>] Tagged of Tag
         | [<CompiledName("extjs")>] Extjs of PageId
+        | [<CompiledName("search")>] Search of Query

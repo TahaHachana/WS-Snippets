@@ -3,59 +3,49 @@
 module Search =
     open IntelliFactory.WebSharper
 
-    module private Server =
-        open System.Collections.Generic
-        open System.Text.RegularExpressions
+    module Server =
+        open System
         open TankTop
         open TankTop.Dto
 
-        let stripSpaces str =
-            let regex = Regex("(\n|\r)", RegexOptions.Compiled)
-            let regex' = Regex(" {2,}", RegexOptions.Compiled)
-            regex.Replace(str, " ")
-            |> fun x -> regex'.Replace(x, " ")
-        
         let client = TankTopClient Secret.indexdenUrl
 
-        [<Rpc>]
-        let addDoc (id : string, title : string, desc : string, code : string) =
-            async {
-                try
-                    let code' = stripSpaces code
-                    let doc = Document id
-                    let dict = Dictionary()
-                    dict.Add("title", title)
-                    dict.Add("description", desc)
-                    dict.Add("code", code')
-                    doc.Fields <- dict
-                    client.AddDocument("WSSnippets", doc)
-                with _ -> () }
+        let query text =
+            let q = Query text
+            q.MatchAnyField <- Nullable(true)
+            q.Fetch <- ["title"]
+            q.Snippet <- ["title"; "description"; "code"]
+            q
+//        let search = client.Search("WSSnippets", query)
+
+        let results q =
+            let q' = query q
+            client.Search("WSSnippets", q').Results
+            |> Seq.toArray
+            |> Array.map (fun x ->
+                let title = x.Snippets.["title"] |> function "" -> x.Fields.["title"] | t -> t
+                x.DocId, title, x.Snippets.["description"], x.Snippets.["code"])
+
 
     [<JavaScript>]
-    module Client =
-        open IntelliFactory.WebSharper.Formlet
+    module private Client =
+        open IntelliFactory.WebSharper.Html
+        open IntelliFactory.WebSharper.Html5
 
+//        let private input = Input [Attr.Type "text"]
         let main() =
-            let id = Controls.Input "" |> Enhance.WithTextLabel "Id"
-            let title = Controls.Input "" |> Enhance.WithTextLabel "Title"
-            let desc = Controls.TextArea "" |> Enhance.WithTextLabel "Description"
-            let code = Controls.TextArea "" |> Enhance.WithTextLabel "Code"
-            let formlet =
-                Formlet.Yield (fun id title desc code -> id, title, desc, code)
-                <*> id
-                <*> title
-                <*> desc
-                <*> code
-                |> Enhance.WithSubmitAndResetButtons
-                |> Enhance.WithFormContainer
-            Formlet.Run (fun x ->
-                async {
-                    do! Server.addDoc x
-                    JavaScript.Alert "Document indexed." }
-                |> Async.Start) formlet
-    
+            let inp = Input [Attr.Id "query"; Attr.Type "text"; Attr.Value "test"]
+            Div [
+                inp
+                Button [Text "Search"]
+                |>! OnClick (fun _ _ ->
+                    let q = inp.Value
+//                    JavaScript.Log q)
+                    Window.Self.Location.Href <- "/search/" + q)
+            ]
+
     type Control() =
         inherit Web.Control()
 
         [<JavaScript>]
-        override __.Body = Client.main()
+        override __.Body = Client.main() :> _

@@ -50,7 +50,22 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="*.aspx" />
     <Content Include="Images\Loader.gif" />
-    <Content Include="Scripts\*.js" />
+    <Content Include="Scripts\IntelliFactory.Formlet.dll.js" />
+    <Content Include="Scripts\IntelliFactory.Formlet.dll.min.js" />
+    <Content Include="Scripts\IntelliFactory.Reactive.dll.js" />
+    <Content Include="Scripts\IntelliFactory.Reactive.dll.min.js" />
+    <Content Include="Scripts\IntelliFactory.WebSharper.Collections.dll.js" />
+    <Content Include="Scripts\IntelliFactory.WebSharper.Collections.dll.min.js" />
+    <Content Include="Scripts\IntelliFactory.WebSharper.Control.dll.js" />
+    <Content Include="Scripts\IntelliFactory.WebSharper.Control.dll.min.js" />
+    <Content Include="Scripts\IntelliFactory.WebSharper.dll.js" />
+    <Content Include="Scripts\IntelliFactory.WebSharper.dll.min.js" />
+    <Content Include="Scripts\IntelliFactory.WebSharper.Formlet.dll.js" />
+    <Content Include="Scripts\IntelliFactory.WebSharper.Formlet.dll.min.js" />
+    <Content Include="Scripts\IntelliFactory.WebSharper.Html.dll.js" />
+    <Content Include="Scripts\IntelliFactory.WebSharper.Html.dll.min.js" />
+    <Content Include="Scripts\IntelliFactory.WebSharper.JQueryUI.dll.js" />
+    <Content Include="Scripts\IntelliFactory.WebSharper.JQueryUI.dll.min.js" />
     <Content Include="Content\**\*.*" />
     <Content Include="Source\1.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -71,7 +86,9 @@
     <Content Include="Views\**\*.*" />
     <Content Include="*.asax" />
     <Compile Include="*.asax.cs" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="*.html" />
   </ItemGroup>
   <ItemGroup>

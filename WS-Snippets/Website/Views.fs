@@ -270,17 +270,50 @@ module Views =
                 Div [control]
             ]
 
-    let search q =
+    let search q pageId =
         let q' = HttpUtility.UrlDecode q
-        let results =
-            Search.Server.results q'
+        let results = Search.Server.results q'
+        let results' =
+            match results.Length with
+                | l when l < 6 -> results
+                | _ -> results.[(pageId - 1) .. (pageId + 3)]
+        let pages = float results.Length / 5. |> ceil |> int |> fun x -> [|1 .. x|] 
+        let pages' =
+            match pages.Length with
+            | l when l < 11 -> pages
+            | _ -> pages.[(pageId - 5) .. (pageId + 4)]
+        let lis =
+            results' //.[(pageId - 1) .. (pageId + 3)]
             |> Array.map (fun (id, title, description, code) ->
                 LI [
                     A [HRef <| "/snippet/" + id] -< [Element.VerbatimContent title]
                     P [Element.VerbatimContent description]
                     P [Element.VerbatimContent code]
                 ])
-        let ul = UL [yield! results]
+        let ul = UL [yield! lis]
+        let pagination =
+            match pages.Length with
+                | 1 -> Div []
+                | _ ->
+                    let prev =
+                        match pageId with
+                            | 1 -> LI [Class "disabled"] -< [A [HRef "#"] -< [Text "«"]]
+                            | _ -> LI [A [HRef <| "/search/" + q + "/" + string (pageId - 1)] -< [Text "«"]]
+                    let next =
+                        match pageId with
+                            | _ when pageId = pages.Length -> LI [Class "disabled"] -< [A [HRef "#"] -< [Text "»"]]
+                            | _ -> LI [A [HRef <| "/search/" + q + "/" + string (pageId + 1)] -< [Text "»"]]
+                    Div [Class "pagination pagination-centered"] -< [
+                        UL [
+                            yield prev
+                            let lis = pages' |> Array.map (fun x ->
+                                match x with
+                                    | _ when x = pageId -> LI [Class "active"] -< [A [HRef <| "/search/" + q + "/" + string x] -< [Text <| string x]]
+                                    | _ -> LI [A [HRef <| "/search/" + q + "/" + string x] -< [Text <| string x]])
+                            yield! lis
+                            yield next
+                        ]
+                    ]
         withMainTemplate "" "" <| fun ctx ->
             [
                 Div [Class "wrap"] -< [
@@ -293,6 +326,7 @@ module Views =
                             ]
                         ]
                         ul
+                        pagination
                     ]
                 ]
                 Shared.footer

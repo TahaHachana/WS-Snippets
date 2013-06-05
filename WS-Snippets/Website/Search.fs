@@ -26,22 +26,31 @@ module Search =
                 let title = x.Snippets.["title"] |> function "" -> x.Fields.["title"] | t -> t
                 x.DocId, title, x.Snippets.["description"], x.Snippets.["code"])
 
+        open IntelliFactory.WebSharper.Sitelets
 
+    [<Inline "encodeURIComponent($uri)">]
+    let inline encode (uri : string) = X<string>
+            
     [<JavaScript>]
     module private Client =
         open IntelliFactory.WebSharper.Html
         open IntelliFactory.WebSharper.Html5
 
-//        let private input = Input [Attr.Type "text"]
         let main() =
-            let inp = Input [Attr.Id "query"; Attr.Type "text"; Attr.Value "test"]
+            let inp =
+                Input [Attr.Id "query"; Attr.Type "text"]
+                |>! OnKeyDown (fun elt key ->
+                    match key.KeyCode with
+                        | 13 -> 
+                            let q = elt.Value |> encode
+                            Window.Self.Location.Href <- "/search/" + q + "/1"
+                        | _  -> ())            
             Div [
                 inp
                 Button [Text "Search"]
                 |>! OnClick (fun _ _ ->
-                    let q = inp.Value
-//                    JavaScript.Log q)
-                    Window.Self.Location.Href <- "/search/" + q)
+                    let q = inp.Value |> encode
+                    Window.Self.Location.Href <- "/search/" + q + "/1")
             ]
 
     type Control() =

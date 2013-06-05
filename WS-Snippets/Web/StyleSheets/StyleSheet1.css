@@ -2,7 +2,8 @@
 {
     position: absolute;
     top: 40px;
-    border: 0;    
+    border: 0;
+    right: 0;    
 }
 
 .pull-down {

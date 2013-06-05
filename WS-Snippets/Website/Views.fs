@@ -53,12 +53,17 @@ module Views =
                 Div [Class "wrap"] -< [
                     Home.navigation
                     Div [new Forkme.Control()]
+                    HTML5.Header [Class "hero-unit pull-down"; Style "background-color: white; height: 100px;"] -< [
+                        Div [Class "container"] -< [
+                            H1 [Text "WebSharper Code Snippets"]
+                            P [Text "Snippets and examples of WebSharper code with live demos."]
+                            HR []
+                        ]
+                    ]
                     Div [Class "container"] -< [
-                        loginInfo' ctx
-                        Div [Class "pull-down"] -< [
-                            Home.header
+                        Div [
                             HTML5.Section [new Search.Control()]
-                            HTML5.Section [
+                            HTML5.Section [Style "clear: both;"] -< [
                                 yield H2 [Text "Latest snippets"]
                                 yield! snippets
                             ]

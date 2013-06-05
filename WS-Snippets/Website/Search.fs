@@ -38,19 +38,21 @@ module Search =
 
         let main() =
             let inp =
-                Input [Attr.Id "query"; Attr.Type "text"]
+                Input [Attr.Id "query"; Attr.Type "text"; Attr.Class "input-xxlarge search-query"; HTML5.Attr.AutoFocus "autofocus"; Attr.Style "font-size: 30px; height: 40px"]
                 |>! OnKeyDown (fun elt key ->
                     match key.KeyCode with
                         | 13 -> 
                             let q = elt.Value |> encode
                             Window.Self.Location.Href <- "/search/" + q + "/1"
                         | _  -> ())            
-            Div [
-                inp
-                Button [Text "Search"]
-                |>! OnClick (fun _ _ ->
-                    let q = inp.Value |> encode
-                    Window.Self.Location.Href <- "/search/" + q + "/1")
+            Div [Attr.Class "form-search offset2"] -< [
+                Div [Attr.Class "input-append"] -< [
+                    inp
+                    Button [Text "Search"; Attr.Type "button"; Attr.Class "btn"; Attr.Style "height: 50px; font-size: 20px;"]
+                    |>! OnClick (fun _ _ ->
+                        let q = inp.Value |> encode
+                        Window.Self.Location.Href <- "/search/" + q + "/1")
+                ]
             ]
 
     type Control() =

@@ -22,11 +22,6 @@ module Content =
         let metaDescription = "WebSharper code snippets and examples featuring live demos and complete source code."
         let navigation : HtmlElement = nav <| Some "Home"
 
-        let header : HtmlElement =
-            header
-                "WebSharper Code Snippets"
-                "Snippets and examples of WebSharper code with live demos and full source."
-
     module About =
         let title = "About WebSharper Snippets"
         let metaDescription = ""

@@ -1,6 +1,6 @@
 (function()
 {
- var Global=this,Runtime=this.IntelliFactory.Runtime,Website,AddThis,WebSharper,Html,Default,HTML5,List,T,Controls,Snippet1,alert,EventsPervasives,Snippet10,Snippet2,Snippet3,JavaScript,Operators,Snippet4,JQueryUI,Button,Snippet5,Ext,Snippet6,jQuery,Seq,Snippet7,DialogConfiguration,Dialog,Snippet8,Snippet9,AutocompleteConfiguration,Autocomplete,Forkme,Remoting,Concurrency,Highlight,Client,Formlet,Controls1,Enhance,Data,Formlet1,Index,Client1,InsertSnippet,Client2,Login,Client3,window,encodeURIComponent,Search,Client4;
+ var Global=this,Runtime=this.IntelliFactory.Runtime,Website,AddThis,WebSharper,Html,Default,HTML5,List,T,Controls,Snippet1,alert,EventsPervasives,Snippet10,Snippet2,Snippet3,JavaScript,Operators,Snippet4,JQueryUI,Button,Snippet5,Ext,Snippet6,jQuery,Seq,Snippet7,DialogConfiguration,Dialog,Snippet8,Snippet9,AutocompleteConfiguration,Autocomplete,Forkme,Remoting,Concurrency,Highlight,Client,Formlet,Controls1,Enhance,Data,Formlet1,Index,Client1,InsertSnippet,Client2,Login,Client3,window,Search,Client4,Strings,encodeURIComponent,Arrays;
  Runtime.Define(Global,{
   Website:{
    AddThis:{
@@ -705,45 +705,67 @@
     Client:{
      main:function()
      {
-      var inp,x,_this,_this1,_this2,_this3,f,x1,x3,_this4,_this5,f2,x4;
-      inp=(x=Default.Input(List.ofArray([(_this=Default.Attr(),_this.NewAttr("id","query")),(_this1=Default.Attr(),_this1.NewAttr("type","text")),Default.Attr().Class("input-xxlarge search-query"),(_this2=HTML5.Attr(),_this2.NewAttr("autofocus","autofocus")),(_this3=Default.Attr(),_this3.NewAttr("style","font-size: 30px; height: 40px"))])),(f=(x1=function(elt)
+      var datalist,_this,x,_this1,inp,x1,_this2,_this3,_this4,_this5,_this6,f,x2,x3,_this7,_this8,f1,x4;
+      datalist=(_this=HTML5.Tags(),(x=List.ofArray([(_this1=Default.Attr(),_this1.NewAttr("id","suggestions"))]),_this.NewTag("datalist",x)));
+      inp=(x1=Default.Input(List.ofArray([(_this2=HTML5.Attr(),_this2.NewAttr("list","suggestions")),(_this3=Default.Attr(),_this3.NewAttr("id","query")),(_this4=Default.Attr(),_this4.NewAttr("type","text")),Default.Attr().Class("input-xxlarge search-query"),(_this5=HTML5.Attr(),_this5.NewAttr("autofocus","autofocus")),(_this6=Default.Attr(),_this6.NewAttr("style","font-size: 30px; height: 40px"))])),(f=(x2=function(elt)
       {
-       return function(key)
+       return function()
        {
-        var matchValue,q,x2,f1;
-        matchValue=key.KeyCode;
-        if(matchValue===13)
+        var v;
+        v=elt.get_Value();
+        if(v==="")
          {
-          q=(x2=elt.get_Value(),(f1=function(uri)
-          {
-           return encodeURIComponent(uri);
-          },f1(x2)));
-          window.location.href="/search/"+q+"/1";
+          return null;
          }
         else
          {
-          return null;
+          return Client4.suggest(elt.get_Value(),datalist);
          }
        };
       },function(arg10)
       {
-       return EventsPervasives.Events().OnKeyDown(x1,arg10);
-      }),(f(x),x)));
-      return Operators.add(Default.Div(List.ofArray([Default.Attr().Class("form-search")])),List.ofArray([Operators.add(Default.Div(List.ofArray([Default.Attr().Class("input-append")])),List.ofArray([inp,(x3=Default.Button(List.ofArray([Default.Text("Search"),(_this4=Default.Attr(),_this4.NewAttr("type","button")),Default.Attr().Class("btn btn-success"),(_this5=Default.Attr(),_this5.NewAttr("style","height: 50px; font-size: 20px;"))])),(f2=(x4=function()
+       return EventsPervasives.Events().OnKeyUp(x2,arg10);
+      }),(f(x1),x1)));
+      return Operators.add(Default.Div(List.ofArray([Default.Attr().Class("form-search")])),List.ofArray([Operators.add(Default.Div(List.ofArray([Default.Attr().Class("input-append")])),List.ofArray([inp,(x3=Default.Button(List.ofArray([Default.Text("Search"),(_this7=Default.Attr(),_this7.NewAttr("type","button")),Default.Attr().Class("btn btn-success"),(_this8=Default.Attr(),_this8.NewAttr("style","height: 50px; font-size: 20px;"))])),(f1=(x4=function()
       {
        return function()
        {
-        var q,x2,f1;
-        q=(x2=inp.get_Value(),(f1=function(uri)
+        var q,x5,_this9,f2;
+        q=(x5=(_this9=inp.get_Value(),Strings.Trim(_this9)),(f2=function(uri)
         {
          return encodeURIComponent(uri);
-        },f1(x2)));
+        },f2(x5)));
         window.location.href="/search/"+q+"/1";
        };
       },function(arg10)
       {
        return EventsPervasives.Events().OnClick(x4,arg10);
-      }),(f2(x3),x3)))]))]));
+      }),(f1(x3),x3)))])),datalist]));
+     },
+     suggest:function(query,elt)
+     {
+      var x,f1;
+      elt.set_Html("");
+      x=jQuery.getJSON("http://vuzupy.api.indexden.com/v1/indexes/WSSnippets/autocomplete?field=title&query="+query+"&callback=?",Runtime.Tupled(function(tupledArg)
+      {
+       var data,_arg1,x1,f,action;
+       data=tupledArg[0];
+       _arg1=tupledArg[1];
+       x1=data.suggestions;
+       f=(action=function(suggestion)
+       {
+        return jQuery("<option/>").text(suggestion).appendTo(elt.Body);
+       },function(array)
+       {
+        return Arrays.iter(action,array);
+       });
+       return f(x1);
+      }));
+      f1=function(value)
+      {
+       value;
+      };
+      return f1(x);
      }
     },
     Control:Runtime.Class({
@@ -806,9 +828,11 @@
   Login=Runtime.Safe(Website.Login);
   Client3=Runtime.Safe(Login.Client);
   window=Runtime.Safe(Global.window);
-  encodeURIComponent=Runtime.Safe(Global.encodeURIComponent);
   Search=Runtime.Safe(Website.Search);
-  return Client4=Runtime.Safe(Search.Client);
+  Client4=Runtime.Safe(Search.Client);
+  Strings=Runtime.Safe(WebSharper.Strings);
+  encodeURIComponent=Runtime.Safe(Global.encodeURIComponent);
+  return Arrays=Runtime.Safe(WebSharper.Arrays);
  });
  Runtime.OnLoad(function()
  {

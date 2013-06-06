@@ -68,6 +68,7 @@ module Views =
                             HTML5.Section [Style "clear: both;"] -< [
                                 yield H3 [Text "Latest snippets"]
                                 yield! snippets
+                                yield HR []
                             ]
                             HTML5.Section [Style "margin-bottom: 100px;"] -< [
                                 yield H3 [Text "Tags"]

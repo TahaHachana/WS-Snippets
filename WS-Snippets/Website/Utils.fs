@@ -21,17 +21,34 @@ module Utils =
                     else
                         LI [A [HRef href] -< [Text txt]]
 
+//        let nav activeLiOption =
+//            let li' = li activeLiOption
+//            Div [Class "navbar navbar-fixed-top navbar-inverse"] -< [
+//                Div [Class "navbar-inner"] -< [
+//                    Div [Class "container"] -< [
+//                        UL [Class "nav"] -< [
+//                            li' "/"      "Home"
+//                            li' "/about" "About"
+//                        ]
+//                    ]
+//                ]
+//            ]
+//<div class="masthead">
+//        <ul class="nav nav-pills pull-right">
+//          <li class="active"><a href="#">Home</a></li>
+//          <li><a href="#">About</a></li>
+//          <li><a href="#">Contact</a></li>
+//        </ul>
+//        <h3 class="muted">Project name</h3>
+//      </div>
         let nav activeLiOption =
             let li' = li activeLiOption
-            Div [Class "navbar navbar-fixed-top navbar-inverse"] -< [
-                Div [Class "navbar-inner"] -< [
-                    Div [Class "container"] -< [
-                        UL [Class "nav"] -< [
-                            li' "/"      "Home"
-                            li' "/about" "About"
-                        ]
-                    ]
+            Div [
+                UL [Class "nav nav-pills pull-right"] -< [
+                    li' "/"      "Home"
+                    li' "/about" "About"
                 ]
+                H3 [Class "muted"] -< [Text "WebSharper Snippets"]
             ]
 
         let (=>) anchor href = A [HRef href] -< [Text anchor]

@@ -1,15 +1,19 @@
 ﻿#forkme
 {
     position: absolute;
-    top: 40px;
+    top: 0;
     border: 0;
     right: 0;    
 }
 
-.pull-down {
+/*.pull-down {
     margin-top: 120px;
-}
+}*/
 
+body {
+    padding-top: 30px;
+    padding-bottom: 40px;
+}
 
 /* See http://twitter.github.com/bootstrap/examples/sticky-footer-navbar.html */
 
@@ -31,10 +35,10 @@ html, body
     height: 60px;
 }
 
-#footer
+/*#footer
 {
     background-color: #f5f5f5;
-}
+}*/
 
 @media (max-width: 767px)
 {

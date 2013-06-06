@@ -27,6 +27,10 @@ module Views =
             ]
         loop list
 
+    let private tags = Controls.hashset' |> Seq.toList |> List.sort |> List.map (fun x ->
+        let href = "/tagged/" + HttpUtility.UrlEncode(x.ToLower())
+        A [HRef href] -< [Button [Class "btn btn-info"; Style "margin-right: 5px;"] -< [Text x]])
+
     let home =
         let snippets =
             Snippets.latest10()
@@ -36,45 +40,43 @@ module Views =
                 let snip = lst.[0]
                 let snip' = lst.[1]
                 Div [Class "row"] -< [
-                    Div [Class "span5"] -< [
-                        H3 [A [HRef <| "/snippet/" + snip.SnipId.ToString()] -< [Text snip.Title]]
+                    Div [Class "span4"] -< [
+                        H4 [A [HRef <| "/snippet/" + snip.SnipId.ToString()] -< [Text snip.Title]]
                         P [Text snip.Desc]
                     ]
-                    Div [Class "offset1 span5"] -< [
-                        H3 [A [HRef <| "/snippet/" + snip'.SnipId.ToString()] -< [Text snip'.Title]]
+                    Div [Class "offset1 span4"] -< [
+                        H4 [A [HRef <| "/snippet/" + snip'.SnipId.ToString()] -< [Text snip'.Title]]
                         P [Text snip'.Desc]
                     ]
                 ])    
-        let tags = Controls.hashset' |> Seq.toList |> List.sort |> List.map (fun x ->
-            let href = "/tagged/" + HttpUtility.UrlEncode(x.ToLower())
-            A [HRef href] -< [Button [Class "btn btn-info"; Style "margin-right: 5px;"] -< [Text x]])
         withMainTemplate Home.title Home.metaDescription <| fun ctx ->
             [
-                Div [Class "wrap"] -< [
+                Div [new Forkme.Control()]
+                Div [Class "container"; Style "width: 1000px;"] -< [
                     Home.navigation
-                    Div [new Forkme.Control()]
-                    HTML5.Header [Class "hero-unit pull-down"; Style "background-color: white; height: 100px;"] -< [
-                        Div [Class "container"] -< [
+                    HTML5.Header [Class "hero-unit"; Style "background-color: white; height: 80px;"] -< [
+                        Div [Class "text-center"] -< [
                             H1 [Text "WebSharper Code Snippets"]
                             P [Text "Snippets and examples of WebSharper code with live demos."]
                             HR []
                         ]
                     ]
-                    Div [Class "container"] -< [
+                    Div [
                         Div [
-                            HTML5.Section [new Search.Control()]
+                            HTML5.Section [Style "margin-bottom: 30px; width: 647px; margin-right: auto; margin-left: auto;"] -< [new Search.Control()]
+                            Div [Style "height: 30px;"; Class "pull-right"] -< [new AddThis.Control()]
                             HTML5.Section [Style "clear: both;"] -< [
-                                yield H2 [Text "Latest snippets"]
+                                yield H3 [Text "Latest snippets"]
                                 yield! snippets
                             ]
-                            HTML5.Section [Style "min-height: 300px;"] -< [
-                                yield H2 [Text "Tags"]
+                            HTML5.Section [Style "margin-bottom: 100px;"] -< [
+                                yield H3 [Text "Tags"]
                                 yield! tags
                             ] 
                         ]
                     ]
+                    Shared.footer
                 ]
-                Shared.footer
             ]
 
     let about =

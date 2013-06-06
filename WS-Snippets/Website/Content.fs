@@ -10,9 +10,13 @@ module Content =
         let navigation : HtmlElement = nav None
         let footer : HtmlElement =
             HTML5.Footer [Id "footer"] -< [
-                Div [Class "container"; Style "padding-top: 20px;"] -< [
-                    P [Text "Powered by "] -< [
+                Div [
+                    HR []
+                    P [Style "float: left;"] -< [Text "Built with "] -< [
                         A ["WebSharper" => "http://www.websharper.com/"]
+                    ]
+                    P [Class "pull-right"] -< [Text "Created by "] -< [
+                        A ["Taha Hachana" => "http://taha-hachana.apphb.com/"]
                     ]
                 ]            
             ]

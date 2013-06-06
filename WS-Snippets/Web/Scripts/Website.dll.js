@@ -1,8 +1,25 @@
 (function()
 {
- var Global=this,Runtime=this.IntelliFactory.Runtime,Website,Controls,Snippet1,WebSharper,Html,Default,List,alert,EventsPervasives,Snippet10,HTML5,Snippet2,Snippet3,JavaScript,Operators,Snippet4,JQueryUI,Button,Snippet5,T,Ext,Snippet6,jQuery,Seq,Snippet7,DialogConfiguration,Dialog,Snippet8,Snippet9,AutocompleteConfiguration,Autocomplete,Forkme,Remoting,Concurrency,Highlight,Client,Formlet,Controls1,Enhance,Data,Formlet1,Index,Client1,InsertSnippet,Client2,Login,Client3,window,encodeURIComponent,Search,Client4;
+ var Global=this,Runtime=this.IntelliFactory.Runtime,Website,AddThis,WebSharper,Html,Default,HTML5,List,T,Controls,Snippet1,alert,EventsPervasives,Snippet10,Snippet2,Snippet3,JavaScript,Operators,Snippet4,JQueryUI,Button,Snippet5,Ext,Snippet6,jQuery,Seq,Snippet7,DialogConfiguration,Dialog,Snippet8,Snippet9,AutocompleteConfiguration,Autocomplete,Forkme,Remoting,Concurrency,Highlight,Client,Formlet,Controls1,Enhance,Data,Formlet1,Index,Client1,InsertSnippet,Client2,Login,Client3,window,encodeURIComponent,Search,Client4;
  Runtime.Define(Global,{
   Website:{
+   AddThis:{
+    Control:Runtime.Class({
+     get_Body:function()
+     {
+      return AddThis.main();
+     }
+    }),
+    main:function()
+    {
+     var section,_this,x;
+     section=(_this=HTML5.Tags(),(x=Runtime.New(T,{
+      $:0
+     }),_this.NewTag("section",x)));
+     section.set_Html("<div class=\"addthis_toolbox addthis_default_style \">\r\n               <a class=\"addthis_button_facebook_like\" fb:like:layout=\"button_count\"></a>\r\n               <a class=\"addthis_button_tweet\"></a>\r\n               <a class=\"addthis_button_pinterest_pinit\"></a>\r\n               <a class=\"addthis_counter addthis_pill_style\"></a>\r\n               </div>\r\n               <script type=\"text/javascript\" src=\"http://s7.addthis.com/js/300/addthis_widget.js#pubid=ra-50af450141ce9366\"></script>");
+     return section;
+    }
+   },
    Controls:{
     Snippet1:{
      Control:Runtime.Class({
@@ -712,7 +729,7 @@
       {
        return EventsPervasives.Events().OnKeyDown(x1,arg10);
       }),(f(x),x)));
-      return Operators.add(Default.Div(List.ofArray([Default.Attr().Class("form-search offset2")])),List.ofArray([Operators.add(Default.Div(List.ofArray([Default.Attr().Class("input-append")])),List.ofArray([inp,(x3=Default.Button(List.ofArray([Default.Text("Search"),(_this4=Default.Attr(),_this4.NewAttr("type","button")),Default.Attr().Class("btn"),(_this5=Default.Attr(),_this5.NewAttr("style","height: 50px; font-size: 20px;"))])),(f2=(x4=function()
+      return Operators.add(Default.Div(List.ofArray([Default.Attr().Class("form-search")])),List.ofArray([Operators.add(Default.Div(List.ofArray([Default.Attr().Class("input-append")])),List.ofArray([inp,(x3=Default.Button(List.ofArray([Default.Text("Search"),(_this4=Default.Attr(),_this4.NewAttr("type","button")),Default.Attr().Class("btn btn-success"),(_this5=Default.Attr(),_this5.NewAttr("style","height: 50px; font-size: 20px;"))])),(f2=(x4=function()
       {
        return function()
        {
@@ -741,16 +758,18 @@
  Runtime.OnInit(function()
  {
   Website=Runtime.Safe(Global.Website);
-  Controls=Runtime.Safe(Website.Controls);
-  Snippet1=Runtime.Safe(Controls.Snippet1);
+  AddThis=Runtime.Safe(Website.AddThis);
   WebSharper=Runtime.Safe(Global.IntelliFactory.WebSharper);
   Html=Runtime.Safe(WebSharper.Html);
   Default=Runtime.Safe(Html.Default);
+  HTML5=Runtime.Safe(Default.HTML5);
   List=Runtime.Safe(WebSharper.List);
+  T=Runtime.Safe(List.T);
+  Controls=Runtime.Safe(Website.Controls);
+  Snippet1=Runtime.Safe(Controls.Snippet1);
   alert=Runtime.Safe(Global.alert);
   EventsPervasives=Runtime.Safe(Html.EventsPervasives);
   Snippet10=Runtime.Safe(Controls.Snippet10);
-  HTML5=Runtime.Safe(Default.HTML5);
   Snippet2=Runtime.Safe(Controls.Snippet2);
   Snippet3=Runtime.Safe(Controls.Snippet3);
   JavaScript=Runtime.Safe(WebSharper.JavaScript);
@@ -759,7 +778,6 @@
   JQueryUI=Runtime.Safe(WebSharper.JQueryUI);
   Button=Runtime.Safe(JQueryUI.Button);
   Snippet5=Runtime.Safe(Controls.Snippet5);
-  T=Runtime.Safe(List.T);
   Ext=Runtime.Safe(Global.Ext);
   Snippet6=Runtime.Safe(Controls.Snippet6);
   jQuery=Runtime.Safe(Global.jQuery);

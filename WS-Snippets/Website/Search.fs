@@ -45,10 +45,10 @@ module Search =
                             let q = elt.Value |> encode
                             Window.Self.Location.Href <- "/search/" + q + "/1"
                         | _  -> ())            
-            Div [Attr.Class "form-search offset2"] -< [
+            Div [Attr.Class "form-search"] -< [
                 Div [Attr.Class "input-append"] -< [
                     inp
-                    Button [Text "Search"; Attr.Type "button"; Attr.Class "btn"; Attr.Style "height: 50px; font-size: 20px;"]
+                    Button [Text "Search"; Attr.Type "button"; Attr.Class "btn btn-success"; Attr.Style "height: 50px; font-size: 20px;"]
                     |>! OnClick (fun _ _ ->
                         let q = inp.Value |> encode
                         Window.Self.Location.Href <- "/search/" + q + "/1")

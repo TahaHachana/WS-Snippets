@@ -64,7 +64,7 @@ module Views =
                     Div [
                         Div [
                             HTML5.Section [Style "margin-bottom: 30px; width: 647px; margin-right: auto; margin-left: auto;"] -< [new Search.Control()]
-                            Div [Style "height: 30px;"; Class "pull-right"] -< [new AddThis.Control()]
+                            Div [Style "height: 30px; width: 312px;"; Class "pull-right"] -< [new AddThis.Control()]
                             HTML5.Section [Style "clear: both;"] -< [
                                 yield H3 [Text "Latest snippets"]
                                 yield! snippets
@@ -83,17 +83,24 @@ module Views =
     let about =
         withMainTemplate About.title About.metaDescription <| fun ctx ->
             [
-                Div [Class "wrap"] -< [
+                Div [new Forkme.Control()]
+                Div [Class "container"; Style "width: 1000px;"] -< [
                     About.navigation
-                    Div [new Forkme.Control()]
-                    Div [Class "container"] -< [
-                        loginInfo' ctx
-                        Div [Class "pull-down"] -< [
-                            About.header
-                        ]
+                    HTML5.Header [H1 [Text "About"]]
+                    P [
+                        Text "This application is built with "
+                        A [HRef "http://www.websharper.com/"] -< [Text "WebSharper"]
+                        Text " by "
+                        A [HRef "http://taha-hachana.apphb.com/"] -< [Text "Taha Hachana"]
+                        Text " in the hope that it would be useful for WebSharper developers both beginners and experienced ones. The code shared on this website is written in a fashion that lets you easily paste it in your applications and modify or build on it."
                     ]
+                    P [
+                        Text "If you want to add your own WebSharper snippets you can "
+                        A [HRef "https://github.com/TahaHachana/WS-Snippets"] -< [Text "fork the project on GitHub"]
+                        Text " and issue a pull request once you've made the necessary updates."
+                    ]
+                    Shared.footer
                 ]
-                Shared.footer
             ]
 
     let login (redirectAction: Action option) =
@@ -104,54 +111,43 @@ module Views =
                 | None        -> Action.Admin
                 |> ctx.Link
             [
-                Div [Class "wrap"] -< [
-                    Div [Class "container"] -< [
-                        Shared.navigation
-                        Div [Class "pull-down"] -< [
-                            Div [new Login.Control(redirectLink)]
-                        ]
-                    ]
+                Div [Class "container"; Style "width: 1000px;"] -< [
+                    Shared.navigation
+                    Div [new Login.Control(redirectLink)]
+                    Shared.footer
                 ]
-                Shared.footer
             ]
 
     let admin =
         withMainTemplate "Admin" "" <| fun ctx ->
             [
-                Div [Class "wrap"] -< [
+                Div [Class "container"; Style "width: 1000px;"] -< [
+                    loginInfo' ctx
                     Shared.navigation
-                    Div [Class "container"] -< [
-                        loginInfo' ctx
-                        Div [Class "pull-down"] -< [
-                            Div [Class "row"] -< [
-                                Div [Class "span6"] -< [
-                                    H3 [Text "Insert a new snippet"]
-                                    Div [new InsertSnippet.Control()]
-                                ]
-                                Div [Class "span6"] -< [
-                                    H3 [Text "Index a new snippet"]
-                                    Div [new Index.Control()]
-                                ]
-                            ]
-                        ]
+                    Div [Style "margin-top: 80px;"] -< [
+                        H3 [Text "Insert a new snippet"]
+                        Div [new InsertSnippet.Control()]
                     ]
+                    HR []
+                    Div [
+                        H3 [Text "Index a new snippet"]
+                        Div [new Index.Control()]
+                    ]
+                    Shared.footer
                 ]
-                Shared.footer
             ]
 
     let error =
         withMainTemplate "Error - Page Not Found" "" <| fun ctx ->
             [
-                Div [Class "wrap"] -< [
+                Div [Class "container"; Style "width: 1000px;"] -< [
                     Shared.navigation
-                    Div [Class "container"] -< [
-                        Div [Class "pull-down"] -< [
-                            H2 [Text "Page Not Found"]
-                            P [Text "The requested URL doesn't exist."]
-                        ]
+                    Div [Style "margin-top: 80px;"] -< [
+                        H3 [Text "Page Not Found"]
+                        P [Text "The requested URL doesn't exist."]
                     ]
+                    Shared.footer
                 ]
-                Shared.footer
             ]
 
     let snippet id =
@@ -165,32 +161,31 @@ module Views =
             A [HRef href] -< [Button [Class "btn btn-info"; Style "margin-right: 5px;"] -< [Text x]])
         withMainTemplate title' metaDesc <| fun ctx ->
             [
-                Div [Class "wrap"] -< [
+                Div [Class "container"; Style "width: 1000px;"] -< [
                     Shared.navigation
-                    Div [Class "container"] -< [
-                        Div [Class "pull-down"] -< [
-                            H2 [Text title]
-                            P [Text desc]
-                        ]
-                        Div [Style "height: 400px;"] -< [
-                            Div [Class "tabbable"] -< [
-                                UL [Class "nav nav-tabs"] -< [
-                                    LI [Class "active"] -< [A [HRef "#demo"; HTML5.Data "toggle" "tab"] -< [Text "Demo"]]
-                                    LI [A [HRef "#source"; HTML5.Data "toggle" "tab"] -< [Text "Source"]]
-                                ]
-                                Div [Class "tab-content"; Style "height: 300px;"] -< [
-                                    Div [Class "tab-pane active"; Id "demo"] -< [control]
-                                    Div [Class "tab-pane"; Id "source"] -< [elt]
-                                ]
+                    Div [
+                        H2 [Text title]
+                        P [Text desc]
+                    ]
+                    Div [Style "height: 400px;"] -< [
+                        Div [Class "tabbable"] -< [
+                            UL [Class "nav nav-tabs"] -< [
+                                LI [Class "active"] -< [A [HRef "#demo"; HTML5.Data "toggle" "tab"] -< [Text "Demo"]]
+                                LI [A [HRef "#source"; HTML5.Data "toggle" "tab"] -< [Text "Source"]]
+                            ]
+                            Div [Class "tab-content"; Style "height: 300px;"] -< [
+                                Div [Class "tab-pane active"; Id "demo"] -< [control]
+                                Div [Class "tab-pane"; Id "source"] -< [elt]
                             ]
                         ]
-                        HTML5.Section [Style "min-height: 300px;"] -< [
-                            H3 [Text "Tags"]
-                            Div [yield! btns]
-                        ]
                     ]
+                    HTML5.Section [Style "min-height: 300px;"] -< [
+                        H3 [Text "Tags"]
+                        Div [yield! btns]
+                    ]
+                    Shared.footer
+        
                 ]
-                Shared.footer
                 Script [Src "http://twitter.github.com/bootstrap/assets/js/bootstrap-tab.js"]
             ]
 
@@ -198,30 +193,28 @@ module Views =
     let highlight =
         withMainTemplate "" "" <| fun ctx ->
             [
-                Div [Class "wrap"] -< [
+                Div [Class "container"; Style "width: 1000px;"] -< [
                     Shared.navigation
-                    Div [Class "container pull-down"] -< [
-                        H3 [Text "F# Code"]
-                        TextArea [Id "code-textarea"; Style "overflow: scroll; word-wrap: normal; height: 300px;"; Class "span12"; HTML5.SpellCheck "false"]
-                        Div [Style "padding: 10px 0px 10px 0px; padding-left: 0px"] -< [
-                            Div [new Highlight.Control()]
-                            Div [Img [Style "padding-top: 10px; visibility: hidden;"; Src "Images/Loader.gif"; Id "loader"]]
-                        ]
-                        Div [Style "height: 500px;"] -< [
-                            Div [Class "tabbable"] -< [
-                                UL [Class "nav nav-tabs"] -< [
-                                    LI [Class "active"] -< [A [HRef "#html"; HTML5.Data "toggle" "tab"] -< [Text "HTML"]]
-                                    LI [A [HRef "#html-preview"; HTML5.Data "toggle" "tab"] -< [Text "HTML Preview"]]
-                                ]
-                                Div [Class "tab-content"] -< [
-                                    Div [Class "tab-pane active"; Id "html"] -< [TextArea [Id "html-textarea"; Style "overflow: scroll; word-wrap: normal; height: 300px;"; Class "span12"; HTML5.SpellCheck "false"]]
-                                    Div [Class "tab-pane"; Id "html-preview"; Style "height: 300px;"]
-                                ]
+                    H3 [Text "F# Code"]
+                    TextArea [Id "code-textarea"; Style "overflow: scroll; word-wrap: normal; height: 300px;"; Class "span12"; HTML5.SpellCheck "false"]
+                    Div [Style "padding: 10px 0px 10px 0px; padding-left: 0px"] -< [
+                        Div [new Highlight.Control()]
+                        Div [Img [Style "padding-top: 10px; visibility: hidden;"; Src "Images/Loader.gif"; Id "loader"]]
+                    ]
+                    Div [Style "height: 500px;"] -< [
+                        Div [Class "tabbable"] -< [
+                            UL [Class "nav nav-tabs"] -< [
+                                LI [Class "active"] -< [A [HRef "#html"; HTML5.Data "toggle" "tab"] -< [Text "HTML"]]
+                                LI [A [HRef "#html-preview"; HTML5.Data "toggle" "tab"] -< [Text "HTML Preview"]]
+                            ]
+                            Div [Class "tab-content"] -< [
+                                Div [Class "tab-pane active"; Id "html"] -< [TextArea [Id "html-textarea"; Style "overflow: scroll; word-wrap: normal; height: 300px;"; Class "span12"; HTML5.SpellCheck "false"]]
+                                Div [Class "tab-pane"; Id "html-preview"; Style "height: 300px;"]
                             ]
                         ]
                     ]
+                    Shared.footer
                 ]
-                Shared.footer
                 Script [Src "http://twitter.github.com/bootstrap/assets/js/bootstrap-tab.js"]
             ]
 
@@ -235,8 +228,8 @@ module Views =
                 match lst with
                     | [snip] ->
                         Div [Class "row"] -< [
-                            Div [Class "span5"] -< [
-                                H3 [A [HRef <| "/snippet/" + snip.SnipId.ToString()] -< [Text snip.Title]]
+                            Div [Class "span4"] -< [
+                                H4 [A [HRef <| "/snippet/" + snip.SnipId.ToString()] -< [Text snip.Title]]
                                 P [Text snip.Desc]
                             ]
                         ]
@@ -244,31 +237,28 @@ module Views =
                         let snip = lst.[0]
                         let snip' = lst.[1]
                         Div [Class "row"] -< [
-                            Div [Class "span5"] -< [
-                                H3 [A [HRef <| "/snippet/" + snip.SnipId.ToString()] -< [Text snip.Title]]
+                            Div [Class "span4"] -< [
+                                H4 [A [HRef <| "/snippet/" + snip.SnipId.ToString()] -< [Text snip.Title]]
                                 P [Text snip.Desc]
                             ]
-                            Div [Class "offset1 span5"] -< [
-                                H3 [A [HRef <| "/snippet/" + snip'.SnipId.ToString()] -< [Text snip'.Title]]
+                            Div [Class "offset1 span4"] -< [
+                                H4 [A [HRef <| "/snippet/" + snip'.SnipId.ToString()] -< [Text snip'.Title]]
                                 P [Text snip'.Desc]
                             ]
                         ])
         withMainTemplate About.title About.metaDescription <| fun ctx ->
             [
-                Div [Class "wrap"] -< [
+                Div [new Forkme.Control()]
+                Div [Class "container"; Style "width: 1000px;"] -< [
                     About.navigation
-                    Div [new Forkme.Control()]
-                    Div [Class "container"] -< [
-                        loginInfo' ctx
-                        Div [Class "pull-down"] -< [
-                            HTML5.Header [
-                                H1 [Text <| "Snippets tagged \"" + tag' + "\""]
-                            ]
+                    Div [
+                        HTML5.Header [
+                            H1 [Text <| "Snippets tagged \"" + tag' + "\""]
                         ]
-                        UL [yield! divs]
                     ]
+                    UL [yield! divs]
+                    Shared.footer
                 ]
-                Shared.footer
             ]
 
     let extjs id =
@@ -324,19 +314,17 @@ module Views =
                     ]
         withMainTemplate "" "" <| fun ctx ->
             [
-                Div [Class "wrap"] -< [
+                Div [new Forkme.Control()]
+                Div [Class "container"; Style "width: 1000px;"] -< [
                     Shared.navigation
-                    Div [new Forkme.Control()]
-                    Div [Class "container"] -< [
-                        Div [Class "pull-down"] -< [
-                            HTML5.Header [
-                                H1 [Text "Results"]
-                            ]
+                    Div [Class "pull-down"] -< [
+                        HTML5.Header [
+                            H1 [Text "Results"]
                         ]
-                        ul
-                        pagination
                     ]
+                    ul
+                    pagination
+                    Shared.footer
                 ]
-                Shared.footer
             ]
         

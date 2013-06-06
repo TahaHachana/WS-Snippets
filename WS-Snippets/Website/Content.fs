@@ -28,10 +28,5 @@ module Content =
 
     module About =
         let title = "About WebSharper Snippets"
-        let metaDescription = ""
+        let metaDescription = "Website built with WebSharper and maintained by Taha Hachana."
         let navigation : HtmlElement = nav <| Some "About"
-
-        let header : HtmlElement =
-            header
-                "About page header"
-                "Short about page description"

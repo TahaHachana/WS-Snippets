@@ -52,31 +52,33 @@ module Views =
         withMainTemplate Home.title Home.metaDescription <| fun ctx ->
             [
                 Div [new Forkme.Control()]
-                Div [Class "container"; Style "width: 1000px;"] -< [
-                    Home.navigation
-                    HTML5.Header [Class "hero-unit"; Style "background-color: white; height: 80px;"] -< [
-                        Div [Class "text-center"] -< [
-                            H1 [Text "WebSharper Code Snippets"]
-                            P [Text "Snippets and examples of WebSharper code with live demos."]
-                            HR []
-                        ]
-                    ]
-                    Div [
-                        Div [
-                            HTML5.Section [Style "margin-bottom: 30px; width: 647px; margin-right: auto; margin-left: auto;"] -< [new Search.Control()]
-                            Div [Style "height: 30px; width: 312px;"; Class "pull-right"] -< [new AddThis.Control()]
-                            HTML5.Section [Style "clear: both;"] -< [
-                                yield H3 [Text "Latest snippets"]
-                                yield! snippets
-                                yield HR []
+                Div [Id "wrap"] -< [
+                    Div [Class "container"; Style "width: 1000px;"] -< [
+                        Home.navigation
+                        HTML5.Header [Class "hero-unit"; Style "background-color: white; height: 80px;"] -< [
+                            Div [Class "text-center"] -< [
+                                H1 [Text "WebSharper Code Snippets"]
+                                P [Text "Snippets and examples of WebSharper code with live demos."]
+                                HR []
                             ]
-                            HTML5.Section [Style "margin-bottom: 100px;"] -< [
-                                yield H3 [Text "Tags"]
-                                yield! tags
-                            ] 
                         ]
+                        Div [
+                            Div [
+                                HTML5.Section [Style "margin-bottom: 30px; width: 647px; margin-right: auto; margin-left: auto;"] -< [new Search.Control()]
+                                Div [Style "height: 30px; width: 312px;"; Class "pull-right"] -< [new AddThis.Control()]
+                                HTML5.Section [Style "clear: both;"] -< [
+                                    yield H3 [Text "Latest snippets"]
+                                    yield! snippets
+                                    yield HR []
+                                ]
+                                HTML5.Section [Style "margin-bottom: 100px;"] -< [
+                                    yield H3 [Text "Tags"]
+                                    yield! tags
+                                ] 
+                            ]
+                        ]
+                        Shared.footer
                     ]
-                    Shared.footer
                 ]
             ]
 
@@ -84,23 +86,25 @@ module Views =
         withMainTemplate About.title About.metaDescription <| fun ctx ->
             [
                 Div [new Forkme.Control()]
-                Div [Class "container"; Style "width: 1000px;"] -< [
-                    About.navigation
-                    HTML5.Header [H1 [Text "About"]]
-                    P [
-                        Text "This application is built with "
-                        A [HRef "http://www.websharper.com/"] -< [Text "WebSharper"]
-                        Text " by "
-                        A [HRef "http://taha-hachana.apphb.com/"] -< [Text "Taha Hachana"]
-                        Text " in the hope that it would be useful for WebSharper developers both beginners and experienced ones. The code shared on this website is written in a fashion that lets you easily paste it in your applications and modify or build on it."
+                Div [Id "wrap"] -< [
+                    Div [Class "container"; Style "width: 1000px;"] -< [
+                        About.navigation
+                        HTML5.Header [H1 [Text "About"]]
+                        P [
+                            Text "This application is built with "
+                            A [HRef "http://www.websharper.com/"] -< [Text "WebSharper"]
+                            Text " by "
+                            A [HRef "http://taha-hachana.apphb.com/"] -< [Text "Taha Hachana"]
+                            Text " in the hope that it would be useful for WebSharper developers both beginners and experienced ones. The code shared on this website is written in a fashion that lets you easily paste it in your applications and modify or build on it."
+                        ]
+                        P [
+                            Text "If you want to add your own WebSharper snippets you can "
+                            A [HRef "https://github.com/TahaHachana/WS-Snippets"] -< [Text "fork the project on GitHub"]
+                            Text " and issue a pull request once you've made the necessary updates."
+                        ]
                     ]
-                    P [
-                        Text "If you want to add your own WebSharper snippets you can "
-                        A [HRef "https://github.com/TahaHachana/WS-Snippets"] -< [Text "fork the project on GitHub"]
-                        Text " and issue a pull request once you've made the necessary updates."
-                    ]
-                    Shared.footer
                 ]
+                Shared.footer
             ]
 
     let login (redirectAction: Action option) =
@@ -111,43 +115,49 @@ module Views =
                 | None        -> Action.Admin
                 |> ctx.Link
             [
-                Div [Class "container"; Style "width: 1000px;"] -< [
-                    Shared.navigation
-                    Div [new Login.Control(redirectLink)]
-                    Shared.footer
+                Div [Id "wrap"] -< [
+                    Div [Class "container"; Style "width: 1000px;"] -< [
+                        Shared.navigation
+                        Div [new Login.Control(redirectLink)]
+                    ]
                 ]
+                Shared.footer
             ]
 
     let admin =
         withMainTemplate "Admin" "" <| fun ctx ->
             [
-                Div [Class "container"; Style "width: 1000px;"] -< [
-                    loginInfo' ctx
-                    Shared.navigation
-                    Div [Style "margin-top: 80px;"] -< [
-                        H3 [Text "Insert a new snippet"]
-                        Div [new InsertSnippet.Control()]
+                Div [Id "main"] -< [
+                    Div [Class "container"; Style "width: 1000px;"] -< [
+                        loginInfo' ctx
+                        Shared.navigation
+                        Div [Style "margin-top: 80px;"] -< [
+                            H3 [Text "Insert a new snippet"]
+                            Div [new InsertSnippet.Control()]
+                        ]
+                        HR []
+                        Div [
+                            H3 [Text "Index a new snippet"]
+                            Div [new Index.Control()]
+                        ]
                     ]
-                    HR []
-                    Div [
-                        H3 [Text "Index a new snippet"]
-                        Div [new Index.Control()]
-                    ]
-                    Shared.footer
                 ]
+                Shared.footer
             ]
 
     let error =
         withMainTemplate "Error - Page Not Found" "" <| fun ctx ->
             [
-                Div [Class "container"; Style "width: 1000px;"] -< [
-                    Shared.navigation
-                    Div [Style "margin-top: 80px;"] -< [
-                        H3 [Text "Page Not Found"]
-                        P [Text "The requested URL doesn't exist."]
+                Div [Id "wrap"] -< [
+                    Div [Class "container"; Style "width: 1000px;"] -< [
+                        Shared.navigation
+                        Div [Style "margin-top: 80px;"] -< [
+                            H3 [Text "Page Not Found"]
+                            P [Text "The requested URL doesn't exist."]
+                        ]
                     ]
-                    Shared.footer
                 ]
+                Shared.footer
             ]
 
     let snippet id =
@@ -161,61 +171,64 @@ module Views =
             A [HRef href] -< [Button [Class "btn btn-info"; Style "margin-right: 5px;"] -< [Text x]])
         withMainTemplate title' metaDesc <| fun ctx ->
             [
-                Div [Class "container"; Style "width: 1000px;"] -< [
-                    Shared.navigation
-                    Div [
-                        H2 [Text title]
-                        P [Text desc]
-                    ]
-                    Div [Style "height: 400px;"] -< [
-                        Div [Class "tabbable"] -< [
-                            UL [Class "nav nav-tabs"] -< [
-                                LI [Class "active"] -< [A [HRef "#demo"; HTML5.Data "toggle" "tab"] -< [Text "Demo"]]
-                                LI [A [HRef "#source"; HTML5.Data "toggle" "tab"] -< [Text "Source"]]
-                            ]
-                            Div [Class "tab-content"; Style "height: 300px;"] -< [
-                                Div [Class "tab-pane active"; Id "demo"] -< [control]
-                                Div [Class "tab-pane"; Id "source"] -< [elt]
+                Div [Id "wrap"] -< [
+                    Div [Class "container"; Style "width: 1000px;"] -< [
+                        Shared.navigation
+                        Div [
+                            H2 [Text title]
+                            P [Text desc]
+                        ]
+                        Div [Style "height: 400px;"] -< [
+                            Div [Class "tabbable"] -< [
+                                UL [Class "nav nav-tabs"] -< [
+                                    LI [Class "active"] -< [A [HRef "#demo"; HTML5.Data "toggle" "tab"] -< [Text "Demo"]]
+                                    LI [A [HRef "#source"; HTML5.Data "toggle" "tab"] -< [Text "Source"]]
+                                ]
+                                Div [Class "tab-content"; Style "height: 300px;"] -< [
+                                    Div [Class "tab-pane active"; Id "demo"] -< [control]
+                                    Div [Class "tab-pane"; Id "source"] -< [elt]
+                                ]
                             ]
                         ]
+                        HTML5.Section [Style "min-height: 300px;"] -< [
+                            H3 [Text "Tags"]
+                            Div [yield! btns]
+                        ]        
                     ]
-                    HTML5.Section [Style "min-height: 300px;"] -< [
-                        H3 [Text "Tags"]
-                        Div [yield! btns]
-                    ]
-                    Shared.footer
-        
+                    Script [Src "http://twitter.github.com/bootstrap/assets/js/bootstrap-tab.js"]
                 ]
-                Script [Src "http://twitter.github.com/bootstrap/assets/js/bootstrap-tab.js"]
+                Shared.footer
             ]
 
 
     let highlight =
         withMainTemplate "" "" <| fun ctx ->
             [
-                Div [Class "container"; Style "width: 1000px;"] -< [
-                    Shared.navigation
-                    H3 [Text "F# Code"]
-                    TextArea [Id "code-textarea"; Style "overflow: scroll; word-wrap: normal; height: 300px;"; Class "span12"; HTML5.SpellCheck "false"]
-                    Div [Style "padding: 10px 0px 10px 0px; padding-left: 0px"] -< [
-                        Div [new Highlight.Control()]
-                        Div [Img [Style "padding-top: 10px; visibility: hidden;"; Src "Images/Loader.gif"; Id "loader"]]
-                    ]
-                    Div [Style "height: 500px;"] -< [
-                        Div [Class "tabbable"] -< [
-                            UL [Class "nav nav-tabs"] -< [
-                                LI [Class "active"] -< [A [HRef "#html"; HTML5.Data "toggle" "tab"] -< [Text "HTML"]]
-                                LI [A [HRef "#html-preview"; HTML5.Data "toggle" "tab"] -< [Text "HTML Preview"]]
-                            ]
-                            Div [Class "tab-content"] -< [
-                                Div [Class "tab-pane active"; Id "html"] -< [TextArea [Id "html-textarea"; Style "overflow: scroll; word-wrap: normal; height: 300px;"; Class "span12"; HTML5.SpellCheck "false"]]
-                                Div [Class "tab-pane"; Id "html-preview"; Style "height: 300px;"]
+                Div [Id "wrap"] -< [
+                    Div [Class "container"; Style "width: 1000px;"] -< [
+                        Shared.navigation
+                        H3 [Text "F# Code"]
+                        TextArea [Id "code-textarea"; Style "overflow: scroll; word-wrap: normal; height: 300px;"; Class "span12"; HTML5.SpellCheck "false"]
+                        Div [Style "padding: 10px 0px 10px 0px; padding-left: 0px"] -< [
+                            Div [new Highlight.Control()]
+                            Div [Img [Style "padding-top: 10px; visibility: hidden;"; Src "Images/Loader.gif"; Id "loader"]]
+                        ]
+                        Div [Style "height: 500px;"] -< [
+                            Div [Class "tabbable"] -< [
+                                UL [Class "nav nav-tabs"] -< [
+                                    LI [Class "active"] -< [A [HRef "#html"; HTML5.Data "toggle" "tab"] -< [Text "HTML"]]
+                                    LI [A [HRef "#html-preview"; HTML5.Data "toggle" "tab"] -< [Text "HTML Preview"]]
+                                ]
+                                Div [Class "tab-content"] -< [
+                                    Div [Class "tab-pane active"; Id "html"] -< [TextArea [Id "html-textarea"; Style "overflow: scroll; word-wrap: normal; height: 300px;"; Class "span12"; HTML5.SpellCheck "false"]]
+                                    Div [Class "tab-pane"; Id "html-preview"; Style "height: 300px;"]
+                                ]
                             ]
                         ]
                     ]
-                    Shared.footer
+                    Script [Src "http://twitter.github.com/bootstrap/assets/js/bootstrap-tab.js"]
                 ]
-                Script [Src "http://twitter.github.com/bootstrap/assets/js/bootstrap-tab.js"]
+                Shared.footer
             ]
 
     let tagged tag =
@@ -249,16 +262,18 @@ module Views =
         withMainTemplate About.title About.metaDescription <| fun ctx ->
             [
                 Div [new Forkme.Control()]
-                Div [Class "container"; Style "width: 1000px;"] -< [
-                    About.navigation
-                    Div [
-                        HTML5.Header [
-                            H1 [Text <| "Snippets tagged \"" + tag' + "\""]
+                Div [Id "wrap"] -< [
+                    Div [Class "container"; Style "width: 1000px;"] -< [
+                        About.navigation
+                        Div [
+                            HTML5.Header [
+                                H1 [Text <| "Snippets tagged \"" + tag' + "\""]
+                            ]
                         ]
+                        UL [yield! divs]
                     ]
-                    UL [yield! divs]
-                    Shared.footer
                 ]
+                Shared.footer
             ]
 
     let extjs id =
@@ -271,60 +286,65 @@ module Views =
     let search q pageId =
         let q' = HttpUtility.UrlDecode q
         let results = Search.Server.results q'
-        let results' =
+        let div =
             match results.Length with
-                | l when l < 6 -> results
-                | _ -> results.[(pageId - 1) .. (pageId + 3)]
-        let pages = float results.Length / 5. |> ceil |> int |> fun x -> [|1 .. x|] 
-        let pages' =
-            match pages.Length with
-            | l when l < 11 -> pages
-            | _ -> pages.[(pageId - 5) .. (pageId + 4)]
-        let lis =
-            results' //.[(pageId - 1) .. (pageId + 3)]
-            |> Array.map (fun (id, title, description, code) ->
-                LI [
-                    A [HRef <| "/snippet/" + id] -< [Element.VerbatimContent title]
-                    P [Element.VerbatimContent description]
-                    P [Element.VerbatimContent code]
-                ])
-        let ul = UL [yield! lis]
-        let pagination =
-            match pages.Length with
-                | 1 -> Div []
+                | 0 -> Div [Text "The query did not match any documents."]
                 | _ ->
-                    let prev =
-                        match pageId with
-                            | 1 -> LI [Class "disabled"] -< [A [HRef "#"] -< [Text "«"]]
-                            | _ -> LI [A [HRef <| "/search/" + q + "/" + string (pageId - 1)] -< [Text "«"]]
-                    let next =
-                        match pageId with
-                            | _ when pageId = pages.Length -> LI [Class "disabled"] -< [A [HRef "#"] -< [Text "»"]]
-                            | _ -> LI [A [HRef <| "/search/" + q + "/" + string (pageId + 1)] -< [Text "»"]]
-                    Div [Class "pagination pagination-centered"] -< [
-                        UL [
-                            yield prev
-                            let lis = pages' |> Array.map (fun x ->
-                                match x with
-                                    | _ when x = pageId -> LI [Class "active"] -< [A [HRef <| "/search/" + q + "/" + string x] -< [Text <| string x]]
-                                    | _ -> LI [A [HRef <| "/search/" + q + "/" + string x] -< [Text <| string x]])
-                            yield! lis
-                            yield next
-                        ]
-                    ]
+                let results' =
+                    match results.Length with
+                        | l when l < 6 -> results
+                        | _ -> results.[(pageId - 1) .. (pageId + 3)]
+                let pages = float results.Length / 5. |> ceil |> int |> fun x -> [|1 .. x|] 
+                let pages' =
+                    match pages.Length with
+                    | l when l < 11 -> pages
+                    | _ -> pages.[(pageId - 5) .. (pageId + 4)]
+                let lis =
+                    results' //.[(pageId - 1) .. (pageId + 3)]
+                    |> Array.map (fun (id, title, description, code) ->
+                        LI [Style "margin-bottom: 25px;"] -< [
+                            A [HRef <| "/snippet/" + id; Style "font-size: large;"] -< [Element.VerbatimContent title]
+                            P [Element.VerbatimContent description]
+                            P [Element.VerbatimContent code]
+                        ])
+                let ul = UL [Class "unstyled"] -< [yield! lis]
+                let pagination =
+                    match pages.Length with
+                        | 1 -> Div []
+                        | _ ->
+                            let prev =
+                                match pageId with
+                                    | 1 -> LI [Class "disabled"] -< [A [HRef "#"] -< [Text "«"]]
+                                    | _ -> LI [A [HRef <| "/search/" + q + "/" + string (pageId - 1)] -< [Text "«"]]
+                            let next =
+                                match pageId with
+                                    | _ when pageId = pages.Length -> LI [Class "disabled"] -< [A [HRef "#"] -< [Text "»"]]
+                                    | _ -> LI [A [HRef <| "/search/" + q + "/" + string (pageId + 1)] -< [Text "»"]]
+                            Div [Class "pagination pagination-centered"] -< [
+                                UL [
+                                    yield prev
+                                    let lis = pages' |> Array.map (fun x ->
+                                        match x with
+                                            | _ when x = pageId -> LI [Class "active"] -< [A [HRef <| "/search/" + q + "/" + string x] -< [Text <| string x]]
+                                            | _ -> LI [A [HRef <| "/search/" + q + "/" + string x] -< [Text <| string x]])
+                                    yield! lis
+                                    yield next
+                                ]
+                            ]
+                Div [ul; pagination]
         withMainTemplate "" "" <| fun ctx ->
             [
                 Div [new Forkme.Control()]
-                Div [Class "container"; Style "width: 1000px;"] -< [
-                    Shared.navigation
-                    Div [Class "pull-down"] -< [
-                        HTML5.Header [
-                            H1 [Text "Results"]
+                Div [Id "wrap"] -< [
+                    Div [Class "container"; Style "width: 1000px;"] -< [
+                        Shared.navigation
+                        Div [Class "pull-down"] -< [
+                            HTML5.Header [
+                                H3 [Text "Results"]
+                            ]
                         ]
+                        div
                     ]
-                    ul
-                    pagination
-                    Shared.footer
                 ]
+                Shared.footer
             ]
-        

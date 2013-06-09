@@ -43,8 +43,8 @@ module Utils =
 //      </div>
         let nav activeLiOption =
             let li' = li activeLiOption
-            Div [
-                UL [Class "nav nav-pills pull-right"] -< [
+            Div [Style "margin-top: 20px; margin-bottom: 50px;"] -< [// "background-color: rgb(21, 51, 68); padding: 10px; border-radius: 10px;"] -< [
+                UL [Class "nav nav-pills pull-right"; Style "padding: 20px;"] -< [
                     li' "/"      "Home"
                     li' "/about" "About"
                 ]

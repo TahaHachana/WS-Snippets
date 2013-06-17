@@ -125,7 +125,7 @@
       get_Body:function()
       {
        var _this,_this1;
-       return Default.Div(List.ofArray([Default.IFrame(List.ofArray([(_this=Default.Attr(),_this.NewAttr("src","/extjs/1")),(_this1=Default.Attr(),_this1.NewAttr("style","margin: 0; padding: 0; border: none; width: 100%; height: 300px;"))]))]));
+       return Default.Div(List.ofArray([Default.IFrame(List.ofArray([(_this=Default.Attr(),_this.NewAttr("src","/extjs/1")),(_this1=Default.Attr(),_this1.NewAttr("style","margin: 0; padding: 0; border: none; width: 100%; height: 440px;"))]))]));
       }
      }),
      ExtControl:Runtime.Class({
@@ -278,7 +278,7 @@
       get_Body:function()
       {
        var _this,_this1;
-       return Default.Div(List.ofArray([Default.IFrame(List.ofArray([(_this=Default.Attr(),_this.NewAttr("src","/extjs/2")),(_this1=Default.Attr(),_this1.NewAttr("style","margin: 0; padding: 0; border: none; width: 100%; height: 300px;"))]))]));
+       return Default.Div(List.ofArray([Default.IFrame(List.ofArray([(_this=Default.Attr(),_this.NewAttr("src","/extjs/2")),(_this1=Default.Attr(),_this1.NewAttr("style","margin: 0; padding: 0; border: none; width: 100%; height: 440px;"))]))]));
       }
      }),
      ExtControl:Runtime.Class({

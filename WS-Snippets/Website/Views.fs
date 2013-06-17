@@ -163,6 +163,7 @@ module Views =
     let snippet id =
         let title, metaDesc, desc, tags, control = Controls.hashset |> Seq.find (fun x -> x.Id = id) |> fun x -> x.Title, x.MetaDesc, x.Description, x.Tags, x.Control
         let title' = title + " | WebSharper Snippets"
+        let desc' = Element.VerbatimContent desc
         let path = HttpContext.Current.Server.MapPath <| "~/Source/" + string id + ".txt"
         let source = File.ReadAllText path
         let elt = Element.VerbatimContent source
@@ -176,15 +177,15 @@ module Views =
                         Shared.navigation
                         Div [
                             H2 [Text title]
-                            P [Text desc]
+                            desc'
                         ]
-                        Div [Style "height: 400px;"] -< [
+                        Div [Style "height: 500px;"] -< [
                             Div [Class "tabbable"] -< [
                                 UL [Class "nav nav-tabs"] -< [
                                     LI [Class "active"] -< [A [HRef "#demo"; HTML5.Data "toggle" "tab"] -< [Text "Demo"]]
                                     LI [A [HRef "#source"; HTML5.Data "toggle" "tab"] -< [Text "Source"]]
                                 ]
-                                Div [Class "tab-content"; Style "height: 300px;"] -< [
+                                Div [Class "tab-content"; Style "height: 450px;"] -< [
                                     Div [Class "tab-pane active"; Id "demo"] -< [control]
                                     Div [Class "tab-pane"; Id "source"] -< [elt]
                                 ]

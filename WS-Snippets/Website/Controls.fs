@@ -101,7 +101,7 @@ module Controls =
             inherit Web.Control()
 
             [<JavaScript>]
-            override __.Body = Div [IFrame [Attr.Src "/extjs/1"; Attr.Style "margin: 0; padding: 0; border: none; width: 100%; height: 300px;"]] :> _
+            override __.Body = Div [IFrame [Attr.Src "/extjs/1"; Attr.Style "margin: 0; padding: 0; border: none; width: 100%; height: 440px;"]] :> _
 
         type ExtControl() =
             inherit Web.Control()
@@ -199,7 +199,7 @@ module Controls =
             inherit Web.Control()
 
             [<JavaScript>]
-            override __.Body = Div [IFrame [Attr.Src "/extjs/2"; Attr.Style "margin: 0; padding: 0; border: none; width: 100%; height: 300px;"]] :> _
+            override __.Body = Div [IFrame [Attr.Src "/extjs/2"; Attr.Style "margin: 0; padding: 0; border: none; width: 100%; height: 440px;"]] :> _
 
         type ExtControl() =
             inherit Web.Control()
@@ -261,7 +261,7 @@ module Controls =
                 1
                 "Hello World"
                 "WebSharper hello world example."
-                "This example inserts a button in the DOM that displays an alert saying \"Hello, world!\" when clicked. WebSharper's HTML combinators are used to generate the markup."
+                "<div>This example inserts a button in the DOM that displays an alert saying \"Hello, world!\" when clicked. <strong>WebSharper</strong>'s HTML combinators are used to generate the markup.</div>"
                 ["WEBSHARPER"; "HTML"]
                 <| new Snippet1.Control()
 

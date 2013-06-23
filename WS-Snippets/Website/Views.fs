@@ -51,10 +51,10 @@ module Views =
                 ])    
         withMainTemplate Home.title Home.metaDescription <| fun ctx ->
             [
+                Home.navigation
                 Div [new Forkme.Control()]
                 Div [Id "wrap"] -< [
                     Div [Class "container"; Style "width: 1000px;"] -< [
-                        Home.navigation
                         HTML5.Header [Class "hero-unit"; Style "background-color: white; height: 80px;"] -< [
                             Div [Class "text-center"] -< [
                                 H1 [Text "WebSharper Code Snippets"]
@@ -85,10 +85,10 @@ module Views =
     let about =
         withMainTemplate About.title About.metaDescription <| fun ctx ->
             [
+                About.navigation
                 Div [new Forkme.Control()]
                 Div [Id "wrap"] -< [
-                    Div [Class "container"; Style "width: 1000px;"] -< [
-                        About.navigation
+                    Div [Class "container"; Style "width: 1000px; padding-top: 60px;"] -< [
                         HTML5.Header [H1 [Text "About"]]
                         P [
                             Text "This application is built with "
@@ -115,9 +115,9 @@ module Views =
                 | None        -> Action.Admin
                 |> ctx.Link
             [
+                Shared.navigation
                 Div [Id "wrap"] -< [
-                    Div [Class "container"; Style "width: 1000px;"] -< [
-                        Shared.navigation
+                    Div [Class "container"; Style "width: 1000px; padding-top: 60px;"] -< [
                         Div [new Login.Control(redirectLink)]
                     ]
                 ]
@@ -127,10 +127,10 @@ module Views =
     let admin =
         withMainTemplate "Admin" "" <| fun ctx ->
             [
+                Shared.navigation
                 Div [Id "main"] -< [
-                    Div [Class "container"; Style "width: 1000px;"] -< [
+                    Div [Class "container"; Style "width: 1000px; padding-top: 60px;"] -< [
                         loginInfo' ctx
-                        Shared.navigation
                         Div [Style "margin-top: 80px;"] -< [
                             H3 [Text "Insert a new snippet"]
                             Div [new InsertSnippet.Control()]
@@ -148,9 +148,9 @@ module Views =
     let error =
         withMainTemplate "Error - Page Not Found" "" <| fun ctx ->
             [
+                Shared.navigation
                 Div [Id "wrap"] -< [
-                    Div [Class "container"; Style "width: 1000px;"] -< [
-                        Shared.navigation
+                    Div [Class "container"; Style "width: 1000px; padding-top: 60px;"] -< [
                         Div [Style "margin-top: 80px;"] -< [
                             H3 [Text "Page Not Found"]
                             P [Text "The requested URL doesn't exist."]
@@ -172,9 +172,9 @@ module Views =
             A [HRef href] -< [Button [Class "btn btn-info"; Style "margin-right: 5px;"] -< [Text x]])
         withMainTemplate title' metaDesc <| fun ctx ->
             [
+                Shared.navigation
                 Div [Id "wrap"] -< [
-                    Div [Class "container"; Style "width: 1000px;"] -< [
-                        Shared.navigation
+                    Div [Class "container"; Style "width: 1000px; padding-top: 60px;"] -< [
                         Div [
                             H2 [Text title]
                             desc'
@@ -205,9 +205,9 @@ module Views =
     let highlight =
         withMainTemplate "" "" <| fun ctx ->
             [
+                Shared.navigation
                 Div [Id "wrap"] -< [
-                    Div [Class "container"; Style "width: 1000px;"] -< [
-                        Shared.navigation
+                    Div [Class "container"; Style "width: 1000px; padding-top: 60px;"] -< [
                         H3 [Text "F# Code"]
                         TextArea [Id "code-textarea"; Style "overflow: scroll; word-wrap: normal; height: 300px;"; Class "span12"; HTML5.SpellCheck "false"]
                         Div [Style "padding: 10px 0px 10px 0px; padding-left: 0px"] -< [
@@ -262,10 +262,10 @@ module Views =
                         ])
         withMainTemplate About.title About.metaDescription <| fun ctx ->
             [
+                About.navigation
                 Div [new Forkme.Control()]
                 Div [Id "wrap"] -< [
-                    Div [Class "container"; Style "width: 1000px;"] -< [
-                        About.navigation
+                    Div [Class "container"; Style "width: 1000px; padding-top: 60px;"] -< [
                         Div [
                             HTML5.Header [
                                 H1 [Text <| "Snippets tagged \"" + tag' + "\""]
@@ -335,10 +335,10 @@ module Views =
                 Div [ul; pagination]
         withMainTemplate "" "" <| fun ctx ->
             [
+                Shared.navigation
                 Div [new Forkme.Control()]
                 Div [Id "wrap"] -< [
-                    Div [Class "container"; Style "width: 1000px;"] -< [
-                        Shared.navigation
+                    Div [Class "container"; Style "width: 1000px; padding-top: 60px;"] -< [
                         Div [Class "pull-down"] -< [
                             HTML5.Header [
                                 H3 [Text "Results"]

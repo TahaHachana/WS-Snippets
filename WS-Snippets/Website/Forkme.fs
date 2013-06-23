@@ -12,6 +12,7 @@ module Forkme =
                 Src "https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png"
                 Alt "Fork me on GitHub"
                 Id "forkme"
+                Attr.Style "z-index: 2000;"
             ]
         ]
 

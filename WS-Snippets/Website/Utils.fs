@@ -21,18 +21,18 @@ module Utils =
                     else
                         LI [A [HRef href] -< [Text txt]]
 
-//        let nav activeLiOption =
-//            let li' = li activeLiOption
-//            Div [Class "navbar navbar-fixed-top navbar-inverse"] -< [
-//                Div [Class "navbar-inner"] -< [
-//                    Div [Class "container"] -< [
-//                        UL [Class "nav"] -< [
-//                            li' "/"      "Home"
-//                            li' "/about" "About"
-//                        ]
-//                    ]
-//                ]
-//            ]
+        let nav activeLiOption =
+            let li' = li activeLiOption
+            Div [Class "navbar navbar-fixed-top"] -< [
+                Div [Class "navbar-inner"] -< [
+                    Div [Class "container"; Style "width: 1000px;"] -< [
+                        UL [Class "nav"] -< [
+                            li' "/"      "Home"
+                            li' "/about" "About"
+                        ]
+                    ]
+                ]
+            ]
 //<div class="masthead">
 //        <ul class="nav nav-pills pull-right">
 //          <li class="active"><a href="#">Home</a></li>
@@ -41,15 +41,15 @@ module Utils =
 //        </ul>
 //        <h3 class="muted">Project name</h3>
 //      </div>
-        let nav activeLiOption =
-            let li' = li activeLiOption
-            Div [Style "margin-top: 20px; margin-bottom: 50px;"] -< [// "background-color: rgb(21, 51, 68); padding: 10px; border-radius: 10px;"] -< [
-                UL [Class "nav nav-pills pull-right"; Style "padding: 20px;"] -< [
-                    li' "/"      "Home"
-                    li' "/about" "About"
-                ]
-                H3 [Class "muted"] -< [Text "WebSharper Snippets"]
-            ]
+//        let nav activeLiOption =
+//            let li' = li activeLiOption
+//            Div [Style "margin-top: 20px; margin-bottom: 50px;"] -< [// "background-color: rgb(21, 51, 68); padding: 10px; border-radius: 10px;"] -< [
+//                UL [Class "nav nav-pills pull-right"; Style "padding: 20px;"] -< [
+//                    li' "/"      "Home"
+//                    li' "/about" "About"
+//                ]
+//                H3 [Class "muted"] -< [Text "WebSharper Snippets"]
+//            ]
 
         let (=>) anchor href = A [HRef href] -< [Text anchor]
     

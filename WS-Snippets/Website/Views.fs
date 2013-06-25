@@ -54,11 +54,11 @@ module Views =
                 Home.navigation
                 Div [new Forkme.Control()]
                 Div [Id "wrap"] -< [
-                    Div [Class "container"; Style "width: 1000px;"] -< [
+                    Div [Class "container"; Style "width: 1000px; padding-top: 60px;"] -< [
                         HTML5.Header [Class "hero-unit"; Style "background-color: white; height: 80px;"] -< [
                             Div [Class "text-center"] -< [
                                 H1 [Text "WebSharper Code Snippets"]
-                                P [Text "Snippets and examples of WebSharper code with live demos."]
+                                P [Class "lead"; Style "padding-top: 10px;"] -< [Text "Snippets and examples of WebSharper code with live demos."]
                                 HR []
                             ]
                         ]
@@ -88,7 +88,7 @@ module Views =
                 About.navigation
                 Div [new Forkme.Control()]
                 Div [Id "wrap"] -< [
-                    Div [Class "container"; Style "width: 1000px; padding-top: 60px;"] -< [
+                    Div [Class "container"; Style "width: 1000px; padding-top: 100px;"] -< [
                         HTML5.Header [H1 [Text "About"]]
                         P [
                             Text "This application is built with "
@@ -117,7 +117,7 @@ module Views =
             [
                 Shared.navigation
                 Div [Id "wrap"] -< [
-                    Div [Class "container"; Style "width: 1000px; padding-top: 60px;"] -< [
+                    Div [Class "container"; Style "width: 1000px; padding-top: 100px;"] -< [
                         Div [new Login.Control(redirectLink)]
                     ]
                 ]
@@ -129,7 +129,7 @@ module Views =
             [
                 Shared.navigation
                 Div [Id "main"] -< [
-                    Div [Class "container"; Style "width: 1000px; padding-top: 60px;"] -< [
+                    Div [Class "container"; Style "width: 1000px; padding-top: 100px;"] -< [
                         loginInfo' ctx
                         Div [Style "margin-top: 80px;"] -< [
                             H3 [Text "Insert a new snippet"]
@@ -150,7 +150,7 @@ module Views =
             [
                 Shared.navigation
                 Div [Id "wrap"] -< [
-                    Div [Class "container"; Style "width: 1000px; padding-top: 60px;"] -< [
+                    Div [Class "container"; Style "width: 1000px; padding-top: 100px;"] -< [
                         Div [Style "margin-top: 80px;"] -< [
                             H3 [Text "Page Not Found"]
                             P [Text "The requested URL doesn't exist."]
@@ -173,8 +173,9 @@ module Views =
         withMainTemplate title' metaDesc <| fun ctx ->
             [
                 Shared.navigation
+                Div [new Forkme.Control()]                
                 Div [Id "wrap"] -< [
-                    Div [Class "container"; Style "width: 1000px; padding-top: 60px;"] -< [
+                    Div [Class "container"; Style "width: 1000px; padding-top: 100px;"] -< [
                         Div [
                             H2 [Text title]
                             desc'
@@ -207,7 +208,7 @@ module Views =
             [
                 Shared.navigation
                 Div [Id "wrap"] -< [
-                    Div [Class "container"; Style "width: 1000px; padding-top: 60px;"] -< [
+                    Div [Class "container"; Style "width: 1000px; padding-top: 100px;"] -< [
                         H3 [Text "F# Code"]
                         TextArea [Id "code-textarea"; Style "overflow: scroll; word-wrap: normal; height: 300px;"; Class "span12"; HTML5.SpellCheck "false"]
                         Div [Style "padding: 10px 0px 10px 0px; padding-left: 0px"] -< [
@@ -265,7 +266,7 @@ module Views =
                 About.navigation
                 Div [new Forkme.Control()]
                 Div [Id "wrap"] -< [
-                    Div [Class "container"; Style "width: 1000px; padding-top: 60px;"] -< [
+                    Div [Class "container"; Style "width: 1000px; padding-top: 100px;"] -< [
                         Div [
                             HTML5.Header [
                                 H1 [Text <| "Snippets tagged \"" + tag' + "\""]
@@ -279,7 +280,7 @@ module Views =
 
     let extjs id =
         let control = Controls.hashset'' |> Seq.find (fun x -> x.Id = id) |> fun x -> x.Control
-        ExtjsSkin.withTemplate //<| fun ctx ->
+        ExtjsSkin.withTemplate
             [
                 Div [control]
             ]
@@ -338,7 +339,7 @@ module Views =
                 Shared.navigation
                 Div [new Forkme.Control()]
                 Div [Id "wrap"] -< [
-                    Div [Class "container"; Style "width: 1000px; padding-top: 60px;"] -< [
+                    Div [Class "container"; Style "width: 1000px; padding-top: 100px;"] -< [
                         Div [Class "pull-down"] -< [
                             HTML5.Header [
                                 H3 [Text "Results"]

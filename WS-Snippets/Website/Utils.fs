@@ -14,18 +14,19 @@ module Utils =
 
         let li activeLiOption href txt =
             match activeLiOption with
-                | None          -> LI [A [HRef href] -< [Text txt]]
+                | None          -> LI [A [HRef href; Style "padding: 15px"] -< [Text txt]]
                 | Some activeLi ->
                     if txt = activeLi then
-                        LI [Class "active"] -< [A [HRef href] -< [Text txt]]
+                        LI [Class "active"] -< [A [HRef href; Style "padding: 15px"] -< [Text txt]]
                     else
-                        LI [A [HRef href] -< [Text txt]]
+                        LI [A [HRef href; Style "padding: 15px"] -< [Text txt]]
 
         let nav activeLiOption =
             let li' = li activeLiOption
-            Div [Class "navbar navbar-fixed-top"] -< [
+            Div [Class "navbar navbar-inverse navbar-fixed-top"] -< [
                 Div [Class "navbar-inner"] -< [
                     Div [Class "container"; Style "width: 1000px;"] -< [
+                        A [Class "brand"; HRef "/"; Style "padding: 15px;"] -< [Text "WS Snippets"]
                         UL [Class "nav"] -< [
                             li' "/"      "Home"
                             li' "/about" "About"

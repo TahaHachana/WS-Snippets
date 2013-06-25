@@ -32,23 +32,23 @@ module Views =
         A [HRef href] -< [Button [Class "btn btn-info"; Style "margin-right: 5px;"] -< [Text x]])
 
     let home =
-        let snippets =
-            Snippets.latest10()
-            |> Seq.toList
-            |> split 2
-            |> List.map (fun lst ->
-                let snip = lst.[0]
-                let snip' = lst.[1]
-                Div [Class "row"] -< [
-                    Div [Class "span4"] -< [
-                        H4 [A [HRef <| "/snippet/" + snip.SnipId.ToString()] -< [Text snip.Title]]
-                        P [Text snip.Desc]
-                    ]
-                    Div [Class "offset1 span4"] -< [
-                        H4 [A [HRef <| "/snippet/" + snip'.SnipId.ToString()] -< [Text snip'.Title]]
-                        P [Text snip'.Desc]
-                    ]
-                ])    
+//        let snippets =
+//            Snippets.latest10()
+//            |> Seq.toList
+//            |> split 2
+//            |> List.map (fun lst ->
+//                let snip = lst.[0]
+//                let snip' = lst.[1]
+//                Div [Class "row"] -< [
+//                    Div [Class "span4"] -< [
+//                        H4 [A [HRef <| "/snippet/" + snip.SnipId.ToString()] -< [Text snip.Title]]
+//                        P [Text snip.Desc]
+//                    ]
+//                    Div [Class "offset1 span4"] -< [
+//                        H4 [A [HRef <| "/snippet/" + snip'.SnipId.ToString()] -< [Text snip'.Title]]
+//                        P [Text snip'.Desc]
+//                    ]
+//                ])    
         withMainTemplate Home.title Home.metaDescription <| fun ctx ->
             [
                 Home.navigation
@@ -68,7 +68,7 @@ module Views =
                                 Div [Style "height: 30px; width: 312px;"; Class "pull-right"] -< [new AddThis.Control()]
                                 HTML5.Section [Style "clear: both;"] -< [
                                     yield H3 [Text "Latest snippets"]
-                                    yield! snippets
+//                                    yield! snippets
                                     yield HR []
                                 ]
                                 HTML5.Section [Style "margin-bottom: 100px;"] -< [
@@ -176,8 +176,8 @@ module Views =
                 Div [new Forkme.Control()]                
                 Div [Id "wrap"] -< [
                     Div [Class "container"; Style "width: 1000px; padding-top: 100px;"] -< [
-                        Div [
-                            H2 [Text title]
+                        Div [Id "snippet-details"] -< [
+                            H1 [Text title]
                             desc'
                         ]
                         Div [Style "height: 500px;"] -< [

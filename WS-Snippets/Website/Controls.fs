@@ -30,17 +30,22 @@ module Controls =
     let hashset'' = HashSet<ExtSnippet>()
 
     module Snippet1 =
-//        [<JavaScript>]
-//        let private main() =
-//            Default.Button [Text "Press Me"; Attr.Class "btn btn-primary btn-large"]
-//            |>! OnClick (fun _ _ -> JavaScript.Alert "Hello, world!")
-//
-//        type Control() =
-//            inherit Web.Control()
-//
-//            [<JavaScript>]
-//            override __.Body = main() :> _
-//
+        [<JavaScript>]
+        module private Client =
+
+            // Displays a greeting.
+            [<JavaScript>]
+            let main() =
+                let greeting = "Hello World!"
+                // Append an <h2> tag containing the greeting text to the DOM.
+                H2 [Text greeting]
+
+        type Control() =
+            inherit Web.Control()
+
+            [<JavaScript>]
+            override __.Body = Client.main() :> _
+
 //    module Snippet2 =
 //        [<JavaScript>]
 //        let private main() =
@@ -261,8 +266,8 @@ module Controls =
                 1
                 "Hello World"
                 "WebSharper hello world example."
-                "<div>This example inserts a button in the DOM that displays an alert saying \"Hello, world!\" when clicked. <strong>WebSharper</strong>'s HTML combinators are used to generate the markup.</div>"
-                ["WEBSHARPER"; "HTML"]
+                "<div>This snippet uses <strong>WebSharper</strong>'s HTML combinators to append an <code>&lt;h2&gt;</code> heading containing a greeting message to the DOM.</div>"
+                ["WEBSHARPER"; "HTML"; "DOM"]
                 <| new Snippet1.Control()
 
 //        let snippet2 =

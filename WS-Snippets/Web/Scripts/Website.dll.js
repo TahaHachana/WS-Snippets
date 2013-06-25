@@ -1,6 +1,6 @@
 (function()
 {
- var Global=this,Runtime=this.IntelliFactory.Runtime,Website,AddThis,WebSharper,Html,Default,HTML5,List,T,Controls,Snippet1,alert,EventsPervasives,Snippet10,Snippet2,Snippet3,JavaScript,Operators,Snippet4,JQueryUI,Button,Snippet5,Ext,Snippet6,jQuery,Seq,Snippet7,DialogConfiguration,Dialog,Snippet8,Snippet9,AutocompleteConfiguration,Autocomplete,Forkme,Remoting,Concurrency,Highlight,Client,Formlet,Controls1,Enhance,Data,Formlet1,Index,Client1,InsertSnippet,Client2,Login,Client3,window,Search,Client4,Strings,encodeURIComponent,Arrays;
+ var Global=this,Runtime=this.IntelliFactory.Runtime,Website,AddThis,WebSharper,Html,Default,HTML5,List,T,Controls,Snippet1,Client,Forkme,Operators,jQuery,EventsPervasives,Remoting,Concurrency,alert,Highlight,Client1,Formlet,Controls1,Enhance,Data,Formlet1,Index,Client2,JavaScript,InsertSnippet,Client3,Login,Client4,window,Search,Client5,Strings,encodeURIComponent,Arrays;
  Runtime.Define(Global,{
   Website:{
    AddThis:{
@@ -22,327 +22,17 @@
    },
    Controls:{
     Snippet1:{
-     Control:Runtime.Class({
-      get_Body:function()
+     Client:{
+      main:function()
       {
-       return Snippet1.main();
+       return Default.H2(List.ofArray([Default.Text("Hello World!")]));
       }
-     }),
-     main:function()
-     {
-      var x,f,x1;
-      x=Default.Button(List.ofArray([Default.Text("Press Me"),Default.Attr().Class("btn btn-primary btn-large")]));
-      f=(x1=function()
-      {
-       return function()
-       {
-        return alert("Hello, world!");
-       };
-      },function(arg10)
-      {
-       return EventsPervasives.Events().OnClick(x1,arg10);
-      });
-      f(x);
-      return x;
-     }
-    },
-    Snippet10:{
-     Control:Runtime.Class({
-      get_Body:function()
-      {
-       return Snippet10.main();
-      }
-     }),
-     main:function()
-     {
-      var elt,_this,x,_this1,canvas,ctx;
-      elt=(_this=HTML5.Tags(),(x=List.ofArray([Default.Text("Fallback content goes here."),(_this1=Default.Attr(),_this1.NewAttr("style","border: 1px solid;"))]),_this.NewTag("canvas",x)));
-      canvas=elt.Body;
-      canvas.height=200;
-      canvas.width=400;
-      ctx=canvas.getContext("2d");
-      ctx.fillStyle="blue";
-      ctx.fillRect(50,50,300,100);
-      return elt;
-     }
-    },
-    Snippet2:{
-     Control:Runtime.Class({
-      get_Body:function()
-      {
-       return Snippet2.main();
-      }
-     }),
-     main:function()
-     {
-      var elt,_this,x,_this1,canvas,ctx;
-      elt=(_this=HTML5.Tags(),(x=List.ofArray([Default.Text("Fallback content goes here."),(_this1=Default.Attr(),_this1.NewAttr("style","border: 1px solid"))]),_this.NewTag("canvas",x)));
-      canvas=elt.Body;
-      canvas.height=100;
-      canvas.width=400;
-      ctx=canvas.getContext("2d");
-      ctx.font="40px sans-serif";
-      ctx.fillText("Hello Canvas",90,50);
-      return elt;
-     }
-    },
-    Snippet3:{
-     Control:Runtime.Class({
-      get_Body:function()
-      {
-       return Snippet3.main();
-      }
-     }),
-     main:function()
-     {
-      var x,f,f1;
-      x=Default.Div(List.ofArray([Default.Text("Hello")]));
-      f=(f1=function(elt)
-      {
-       return JavaScript.Log(elt.get_Text());
-      },function(w)
-      {
-       return Operators.OnAfterRender(f1,w);
-      });
-      f(x);
-      return x;
-     }
-    },
-    Snippet4:{
-     Control:Runtime.Class({
-      get_Body:function()
-      {
-       return Snippet4.main();
-      }
-     }),
-     main:function()
-     {
-      return Button.New4("Button");
-     }
-    },
-    Snippet5:{
-     Control:Runtime.Class({
-      get_Body:function()
-      {
-       var _this,_this1;
-       return Default.Div(List.ofArray([Default.IFrame(List.ofArray([(_this=Default.Attr(),_this.NewAttr("src","/extjs/1")),(_this1=Default.Attr(),_this1.NewAttr("style","margin: 0; padding: 0; border: none; width: 100%; height: 440px;"))]))]));
-      }
-     }),
-     ExtControl:Runtime.Class({
-      get_Body:function()
-      {
-       return Snippet5.main();
-      }
-     }),
-     main:function()
-     {
-      var x,f,f1;
-      x=Default.Div(Runtime.New(T,{
-       $:0
-      }));
-      f=(f1=function()
-      {
-       return Ext.onReady(function()
-       {
-        return Snippet5.viewport();
-       });
-      },function(w)
-      {
-       return Operators.OnAfterRender(f1,w);
-      });
-      f(x);
-      return x;
      },
-     viewport:function()
-     {
-      var config,_config_,x,f;
-      config={};
-      _config_={};
-      config.title="Ext JS Panel";
-      config.html="Hello, world!";
-      _config_.layout="fit";
-      _config_.items=[config];
-      x=new Ext.container.Viewport(_config_);
-      f=function(value)
-      {
-       value;
-      };
-      return f(x);
-     }
-    },
-    Snippet6:{
      Control:Runtime.Class({
       get_Body:function()
       {
-       return Snippet6.canvas();
+       return Client.main();
       }
-     }),
-     canvas:function()
-     {
-      var elt,_this,x,_this1,canvas,ctx,f,f1;
-      elt=(_this=HTML5.Tags(),(x=List.ofArray([(_this1=Default.Attr(),_this1.NewAttr("style","display: none;"))]),_this.NewTag("canvas",x)));
-      canvas=elt.Body;
-      canvas.height=400;
-      canvas.width=600;
-      ctx=canvas.getContext("2d");
-      ctx.font="60px 'Gill Sans Ultra Bold'";
-      ctx.fillText("HTML",40,60);
-      ctx.translate(0,70);
-      Snippet6.drawShape(ctx,"#E34C26",44,255,List.ofArray([[22,5],[267,5],[244,255],[144,283]]));
-      Snippet6.drawShape(ctx,"#F06529",144,262,List.ofArray([[225,239],[244,25],[144,25]]));
-      Snippet6.drawShape(ctx,"#EBEBEB",144,118,List.ofArray([[103,118],[101,87],[144,87],[144,56],[67,56],[75,149],[144,149]]));
-      Snippet6.drawShape(ctx,"#EBEBEB",144,198,List.ofArray([[110,189],[108,164],[77,164],[81,212],[144,230]]));
-      Snippet6.drawShape(ctx,"#FFFFFF",144,118,List.ofArray([[144,149],[182,149],[178,189],[144,198],[144,230],[207,212],[215,118]]));
-      Snippet6.drawShape(ctx,"#FFFFFF",144,56,List.ofArray([[144,87],[218,87],[221,56]]));
-      f=(f1=function(x1)
-      {
-       return jQuery(x1.Body).fadeIn(1000);
-      },function(w)
-      {
-       return Operators.OnAfterRender(f1,w);
-      });
-      f(elt);
-      return elt;
-     },
-     drawLine:function(ctx,x,y)
-     {
-      return ctx.lineTo(x,y);
-     },
-     drawPaths:function(ctx,coords)
-     {
-      var f,action;
-      f=(action=Runtime.Tupled(function(tupledArg)
-      {
-       var x,y;
-       x=tupledArg[0];
-       y=tupledArg[1];
-       return Snippet6.drawLine(ctx,x,y);
-      }),function(list)
-      {
-       return Seq.iter(action,list);
-      });
-      f(coords);
-      ctx.closePath();
-      return ctx.fill();
-     },
-     drawShape:function(_,_1,_2,_3,_4)
-     {
-      return((Runtime.Tupled(function(moveTo)
-      {
-       return function(coords)
-       {
-        _.fillStyle=_1;
-        _.beginPath();
-        (Runtime.Tupled(function(tupledArg)
-        {
-         var arg00,arg01;
-         arg00=tupledArg[0];
-         arg01=tupledArg[1];
-         return _.moveTo(arg00,arg01);
-        }))(moveTo);
-        return Snippet6.drawPaths(_,coords);
-       };
-      }))([_2,_3]))(_4);
-     }
-    },
-    Snippet7:{
-     Control:Runtime.Class({
-      get_Body:function()
-      {
-       return Snippet7.main();
-      }
-     }),
-     main:function()
-     {
-      var config,dialog,btn;
-      config=DialogConfiguration.New();
-      config.autoOpen=false;
-      config.modal=true;
-      config.title="Modal Dialog";
-      dialog=Dialog.New1(Default.P(List.ofArray([Default.Text("This is a jQuery UI modal dialog.")])),config);
-      btn=Button.New4("Press Me");
-      dialog.OnClose(function()
-      {
-       return btn.Enable();
-      });
-      btn.OnClick(function()
-      {
-       btn.Disable();
-       return jQuery(dialog.element.Body).dialog("open");
-      });
-      return Default.Div(List.ofArray([btn,dialog]));
-     }
-    },
-    Snippet8:{
-     Control:Runtime.Class({
-      get_Body:function()
-      {
-       var _this,_this1;
-       return Default.Div(List.ofArray([Default.IFrame(List.ofArray([(_this=Default.Attr(),_this.NewAttr("src","/extjs/2")),(_this1=Default.Attr(),_this1.NewAttr("style","margin: 0; padding: 0; border: none; width: 100%; height: 440px;"))]))]));
-      }
-     }),
-     ExtControl:Runtime.Class({
-      get_Body:function()
-      {
-       return Snippet8.main();
-      }
-     }),
-     main:function()
-     {
-      var x,f,x1;
-      return Default.Div(List.ofArray([(x=Default.Button(List.ofArray([Default.Text("Open Ext JS Window"),Default.Attr().Class("btn btn-primary")])),(f=(x1=function()
-      {
-       return function()
-       {
-        return Ext.onReady(function()
-        {
-         return Snippet8.window();
-        });
-       };
-      },function(arg10)
-      {
-       return EventsPervasives.Events().OnClick(x1,arg10);
-      }),(f(x),x)))]));
-     },
-     window:function()
-     {
-      var config,x,f;
-      config={};
-      config.title="Ext JS Window";
-      config.width=400;
-      config.height=300;
-      config.maximizable=true;
-      x=new Ext.window.Window(config);
-      f=function(x1)
-      {
-       return x1.show();
-      };
-      return f(x);
-     }
-    },
-    Snippet9:{
-     Control:Runtime.Class({
-      get_Body:function()
-      {
-       return Snippet9.main();
-      }
-     }),
-     main:function()
-     {
-      var config,returnVal,input,_this,_this1,x,f,el,x1,_this2,_this3,inner;
-      config=(returnVal=[AutocompleteConfiguration.New()],(null,returnVal[0].source=Snippet9.states(),returnVal[0]));
-      input=Default.Input(List.ofArray([(_this=Default.Attr(),_this.NewAttr("id","state-input")),(_this1=HTML5.Attr(),_this1.NewAttr("autofocus","true"))]));
-      x=Autocomplete.New1(input,config);
-      f=function(value)
-      {
-       value;
-      };
-      f(x);
-      return Operators.add(Default.Div(List.ofArray([Default.Attr().Class("ui-widget")])),List.ofArray([(el=(x1=List.ofArray([(_this2=Default.Attr(),_this2.NewAttr("for","state-input"))]),(_this3=Default.Tags(),_this3.NewTag("label",x1))),(inner=Default.Text("State: "),Operators.add(el,List.ofArray([inner])))),input]));
-     },
-     states:Runtime.Field(function()
-     {
-      return["Alabama","Alaska","American Samoa","Arizona","Arkansas","California","Colorado","Connecticut","Delaware","District of Columbia","Florida","Georgia","Guam","Hawaii","Idaho","Illinois","Indiana","Iowa","Kansas","Kentucky","Louisiana","Maine","Maryland","Massachusetts","Michigan","Minnesota","Mississippi","Missouri","Montana","Nebraska","Nevada","New Hampshire","New Jersey","New Mexico","New York","North Carolina","North Dakota","Northern Marianas Islands","Ohio","Oklahoma","Oregon","Pennsylvania","Puerto Rico","Rhode Island","South Carolina","South Dakota","Tennessee","Texas","Utah","Vermont","Virginia","Virgin Islands","Washington","West Virginia","Wisconsin","Wyoming"];
      })
     }
    },
@@ -454,13 +144,13 @@
      },
      main:function()
      {
-      return Default.Div(List.ofArray([Client.highlightBtn(),Client.clearBtn()]));
+      return Default.Div(List.ofArray([Client1.highlightBtn(),Client1.clearBtn()]));
      }
     },
     Control:Runtime.Class({
      get_Body:function()
      {
-      return Client.main();
+      return Client1.main();
      }
     })
    },
@@ -533,7 +223,7 @@
     Control:Runtime.Class({
      get_Body:function()
      {
-      return Client1.main();
+      return Client2.main();
      }
     })
    },
@@ -615,7 +305,7 @@
     Control:Runtime.Class({
      get_Body:function()
      {
-      return Client2.main();
+      return Client3.main();
      }
     })
    },
@@ -635,7 +325,7 @@
          var x3,f2;
          x3=Remoting.Async("Website:1",[{
           Name:userInput.get_Value(),
-          Password:Client3.passInput().get_Value()
+          Password:Client4.passInput().get_Value()
          }]);
          f2=function(_arg11)
          {
@@ -666,7 +356,7 @@
       {
        return EventsPervasives.Events().OnClick(x1,arg10);
       }),(f(x),x)));
-      return Default.Form(List.ofArray([(x4=List.ofArray([(x5=List.ofArray([Default.Text("Login")]),(_this4=Default.Tags(),_this4.NewTag("legend",x5))),(x6=List.ofArray([Default.Text("Username")]),(_this5=Default.Tags(),_this5.NewTag("label",x6))),userInput,(x7=List.ofArray([Default.Text("Password")]),(_this6=Default.Tags(),_this6.NewTag("label",x7))),Client3.passInput()]),(_this7=Default.Tags(),_this7.NewTag("fieldset",x4))),(x8=List.ofArray([submitBtn]),(_this8=Default.Tags(),_this8.NewTag("fieldset",x8)))]));
+      return Default.Form(List.ofArray([(x4=List.ofArray([(x5=List.ofArray([Default.Text("Login")]),(_this4=Default.Tags(),_this4.NewTag("legend",x5))),(x6=List.ofArray([Default.Text("Username")]),(_this5=Default.Tags(),_this5.NewTag("label",x6))),userInput,(x7=List.ofArray([Default.Text("Password")]),(_this6=Default.Tags(),_this6.NewTag("label",x7))),Client4.passInput()]),(_this7=Default.Tags(),_this7.NewTag("fieldset",x4))),(x8=List.ofArray([submitBtn]),(_this8=Default.Tags(),_this8.NewTag("fieldset",x8)))]));
      },
      passInput:Runtime.Field(function()
      {
@@ -698,7 +388,7 @@
     Control:Runtime.Class({
      get_Body:function()
      {
-      return Client3.loginForm(this.redirectUrl);
+      return Client4.loginForm(this.redirectUrl);
      }
     })
    },
@@ -720,7 +410,7 @@
          }
         else
          {
-          return Client4.suggest(elt.get_Value(),datalist);
+          return Client5.suggest(elt.get_Value(),datalist);
          }
        };
       },function(arg10)
@@ -772,7 +462,7 @@
     Control:Runtime.Class({
      get_Body:function()
      {
-      return Client4.main();
+      return Client5.main();
      }
     })
    }
@@ -790,54 +480,37 @@
   T=Runtime.Safe(List.T);
   Controls=Runtime.Safe(Website.Controls);
   Snippet1=Runtime.Safe(Controls.Snippet1);
-  alert=Runtime.Safe(Global.alert);
-  EventsPervasives=Runtime.Safe(Html.EventsPervasives);
-  Snippet10=Runtime.Safe(Controls.Snippet10);
-  Snippet2=Runtime.Safe(Controls.Snippet2);
-  Snippet3=Runtime.Safe(Controls.Snippet3);
-  JavaScript=Runtime.Safe(WebSharper.JavaScript);
-  Operators=Runtime.Safe(Html.Operators);
-  Snippet4=Runtime.Safe(Controls.Snippet4);
-  JQueryUI=Runtime.Safe(WebSharper.JQueryUI);
-  Button=Runtime.Safe(JQueryUI.Button);
-  Snippet5=Runtime.Safe(Controls.Snippet5);
-  Ext=Runtime.Safe(Global.Ext);
-  Snippet6=Runtime.Safe(Controls.Snippet6);
-  jQuery=Runtime.Safe(Global.jQuery);
-  Seq=Runtime.Safe(WebSharper.Seq);
-  Snippet7=Runtime.Safe(Controls.Snippet7);
-  DialogConfiguration=Runtime.Safe(JQueryUI.DialogConfiguration);
-  Dialog=Runtime.Safe(JQueryUI.Dialog);
-  Snippet8=Runtime.Safe(Controls.Snippet8);
-  Snippet9=Runtime.Safe(Controls.Snippet9);
-  AutocompleteConfiguration=Runtime.Safe(JQueryUI.AutocompleteConfiguration);
-  Autocomplete=Runtime.Safe(JQueryUI.Autocomplete);
+  Client=Runtime.Safe(Snippet1.Client);
   Forkme=Runtime.Safe(Website.Forkme);
+  Operators=Runtime.Safe(Html.Operators);
+  jQuery=Runtime.Safe(Global.jQuery);
+  EventsPervasives=Runtime.Safe(Html.EventsPervasives);
   Remoting=Runtime.Safe(WebSharper.Remoting);
   Concurrency=Runtime.Safe(WebSharper.Concurrency);
+  alert=Runtime.Safe(Global.alert);
   Highlight=Runtime.Safe(Website.Highlight);
-  Client=Runtime.Safe(Highlight.Client);
+  Client1=Runtime.Safe(Highlight.Client);
   Formlet=Runtime.Safe(WebSharper.Formlet);
   Controls1=Runtime.Safe(Formlet.Controls);
   Enhance=Runtime.Safe(Formlet.Enhance);
   Data=Runtime.Safe(Formlet.Data);
   Formlet1=Runtime.Safe(Formlet.Formlet);
   Index=Runtime.Safe(Website.Index);
-  Client1=Runtime.Safe(Index.Client);
+  Client2=Runtime.Safe(Index.Client);
+  JavaScript=Runtime.Safe(WebSharper.JavaScript);
   InsertSnippet=Runtime.Safe(Website.InsertSnippet);
-  Client2=Runtime.Safe(InsertSnippet.Client);
+  Client3=Runtime.Safe(InsertSnippet.Client);
   Login=Runtime.Safe(Website.Login);
-  Client3=Runtime.Safe(Login.Client);
+  Client4=Runtime.Safe(Login.Client);
   window=Runtime.Safe(Global.window);
   Search=Runtime.Safe(Website.Search);
-  Client4=Runtime.Safe(Search.Client);
+  Client5=Runtime.Safe(Search.Client);
   Strings=Runtime.Safe(WebSharper.Strings);
   encodeURIComponent=Runtime.Safe(Global.encodeURIComponent);
   return Arrays=Runtime.Safe(WebSharper.Arrays);
  });
  Runtime.OnLoad(function()
  {
-  Client3.passInput();
-  Snippet9.states();
+  Client4.passInput();
  });
 }());

@@ -129,20 +129,22 @@ module Views =
             [
                 Shared.navigation
                 Div [Id "main"] -< [
-                    Div [Class "container"; Style "width: 1000px; padding-top: 100px;"] -< [
+                    Div [Class "container"; Style "width: 1200px; padding-top: 10px;"] -< [
                         loginInfo' ctx
                         Div [Style "margin-top: 80px;"] -< [
-                            H3 [Text "Insert a new snippet"]
-                            Div [new InsertSnippet.Control()]
-                        ]
-                        HR []
-                        Div [
-                            H3 [Text "Index a new snippet"]
-                            Div [new Index.Control()]
+                            Div [Class "row"] -< [
+                                Div [Class "span6"] -< [
+                                    H3 [Text "Insert a new snippet"]
+                                    Div [new InsertSnippet.Control()]
+                                ]
+                                Div [Class "span6"] -< [
+                                    H3 [Text "Index a new snippet"]
+                                    Div [new Index.Control()]
+                                ]
+                            ]
                         ]
                     ]
                 ]
-                Shared.footer
             ]
 
     let error =

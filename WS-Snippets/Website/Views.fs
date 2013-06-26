@@ -211,7 +211,7 @@ module Views =
                 Div [Id "wrap"] -< [
                     Div [Class "container"; Style "width: 1000px; padding-top: 100px;"] -< [
                         H3 [Text "F# Code"]
-                        TextArea [Id "code-textarea"; Style "overflow: scroll; word-wrap: normal; height: 300px;"; Class "span12"; HTML5.SpellCheck "false"]
+                        TextArea [Id "code-textarea"; Style "overflow: scroll; word-wrap: normal; height: 300px;"; Class "span10"; HTML5.SpellCheck "false"]
                         Div [Style "padding: 10px 0px 10px 0px; padding-left: 0px"] -< [
                             Div [new Highlight.Control()]
                             Div [Img [Style "padding-top: 10px; visibility: hidden;"; Src "Images/Loader.gif"; Id "loader"]]
@@ -223,7 +223,7 @@ module Views =
                                     LI [A [HRef "#html-preview"; HTML5.Data "toggle" "tab"] -< [Text "HTML Preview"]]
                                 ]
                                 Div [Class "tab-content"] -< [
-                                    Div [Class "tab-pane active"; Id "html"] -< [TextArea [Id "html-textarea"; Style "overflow: scroll; word-wrap: normal; height: 300px;"; Class "span12"; HTML5.SpellCheck "false"]]
+                                    Div [Class "tab-pane active"; Id "html"] -< [TextArea [Id "html-textarea"; Style "overflow: scroll; word-wrap: normal; height: 300px;"; Class "span10"; HTML5.SpellCheck "false"]]
                                     Div [Class "tab-pane"; Id "html-preview"; Style "height: 300px;"]
                                 ]
                             ]

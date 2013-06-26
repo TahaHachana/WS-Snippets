@@ -29,6 +29,7 @@ module Controls =
     let hashset'  = HashSet<string>()
     let hashset'' = HashSet<ExtSnippet>()
 
+    // Hello world snippet.
     module Snippet1 =
         [<JavaScript>]
         module private Client =
@@ -46,24 +47,62 @@ module Controls =
             [<JavaScript>]
             override __.Body = Client.main() :> _
 
-//    module Snippet2 =
-//        [<JavaScript>]
-//        let private main() =
-//            let elt = HTML5.Tags.Canvas [Text "Fallback content goes here."; Attr.Style "border: 1px solid"]
-//            let canvas  = As<CanvasElement> elt.Dom
-//            canvas.Height <- 100
-//            canvas.Width  <- 400
-//            let ctx = canvas.GetContext "2d"
-//            ctx.Font <- "40px sans-serif"
-//            ctx.FillText("Hello Canvas", 90., 50.)
-//            elt
-//        
-//        type Control() =
-//            inherit Web.Control()
-//
-//            [<JavaScript>]
-//            override __.Body = main() :> _
-//
+    // HTML5 logo on canvas snippet.
+    module Snippet2 =
+        // Client side code.    
+        [<JavaScript>]
+        module private Client =
+            open IntelliFactory.WebSharper.Html
+            open IntelliFactory.WebSharper.Html5
+
+            // Draws a shape formed by lines that join a list of coordinates.
+            [<JavaScript>]
+            let drawShape (ctx : CanvasRenderingContext2D) style moveTo coords =
+                ctx.FillStyle <- style
+                ctx.BeginPath()
+                ctx.MoveTo moveTo
+                coords |> List.iter (fun (x, y) -> do ctx.LineTo(x, y))
+                do ctx.ClosePath()
+                do ctx.Fill()
+
+            // Draws the shapes that form the HTML5 logo.
+            [<JavaScript>]
+            let drawLogo (ctx : CanvasRenderingContext2D) =
+                // Draw the "HTML" text.
+                ctx.Font <- "60px 'Gill Sans Ultra Bold'"
+                ctx.FillText("HTML", 40., 60.)
+                // Move down.
+                ctx.Translate(0., 70.)
+                // Draw the background.
+                drawShape ctx "#E34C26" (44., 255.) [(22.0, 5.0); (267.0, 5.0); (244.0, 255.0); (144.0, 283.0)]
+                // Draw the shield-shaped right part.
+                drawShape ctx "#F06529" (144., 262.) [(225.0, 239.0); (244.0, 25.0); (144.0, 25.0)]
+                // Draw the 5.
+                drawShape ctx "#EBEBEB" (144., 118.) [(103.0, 118.0); (101.0, 87.0); (144.0, 87.0); (144.0, 56.0); (67.0, 56.0); (75.0, 149.0); (144.0, 149.0)]
+                drawShape ctx "#EBEBEB" (144., 198.) [(110.0, 189.0); (108.0, 164.0); (77.0, 164.0); (81.0, 212.0); (144.0, 230.0)]
+                drawShape ctx "#FFFFFF" (144., 118.) [(144.0, 149.0); (182.0, 149.0); (178.0, 189.0); (144.0, 198.0); (144.0, 230.0); (207.0, 212.0); (215.0, 118.0)]
+                drawShape ctx "#FFFFFF" (144., 56.) [(144.0, 87.0); (218.0, 87.0); (221.0, 56.0)]
+
+            // Draws the HTML5 logo on canvas.
+            [<JavaScript>]
+            let main() =
+                let elt = HTML5.Tags.Canvas [Text "The canvas tag isn't supported by your browser."]
+                do elt.SetStyle "border: 1px solid;"
+                let canvas  = As<CanvasElement> elt.Dom
+                canvas.Height <- 400
+                canvas.Width <- 600
+                let ctx = canvas.GetContext "2d"
+                do drawLogo ctx
+                elt
+
+        // A control for serving the main pagelet.
+        type Control() =
+            inherit Web.Control()
+
+            [<JavaScript>]
+            override __.Body = Client.main() :> _
+
+
 //    module Snippet3 =
 //        [<JavaScript>]
 //        let private main() =
@@ -269,16 +308,17 @@ module Controls =
                 "<div>This snippet uses <strong>WebSharper</strong>'s HTML combinators to append an <code>&lt;h2&gt;</code> heading containing a greeting message to the DOM.</div>"
                 ["WEBSHARPER"; "HTML"; "DOM"]
                 <| new Snippet1.Control()
+        
+        let snippet2 =
+            snippet
+                2
+                "Drawing the HTML5 Logo on Canvas"
+                "Using WebSharper's canvas bindings to draw the HTML5 logo."
+                "<div>This WebSharper sample draws the official W3C HTML5 logo on canvas.</div>"
+                ["HTML5"; "CANVAS"]
+                <| new Snippet2.Control()
 
-//        let snippet2 =
-//            snippet
-//                2
-//                "Drawing Text on an HTML5 Canvas"
-//                "Drawing text on the HTML5 canvas with WebSharper."
-//                "The HTML5 canvas supports drawing text on the fly via JavaScript. This snippets uses the \"FillText\" method to draw \"Hello Canvas\" filled with the default black color after setting the font-size to 40px. The \"StrokeText\" method would draw an outline with no fill."
-//                ["HTML5"; "CANVAS"; "JAVASCRIPT"]
-//                <| new Snippet2.Control()
-//
+
 //        let snippet3 =
 //            snippet
 //                3
@@ -353,7 +393,7 @@ module Controls =
 //        
         [|
             snippet1
-//            snippet2
+            snippet2
 //            snippet3
 //            snippet4
 //            snippet5

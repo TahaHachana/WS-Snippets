@@ -9,8 +9,8 @@ module Content =
     module Shared =
         let navigation : HtmlElement = nav None
         let footer : HtmlElement =
-            HTML5.Footer [Id "footer"; Class "container"; Style "width: 1000px;"] -< [
-                Div [
+            HTML5.Footer [Id "footer"] -< [
+                Div [Class "container"; Style "width: 1000px; padding: 30px;"] -< [
                     P [Style "float: left;"] -< [Text "Built with "] -< [
                         A ["WebSharper" => "http://www.websharper.com/"]
                     ]

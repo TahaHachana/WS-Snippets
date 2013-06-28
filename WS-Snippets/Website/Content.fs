@@ -14,7 +14,7 @@ module Content =
                     P [Style "float: left;"] -< [Text "Built with "] -< [
                         A ["WebSharper" => "http://www.websharper.com/"]
                     ]
-                    P [Class "pull-right"] -< [Text "Created by "] -< [
+                    P [Class "pull-right"] -< [Text "Developed by "] -< [
                         A ["Taha Hachana" => "http://taha-hachana.apphb.com/"]
                     ]
                 ]            

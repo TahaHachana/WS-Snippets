@@ -102,19 +102,38 @@ module Controls =
             [<JavaScript>]
             override __.Body = Client.main() :> _
 
+    module Snippet3 =
+        // Client side code.
+        [<JavaScript>]
+        module Client =
+            // Creates a <tr> element containing two <td> tags.
+            let tr td td' = TR [TD [Text td]; TD [Text td']]
 
-//    module Snippet3 =
-//        [<JavaScript>]
-//        let private main() =
-//            Div [Text "Hello"]
-//            |>! OnAfterRender (fun elt -> JavaScript.Log elt.Text)
-//
-//        type Control() =
-//            inherit Web.Control()
-//
-//            [<JavaScript>]
-//            override __.Body = main() :> _
-//
+            // Displays the properties of the location object in a table.
+            let main() =
+                let location = Window.Self.Location
+                Table [Attr.Class "table table-bordered table-striped span8"] -< [
+                    // Table headers.
+                    TR [TH [Text "Property"] ; TH [Text "Value"]]
+                    // Table row for each property.
+                    tr "Hash"     location.Hash
+                    tr "Host"     location.Host
+                    tr "Hostname" location.Hostname
+                    tr "Href"     location.Href
+                    tr "Pathname" location.Pathname
+                    tr "Port"     location.Port
+                    tr "Protocal" location.Protocol
+                    tr "Search"   location.Search
+                ]
+
+        // A control for serving the main pagelet.
+        type Control() =
+            inherit Web.Control()
+
+            [<JavaScript>]
+            override __.Body = Client.main() :> _
+
+
 //    module Snippet4 =
 //        [<JavaScript>]
 //        let private main() = Button.New("Button")
@@ -314,20 +333,21 @@ module Controls =
                 2
                 "Drawing the HTML5 Logo on Canvas"
                 "Using WebSharper's canvas bindings to draw the HTML5 logo."
-                "<div>This WebSharper sample draws the official W3C HTML5 logo on canvas.</div>"
-                ["HTML5"; "CANVAS"]
+                "<div>This WebSharper sample draws the W3C's official logo for HTML5 on a <code>&lt;canvas&gt;</code>. The logo is drawn by calling methods and setting properties of the 2D context attribute.</div>"
+                ["HTML5"; "CANVAS"; "JAVASCRIPT"]
                 <| new Snippet2.Control()
 
 
-//        let snippet3 =
-//            snippet
-//                3
-//                "Debugging with the Console"
-//                "Debugging code with the browser's JavaScript console."
-//                "Modern browsers feature a JavaScript console that you can use to log almost anything which is very useful for debugging purposes. Open your browser's console to see how this sample logged the text \"Hello\"."
-//                ["JAVASCRIPT"]
-//                <| new Snippet3.Control()
-//
+        let snippet3 =
+            snippet
+                3
+                "Window Location Object"
+                "Getting information about the current document's location."
+                "<div>The properties of the location object describe the address of the current document. Notice in this example that the hash, port and search values are empty. The hash property returns the anchor segment of the URL. The port value is empty if it's the default 80 and since the address doesn't contain a query the search property is also empty.</div>"
+                ["LOCATION"; "JAVASCRIPT"]
+                <| new Snippet3.Control()
+
+
 //        let snippet4 =
 //            snippet
 //                4
@@ -394,7 +414,7 @@ module Controls =
         [|
             snippet1
             snippet2
-//            snippet3
+            snippet3
 //            snippet4
 //            snippet5
 //            snippet6

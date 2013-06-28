@@ -8,7 +8,6 @@
         <span class='fs-key'>open </span>IntelliFactory.WebSharper.Html5
 
         <span class='fs-com'>// Draws a shape formed by lines that join a list of coordinates.</span>
-        [&lt;JavaScript&gt;]
         <span class='fs-key'>let </span>drawShape (ctx : CanvasRenderingContext2D) style moveTo coords =
             ctx.FillStyle &lt;- style
             ctx.BeginPath()
@@ -18,7 +17,6 @@
             <span class='fs-key'>do </span>ctx.Fill()
 
         <span class='fs-com'>// Draws the shapes that form the HTML5 logo.</span>
-        [&lt;JavaScript&gt;]
         <span class='fs-key'>let </span>drawLogo (ctx : CanvasRenderingContext2D) =
             <span class='fs-com'>// Draw the "HTML" text.</span>
             ctx.Font &lt;- <span class='fs-str'>"60px 'Gill Sans Ultra Bold'"</span>
@@ -36,7 +34,6 @@
             drawShape ctx <span class='fs-str'>"#FFFFFF"</span> (144., 56.) [(144.0, 87.0); (218.0, 87.0); (221.0, 56.0)]
 
         <span class='fs-com'>// Draws the HTML5 logo on canvas.</span>
-        [&lt;JavaScript&gt;]
         <span class='fs-key'>let </span>main() =
             <span class='fs-key'>let </span>elt = HTML5.Tags.Canvas [Text <span class='fs-str'>"The canvas tag isn't supported by your browser."</span>]
             <span class='fs-key'>do </span>elt.SetStyle <span class='fs-str'>"border: 1px solid;"</span>

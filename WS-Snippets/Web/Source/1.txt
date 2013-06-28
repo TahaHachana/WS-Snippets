@@ -7,7 +7,6 @@
         <span class='fs-key'>open </span>IntelliFactory.WebSharper.Html
 
         <span class='fs-com'>// Displays a greeting.</span>
-        [&lt;JavaScript&gt;]
         <span class='fs-key'>let </span>main() =
             <span class='fs-key'>let </span>greeting = <span class='fs-str'>"Hello World!"</span>
             <span class='fs-com'>// Append an &lt;h2&gt; tag containing the greeting text to the DOM.</span>

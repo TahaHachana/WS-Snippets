@@ -45,7 +45,7 @@ module Search =
 
         let suggest query (elt : Element) =
             elt.Html <- ""
-            JQuery.GetJSON(("http://vuzupy.api.indexden.com/v1/indexes/WSSnippets/autocomplete?field=title&query=" + query + "&callback=?"), (fun (data, _) ->
+            JQuery.GetJSON(("http://vuzupy.api.indexden.com/v1/indexes/WSSnippets/autocomplete?field=description&query=" + query + "&callback=?"), (fun (data, _) ->
                 let data = As<Result> data
                 data.suggestions
                 |> Array.iter (fun suggestion ->

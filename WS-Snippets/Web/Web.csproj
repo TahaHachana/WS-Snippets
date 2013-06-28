@@ -49,7 +49,9 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="*.aspx" />
+    <Content Include="Images\feed-icon.png" />
     <Content Include="Images\Loader.gif" />
+    <Content Include="robots.txt" />
     <Content Include="Scripts\IntelliFactory.Formlet.dll.js" />
     <Content Include="Scripts\IntelliFactory.Formlet.dll.min.js" />
     <Content Include="Scripts\IntelliFactory.Reactive.dll.js" />
@@ -67,6 +69,7 @@
     <Content Include="Scripts\IntelliFactory.WebSharper.JQueryUI.dll.js" />
     <Content Include="Scripts\IntelliFactory.WebSharper.JQueryUI.dll.min.js" />
     <Content Include="Content\**\*.*" />
+    <Content Include="Scripts\Website.dll.min.js" />
     <Content Include="Source\1.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -121,6 +124,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\PublishProfiles\WSSnippetsFileSys.pubxml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

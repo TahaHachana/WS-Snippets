@@ -5,6 +5,7 @@ module Views =
     open System.Web
     open IntelliFactory.Html
     open IntelliFactory.WebSharper
+    open IntelliFactory.WebSharper.Sitelets
     open ExtSharper
     open Content
     open Model
@@ -32,23 +33,24 @@ module Views =
         A [HRef href] -< [Button [Class "btn btn-info"; Style "margin-right: 5px;"] -< [Text x]])
 
     let home =
-//        let snippets =
-//            Snippets.latest10()
-//            |> Seq.toList
-//            |> split 2
-//            |> List.map (fun lst ->
-//                let snip = lst.[0]
-//                let snip' = lst.[1]
-//                Div [Class "row"] -< [
-//                    Div [Class "span4"] -< [
-//                        H4 [A [HRef <| "/snippet/" + snip.SnipId.ToString()] -< [Text snip.Title]]
-//                        P [Text snip.Desc]
-//                    ]
-//                    Div [Class "offset1 span4"] -< [
-//                        H4 [A [HRef <| "/snippet/" + snip'.SnipId.ToString()] -< [Text snip'.Title]]
-//                        P [Text snip'.Desc]
-//                    ]
-//                ])    
+        let snippets =
+            Snippets.latest10()
+            |> Seq.take 2
+            |> Seq.toList
+            |> split 2
+            |> List.map (fun lst ->
+                let snip = lst.[0]
+                let snip' = lst.[1]
+                Div [Class "row"] -< [
+                    Div [Class "span4"] -< [
+                        H4 [A [HRef <| "/snippet/" + snip.SnipId.ToString()] -< [Text snip.Title]]
+                        P [Text snip.Desc]
+                    ]
+                    Div [Class "offset1 span4"] -< [
+                        H4 [A [HRef <| "/snippet/" + snip'.SnipId.ToString()] -< [Text snip'.Title]]
+                        P [Text snip'.Desc]
+                    ]
+                ])    
         withMainTemplate Home.title Home.metaDescription <| fun ctx ->
             [
                 Home.navigation
@@ -67,11 +69,14 @@ module Views =
                                 HTML5.Section [Style "margin-bottom: 30px; width: 647px; margin-right: auto; margin-left: auto;"] -< [new Search.Control()]
                                 Div [Style "height: 30px; width: 312px;"; Class "pull-right"] -< [new AddThis.Control()]
                                 HTML5.Section [Style "clear: both;"] -< [
-                                    yield H3 [Text "Latest snippets"]
-//                                    yield! snippets
+                                    yield Div [
+                                        H3 [Style "float: left;"] -< [Text "Latest snippets"]
+                                        A [HRef "/rss"] -< [Img [Src "/Images/feed-icon.png"; Alt "RSS Feed"; Style "padding: 15px;"]]
+                                    ]
+                                    yield Div [Style "clear: both;" ] -< [yield! snippets]
                                     yield HR []
                                 ]
-                                HTML5.Section [Style "margin-bottom: 100px;"] -< [
+                                HTML5.Section [Style "margin-bottom: 200px;"] -< [
                                     yield H3 [Text "Tags"]
                                     yield! tags
                                 ] 
@@ -353,3 +358,14 @@ module Views =
                 ]
                 Shared.footer
             ]
+
+    let rss : Content<Action> =
+        let feed = Rss.rssFeed()
+        CustomContent <| fun context ->
+            {
+                Status = Http.Status.Ok
+                Headers = [Http.Header.Custom "Content-Type" "application/rss+xml"]
+                WriteBody = fun stream ->
+                    use tw = new System.IO.StreamWriter(stream)
+                    tw.WriteLine feed
+            }

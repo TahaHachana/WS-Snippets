@@ -14,6 +14,7 @@ module Site =
                 Home       , "/"
                 Login None , "/login"
                 Highlight  , "/highlight"
+                Rss        , "/rss"
             ]
         <|> Router.Infer()
 

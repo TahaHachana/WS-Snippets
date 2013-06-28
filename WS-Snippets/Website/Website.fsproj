@@ -43,6 +43,7 @@
     <Compile Include="Index.fs" />
     <Compile Include="ExtjsSkin.fs" />
     <Compile Include="Mongo.fs" />
+    <Compile Include="Rss.fs" />
     <Compile Include="InsertSnippet.fs" />
     <Compile Include="Dependencies.fs" />
     <Compile Include="Content.fs" />
@@ -84,8 +85,12 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Numerics" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
     <Reference Include="TankTop">
       <HintPath>..\..\packages\TankTop.1.1.26\lib\TankTop.dll</HintPath>
       <Private>True</Private>

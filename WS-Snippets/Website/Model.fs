@@ -20,3 +20,4 @@ module Model =
         | [<CompiledName("tagged")>] Tagged of Tag
         | [<CompiledName("extjs")>] Extjs of PageId
         | [<CompiledName("search")>] Search of Query * PageId
+        | Rss

@@ -42,7 +42,6 @@ module Mongo =
                     Tags   = tags
                     Date   = date
                 }
-
             
     [<AutoOpen>]
     module private Collections =

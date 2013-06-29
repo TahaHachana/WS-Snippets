@@ -2,8 +2,8 @@
 
 module Secret =
 
-    let connstr = ""
+    let connStr = ""
     let password = ""
-    let indexdenurl = ""
+    let indexdenUrl = ""
 
 

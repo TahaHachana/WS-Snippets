@@ -23,7 +23,7 @@
                 tr <span class='fs-str'>"Href"</span>     location.Href
                 tr <span class='fs-str'>"Pathname"</span> location.Pathname
                 tr <span class='fs-str'>"Port"</span>     location.Port
-                tr <span class='fs-str'>"Protocal"</span> location.Protocol
+                tr <span class='fs-str'>"Protocol"</span> location.Protocol
                 tr <span class='fs-str'>"Search"</span>   location.Search
             ]
 

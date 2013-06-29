@@ -122,7 +122,7 @@ module Controls =
                     tr "Href"     location.Href
                     tr "Pathname" location.Pathname
                     tr "Port"     location.Port
-                    tr "Protocal" location.Protocol
+                    tr "Protocol" location.Protocol
                     tr "Search"   location.Search
                 ]
 

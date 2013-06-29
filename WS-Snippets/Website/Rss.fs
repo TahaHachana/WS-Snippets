@@ -13,6 +13,8 @@ module Rss =
         feed.Description <- TextSyndicationContent "Latest WebSharper code snippets and demos."
         feed
 
+
+    // add datetime
     let genItems() =
         Mongo.Snippets.latest10()
         |> Seq.toList
@@ -22,8 +24,9 @@ module Rss =
             let item = SyndicationItem()
             item.Title <- TextSyndicationContent snippet.Title
             item.Summary <- TextSyndicationContent desc'
-            item.BaseUri <- Uri("http://wssnippets.apphb.com/snippet/" + id)
             item.Id <- id
+            item.AddPermalink <| Uri("http://wssnippets.apphb.com/snippet/" + id) 
+            item.PublishDate <- DateTimeOffset(snippet.Date)
             item)
 
     let feedStr (feed : SyndicationFeed) =

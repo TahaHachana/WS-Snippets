@@ -1,6 +1,8 @@
 ﻿namespace Website
 
 module Controls =
+    open System
+    open System.Globalization
     open System.Collections.Generic
     open IntelliFactory.WebSharper
     open IntelliFactory.WebSharper.ExtJs
@@ -8,6 +10,8 @@ module Controls =
     open IntelliFactory.WebSharper.Html5
     open IntelliFactory.WebSharper.JQuery
     open IntelliFactory.WebSharper.JQueryUI
+    open TweetSharp
+
 
     type Snippet =
         {
@@ -134,15 +138,100 @@ module Controls =
             override __.Body = Client.main() :> _
 
 
-//    module Snippet4 =
-//        [<JavaScript>]
-//        let private main() = Button.New("Button")
-//
-//        type Control() =
-//            inherit Web.Control()
-// 
-//            [<JavaScript>]
-//            override __.Body = main() :> _
+    module Snippet4 =
+
+        module Culture =
+            let culture = CultureInfo.CreateSpecificCulture "en-US"
+            CultureInfo.DefaultThreadCurrentCulture <- culture
+
+        module private Server =
+
+            // Twitter authentication.
+            let ts = TwitterService(Secret.consKey, Secret.consSecret)
+            ts.AuthenticateWith(Secret.token, Secret.tokenSecret)
+
+            // Set search options.
+            let options = SearchOptions()
+            options.Q <- "#fsharp"
+            options.Count <- Nullable 100
+
+            // Searches the latest 100 tweets tagged "fsharp".
+            [<Rpc>]
+            let fetchTweets() =
+                async {
+                    let statuses =
+                        ts.Search(options).Statuses
+                        |> Seq.toList
+                        |> List.map (fun status ->
+                            status.Author.ScreenName,
+                            status.Id.ToString(),
+                            status.Author.ProfileImageUrl,
+                            status.User.Name,
+                            status.TextAsHtml,
+                            status.CreatedDate.ToLongDateString())
+                    return statuses }
+
+        [<JavaScript>]
+        module private Client =
+            // Creates an <li> containing the details of a tweet (screen name, creation date...).
+            let li (screenName, tweetId, profileImage, fullName, tweetHtml, creationDate) =
+                let profileLink = "https://twitter.com/" + screenName
+                let replyLink = "https://twitter.com/intent/tweet?in_reply_to=" + tweetId
+                let retweetLink = "https://twitter.com/intent/retweet?tweet_id="  + tweetId
+                let favoriteLink = "https://twitter.com/intent/favorite?tweet_id=" + tweetId
+                let p = P []
+                p.Html <- tweetHtml
+                LI [Attr.Class "tweet"] -< [
+                    Div [
+                        A [HRef profileLink; Attr.Class "profile-link"; Attr.Target "_blank"] -< [
+                            Img [Src profileImage; Alt fullName; Attr.Class "avatar"]
+                            Strong [Text fullName]
+                        ] -< [Text <| " @" + screenName]
+                        Br []
+                        Small [Text creationDate]
+                        p
+                        Div [Attr.Class "tweet-actions"] -< [
+                            A [HRef replyLink; Attr.Class "tweet-action"; Attr.Style "margin-right: 5px;"] -< [Text "Reply"]
+                            A [HRef retweetLink; Attr.Class "tweet-action"; Attr.Style "margin-right: 5px;"] -< [Text "Retweet"]
+                            A [HRef favoriteLink; Attr.Class "tweet-action"] -< [Text "Favorite"]
+                        ]
+                    ]
+                ]
+
+            // Toggles the visibility of the reply, retweet and favorite links.
+            let toggleActionsVisibility() =
+                let jquery = JQuery.Of ".tweet"
+                jquery.Mouseenter(fun x _ -> JQuery.Of(".tweet-actions", x).Css("visibility", "visible").Ignore).Ignore
+                jquery.Mouseleave(fun x _ -> JQuery.Of(".tweet-actions", x).Css("visibility", "hidden").Ignore).Ignore
+
+            // Opens the reply, retweet and favorite links in a modal dialog.
+            let handleTweetActions() =
+                let jquery = JQuery.Of "a.tweet-action"
+                jquery.Click(fun elt event ->
+                    do event.PreventDefault()
+                    let href = elt.GetAttribute "href"
+                    Html5.Window.Self.ShowModalDialog href |> ignore).Ignore
+
+            // Appends a <div> containing a list of tweets to the DOM.
+            let main() =
+                Div [Attr.Id "tweets"; Attr.Class "span6"]
+                |>! OnAfterRender (fun elt ->
+                    async {
+                        let! tweets = Server.fetchTweets()
+                        let ul = UL [Attr.Style "list-style-type: none;"]
+                        tweets |> List.iter (fun tweet -> do ul.Append (li tweet))
+                        do elt.Append ul
+                        do toggleActionsVisibility()
+                        do handleTweetActions() }
+                    |> Async.Start)
+
+
+        // A control for serving the main pagelet.
+        type Control() =
+            inherit Web.Control()
+ 
+            [<JavaScript>]
+            override __.Body = Client.main() :> _
 //
 //    module Snippet5 = 
 //        [<JavaScript>]
@@ -348,15 +437,15 @@ module Controls =
                 <| new Snippet3.Control()
 
 
-//        let snippet4 =
-//            snippet
-//                4
-//                "jQuery UI Button Widget"
-//                "Simple jQuery UI button widget created with WebSharper."
-//                "This snippet uses the WebSharper jQuery UI extension to create a simple button widget."
-//                ["JQUERY"; "JQUERY UI"]
-//                <| new Snippet4.Control()
-//
+        let snippet4 =
+            snippet
+                4
+                "Twitter Widget"
+                ""
+                "<div></div>"
+                ["TWITTER"; "API"; "FSHARP"; "RPC"; "JQUERY"; "HTML"; "DOM"]
+                <| new Snippet4.Control()
+
 //        let snippet5 =
 //            snippet
 //                5
@@ -415,7 +504,7 @@ module Controls =
             snippet1
             snippet2
             snippet3
-//            snippet4
+            snippet4
 //            snippet5
 //            snippet6
 //            snippet7

@@ -62,6 +62,10 @@
       <HintPath>..\..\packages\ExtSharper.0.1.13\lib\Net45\ExtSharper.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Hammock.ClientProfile">
+      <HintPath>..\..\packages\TweetSharp.2.3.1\lib\4.0\Hammock.ClientProfile.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="IntelliFactory.WebSharper.ExtJs">
       <HintPath>..\..\packages\WebSharper.ExtJs.2.4.48.145\lib\IntelliFactory.WebSharper.ExtJs.dll</HintPath>
       <Private>True</Private>
@@ -80,6 +84,10 @@
     </Reference>
     <Reference Include="mscorlib" />
     <Reference Include="FSharp.Core" />
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\packages\TweetSharp.2.3.1\lib\4.0\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="ServiceStack.Text">
       <HintPath>..\..\packages\ServiceStack.Text.3.9.48\lib\net35\ServiceStack.Text.dll</HintPath>
       <Private>True</Private>
@@ -93,6 +101,10 @@
     <Reference Include="System.Xml" />
     <Reference Include="TankTop">
       <HintPath>..\..\packages\TankTop.1.1.26\lib\TankTop.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="TweetSharp">
+      <HintPath>..\..\packages\TweetSharp.2.3.1\lib\4.0\TweetSharp.dll</HintPath>
       <Private>True</Private>
     </Reference>
   </ItemGroup>

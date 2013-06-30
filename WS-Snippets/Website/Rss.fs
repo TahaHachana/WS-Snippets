@@ -9,7 +9,7 @@ module Rss =
 
     let initFeed() =
         let feed = SyndicationFeed()
-        feed.Title <- TextSyndicationContent "WebSharper Snippets Feed"
+        feed.Title <- TextSyndicationContent "WebSharper Snippets"
         feed.Description <- TextSyndicationContent "Latest WebSharper code snippets and demos."
         feed
 

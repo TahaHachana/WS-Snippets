@@ -1,6 +1,6 @@
 (function()
 {
- var Global=this,Runtime=this.IntelliFactory.Runtime,Website,AddThis,WebSharper,Html,Default,HTML5,List,T,Controls,Snippet1,Client,Snippet2,Client1,Seq,window,Operators,Snippet3,Client2,Forkme,jQuery,EventsPervasives,Remoting,Concurrency,alert,Highlight,Client3,Formlet,Controls1,Enhance,Data,Formlet1,Index,Client4,JavaScript,InsertSnippet,Client5,Login,Client6,Search,Client7,Strings,encodeURIComponent,Arrays;
+ var Global=this,Runtime=this.IntelliFactory.Runtime,Website,AddThis,WebSharper,Html,Default,HTML5,List,T,Controls,Snippet1,Client,Snippet2,Client1,Seq,window,Operators,Snippet3,Client2,jQuery,Remoting,Snippet4,Client3,Concurrency,Forkme,EventsPervasives,alert,Highlight,Client4,Formlet,Controls1,Enhance,Data,Formlet1,Index,Client5,JavaScript,InsertSnippet,Client6,Login,Client7,Search,Client8,Strings,encodeURIComponent,Arrays;
  Runtime.Define(Global,{
   Website:{
    AddThis:{
@@ -111,7 +111,7 @@
       {
        var location;
        location=window.location;
-       return Operators.add(Default.Table(List.ofArray([Default.Attr().Class("table table-bordered table-striped span8")])),List.ofArray([Default.TR(List.ofArray([Default.TH(List.ofArray([Default.Text("Property")])),Default.TH(List.ofArray([Default.Text("Value")]))])),Client2.tr("Hash",location.hash),Client2.tr("Host",location.host),Client2.tr("Hostname",location.hostname),Client2.tr("Href",location.href),Client2.tr("Pathname",location.pathname),Client2.tr("Port",location.port),Client2.tr("Protocal",location.protocol),Client2.tr("Search",location.search)]));
+       return Operators.add(Default.Table(List.ofArray([Default.Attr().Class("table table-bordered table-striped span8")])),List.ofArray([Default.TR(List.ofArray([Default.TH(List.ofArray([Default.Text("Property")])),Default.TH(List.ofArray([Default.Text("Value")]))])),Client2.tr("Hash",location.hash),Client2.tr("Host",location.host),Client2.tr("Hostname",location.hostname),Client2.tr("Href",location.href),Client2.tr("Pathname",location.pathname),Client2.tr("Port",location.port),Client2.tr("Protocol",location.protocol),Client2.tr("Search",location.search)]));
       },
       tr:function(td,_td_)
       {
@@ -122,6 +122,108 @@
       get_Body:function()
       {
        return Client2.main();
+      }
+     })
+    },
+    Snippet4:{
+     Client:{
+      handleTweetActions:function()
+      {
+       var jquery;
+       jquery=jQuery("a.tweet-action");
+       return jquery.click(function(event)
+       {
+        var href,x,f;
+        event.preventDefault();
+        href=this.getAttribute("href");
+        x=window.showModalDialog(href);
+        f=function(value)
+        {
+         value;
+        };
+        return f(x);
+       });
+      },
+      li:function(screenName,tweetId,profileImage,fullName,tweetHtml,creationDate)
+      {
+       var profileLink,replyLink,retweetLink,favoriteLink,p,_this,x,_this1,x1,x2,_this2,_this3,_this4;
+       profileLink="https://twitter.com/"+screenName;
+       replyLink="https://twitter.com/intent/tweet?in_reply_to="+tweetId;
+       retweetLink="https://twitter.com/intent/retweet?tweet_id="+tweetId;
+       favoriteLink="https://twitter.com/intent/favorite?tweet_id="+tweetId;
+       p=Default.P(Runtime.New(T,{
+        $:0
+       }));
+       p.set_Html(tweetHtml);
+       return Operators.add(Default.LI(List.ofArray([Default.Attr().Class("tweet")])),List.ofArray([Default.Div(List.ofArray([Operators.add(Operators.add(Default.A(List.ofArray([Default.HRef(profileLink),Default.Attr().Class("profile-link"),(_this=Default.Attr(),_this.NewAttr("target","_blank"))])),List.ofArray([Default.Img(List.ofArray([Default.Src(profileImage),Default.Alt(fullName),Default.Attr().Class("avatar")])),(x=List.ofArray([Default.Text(fullName)]),(_this1=Default.Tags(),_this1.NewTag("strong",x)))])),List.ofArray([(x1=" @"+screenName,Default.Text(x1))])),Default.Br(Runtime.New(T,{
+        $:0
+       })),(x2=List.ofArray([Default.Text(creationDate)]),(_this2=Default.Tags(),_this2.NewTag("small",x2))),p,Operators.add(Default.Div(List.ofArray([Default.Attr().Class("tweet-actions")])),List.ofArray([Operators.add(Default.A(List.ofArray([Default.HRef(replyLink),Default.Attr().Class("tweet-action"),(_this3=Default.Attr(),_this3.NewAttr("style","margin-right: 5px;"))])),List.ofArray([Default.Text("Reply")])),Operators.add(Default.A(List.ofArray([Default.HRef(retweetLink),Default.Attr().Class("tweet-action"),(_this4=Default.Attr(),_this4.NewAttr("style","margin-right: 5px;"))])),List.ofArray([Default.Text("Retweet")])),Operators.add(Default.A(List.ofArray([Default.HRef(favoriteLink),Default.Attr().Class("tweet-action")])),List.ofArray([Default.Text("Favorite")]))]))]))]));
+      },
+      main:function()
+      {
+       var x,_this,f,f1;
+       x=Default.Div(List.ofArray([(_this=Default.Attr(),_this.NewAttr("id","tweets")),Default.Attr().Class("span6")]));
+       f=(f1=function(elt)
+       {
+        var x1,f2,f5;
+        x1=(f2=function()
+        {
+         var x2,f3;
+         x2=Remoting.Async("Website:0",[]);
+         f3=function(_arg1)
+         {
+          var ul,_this1,f4,action;
+          ul=Default.UL(List.ofArray([(_this1=Default.Attr(),_this1.NewAttr("style","list-style-type: none;"))]));
+          f4=(action=Runtime.Tupled(function(tweet)
+          {
+           var screenName,tweetId,profileImage,fullName,tweetHtml,creationDate;
+           return ul.AppendI((screenName=tweet[0],(tweetId=tweet[1],(profileImage=tweet[2],(fullName=tweet[3],(tweetHtml=tweet[4],(creationDate=tweet[5],Client3.li(screenName,tweetId,profileImage,fullName,tweetHtml,creationDate))))))));
+          }),function(list)
+          {
+           return Seq.iter(action,list);
+          });
+          f4(_arg1);
+          elt.AppendI(ul);
+          Client3.toggleActionsVisibility();
+          Client3.handleTweetActions();
+          return Concurrency.Return(null);
+         };
+         return Concurrency.Bind(x2,f3);
+        },Concurrency.Delay(f2));
+        f5=function(arg00)
+        {
+         var t;
+         t={
+          $:0
+         };
+         return Concurrency.Start(arg00);
+        };
+        return f5(x1);
+       },function(w)
+       {
+        return Operators.OnAfterRender(f1,w);
+       });
+       f(x);
+       return x;
+      },
+      toggleActionsVisibility:function()
+      {
+       var jquery;
+       jquery=jQuery(".tweet");
+       jquery.mouseenter(function()
+       {
+        return jQuery(".tweet-actions",this).css("visibility","visible");
+       });
+       return jquery.mouseleave(function()
+       {
+        return jQuery(".tweet-actions",this).css("visibility","hidden");
+       });
+      }
+     },
+     Control:Runtime.Class({
+      get_Body:function()
+      {
+       return Client3.main();
       }
      })
     }
@@ -188,7 +290,7 @@
          {
           return Global.String(value);
          },f2(x3)));
-         x4=Remoting.Async("Website:0",[code]);
+         x4=Remoting.Async("Website:1",[code]);
          f3=function(_arg1)
          {
           var a,html,b,f4,f5;
@@ -234,13 +336,13 @@
      },
      main:function()
      {
-      return Default.Div(List.ofArray([Client3.highlightBtn(),Client3.clearBtn()]));
+      return Default.Div(List.ofArray([Client4.highlightBtn(),Client4.clearBtn()]));
      }
     },
     Control:Runtime.Class({
      get_Body:function()
      {
-      return Client3.main();
+      return Client4.main();
      }
     })
    },
@@ -290,7 +392,7 @@
        x8=(f6=function()
        {
         var x9,id1,title1,desc1,code1,f7;
-        x9=(id1=x7[0],(title1=x7[1],(desc1=x7[2],(code1=x7[3],Remoting.Async("Website:3",[id1,title1,desc1,code1])))));
+        x9=(id1=x7[0],(title1=x7[1],(desc1=x7[2],(code1=x7[3],Remoting.Async("Website:4",[id1,title1,desc1,code1])))));
         f7=function()
         {
          alert("Document indexed.");
@@ -313,7 +415,7 @@
     Control:Runtime.Class({
      get_Body:function()
      {
-      return Client4.main();
+      return Client5.main();
      }
     })
    },
@@ -364,7 +466,7 @@
        {
         var x9,id1,title1,desc1,tags1,f7;
         JavaScript.Log(x7);
-        x9=(id1=x7[0],(title1=x7[1],(desc1=x7[2],(tags1=x7[3],Remoting.Async("Website:2",[id1,title1,desc1,tags1])))));
+        x9=(id1=x7[0],(title1=x7[1],(desc1=x7[2],(tags1=x7[3],Remoting.Async("Website:3",[id1,title1,desc1,tags1])))));
         f7=function(_arg1)
         {
          if(_arg1)
@@ -395,7 +497,7 @@
     Control:Runtime.Class({
      get_Body:function()
      {
-      return Client5.main();
+      return Client6.main();
      }
     })
    },
@@ -413,9 +515,9 @@
         x2=(f1=function()
         {
          var x3,f2;
-         x3=Remoting.Async("Website:1",[{
+         x3=Remoting.Async("Website:2",[{
           Name:userInput.get_Value(),
-          Password:Client6.passInput().get_Value()
+          Password:Client7.passInput().get_Value()
          }]);
          f2=function(_arg11)
          {
@@ -446,7 +548,7 @@
       {
        return EventsPervasives.Events().OnClick(x1,arg10);
       }),(f(x),x)));
-      return Default.Form(List.ofArray([(x4=List.ofArray([(x5=List.ofArray([Default.Text("Login")]),(_this4=Default.Tags(),_this4.NewTag("legend",x5))),(x6=List.ofArray([Default.Text("Username")]),(_this5=Default.Tags(),_this5.NewTag("label",x6))),userInput,(x7=List.ofArray([Default.Text("Password")]),(_this6=Default.Tags(),_this6.NewTag("label",x7))),Client6.passInput()]),(_this7=Default.Tags(),_this7.NewTag("fieldset",x4))),(x8=List.ofArray([submitBtn]),(_this8=Default.Tags(),_this8.NewTag("fieldset",x8)))]));
+      return Default.Form(List.ofArray([(x4=List.ofArray([(x5=List.ofArray([Default.Text("Login")]),(_this4=Default.Tags(),_this4.NewTag("legend",x5))),(x6=List.ofArray([Default.Text("Username")]),(_this5=Default.Tags(),_this5.NewTag("label",x6))),userInput,(x7=List.ofArray([Default.Text("Password")]),(_this6=Default.Tags(),_this6.NewTag("label",x7))),Client7.passInput()]),(_this7=Default.Tags(),_this7.NewTag("fieldset",x4))),(x8=List.ofArray([submitBtn]),(_this8=Default.Tags(),_this8.NewTag("fieldset",x8)))]));
      },
      passInput:Runtime.Field(function()
      {
@@ -478,7 +580,7 @@
     Control:Runtime.Class({
      get_Body:function()
      {
-      return Client6.loginForm(this.redirectUrl);
+      return Client7.loginForm(this.redirectUrl);
      }
     })
    },
@@ -500,7 +602,7 @@
          }
         else
          {
-          return Client7.suggest(elt.get_Value(),datalist);
+          return Client8.suggest(elt.get_Value(),datalist);
          }
        };
       },function(arg10)
@@ -552,7 +654,7 @@
     Control:Runtime.Class({
      get_Body:function()
      {
-      return Client7.main();
+      return Client8.main();
      }
     })
    }
@@ -578,34 +680,36 @@
   Operators=Runtime.Safe(Html.Operators);
   Snippet3=Runtime.Safe(Controls.Snippet3);
   Client2=Runtime.Safe(Snippet3.Client);
-  Forkme=Runtime.Safe(Website.Forkme);
   jQuery=Runtime.Safe(Global.jQuery);
-  EventsPervasives=Runtime.Safe(Html.EventsPervasives);
   Remoting=Runtime.Safe(WebSharper.Remoting);
+  Snippet4=Runtime.Safe(Controls.Snippet4);
+  Client3=Runtime.Safe(Snippet4.Client);
   Concurrency=Runtime.Safe(WebSharper.Concurrency);
+  Forkme=Runtime.Safe(Website.Forkme);
+  EventsPervasives=Runtime.Safe(Html.EventsPervasives);
   alert=Runtime.Safe(Global.alert);
   Highlight=Runtime.Safe(Website.Highlight);
-  Client3=Runtime.Safe(Highlight.Client);
+  Client4=Runtime.Safe(Highlight.Client);
   Formlet=Runtime.Safe(WebSharper.Formlet);
   Controls1=Runtime.Safe(Formlet.Controls);
   Enhance=Runtime.Safe(Formlet.Enhance);
   Data=Runtime.Safe(Formlet.Data);
   Formlet1=Runtime.Safe(Formlet.Formlet);
   Index=Runtime.Safe(Website.Index);
-  Client4=Runtime.Safe(Index.Client);
+  Client5=Runtime.Safe(Index.Client);
   JavaScript=Runtime.Safe(WebSharper.JavaScript);
   InsertSnippet=Runtime.Safe(Website.InsertSnippet);
-  Client5=Runtime.Safe(InsertSnippet.Client);
+  Client6=Runtime.Safe(InsertSnippet.Client);
   Login=Runtime.Safe(Website.Login);
-  Client6=Runtime.Safe(Login.Client);
+  Client7=Runtime.Safe(Login.Client);
   Search=Runtime.Safe(Website.Search);
-  Client7=Runtime.Safe(Search.Client);
+  Client8=Runtime.Safe(Search.Client);
   Strings=Runtime.Safe(WebSharper.Strings);
   encodeURIComponent=Runtime.Safe(Global.encodeURIComponent);
   return Arrays=Runtime.Safe(WebSharper.Arrays);
  });
  Runtime.OnLoad(function()
  {
-  Client6.passInput();
+  Client7.passInput();
  });
 }());

@@ -30,7 +30,7 @@ module Views =
 
     let private tags = Controls.hashset' |> Seq.toList |> List.sort |> List.map (fun x ->
         let href = "/tagged/" + HttpUtility.UrlEncode(x.ToLower())
-        A [HRef href] -< [Button [Class "btn btn-info"; Style "margin-right: 5px;"] -< [Text x]])
+        A [HRef href] -< [Button [Class "btn btn-info"; Style "margin: 5px;"] -< [Text x]])
 
     let home =
         let snippets =
@@ -176,7 +176,7 @@ module Views =
         let elt = Element.VerbatimContent source
         let btns = tags |> List.map (fun x ->
             let href = "/tagged/" + HttpUtility.UrlEncode(x.ToLower())
-            A [HRef href] -< [Button [Class "btn btn-info"; Style "margin-right: 5px;"] -< [Text x]])
+            A [HRef href] -< [Button [Class "btn btn-info"; Style "margin: 5px;"] -< [Text x]])
         withMainTemplate title' metaDesc <| fun ctx ->
             [
                 Shared.navigation
@@ -223,7 +223,7 @@ module Views =
                             Div [new Highlight.Control()]
                             Div [Img [Style "padding-top: 10px; visibility: hidden;"; Src "Images/Loader.gif"; Id "loader"]]
                         ]
-                        Div [Style "height: 500px;"] -< [
+                        Div [Style "height: 500px; margin-bottom: 50px;"] -< [
                             Div [Class "tabbable"] -< [
                                 UL [Class "nav nav-tabs"] -< [
                                     LI [Class "active"] -< [A [HRef "#html"; HTML5.Data "toggle" "tab"] -< [Text "HTML"]]

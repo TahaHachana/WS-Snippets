@@ -8,8 +8,8 @@ module Controls =
     open IntelliFactory.WebSharper.ExtJs
     open IntelliFactory.WebSharper.Html
     open IntelliFactory.WebSharper.Html5
-    open IntelliFactory.WebSharper.JQuery
-    open IntelliFactory.WebSharper.JQueryUI
+//    open IntelliFactory.WebSharper.JQuery
+//    open IntelliFactory.WebSharper.JQueryUI
     open TweetSharp
 
 
@@ -144,7 +144,31 @@ module Controls =
             let culture = CultureInfo.CreateSpecificCulture "en-US"
             CultureInfo.DefaultThreadCurrentCulture <- culture
 
+        type Tweet =
+            {
+                Avatar     : string
+                Date       : string
+                Html       : string
+                Id         : string
+                Name       : string
+                ScreenName : string
+            }
+
+            static member New avatar date html id name screenName =
+                {
+                    Avatar     = avatar
+                    Date       = date
+                    Html       = html
+                    Id         = id
+                    Name       = name
+                    ScreenName = screenName
+                }
+
+        type SearchResults = Failure | Success of Tweet list
+
         module private Server =
+            open TweetSharp
+            open System
 
             // Twitter authentication.
             let ts = TwitterService(Secret.consKey, Secret.consSecret)
@@ -159,36 +183,46 @@ module Controls =
             [<Rpc>]
             let fetchTweets() =
                 async {
-                    let statuses =
-                        ts.Search(options).Statuses
-                        |> Seq.toList
-                        |> List.map (fun status ->
-                            status.Author.ScreenName,
-                            status.Id.ToString(),
-                            status.Author.ProfileImageUrl,
-                            status.User.Name,
-                            status.TextAsHtml,
-                            status.CreatedDate.ToLongDateString())
-                    return statuses }
+                    let searchResults =
+                        try
+                            ts.Search(options).Statuses
+                            |> Seq.toList
+                            |> List.map (fun status ->
+                                Tweet.New
+                                    status.Author.ProfileImageUrl
+                                    (status.CreatedDate.ToLongDateString())
+                                    status.TextAsHtml
+                                    (status.Id.ToString())
+                                    status.User.Name
+                                    status.Author.ScreenName)
+                            |> Success
+                        with _ -> Failure
+                    return searchResults }
 
         [<JavaScript>]
         module private Client =
+            open IntelliFactory.WebSharper.Html
+            open IntelliFactory.WebSharper.JQuery
+
             // Creates an <li> containing the details of a tweet (screen name, creation date...).
-            let li (screenName, tweetId, profileImage, fullName, tweetHtml, creationDate) =
+            let li tweet =
+                let id = tweet.Id
+                let name = tweet.Name
+                let screenName = tweet.ScreenName
                 let profileLink = "https://twitter.com/" + screenName
-                let replyLink = "https://twitter.com/intent/tweet?in_reply_to=" + tweetId
-                let retweetLink = "https://twitter.com/intent/retweet?tweet_id="  + tweetId
-                let favoriteLink = "https://twitter.com/intent/favorite?tweet_id=" + tweetId
+                let replyLink = "https://twitter.com/intent/tweet?in_reply_to=" + id
+                let retweetLink = "https://twitter.com/intent/retweet?tweet_id="  + id
+                let favoriteLink = "https://twitter.com/intent/favorite?tweet_id=" + id
                 let p = P []
-                p.Html <- tweetHtml
+                p.Html <- tweet.Html
                 LI [Attr.Class "tweet"] -< [
                     Div [
                         A [HRef profileLink; Attr.Class "profile-link"; Attr.Target "_blank"] -< [
-                            Img [Src profileImage; Alt fullName; Attr.Class "avatar"]
-                            Strong [Text fullName]
+                            Img [Src tweet.Avatar; Alt name; Attr.Class "avatar"]
+                            Strong [Text name]
                         ] -< [Text <| " @" + screenName]
                         Br []
-                        Small [Text creationDate]
+                        Small [Text tweet.Date]
                         p
                         Div [Attr.Class "tweet-actions"] -< [
                             A [HRef replyLink; Attr.Class "tweet-action"; Attr.Style "margin-right: 5px;"] -< [Text "Reply"]
@@ -214,25 +248,57 @@ module Controls =
 
             // Appends a <div> containing a list of tweets to the DOM.
             let main() =
-                Div [Attr.Id "tweets"; Attr.Class "span6"]
+                Div [Id "tweets"; Attr.Class "span6"]
                 |>! OnAfterRender (fun elt ->
                     async {
-                        let! tweets = Server.fetchTweets()
-                        let ul = UL [Attr.Style "list-style-type: none;"]
-                        tweets |> List.iter (fun tweet -> do ul.Append (li tweet))
-                        do elt.Append ul
-                        do toggleActionsVisibility()
-                        do handleTweetActions() }
+                        let! searchResults = Server.fetchTweets()
+                        match searchResults with
+                            | Failure -> JavaScript.Alert "Failed to fetch the latest tweets."
+                            | Success tweets ->
+                                let ul = UL [Attr.Style "list-style-type: none;"]
+                                tweets |> List.iter (fun tweet -> do ul.Append (li tweet))
+                                do elt.Append ul
+                                do toggleActionsVisibility()
+                                do handleTweetActions() }
                     |> Async.Start)
 
-
-        // A control for serving the main pagelet.
         type Control() =
             inherit Web.Control()
  
             [<JavaScript>]
             override __.Body = Client.main() :> _
-//
+
+    module Snippet5 =
+        // Client-side code.
+        [<JavaScript>]
+        module private Client =
+            // Logs messages to the console.
+            let main() =
+                let input =
+                    Input [
+                        Attr.Value "Hello console!"
+                        Attr.Type "text"
+                        HTML5.Attr.AutoFocus "autofocus"
+                    ]
+                let btn =
+                    Button [Text "Log"; Attr.Class "btn btn-primary"; Attr.Type "button"]
+                    |>! OnClick (fun _ _ -> JavaScript.Log input.Value)
+                Div [Attr.Class "span5"] -< [
+                    Legend [Text "Log messages to the console"]
+                    FieldSet [
+                        Label [Text "Message"]
+                        input
+                    ]
+                    btn
+                ]    
+
+        // A control for serving the main pagelet.
+        type Control() =
+            inherit Web.Control()
+
+            [<JavaScript>]
+            override this.Body = Client.main() :> _
+
 //    module Snippet5 = 
 //        [<JavaScript>]
 //        let private viewport() =
@@ -441,19 +507,19 @@ module Controls =
             snippet
                 4
                 "Twitter Widget"
-                ""
-                "<div></div>"
+                "Custom Twitter widget for the latest #fsharp tweets."
+                "<div>This WebSharper demo features a custom Twitter widget for the latest tweets tagged \"fsharp\". The tweets are retrieved on the server-side by calling the Twitter API. The client-side code creates a list from these tweets and appends it to the DOM.</div>"
                 ["TWITTER"; "API"; "FSHARP"; "RPC"; "JQUERY"; "HTML"; "DOM"]
                 <| new Snippet4.Control()
 
-//        let snippet5 =
-//            snippet
-//                5
-//                "Hello Ext JS"
-//                "Ext JS hello world example."
-//                "This snippet is a small hello world build with Ext JS. The UI is composed of a panel within a viewport."
-//                ["EXT JS"]
-//                <| new Snippet5.Control()
+        let snippet5 =
+            snippet
+                5
+                "Debugging with the Console"
+                "Using the browser's console for debugging purposes from WebSharper."
+                "<div><p>Modern browsers provide a useful console that lets you log debugging messages. Open your browser's JavaScript console and press the \"Log\" button to log the value of the <code>&lt;input&gt;</code> field in this example.</p></div>"
+                ["JAVASCRIPT"]
+                <| new Snippet5.Control()
 //
 //        let snippet6 =
 //            snippet
@@ -505,7 +571,7 @@ module Controls =
             snippet2
             snippet3
             snippet4
-//            snippet5
+            snippet5
 //            snippet6
 //            snippet7
 //            snippet8

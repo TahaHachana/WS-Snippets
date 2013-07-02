@@ -183,11 +183,12 @@ module Views =
                 Div [new Forkme.Control()]                
                 Div [Id "wrap"] -< [
                     Div [Class "container"; Style "width: 1000px; padding-top: 100px;"] -< [
-                        Div [Class "pull-right"; Style "width: 312px;"] -< [new AddThis.Control()]
                         Div [Id "snippet-details"] -< [
                             H1 [Text title]
                             desc'
                         ]
+                        Div [Class "pull-right"; Style "width: 312px;"] -< [new AddThis.Control()]
+
                         Div [Style "height: 500px;"] -< [
                             Div [Class "tabbable"] -< [
                                 UL [Class "nav nav-tabs"] -< [

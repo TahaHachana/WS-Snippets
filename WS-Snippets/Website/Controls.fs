@@ -6,6 +6,7 @@ module Controls =
     open System.Collections.Generic
     open IntelliFactory.WebSharper
     open IntelliFactory.WebSharper.ExtJs
+    open IntelliFactory.WebSharper.Dom
     open IntelliFactory.WebSharper.Html
     open IntelliFactory.WebSharper.Html5
 //    open IntelliFactory.WebSharper.JQuery
@@ -299,6 +300,65 @@ module Controls =
             [<JavaScript>]
             override this.Body = Client.main() :> _
 
+    module Snippet6 =
+
+        // Client-side code.
+        [<JavaScript>]
+        module Client =
+
+            // Sets the text content of the element with the specified id.
+            let setText id txt = Document.Current.GetElementById(id).TextContent <- txt
+
+            // Performs conversion to string and replaces the JS null with NA.
+            let toStr f = f.ToString() |> function "null" -> "NA" | x -> x
+
+            // Displays the properties of a position.
+            let display (p : Position) =
+                let coords = p.Coords
+                setText "longitude" <| coords.Longitude.ToString()
+                setText "latitude"  <| coords.Latitude.ToString()
+                setText "altitude"  <| toStr coords.Altitude
+                setText "accuracy"  <| coords.Accuracy.ToString()
+                setText "alt-acc"   <| toStr coords.AltitudeAccuracy
+                setText "heading"   <| toStr coords.Heading
+                setText "speed"     <| toStr coords.Speed
+                setText "timestamp" <| p.Timestamp.ToString()
+
+            // Calls getCurrentPosition asynchronously.
+            let getPosition() =
+                async {
+                    Window.Self.Navigator.Geolocation.GetCurrentPosition display }
+
+            let tr thTxt tdId = TR [TH [Text thTxt]; TD [Attr.Id tdId; Attr.Style "width: 250px;"]]
+
+            // Tracks the position of the user and displays its properties in a table.
+            let main() =
+                Div [Attr.Class "span6"] -< [
+                    Table [Attr.Class "table table-striped table-bordered"] -< [
+                        tr "Longitude"         "longitude"
+                        tr "Latitude"          "latitude"
+                        tr "Altitude"          "altitude"
+                        tr "Accuracy"          "accuracy"
+                        tr "Altitude Accuracy" "alt-acc"
+                        tr "Heading"           "heading"
+                        tr "Speed"             "speed"
+                        tr "Time Stamp"        "timestamp"
+                    ]
+                    Button [Text "Track My Location"; Attr.Class "btn btn-primary btn-large"]
+                    |>! OnClick (fun _ _ ->
+                        async {
+                            do! getPosition() }
+                        |> Async.Start)
+                ]
+    
+        // A control for serving the main pagelet.                
+        type Control() =
+            inherit Web.Control()
+ 
+            [<JavaScript>]
+            override __.Body = Client.main() :> _
+
+
 //    module Snippet5 = 
 //        [<JavaScript>]
 //        let private viewport() =
@@ -520,16 +580,16 @@ module Controls =
                 "<div><p>Modern browsers provide a useful console that lets you log debugging messages. Open your browser's JavaScript console and press the \"Log\" button to log the value of the <code>&lt;input&gt;</code> field in this example.</p></div>"
                 ["JAVASCRIPT"]
                 <| new Snippet5.Control()
-//
-//        let snippet6 =
-//            snippet
-//                6
-//                "Drawing the HTML5 Logo in Canvas"
-//                "HTML5 canvas example showing how to draw the HTML5 logo."
-//                "This snippet uses the WebSharper bindings to the canvas element to draw the HTML5 logo."
-//                ["HTML5"; "CANVAS"]
-//                <| new Snippet6.Control()
-//
+
+        let snippet6 =
+            snippet
+                6
+                "User's Current Position"
+                "Getting the current position using the geolocation API."
+                "This geolocation snippet shows how to track the current location of the user."
+                ["GEOLOCATION"]
+                <| new Snippet6.Control()
+
 //        let snippet7 =
 //            snippet
 //                7
@@ -572,7 +632,7 @@ module Controls =
             snippet3
             snippet4
             snippet5
-//            snippet6
+            snippet6
 //            snippet7
 //            snippet8
 //            snippet9

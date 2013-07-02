@@ -358,6 +358,30 @@ module Controls =
             [<JavaScript>]
             override __.Body = Client.main() :> _
 
+    module Snippet7 =
+
+        // Client-side code.
+        [<JavaScript>]
+        module Client =
+        
+            // Appends a video element to the DOM.
+            let main() =
+                let elt = HTML5.Tags.Video [Attr.Height "360px"; Attr.Width "640px"]
+                let video = As<HTMLVideoElement> elt.Dom
+                video.Src <- "http://www.html5videoplayer.net/videos/madagascar3.mp4"
+                video.Autoplay <- false
+                video.Controls <- true
+                video.Preload <- "metadata"
+                video.Poster <- "http://www.html5videoplayer.net/poster/madagascar3.jpg"
+                elt
+
+        // A control for serving the main pagelet.
+        type Control() =
+            inherit Web.Control()
+
+            [<JavaScript>]
+            override __.Body = Client.main() :> _
+
 
 //    module Snippet5 = 
 //        [<JavaScript>]
@@ -586,19 +610,19 @@ module Controls =
                 6
                 "User's Current Position"
                 "Getting the current position using the geolocation API."
-                "This geolocation snippet shows how to track the current location of the user."
+                "<div><p>This geolocation snippet shows how to track the current location of the user.</p></div>"
                 ["GEOLOCATION"]
                 <| new Snippet6.Control()
 
-//        let snippet7 =
-//            snippet
-//                7
-//                "jQuery UI Modal Dialog"
-//                "jQuery UI snippet showing how to display a simple modal dialog."
-//                "The jQuery UI dialog widget displays HTML content in an interactive overlay. Setting the modal property to true results in a modal dialog that needs to be closed in order to resume regular interaction with the page."
-//                ["JQUERY UI"; "JQUERY"]
-//                <| new Snippet7.Control()
-//
+        let snippet7 =
+            snippet
+                7
+                "HTML5 Video"
+                ""
+                "<div><p>Embedding native video.</p></div>"
+                ["HTML5"; "MULTIMEDIA"; "VIDEO"]
+                <| new Snippet7.Control()
+
 //        let snippet8 =
 //            snippet
 //                8
@@ -633,7 +657,7 @@ module Controls =
             snippet4
             snippet5
             snippet6
-//            snippet7
+            snippet7
 //            snippet8
 //            snippet9
 //            snippet10

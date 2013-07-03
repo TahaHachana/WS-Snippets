@@ -1,6 +1,6 @@
 (function()
 {
- var Global=this,Runtime=this.IntelliFactory.Runtime,Website,AddThis,WebSharper,Html,Default,HTML5,List,T,Controls,Snippet1,Client,Snippet2,Client1,Seq,window,Operators,Snippet3,Client2,jQuery,Remoting,Snippet4,Client3,Concurrency,alert,JavaScript,EventsPervasives,Snippet5,Client4,String,Snippet6,Client5,document,Snippet7,Client6,Forkme,Highlight,Client7,Formlet,Controls1,Enhance,Data,Formlet1,Index,Client8,InsertSnippet,Client9,Login,Clienta,Search,Clientb,Strings,encodeURIComponent,Arrays;
+ var Global=this,Runtime=this.IntelliFactory.Runtime,Website,AddThis,WebSharper,Html,Default,HTML5,List,T,Controls,Snippet1,Client,Snippet2,Client1,Seq,window,Operators,Snippet3,Client2,jQuery,Remoting,Snippet4,Client3,Concurrency,alert,JavaScript,EventsPervasives,Snippet5,Client4,String,Snippet6,Client5,document,Snippet7,Client6,Forkme,Highlight,Client7,Formlet,Controls1,Enhance,Data,Formlet1,Index,Client8,InsertSnippet,Client9,Login,Clienta,encodeURIComponent,Strings,Search,Clientb;
  Runtime.Define(Global,{
   Website:{
    AddThis:{
@@ -16,7 +16,7 @@
      section=(_this=HTML5.Tags(),(x=Runtime.New(T,{
       $:0
      }),_this.NewTag("section",x)));
-     section.set_Html("<div class=\"addthis_toolbox addthis_default_style \">\r\n               <a class=\"addthis_button_facebook_like\" fb:like:layout=\"button_count\"></a>\r\n               <a class=\"addthis_button_tweet\"></a>\r\n               <a class=\"addthis_button_pinterest_pinit\"></a>\r\n               <a class=\"addthis_counter addthis_pill_style\"></a>\r\n               </div>\r\n               <script type=\"text/javascript\" src=\"http://s7.addthis.com/js/300/addthis_widget.js#pubid=ra-50af450141ce9366\"></script>");
+     section.set_Html("<div class=\"addthis_toolbox addthis_default_style \">\r\n               <a class=\"addthis_button_facebook_like\" fb:like:layout=\"button_count\"></a>\r\n               <a class=\"addthis_button_tweet\" tw:hashtags=\"websharper,fsharp\"></a>\r\n               <a class=\"addthis_button_pinterest_pinit\"></a>\r\n               <a class=\"addthis_counter addthis_pill_style\"></a>\r\n               </div>\r\n               <script type=\"text/javascript\" src=\"http://s7.addthis.com/js/300/addthis_widget.js#pubid=ra-50af450141ce9366\"></script>");
      return section;
     }
    },
@@ -750,67 +750,45 @@
     Client:{
      main:function()
      {
-      var datalist,_this,x,_this1,inp,x1,_this2,_this3,_this4,_this5,_this6,f,x2,x3,_this7,_this8,f1,x4;
-      datalist=(_this=HTML5.Tags(),(x=List.ofArray([(_this1=Default.Attr(),_this1.NewAttr("id","suggestions"))]),_this.NewTag("datalist",x)));
-      inp=(x1=Default.Input(List.ofArray([(_this2=HTML5.Attr(),_this2.NewAttr("list","suggestions")),(_this3=Default.Attr(),_this3.NewAttr("id","query")),(_this4=Default.Attr(),_this4.NewAttr("type","text")),Default.Attr().Class("input-xxlarge search-query"),(_this5=HTML5.Attr(),_this5.NewAttr("autofocus","autofocus")),(_this6=Default.Attr(),_this6.NewAttr("style","font-size: 30px; height: 40px"))])),(f=(x2=function(elt)
+      var inp,x,_this,_this1,_this2,_this3,f,x1,x3,_this4,_this5,f2,x4,_this7;
+      inp=(x=Default.Input(List.ofArray([(_this=Default.Attr(),_this.NewAttr("id","query")),(_this1=Default.Attr(),_this1.NewAttr("type","text")),Default.Attr().Class("input-xxlarge search-query"),(_this2=HTML5.Attr(),_this2.NewAttr("autofocus","autofocus")),(_this3=Default.Attr(),_this3.NewAttr("style","font-size: 30px; height: 40px"))])),(f=(x1=function(elt)
       {
-       return function()
+       return function(key)
        {
-        var v;
-        v=elt.get_Value();
-        if(v==="")
+        var matchValue,query,x2,f1;
+        matchValue=key.KeyCode;
+        if(matchValue===13)
          {
-          return null;
+          query=(x2=elt.get_Value(),(f1=function(uri)
+          {
+           return encodeURIComponent(uri);
+          },f1(x2)));
+          window.location.href="/search/"+query+"/1";
          }
         else
          {
-          return Clientb.suggest(elt.get_Value(),datalist);
+          return null;
          }
        };
       },function(arg10)
       {
-       return EventsPervasives.Events().OnKeyUp(x2,arg10);
-      }),(f(x1),x1)));
-      return Operators.add(Default.Div(List.ofArray([Default.Attr().Class("form-search")])),List.ofArray([Operators.add(Default.Div(List.ofArray([Default.Attr().Class("input-append")])),List.ofArray([inp,(x3=Default.Button(List.ofArray([Default.Text("Search"),(_this7=Default.Attr(),_this7.NewAttr("type","button")),Default.Attr().Class("btn btn-success"),(_this8=Default.Attr(),_this8.NewAttr("style","height: 50px; font-size: 20px;"))])),(f1=(x4=function()
+       return EventsPervasives.Events().OnKeyUp(x1,arg10);
+      }),(f(x),x)));
+      return Operators.add(Default.Div(List.ofArray([Default.Attr().Class("form-search")])),List.ofArray([Operators.add(Default.Div(List.ofArray([Default.Attr().Class("input-append")])),List.ofArray([inp,(x3=Default.Button(List.ofArray([Default.Text("Search"),(_this4=Default.Attr(),_this4.NewAttr("type","button")),Default.Attr().Class("btn btn-success"),(_this5=Default.Attr(),_this5.NewAttr("style","height: 50px; font-size: 20px;"))])),(f2=(x4=function()
       {
        return function()
        {
-        var q,x5,_this9,f2;
-        q=(x5=(_this9=inp.get_Value(),Strings.Trim(_this9)),(f2=function(uri)
+        var q,x2,_this6,f1;
+        q=(x2=(_this6=inp.get_Value(),Strings.Trim(_this6)),(f1=function(uri)
         {
          return encodeURIComponent(uri);
-        },f2(x5)));
+        },f1(x2)));
         window.location.href="/search/"+q+"/1";
        };
       },function(arg10)
       {
        return EventsPervasives.Events().OnClick(x4,arg10);
-      }),(f1(x3),x3)))])),datalist]));
-     },
-     suggest:function(query,elt)
-     {
-      var x,f1;
-      elt.set_Html("");
-      x=jQuery.getJSON("http://vuzupy.api.indexden.com/v1/indexes/WSSnippets/autocomplete?field=description&query="+query+"&callback=?",Runtime.Tupled(function(tupledArg)
-      {
-       var data,_arg1,x1,f,action;
-       data=tupledArg[0];
-       _arg1=tupledArg[1];
-       x1=data.suggestions;
-       f=(action=function(suggestion)
-       {
-        return jQuery("<option/>").text(suggestion).appendTo(elt.Body);
-       },function(array)
-       {
-        return Arrays.iter(action,array);
-       });
-       return f(x1);
-      }));
-      f1=function(value)
-      {
-       value;
-      };
-      return f1(x);
+      }),(f2(x3),x3)))])),Default.Script(List.ofArray([(_this7=Default.Attr(),_this7.NewAttr("src","Scripts/AutoComplete.js"))]))]));
      }
     },
     Control:Runtime.Class({
@@ -872,11 +850,10 @@
   Client9=Runtime.Safe(InsertSnippet.Client);
   Login=Runtime.Safe(Website.Login);
   Clienta=Runtime.Safe(Login.Client);
-  Search=Runtime.Safe(Website.Search);
-  Clientb=Runtime.Safe(Search.Client);
-  Strings=Runtime.Safe(WebSharper.Strings);
   encodeURIComponent=Runtime.Safe(Global.encodeURIComponent);
-  return Arrays=Runtime.Safe(WebSharper.Arrays);
+  Strings=Runtime.Safe(WebSharper.Strings);
+  Search=Runtime.Safe(Website.Search);
+  return Clientb=Runtime.Safe(Search.Client);
  });
  Runtime.OnLoad(function()
  {

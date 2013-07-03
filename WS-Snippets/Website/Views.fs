@@ -12,7 +12,9 @@ module Views =
     open Utils.Server
     open Mongo
 
+    let private homeTemplate = Skin.MakeDefaultTemplate "~/Home.html" Skin.LoadFrequency.PerRequest
     let private mainTemplate = Skin.MakeDefaultTemplate "~/Main.html" Skin.LoadFrequency.PerRequest
+    let private withHomeTemplate = Skin.WithTemplate<Action> homeTemplate
     let private withMainTemplate = Skin.WithTemplate<Action> mainTemplate
     let private loginInfo' = loginInfo Logout Login
 
@@ -35,23 +37,45 @@ module Views =
     let home =
         let snippets =
             Snippets.latest10()
-            |> Seq.take 2
             |> Seq.toList
             |> split 2
             |> List.map (fun lst ->
-                let snip = lst.[0]
-                let snip' = lst.[1]
-                Div [Class "row"] -< [
-                    Div [Class "span4"] -< [
-                        H4 [A [HRef <| "/snippet/" + snip.SnipId.ToString()] -< [Text snip.Title]]
-                        P [Text snip.Desc]
-                    ]
-                    Div [Class "offset1 span4"] -< [
-                        H4 [A [HRef <| "/snippet/" + snip'.SnipId.ToString()] -< [Text snip'.Title]]
-                        P [Text snip'.Desc]
-                    ]
-                ])    
-        withMainTemplate Home.title Home.metaDescription <| fun ctx ->
+                match lst with
+                    | [snip] ->
+                        Div [Class "row"] -< [
+                            Div [Class "span4"] -< [
+                                H4 [A [HRef <| "/snippet/" + snip.SnipId.ToString()] -< [Text snip.Title]]
+                                P [Text snip.Desc]
+                            ]
+                        ]
+                    | _ ->
+                        let snip = lst.[0]
+                        let snip' = lst.[1]
+                        Div [Class "row"] -< [
+                            Div [Class "span4"] -< [
+                                H4 [A [HRef <| "/snippet/" + snip.SnipId.ToString()] -< [Text snip.Title]]
+                                P [Text snip.Desc]
+                            ]
+                            Div [Class "offset1 span4"] -< [
+                                H4 [A [HRef <| "/snippet/" + snip'.SnipId.ToString()] -< [Text snip'.Title]]
+                                P [Text snip'.Desc]
+                            ]
+                        ])
+
+//            |> List.map (fun lst ->
+//                let snip = lst.[0]
+//                let snip' = lst.[1]
+//                Div [Class "row"] -< [
+//                    Div [Class "span4"] -< [
+//                        H4 [A [HRef <| "/snippet/" + snip.SnipId.ToString()] -< [Text snip.Title]]
+//                        P [Text snip.Desc]
+//                    ]
+//                    Div [Class "offset1 span4"] -< [
+//                        H4 [A [HRef <| "/snippet/" + snip'.SnipId.ToString()] -< [Text snip'.Title]]
+//                        P [Text snip'.Desc]
+//                    ]
+//                ])    
+        withHomeTemplate Home.title Home.metaDescription <| fun ctx ->
             [
                 Home.navigation
                 Div [new Forkme.Control()]
@@ -59,15 +83,26 @@ module Views =
                     Div [Class "container"; Style "width: 1000px; padding-top: 60px;"] -< [
                         HTML5.Header [Class "hero-unit"; Style "background-color: white; height: 80px;"] -< [
                             Div [Class "text-center"] -< [
-                                H1 [Text "WebSharper Code Snippets"]
+                                H1 [Text "WebSharper Snippets"]
                                 P [Class "lead"; Style "padding-top: 10px;"] -< [Text "Snippets and examples of WebSharper code with live demos."]
                                 HR []
                             ]
                         ]
                         Div [
                             Div [
-                                HTML5.Section [Style "margin-bottom: 30px; width: 647px; margin-right: auto; margin-left: auto;"] -< [new Search.Control()]
-                                Div [Style "height: 30px; width: 312px;"; Class "pull-right"] -< [new AddThis.Control()]
+                                HTML5.Section [Style "margin-bottom: 30px; width: 647px; margin-right: auto; margin-left: auto;"] -< [
+                                    new Search.Control()]
+//                                    Div [Class "form-search"] -< [
+//                                        Div [Class "input-append"] -< [
+//                                            Input [Id "query"]
+////                                            Button [Text "Search"; Attr.Type "button"; Attr.Class "btn btn-success"; Attr.Style "height: 50px; font-size: 20px;"]
+////                                            |>! OnClick (fun _ _ ->
+////                                                let q = inp.Value.Trim() |> encode
+////                                                Window.Self.Location.Href <- "/search/" + q + "/1")
+//                                        ]
+//                                    ]
+//                                ]
+                                Div [Style "height: 20px; width: 400px;"; Class "pull-right"] -< [new AddThis.Control()]
                                 HTML5.Section [Style "clear: both;"] -< [
                                     yield Div [
                                         H3 [Style "float: left;"] -< [Text "Latest snippets"]
@@ -153,7 +188,7 @@ module Views =
             ]
 
     let error =
-        withMainTemplate "Error - Page Not Found" "" <| fun ctx ->
+        withMainTemplate "Error · Page Not Found" "" <| fun ctx ->
             [
                 Shared.navigation
                 Div [Id "wrap"] -< [
@@ -169,7 +204,7 @@ module Views =
 
     let snippet id =
         let title, metaDesc, desc, tags, control = Controls.hashset |> Seq.find (fun x -> x.Id = id) |> fun x -> x.Title, x.MetaDesc, x.Description, x.Tags, x.Control
-        let title' = title + " | WebSharper Snippets"
+        let title' = title + " · WebSharper Snippets"
         let desc' = Element.VerbatimContent desc
         let path = HttpContext.Current.Server.MapPath <| "~/Source/" + string id + ".txt"
         let source = File.ReadAllText path
@@ -187,7 +222,7 @@ module Views =
                             H1 [Text title]
                             desc'
                         ]
-                        Div [Class "pull-right"; Style "width: 312px;"] -< [new AddThis.Control()]
+                        Div [Class "pull-right"; Style "height: 30px; width: 400px;"] -< [new AddThis.Control()]
 
                         Div [Style "height: 500px;"] -< [
                             Div [Class "tabbable"] -< [
@@ -244,6 +279,8 @@ module Views =
 
     let tagged tag =
         let tag' = HttpUtility.UrlDecode tag |> fun x -> x.ToUpper()
+        let title = tag' + " Snippets"
+        let metaDesc = "WebSharper snippets tagged " + tag' + "."
         let divs =
             Snippets.hasTag tag'
             |> Seq.toList
@@ -270,7 +307,7 @@ module Views =
                                 P [Text snip'.Desc]
                             ]
                         ])
-        withMainTemplate About.title About.metaDescription <| fun ctx ->
+        withMainTemplate title metaDesc <| fun ctx ->
             [
                 About.navigation
                 Div [new Forkme.Control()]
@@ -315,10 +352,10 @@ module Views =
                     |> Array.map (fun (id, title, description, code) ->
                         LI [Style "margin-bottom: 25px;"] -< [
                             A [HRef <| "/snippet/" + id; Style "font-size: large;"] -< [Element.VerbatimContent title]
-                            P [Element.VerbatimContent description]
-                            P [Element.VerbatimContent code]
+                            Element.VerbatimContent description
+                            //P [Element.VerbatimContent code]
                         ])
-                let ul = UL [Class "unstyled"] -< [yield! lis]
+                let ul = UL [Class "unstyled span8"] -< [yield! lis]
                 let pagination =
                     match pages.Length with
                         | 1 -> Div []

@@ -6,7 +6,7 @@ module Forkme =
 
     [<JavaScript>]
     let private main() =
-        A [HRef "https://github.com/TahaHachana/WS-Snippets"] -< [
+        A [HRef "https://github.com/TahaHachana/WS-Snippets"; Attr.Target "_blank"] -< [
             Img [
                 Src "https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png"
                 Alt "Fork me on GitHub"

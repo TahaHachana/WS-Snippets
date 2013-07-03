@@ -52,7 +52,7 @@ module Utils =
 //                H3 [Class "muted"] -< [Text "WebSharper Snippets"]
 //            ]
 
-        let (=>) anchor href = A [HRef href] -< [Text anchor]
+        let (=>) anchor href = A [HRef href; Target "_blank"] -< [Text anchor]
     
         let randomizeUrl url = url + "?d=" + System.Uri.EscapeUriString (System.DateTime.Now.ToString())
 

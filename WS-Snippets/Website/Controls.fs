@@ -570,7 +570,7 @@ module Controls =
         let snippet2 =
             snippet
                 2
-                "Drawing the HTML5 Logo on Canvas"
+                "HTML5 Logo on Canvas"
                 "Using WebSharper's canvas bindings to draw the HTML5 logo."
                 "<div>This WebSharper sample draws the W3C's official logo for HTML5 on a <code>&lt;canvas&gt;</code>. The logo is drawn by calling methods and setting properties of the 2D context attribute.</div>"
                 ["HTML5"; "CANVAS"; "JAVASCRIPT"]
@@ -586,20 +586,19 @@ module Controls =
                 ["LOCATION"; "JAVASCRIPT"]
                 <| new Snippet3.Control()
 
-
         let snippet4 =
             snippet
                 4
                 "Twitter Widget"
                 "Custom Twitter widget for the latest #fsharp tweets."
-                "<div>This WebSharper demo features a custom Twitter widget for the latest tweets tagged \"fsharp\". The tweets are retrieved on the server-side by calling the Twitter API. The client-side code creates a list from these tweets and appends it to the DOM.</div>"
-                ["TWITTER"; "API"; "FSHARP"; "RPC"; "JQUERY"; "HTML"; "DOM"]
+                "<div>This WebSharper demo features a custom Twitter widget for the latest tweets tagged \"FSharp\". The tweets are retrieved on the server-side by calling the Twitter API. The client-side code appends a list containing these tweets to the DOM.</div>"
+                ["TWITTER"; "JQUERY"; "HTML"; "DOM"]
                 <| new Snippet4.Control()
 
         let snippet5 =
             snippet
                 5
-                "Debugging with the Console"
+                "Console Debugging"
                 "Using the browser's console for debugging purposes from WebSharper."
                 "<div><p>Modern browsers provide a useful console that lets you log debugging messages. Open your browser's JavaScript console and press the \"Log\" button to log the value of the <code>&lt;input&gt;</code> field in this example.</p></div>"
                 ["JAVASCRIPT"]
@@ -656,8 +655,8 @@ module Controls =
             snippet3
             snippet4
             snippet5
-            snippet6
-            snippet7
+//            snippet6
+//            snippet7
 //            snippet8
 //            snippet9
 //            snippet10

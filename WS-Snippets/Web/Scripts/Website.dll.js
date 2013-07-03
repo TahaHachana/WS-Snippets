@@ -399,8 +399,8 @@
     }),
     main:function()
     {
-     var _this;
-     return Operators.add(Default.A(List.ofArray([Default.HRef("https://github.com/TahaHachana/WS-Snippets")])),List.ofArray([Default.Img(List.ofArray([Default.Src("https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png"),Default.Alt("Fork me on GitHub"),Default.Id("forkme"),(_this=Default.Attr(),_this.NewAttr("style","z-index: 2000;"))]))]));
+     var _this,_this1;
+     return Operators.add(Default.A(List.ofArray([Default.HRef("https://github.com/TahaHachana/WS-Snippets"),(_this=Default.Attr(),_this.NewAttr("target","_blank"))])),List.ofArray([Default.Img(List.ofArray([Default.Src("https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png"),Default.Alt("Fork me on GitHub"),Default.Id("forkme"),(_this1=Default.Attr(),_this1.NewAttr("style","z-index: 2000;"))]))]));
     }
    },
    Highlight:{

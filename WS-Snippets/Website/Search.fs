@@ -13,18 +13,21 @@ module Search =
         let query text =
             let q = Query text
             q.MatchAnyField <- Nullable(true)
-            q.Fetch <- ["title"]
-            q.Snippet <- ["title"; "description"; "code"]
+            q.Fetch <- ["title"; "description"]
+            q.Snippet <- ["title"; "description"]
             q
 //        let search = client.Search("WSSnippets", query)
 
+        
         let results q =
             let q' = query q
             client.Search("WSSnippets", q').Results
             |> Seq.toArray
             |> Array.map (fun x ->
                 let title = x.Snippets.["title"] |> function "" -> x.Fields.["title"] | t -> t
-                x.DocId, title, x.Snippets.["description"], x.Snippets.["code"])
+//                let description = x.Snippets.["description"] |> function "" -> x.Fields.["description"] | d -> d
+//                x.DocId, title, x.Snippets.["description"], x.Snippets.["code"])
+                x.DocId, title, x.Fields.["description"])
 
         open IntelliFactory.WebSharper.Sitelets
 

@@ -42,7 +42,7 @@ module Views =
             |> List.map (fun lst ->
                 match lst with
                     | [snip] ->
-                        Div [Class "row"] -< [
+                        Div [Class "row"; Style "margin-bottom: 20px;"] -< [
                             Div [Class "span4"] -< [
                                 H4 [A [HRef <| "/snippet/" + snip.SnipId.ToString()] -< [Text snip.Title]]
                                 P [Text snip.Desc]
@@ -51,7 +51,7 @@ module Views =
                     | _ ->
                         let snip = lst.[0]
                         let snip' = lst.[1]
-                        Div [Class "row"] -< [
+                        Div [Class "row"; Style "margin-bottom: 20px;"] -< [
                             Div [Class "span4"] -< [
                                 H4 [A [HRef <| "/snippet/" + snip.SnipId.ToString()] -< [Text snip.Title]]
                                 P [Text snip.Desc]
@@ -65,7 +65,7 @@ module Views =
 //            |> List.map (fun lst ->
 //                let snip = lst.[0]
 //                let snip' = lst.[1]
-//                Div [Class "row"] -< [
+//                Div [Class "row"; Style "margin-bottom: 20px;"] -< [
 //                    Div [Class "span4"] -< [
 //                        H4 [A [HRef <| "/snippet/" + snip.SnipId.ToString()] -< [Text snip.Title]]
 //                        P [Text snip.Desc]
@@ -135,12 +135,12 @@ module Views =
                             A [HRef "http://www.websharper.com/"] -< [Text "WebSharper"]
                             Text " by "
                             A [HRef "http://taha-hachana.apphb.com/"] -< [Text "Taha Hachana"]
-                            Text " in the hope that it would be useful for WebSharper developers both beginners and experienced ones. The code shared on this website is written in a fashion that lets you easily paste it in your applications and modify or build on it."
+                            Text " in the hope that it would be useful for WebSharper developers both beginners and experienced ones. The code shared on this website is written in a fashion that lets you easily use it in your applications."
                         ]
                         P [
-                            Text "If you want to add your own WebSharper snippets you can "
-                            A [HRef "https://github.com/TahaHachana/WS-Snippets"] -< [Text "fork the project on GitHub"]
-                            Text " and issue a pull request once you've made the necessary updates."
+                            Text "The majority of the snippets should also render smoothly inside "
+                            A [HRef "#"] -< [Text "CloudSharper"]
+                            Text "'s FSI with little or no modification."
                         ]
                     ]
                 ]
@@ -288,7 +288,7 @@ module Views =
             |> List.map (fun lst ->
                 match lst with
                     | [snip] ->
-                        Div [Class "row"] -< [
+                        Div [Class "row"; Style "margin-bottom: 20px;"] -< [
                             Div [Class "span4"] -< [
                                 H4 [A [HRef <| "/snippet/" + snip.SnipId.ToString()] -< [Text snip.Title]]
                                 P [Text snip.Desc]
@@ -297,7 +297,7 @@ module Views =
                     | _ ->
                         let snip = lst.[0]
                         let snip' = lst.[1]
-                        Div [Class "row"] -< [
+                        Div [Class "row"; Style "margin-bottom: 20px;"] -< [
                             Div [Class "span4"] -< [
                                 H4 [A [HRef <| "/snippet/" + snip.SnipId.ToString()] -< [Text snip.Title]]
                                 P [Text snip.Desc]
@@ -349,11 +349,14 @@ module Views =
                     | _ -> pages.[(pageId - 5) .. (pageId + 4)]
                 let lis =
                     results' //.[(pageId - 1) .. (pageId + 3)]
-                    |> Array.map (fun (id, title, description, code) ->
+                    |> Array.map (fun (id, title, desc) ->
+                        let desc' =
+                            match desc.Length with
+                                | length when length < 150 -> desc
+                                | _ -> desc.[..147] + "..."
                         LI [Style "margin-bottom: 25px;"] -< [
                             A [HRef <| "/snippet/" + id; Style "font-size: large;"] -< [Element.VerbatimContent title]
-                            Element.VerbatimContent description
-                            //P [Element.VerbatimContent code]
+                            Div [Text desc']
                         ])
                 let ul = UL [Class "unstyled span8"] -< [yield! lis]
                 let pagination =
@@ -385,10 +388,10 @@ module Views =
                 Shared.navigation
                 Div [new Forkme.Control()]
                 Div [Id "wrap"] -< [
-                    Div [Class "container"; Style "width: 1000px; padding-top: 100px;"] -< [
+                    Div [Class "container"; Style "width: 1000px; padding-top: 100px; padding-bottom: 200px;"] -< [
                         Div [Class "pull-down"] -< [
                             HTML5.Header [
-                                H3 [Text "Results"]
+                                H1 [Text "Search Results"]
                             ]
                         ]
                         div

@@ -132,14 +132,14 @@ module Views =
                         HTML5.Header [H1 [Text "About"]]
                         P [
                             Text "This application is built with "
-                            A [HRef "http://www.websharper.com/"] -< [Text "WebSharper"]
+                            A [HRef "http://www.websharper.com/"; Target "_blank"] -< [Text "WebSharper"]
                             Text " by "
-                            A [HRef "http://taha-hachana.apphb.com/"] -< [Text "Taha Hachana"]
+                            A [HRef "http://taha-hachana.apphb.com/"; Target "_blank"] -< [Text "Taha Hachana"]
                             Text " in the hope that it would be useful for WebSharper developers both beginners and experienced ones. The code shared on this website is written in a fashion that lets you easily use it in your applications."
                         ]
                         P [
                             Text "The majority of the snippets should also render smoothly inside "
-                            A [HRef "#"] -< [Text "CloudSharper"]
+                            A [HRef "#"; Target "_blank"] -< [Text "CloudSharper"]
                             Text "'s FSI with little or no modification."
                         ]
                     ]
@@ -211,7 +211,7 @@ module Views =
         let elt = Element.VerbatimContent source
         let btns = tags |> List.map (fun x ->
             let href = "/tagged/" + HttpUtility.UrlEncode(x.ToLower())
-            A [HRef href] -< [Button [Class "btn btn-info"; Style "margin: 5px;"] -< [Text x]])
+            A [HRef href] -< [Button [Class "btn btn-success"; Style "margin: 5px;"] -< [Text x]])
         withMainTemplate title' metaDesc <| fun ctx ->
             [
                 Shared.navigation
@@ -410,3 +410,8 @@ module Views =
                     use tw = new System.IO.StreamWriter(stream)
                     tw.WriteLine feed
             }
+
+
+
+
+

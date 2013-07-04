@@ -563,8 +563,8 @@ module Controls =
                 1
                 "Hello World"
                 "WebSharper hello world example."
-                "<div>This snippet uses <strong>WebSharper</strong>'s HTML combinators to append an <code>&lt;h2&gt;</code> heading containing a greeting message to the DOM.</div>"
-                ["WEBSHARPER"; "HTML"; "DOM"]
+                "<div><p>This snippet implements a <em>Hello World</em> in <strong>WebSharper</strong>. An <code>&lt;h2&gt;</code> heading containing a greeting message is appended to the DOM using the HTML combinators.</p></div>"
+                ["DOM"; "HTML"; "WEBSHARPER"]
                 <| new Snippet1.Control()
         
         let snippet2 =
@@ -572,18 +572,17 @@ module Controls =
                 2
                 "HTML5 Logo on Canvas"
                 "Using WebSharper's canvas bindings to draw the HTML5 logo."
-                "<div>This WebSharper sample draws the W3C's official logo for HTML5 on a <code>&lt;canvas&gt;</code>. The logo is drawn by calling methods and setting properties of the 2D context attribute.</div>"
-                ["HTML5"; "CANVAS"; "JAVASCRIPT"]
+                "<div><p>This WebSharper sample draws the W3C's official logo for HTML5 on a <code>&lt;canvas&gt;</code>. The shapes that compose the logo are drawn by calling methods and setting properties of the 2D context attribute.</p></div>"
+                ["CANVAS"; "HTML5"; "JAVASCRIPT"]
                 <| new Snippet2.Control()
-
 
         let snippet3 =
             snippet
                 3
-                "Window Location Object"
-                "Getting information about the current document's location."
-                "<div>The properties of the location object describe the address of the current document. Notice in this example that the hash, port and search values are empty. The hash property returns the anchor segment of the URL. The port value is empty if it's the default 80 and since the address doesn't contain a query the search property is also empty.</div>"
-                ["LOCATION"; "JAVASCRIPT"]
+                "Window's Location Object"
+                "Properties of the document's current location."
+                "<div><p>The properties of the location object describe the address of the current document. Notice in this example that the <em>hash</em>, <em>port</em> and <em>search</em> values are empty. The hash property returns the anchor segment of the URL. The port value is empty if it's the default 80 and since the URL doesn't contain a query the search property is also empty.</p></div>"
+                ["JAVASCRIPT"; "LOCATION"; "WINDOW"]
                 <| new Snippet3.Control()
 
         let snippet4 =
@@ -591,8 +590,8 @@ module Controls =
                 4
                 "Twitter Widget"
                 "Custom Twitter widget for the latest #fsharp tweets."
-                "<div>This WebSharper demo features a custom Twitter widget for the latest tweets tagged \"FSharp\". The tweets are retrieved on the server-side by calling the Twitter API. The client-side code appends a list containing these tweets to the DOM.</div>"
-                ["TWITTER"; "JQUERY"; "HTML"; "DOM"]
+                "<div><p>This WebSharper demo features a custom Twitter widget for the latest tweets tagged <em>FSharp</em>. WebSharper's <abbr title='Remote Procedure Call'>RPC</abbr> mechanism is used to retrieve the tweets on the server-side. The client-side code appends a list containing these tweets to the DOM.</p></div>"
+                ["DOM"; "HTML"; "JQUERY"; "TWITTER"; "WEBSHARPER"]
                 <| new Snippet4.Control()
 
         let snippet5 =

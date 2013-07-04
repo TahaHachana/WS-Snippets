@@ -74,3 +74,11 @@ body {
 .tweet-actions {
     visibility: hidden;
 }
+
+/* jQuery UI Autocomplete */
+.ui-autocomplete {
+    max-height: 200px;
+    overflow-y: auto;
+    /* prevent horizontal scrollbar */
+    overflow-x: hidden;
+  }

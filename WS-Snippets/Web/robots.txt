@@ -1,2 +1,4 @@
 ﻿User-agent: *
-Disallow: /
+Allow: /
+
+Sitemap: http://wssnippets.apphb.com/sitemap.xml

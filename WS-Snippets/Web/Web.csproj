@@ -52,6 +52,7 @@
     <Content Include="Images\feed-icon.png" />
     <Content Include="Images\Loader.gif" />
     <Content Include="robots.txt" />
+    <Content Include="Scripts\googleAnalytics.js" />
     <Content Include="Scripts\IntelliFactory.Formlet.dll.js" />
     <Content Include="Scripts\IntelliFactory.Formlet.dll.min.js" />
     <Content Include="Scripts\IntelliFactory.Reactive.dll.js" />
@@ -72,6 +73,7 @@
     <Content Include="Scripts\AutoComplete.js" />
     <Content Include="Scripts\jquery-ui-1.10.3.custom.min.js" />
     <Content Include="Scripts\Website.dll.min.js" />
+    <Content Include="sitemap.xml" />
     <Content Include="Source\1.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

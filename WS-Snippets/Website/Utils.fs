@@ -26,7 +26,7 @@ module Utils =
             Div [Class "navbar navbar-inverse navbar-fixed-top"] -< [
                 Div [Class "navbar-inner"] -< [
                     Div [Class "container"; Style "width: 1000px;"] -< [
-                        A [Class "brand"; HRef "/"; Style "padding: 15px;"] -< [Text "WS Snippets"]
+                        A [Class "brand"; HRef "/"; Style "padding: 15px;"] -< [Text "W# Snippets"]
                         UL [Class "nav"] -< [
                             li' "/"      "Home"
                             li' "/about" "About"

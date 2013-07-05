@@ -4,6 +4,8 @@ WS-Snippets
 About
 -----
 
+A collection of WebSharper snippets with live demos.
+
 MIT License
 -----------
 

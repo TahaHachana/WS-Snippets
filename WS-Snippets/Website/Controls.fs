@@ -607,8 +607,8 @@ module Controls =
             snippet
                 6
                 "User's Current Position"
-                "Getting the current position using the geolocation API."
-                "<div><p>This geolocation snippet shows how to track the current location of the user.</p></div>"
+                "Getting the user's current position using the geolocation API."
+                "<div><p>This geolocation snippet shows how to call the <code>getCurrentPosition</code> method to receive information about the user's position. After you press the \"Track My Location\" button and approve the request, a success callback function is invoked to display the properties of the position once it becomes available. The number of returned data values depends on the user's device and whether it has an accelerometer, a compass and GPS.</p></div>"
                 ["GEOLOCATION"]
                 <| new Snippet6.Control()
 
@@ -654,7 +654,7 @@ module Controls =
             snippet3
             snippet4
             snippet5
-//            snippet6
+            snippet6
 //            snippet7
 //            snippet8
 //            snippet9

@@ -330,10 +330,10 @@ module Views =
             [
                 Div [control]
             ]
-
+    
     let search q pageId =
         let q' = HttpUtility.UrlDecode q
-        let results = Search.Server.results q'
+        let matches, results = Search.Server.results q' ((pageId - 1) * 5)
         let div =
             match results.Length with
                 | 0 -> Div [Text "The query did not match any documents."]
@@ -341,12 +341,12 @@ module Views =
                 let results' =
                     match results.Length with
                         | l when l < 6 -> results
-                        | _ -> results.[(pageId - 1) .. (pageId + 3)]
-                let pages = float results.Length / 5. |> ceil |> int |> fun x -> [|1 .. x|] 
+                        | _ -> results.[(pageId - 1) ..] |> Seq.truncate 5 |> Seq.toArray
+                let pages = matches / 5. |> ceil |> int |> fun x -> [|1 .. x|] 
                 let pages' =
                     match pages.Length with
                     | l when l < 11 -> pages
-                    | _ -> pages.[(pageId - 5) .. (pageId + 4)]
+                    | _ -> pages.[(pageId - 5) .. ] |> Seq.truncate 5 |> Seq.toArray
                 let lis =
                     results' //.[(pageId - 1) .. (pageId + 3)]
                     |> Array.map (fun (id, title, desc) ->
@@ -358,7 +358,7 @@ module Views =
                             A [HRef <| "/snippet/" + id; Style "font-size: large;"] -< [Element.VerbatimContent title]
                             Div [Text desc']
                         ])
-                let ul = UL [Class "unstyled span8"] -< [yield! lis]
+                let ul = UL [Class "unstyled span8"; Style "min-height: 450px;"] -< [yield! lis]
                 let pagination =
                     match pages.Length with
                         | 1 -> Div []
@@ -371,7 +371,7 @@ module Views =
                                 match pageId with
                                     | _ when pageId = pages.Length -> LI [Class "disabled"] -< [A [HRef "#"] -< [Text "»"]]
                                     | _ -> LI [A [HRef <| "/search/" + q + "/" + string (pageId + 1)] -< [Text "»"]]
-                            Div [Class "pagination pagination-centered"] -< [
+                            Div [Class "pagination pagination-centered"; Style "clear: left;"] -< [
                                 UL [
                                     yield prev
                                     let lis = pages' |> Array.map (fun x ->

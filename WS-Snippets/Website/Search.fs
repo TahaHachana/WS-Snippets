@@ -10,24 +10,28 @@ module Search =
 
         let client = TankTopClient Secret.indexdenUrl
 
-        let query text =
+        let query text start =
             let q = Query text
             q.MatchAnyField <- Nullable(true)
             q.Fetch <- ["title"; "description"]
             q.Snippet <- ["title"; "description"]
+            q.Start <- Nullable start 
             q
 //        let search = client.Search("WSSnippets", query)
 
         
-        let results q =
-            let q' = query q
-            client.Search("WSSnippets", q').Results
-            |> Seq.toArray
-            |> Array.map (fun x ->
-                let title = x.Snippets.["title"] |> function "" -> x.Fields.["title"] | t -> t
-//                let description = x.Snippets.["description"] |> function "" -> x.Fields.["description"] | d -> d
-//                x.DocId, title, x.Snippets.["description"], x.Snippets.["code"])
-                x.DocId, title, x.Fields.["description"])
+        let results q start =
+            let q' = query q start
+            let searchResults = client.Search("WSSnippets", q')
+            let results =
+                client.Search("WSSnippets", q').Results
+                |> Seq.toArray
+                |> Array.map (fun x ->
+                    let title = x.Snippets.["title"] |> function "" -> x.Fields.["title"] | t -> t
+    //                let description = x.Snippets.["description"] |> function "" -> x.Fields.["description"] | d -> d
+    //                x.DocId, title, x.Snippets.["description"], x.Snippets.["code"])
+                    x.DocId, title, x.Fields.["description"])
+            float searchResults.Matches, results
 
         open IntelliFactory.WebSharper.Sitelets
 

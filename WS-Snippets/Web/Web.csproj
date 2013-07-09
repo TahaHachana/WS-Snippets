@@ -51,6 +51,7 @@
     <Content Include="*.aspx" />
     <Content Include="Images\feed-icon.png" />
     <Content Include="Images\Loader.gif" />
+    <Content Include="Images\madagascar.jpg" />
     <Content Include="robots.txt" />
     <Content Include="Scripts\googleAnalytics.js" />
     <Content Include="Scripts\IntelliFactory.Formlet.dll.js" />
@@ -107,6 +108,7 @@
     <Content Include="StyleSheets\jquery-ui-1.10.3.custom.min.css" />
     <Content Include="StyleSheets\StyleSheet1.css" />
     <Content Include="Themes\**\*.*" />
+    <Content Include="Videos\madagascar.mp4" />
     <Content Include="Views\**\*.*" />
     <Content Include="*.asax" />
     <Compile Include="*.asax.cs" />

@@ -12,8 +12,8 @@ module Views =
     open Utils.Server
     open Mongo
 
-    let private homeTemplate = Skin.MakeDefaultTemplate "~/Home.html" Skin.LoadFrequency.PerRequest
-    let private mainTemplate = Skin.MakeDefaultTemplate "~/Main.html" Skin.LoadFrequency.PerRequest
+    let private homeTemplate = Skin.MakeDefaultTemplate "~/Home.html" Skin.LoadFrequency.Once
+    let private mainTemplate = Skin.MakeDefaultTemplate "~/Main.html" Skin.LoadFrequency.Once
     let private withHomeTemplate = Skin.WithTemplate<Action> homeTemplate
     let private withMainTemplate = Skin.WithTemplate<Action> mainTemplate
     let private loginInfo' = loginInfo Logout Login

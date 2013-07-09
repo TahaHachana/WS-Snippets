@@ -374,11 +374,11 @@
        var elt,_this,x,_this1,_this2,video;
        elt=(_this=HTML5.Tags(),(x=List.ofArray([(_this1=Default.Attr(),_this1.NewAttr("height","360px")),(_this2=Default.Attr(),_this2.NewAttr("width","640px"))]),_this.NewTag("video",x)));
        video=elt.Body;
-       video.src="http://www.html5videoplayer.net/videos/madagascar3.mp4";
+       video.src="/Videos/Madagascar.mp4";
        video.autoplay=false;
        video.controls=true;
        video.preload="metadata";
-       video.poster="http://www.html5videoplayer.net/poster/madagascar3.jpg";
+       video.poster="/Images/madagascar.jpg";
        return elt;
       }
      },

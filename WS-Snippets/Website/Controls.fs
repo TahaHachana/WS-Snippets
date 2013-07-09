@@ -368,11 +368,11 @@ module Controls =
             let main() =
                 let elt = HTML5.Tags.Video [Attr.Height "360px"; Attr.Width "640px"]
                 let video = As<HTMLVideoElement> elt.Dom
-                video.Src <- "http://www.html5videoplayer.net/videos/madagascar3.mp4"
+                video.Src <- "/Videos/Madagascar.mp4"
                 video.Autoplay <- false
                 video.Controls <- true
                 video.Preload <- "metadata"
-                video.Poster <- "http://www.html5videoplayer.net/poster/madagascar3.jpg"
+                video.Poster <- "/Images/madagascar.jpg"
                 elt
 
         // A control for serving the main pagelet.
@@ -616,8 +616,8 @@ module Controls =
             snippet
                 7
                 "HTML5 Video"
-                ""
-                "<div><p>Embedding native video.</p></div>"
+                "Native video playback on a web page using the video element."
+                "<div><p>HTML5 standardized native video playback with the introduction of the <code>video</code> element. This snippet embeds an MP4 video and uses the <code>poster</code> attribute to display a placeholder image until the user plays the clip.</p></div>"
                 ["HTML5"; "MULTIMEDIA"; "VIDEO"]
                 <| new Snippet7.Control()
 
@@ -655,7 +655,7 @@ module Controls =
             snippet4
             snippet5
             snippet6
-//            snippet7
+            snippet7
 //            snippet8
 //            snippet9
 //            snippet10

@@ -366,9 +366,11 @@ module Controls =
         
             // Appends a video element to the DOM.
             let main() =
-                let elt = HTML5.Tags.Video [Attr.Height "360px"; Attr.Width "640px"]
+                let elt =
+                    HTML5.Tags.Video [Attr.Height "360px"; Attr.Width "640px"] -< [
+                        HTML5.Tags.Source [Attr.Src "/Videos/madagascar.mp4"; Attr.Type "video/mp4"]                    
+                    ]
                 let video = As<HTMLVideoElement> elt.Dom
-                video.Src <- "/Videos/Madagascar.mp4"
                 video.Autoplay <- false
                 video.Controls <- true
                 video.Preload <- "metadata"
@@ -617,7 +619,7 @@ module Controls =
                 7
                 "HTML5 Video"
                 "Native video playback on a web page using the video element."
-                "<div><p>HTML5 standardized native video playback with the introduction of the <code>video</code> element. This snippet embeds an MP4 video and uses the <code>poster</code> attribute to display a placeholder image until the user plays the clip.</p></div>"
+                "<div><p>HTML5 standardized native video playback with the introduction of the <code>&lt;video&gt;</code> element. This snippet embeds an MP4 video and uses the <code>poster</code> attribute to display a placeholder image until the user plays the clip.</p></div>"
                 ["HTML5"; "MULTIMEDIA"; "VIDEO"]
                 <| new Snippet7.Control()
 
@@ -674,3 +676,6 @@ module Controls =
 //            extSnip2
 //        |]
 //        |> Array.iter (fun x -> hashset''.Add x |> ignore)
+
+
+

@@ -1,6 +1,6 @@
 (function()
 {
- var Global=this,Runtime=this.IntelliFactory.Runtime,Website,AddThis,WebSharper,Html,Default,HTML5,List,T,Controls,Snippet1,Client,Snippet2,Client1,Seq,window,Operators,Snippet3,Client2,jQuery,Remoting,Snippet4,Client3,Concurrency,alert,JavaScript,EventsPervasives,Snippet5,Client4,String,Snippet6,Client5,document,Snippet7,Client6,Forkme,Highlight,Client7,Formlet,Controls1,Enhance,Data,Formlet1,Index,Client8,InsertSnippet,Client9,Login,Clienta,encodeURIComponent,Strings,Search,Clientb;
+ var Global=this,Runtime=this.IntelliFactory.Runtime,Website,AddThis,WebSharper,Html,Default,HTML5,List,T,Controls,Snippet1,Client,Snippet2,Client1,Seq,window,Operators,Snippet3,Client2,jQuery,Remoting,Snippet4,Client3,Concurrency,alert,JavaScript,EventsPervasives,Snippet5,Client4,String,Snippet6,Client5,document,Snippet7,Client6,Forkme,Highlight,Client7,Formlet,Controls1,Enhance,Data,Formlet1,Index,Client8,InsertSnippet,Client9,Login,Clienta,encodeURIComponent,Strings,Search,Clientb,Video,Clientc;
  Runtime.Define(Global,{
   Website:{
    AddThis:{
@@ -371,10 +371,9 @@
      Client:{
       main:function()
       {
-       var elt,_this,x,_this1,_this2,video;
-       elt=(_this=HTML5.Tags(),(x=List.ofArray([(_this1=Default.Attr(),_this1.NewAttr("height","360px")),(_this2=Default.Attr(),_this2.NewAttr("width","640px"))]),_this.NewTag("video",x)));
+       var elt,_this,x,_this1,_this2,_this3,x1,_this4,_this5,video;
+       elt=Operators.add((_this=HTML5.Tags(),(x=List.ofArray([(_this1=Default.Attr(),_this1.NewAttr("height","360px")),(_this2=Default.Attr(),_this2.NewAttr("width","640px"))]),_this.NewTag("video",x))),List.ofArray([(_this3=HTML5.Tags(),(x1=List.ofArray([(_this4=Default.Attr(),_this4.NewAttr("src","/Videos/madagascar.mp4")),(_this5=Default.Attr(),_this5.NewAttr("type","video/mp4"))]),_this3.NewTag("source",x1)))]));
        video=elt.Body;
-       video.src="/Videos/Madagascar.mp4";
        video.autoplay=false;
        video.controls=true;
        video.preload="metadata";
@@ -797,6 +796,29 @@
       return Clientb.main();
      }
     })
+   },
+   Video:{
+    Client:{
+     main:function()
+     {
+      var source,_this,x,_this1,_this2,elt,_this3,x1,_this4,_this5,video;
+      source=(_this=HTML5.Tags(),(x=List.ofArray([(_this1=Default.Attr(),_this1.NewAttr("src","/Videos/madagascar.mp4")),(_this2=Default.Attr(),_this2.NewAttr("type","video/mp4"))]),_this.NewTag("source",x)));
+      elt=Operators.add((_this3=HTML5.Tags(),(x1=List.ofArray([(_this4=Default.Attr(),_this4.NewAttr("height","360px")),(_this5=Default.Attr(),_this5.NewAttr("width","640px"))]),_this3.NewTag("video",x1))),List.ofArray([source]));
+      video=elt.Body;
+      video.src="/Videos/madagascar.mp4";
+      video.autoplay=false;
+      video.controls=true;
+      video.preload="metadata";
+      video.poster="/Images/madagascar.jpg";
+      return elt;
+     }
+    },
+    Control:Runtime.Class({
+     get_Body:function()
+     {
+      return Clientc.main();
+     }
+    })
    }
   }
  });
@@ -853,7 +875,9 @@
   encodeURIComponent=Runtime.Safe(Global.encodeURIComponent);
   Strings=Runtime.Safe(WebSharper.Strings);
   Search=Runtime.Safe(Website.Search);
-  return Clientb=Runtime.Safe(Search.Client);
+  Clientb=Runtime.Safe(Search.Client);
+  Video=Runtime.Safe(Website.Video);
+  return Clientc=Runtime.Safe(Video.Client);
  });
  Runtime.OnLoad(function()
  {

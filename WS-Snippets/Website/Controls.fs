@@ -703,7 +703,7 @@ module Controls =
                 8
                 "HTML5 WebSocket"
                 "WebSharper WebSocket example that implements an echo test."
-                "<div><p><strong>WebSocket</strong> is an HTML5 connectivity technology that enables full-duplex client-server communication for building real-time web applications. WebSocket reduces the latency issues associated with half duplex older HTTP techniques like polling, Comet and streaming by establishing a bidirectional, single-socket connection and reusing it.</p></div>"
+                "<div><p><strong>WebSocket</strong> is an HTML5 connectivity technology that enables full-duplex client-server communication for building real-time web applications. WebSocket reduces the latency issues associated with half duplex older HTTP techniques like polling, Comet and streaming by establishing a bidirectional, single-socket connection and reusing it.</p><p>This example connects to a remote echo server and enables sending/receiving messages and eventually closing the connection using the WebSocket API.</p></div>"
                 ["CONNECTIVITY"; "HTML5"; "WEBSOCKET"]
                 <| new Snippet8.Control()
 

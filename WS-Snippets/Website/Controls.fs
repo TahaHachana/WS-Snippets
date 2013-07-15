@@ -384,6 +384,81 @@ module Controls =
             [<JavaScript>]
             override __.Body = Client.main() :> _
 
+    module Snippet8 =
+
+        /// Client-side code.
+        [<JavaScript>]
+        module Client =
+
+            /// Appends a <p> element containing the specified text to the DOM.
+            let log text color =
+                P [Text text; Attr.Style <| "color: " + color]
+                |> (fun p -> ById("ws-log").AppendChild p.Dom)
+                |> ignore
+
+            /// Appends a button to the element with the specified id.
+            let append id (btn : Element) =
+                ById(id).AppendChild(btn.Dom)
+                |> ignore
+
+            /// Handles WebSocket events.
+            let handleEvents (ws : WebSocket) disconnectBtn sendBtn =
+                ws.Onerror <- (fun () -> log "Error" "red")
+                ws.Onmessage <- (fun msg -> log ("Received: " + msg.Data.ToString()) "blue")
+                ws.Onopen <- (fun () ->
+                    append "send-btn" sendBtn
+                    append "btns" disconnectBtn
+                    log "Connected" "green")
+                ws.Onclose <- (fun () ->
+                    ById("connect-btn").RemoveAttribute "disabled"
+                    sendBtn.Remove()
+                    disconnectBtn.Remove()
+                    log "Disconnected" "rgb(250, 167, 50)")
+
+            /// Creates a WebSocket connection and triggers its event handling.
+            let connect (msgText : Element) =
+                ById("connect-btn").SetAttribute("disabled", "disabled")
+                let ws = WebSocket "ws://echo.websocket.org"
+                let sendBtn =
+                    Button [Text "Send"; Attr.Class "btn btn-primary"]
+                    |>! OnClick (fun _ _ ->
+                        let txt = msgText.Value
+                        ws.Send txt
+                        log ("Sent: " + txt) "black")
+                let disconnectBtn =
+                    Button [Text "Disconnect"; Attr.Class "btn btn-warning"]
+                    |>! OnClick (fun _ _ -> ws.Close())
+                handleEvents ws disconnectBtn sendBtn
+
+            let main() =
+                let msgText = TextArea [Text "Hello WebSocket"; Attr.Id "msg"]
+                let logDiv = Div [Attr.Id "ws-log"]
+                Div [Attr.Class "row"] -< [
+                    Div [Attr.Class "span4"] -< [
+                        Div [Attr.Style "margin-bottom: 10px;"; Attr.Id "btns"] -< [
+                            Button [Text "Connect"; Attr.Id "connect-btn"; Attr.Class "btn btn-success"; Attr.Style "margin-right: 10px;"]
+                            |>! OnClick (fun _ _ -> connect msgText)
+                        ]
+                        Label [Text "Message:"; Attr.Style "font-weight: bold;"]
+                        msgText
+                        Div [Attr.Id "send-btn"]
+                    ]
+                    Div [Attr.Class "span5"; Attr.Style "border-left: 1px solid lightgray;"] -< [
+                        Div [Attr.Style "margin-left: 20px;"] -< [
+                            Label [Text "Log:"; Attr.Style "font-weight: bold;"]
+                            logDiv
+                            Button [Text "Clear"; Attr.Style "margin-top: 10px;"; Attr.Class "btn"]
+                            |>! OnClick (fun _ _ -> logDiv.Html <- "")
+                        ]
+                    ]
+                ]
+
+        /// A control for serving the main pagelet.
+        type Control() =
+            inherit Web.Control()
+
+            [<JavaScript>]
+            override __.Body = Client.main() :> _
 
 //    module Snippet5 = 
 //        [<JavaScript>]
@@ -623,15 +698,15 @@ module Controls =
                 ["HTML5"; "MULTIMEDIA"; "VIDEO"]
                 <| new Snippet7.Control()
 
-//        let snippet8 =
-//            snippet
-//                8
-//                "Ext JS Window"
-//                "Ext JS window container demo."
-//                "This snippet creates a button that opens an Ext JS floating window when clicked. You can resize, drag and maximize the created window."
-//                ["EXT JS"]
-//                <| new Snippet8.Control()
-//
+        let snippet8 =
+            snippet
+                8
+                "HTML5 WebSocket"
+                "WebSharper WebSocket example that implements an echo test."
+                "<div><p><strong>WebSocket</strong> is an HTML5 connectivity technology that enables full-duplex client-server communication for building real-time web applications. WebSocket reduces the latency issues associated with half duplex older HTTP techniques like polling, Comet and streaming by establishing a bidirectional, single-socket connection and reusing it.</p></div>"
+                ["CONNECTIVITY"; "HTML5"; "WEBSOCKET"]
+                <| new Snippet8.Control()
+
 //        let snippet9 =
 //            snippet
 //                9
@@ -658,7 +733,7 @@ module Controls =
             snippet5
             snippet6
             snippet7
-//            snippet8
+            snippet8
 //            snippet9
 //            snippet10
         |]

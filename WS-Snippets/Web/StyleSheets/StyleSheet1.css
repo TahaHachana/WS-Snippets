@@ -1,9 +1,8 @@
-﻿#forkme
-{
+﻿#forkme {
     position: fixed;
     top: 0;
     border: 0;
-    right: 0;    
+    right: 0;
 }
 
 #snippet-details {
@@ -81,4 +80,14 @@ body {
     overflow-y: auto;
     /* prevent horizontal scrollbar */
     overflow-x: hidden;
-  }
+}
+
+/* WebSocket echo snippet */
+#ws-log {
+    width: 400px;
+    height: 300px;
+    border: solid 1px lightgray;
+    overflow-y: scroll;
+    word-wrap: break-word;
+    padding: 10px;
+}

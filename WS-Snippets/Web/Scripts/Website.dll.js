@@ -1,6 +1,6 @@
 (function()
 {
- var Global=this,Runtime=this.IntelliFactory.Runtime,Website,AddThis,WebSharper,Html,Default,HTML5,List,T,Controls,Snippet1,Client,Snippet2,Client1,Seq,window,Operators,Snippet3,Client2,jQuery,Remoting,Snippet4,Client3,Concurrency,alert,JavaScript,EventsPervasives,Snippet5,Client4,String,Snippet6,Client5,document,Snippet7,Client6,Forkme,Highlight,Client7,Formlet,Controls1,Enhance,Data,Formlet1,Index,Client8,InsertSnippet,Client9,Login,Clienta,encodeURIComponent,Strings,Search,Clientb,Video,Clientc;
+ var Global=this,Runtime=this.IntelliFactory.Runtime,Website,AddThis,WebSharper,Html,Default,HTML5,List,T,Controls,Snippet1,Client,Snippet2,Client1,Seq,window,Operators,Snippet3,Client2,jQuery,Remoting,Snippet4,Client3,Concurrency,alert,JavaScript,EventsPervasives,Snippet5,Client4,String,Snippet6,Client5,document,Snippet7,Client6,WebSocket,Snippet8,Client7,Forkme,Highlight,Client8,Formlet,Controls1,Enhance,Data,Formlet1,Index,Client9,InsertSnippet,Clienta,Login,Clientb,encodeURIComponent,Strings,Search,Clientc;
  Runtime.Define(Global,{
   Website:{
    AddThis:{
@@ -387,6 +387,118 @@
        return Client6.main();
       }
      })
+    },
+    Snippet8:{
+     Client:{
+      append:function(id,btn)
+      {
+       var x,f;
+       x=document.getElementById(id).appendChild(btn.Body);
+       f=function(value)
+       {
+        value;
+       };
+       return f(x);
+      },
+      connect:function(msgText)
+      {
+       var ws,sendBtn,x,f,x1,disconnectBtn,x2,f1,x3;
+       document.getElementById("connect-btn").setAttribute("disabled","disabled");
+       ws=new WebSocket("ws://echo.websocket.org");
+       sendBtn=(x=Default.Button(List.ofArray([Default.Text("Send"),Default.Attr().Class("btn btn-primary")])),(f=(x1=function()
+       {
+        return function()
+        {
+         var txt;
+         txt=msgText.get_Value();
+         ws.send(txt);
+         return Client7.log("Sent: "+txt,"black");
+        };
+       },function(arg10)
+       {
+        return EventsPervasives.Events().OnClick(x1,arg10);
+       }),(f(x),x)));
+       disconnectBtn=(x2=Default.Button(List.ofArray([Default.Text("Disconnect"),Default.Attr().Class("btn btn-warning")])),(f1=(x3=function()
+       {
+        return function()
+        {
+         return ws.close();
+        };
+       },function(arg10)
+       {
+        return EventsPervasives.Events().OnClick(x3,arg10);
+       }),(f1(x2),x2)));
+       return Client7.handleEvents(ws,disconnectBtn,sendBtn);
+      },
+      handleEvents:function(ws,disconnectBtn,sendBtn)
+      {
+       ws.onerror=function()
+       {
+        return Client7.log("Error","red");
+       };
+       ws.onmessage=function(msg)
+       {
+        return Client7.log("Received: "+String(msg.data),"blue");
+       };
+       ws.onopen=function()
+       {
+        Client7.append("send-btn",sendBtn);
+        Client7.append("btns",disconnectBtn);
+        return Client7.log("Connected","green");
+       };
+       ws.onclose=function()
+       {
+        document.getElementById("connect-btn").removeAttribute("disabled");
+        sendBtn["HtmlProvider@32"].Remove(sendBtn.Body);
+        disconnectBtn["HtmlProvider@32"].Remove(disconnectBtn.Body);
+        return Client7.log("Disconnected","rgb(250, 167, 50)");
+       };
+      },
+      log:function(text,color)
+      {
+       var x,x1,arg00,_this,f,f1;
+       x=(x1=Default.P(List.ofArray([Default.Text(text),(arg00="color: "+color,(_this=Default.Attr(),_this.NewAttr("style",arg00)))])),(f=function(p)
+       {
+        return document.getElementById("ws-log").appendChild(p.Body);
+       },f(x1)));
+       f1=function(value)
+       {
+        value;
+       };
+       return f1(x);
+      },
+      main:function()
+      {
+       var msgText,_this,logDiv,_this1,_this2,_this3,x,_this4,_this5,f,x1,x2,_this6,_this7,_this8,_this9,_thisa,x3,_thisb,_thisc,x4,_thisd,f1,x5;
+       msgText=Default.TextArea(List.ofArray([Default.Text("Hello WebSocket"),(_this=Default.Attr(),_this.NewAttr("id","msg"))]));
+       logDiv=Default.Div(List.ofArray([(_this1=Default.Attr(),_this1.NewAttr("id","ws-log"))]));
+       return Operators.add(Default.Div(List.ofArray([Default.Attr().Class("row")])),List.ofArray([Operators.add(Default.Div(List.ofArray([Default.Attr().Class("span4")])),List.ofArray([Operators.add(Default.Div(List.ofArray([(_this2=Default.Attr(),_this2.NewAttr("style","margin-bottom: 10px;")),(_this3=Default.Attr(),_this3.NewAttr("id","btns"))])),List.ofArray([(x=Default.Button(List.ofArray([Default.Text("Connect"),(_this4=Default.Attr(),_this4.NewAttr("id","connect-btn")),Default.Attr().Class("btn btn-success"),(_this5=Default.Attr(),_this5.NewAttr("style","margin-right: 10px;"))])),(f=(x1=function()
+       {
+        return function()
+        {
+         return Client7.connect(msgText);
+        };
+       },function(arg10)
+       {
+        return EventsPervasives.Events().OnClick(x1,arg10);
+       }),(f(x),x)))])),(x2=List.ofArray([Default.Text("Message:"),(_this6=Default.Attr(),_this6.NewAttr("style","font-weight: bold;"))]),(_this7=Default.Tags(),_this7.NewTag("label",x2))),msgText,Default.Div(List.ofArray([(_this8=Default.Attr(),_this8.NewAttr("id","send-btn"))]))])),Operators.add(Default.Div(List.ofArray([Default.Attr().Class("span5"),(_this9=Default.Attr(),_this9.NewAttr("style","border-left: 1px solid lightgray;"))])),List.ofArray([Operators.add(Default.Div(List.ofArray([(_thisa=Default.Attr(),_thisa.NewAttr("style","margin-left: 20px;"))])),List.ofArray([(x3=List.ofArray([Default.Text("Log:"),(_thisb=Default.Attr(),_thisb.NewAttr("style","font-weight: bold;"))]),(_thisc=Default.Tags(),_thisc.NewTag("label",x3))),logDiv,(x4=Default.Button(List.ofArray([Default.Text("Clear"),(_thisd=Default.Attr(),_thisd.NewAttr("style","margin-top: 10px;")),Default.Attr().Class("btn")])),(f1=(x5=function()
+       {
+        return function()
+        {
+         return logDiv.set_Html("");
+        };
+       },function(arg10)
+       {
+        return EventsPervasives.Events().OnClick(x5,arg10);
+       }),(f1(x4),x4)))]))]))]));
+      }
+     },
+     Control:Runtime.Class({
+      get_Body:function()
+      {
+       return Client7.main();
+      }
+     })
     }
    },
    Forkme:{
@@ -497,13 +609,13 @@
      },
      main:function()
      {
-      return Default.Div(List.ofArray([Client7.highlightBtn(),Client7.clearBtn()]));
+      return Default.Div(List.ofArray([Client8.highlightBtn(),Client8.clearBtn()]));
      }
     },
     Control:Runtime.Class({
      get_Body:function()
      {
-      return Client7.main();
+      return Client8.main();
      }
     })
    },
@@ -576,7 +688,7 @@
     Control:Runtime.Class({
      get_Body:function()
      {
-      return Client8.main();
+      return Client9.main();
      }
     })
    },
@@ -658,7 +770,7 @@
     Control:Runtime.Class({
      get_Body:function()
      {
-      return Client9.main();
+      return Clienta.main();
      }
     })
    },
@@ -678,7 +790,7 @@
          var x3,f2;
          x3=Remoting.Async("Website:2",[{
           Name:userInput.get_Value(),
-          Password:Clienta.passInput().get_Value()
+          Password:Clientb.passInput().get_Value()
          }]);
          f2=function(_arg11)
          {
@@ -709,7 +821,7 @@
       {
        return EventsPervasives.Events().OnClick(x1,arg10);
       }),(f(x),x)));
-      return Default.Form(List.ofArray([(x4=List.ofArray([(x5=List.ofArray([Default.Text("Login")]),(_this4=Default.Tags(),_this4.NewTag("legend",x5))),(x6=List.ofArray([Default.Text("Username")]),(_this5=Default.Tags(),_this5.NewTag("label",x6))),userInput,(x7=List.ofArray([Default.Text("Password")]),(_this6=Default.Tags(),_this6.NewTag("label",x7))),Clienta.passInput()]),(_this7=Default.Tags(),_this7.NewTag("fieldset",x4))),(x8=List.ofArray([submitBtn]),(_this8=Default.Tags(),_this8.NewTag("fieldset",x8)))]));
+      return Default.Form(List.ofArray([(x4=List.ofArray([(x5=List.ofArray([Default.Text("Login")]),(_this4=Default.Tags(),_this4.NewTag("legend",x5))),(x6=List.ofArray([Default.Text("Username")]),(_this5=Default.Tags(),_this5.NewTag("label",x6))),userInput,(x7=List.ofArray([Default.Text("Password")]),(_this6=Default.Tags(),_this6.NewTag("label",x7))),Clientb.passInput()]),(_this7=Default.Tags(),_this7.NewTag("fieldset",x4))),(x8=List.ofArray([submitBtn]),(_this8=Default.Tags(),_this8.NewTag("fieldset",x8)))]));
      },
      passInput:Runtime.Field(function()
      {
@@ -741,7 +853,7 @@
     Control:Runtime.Class({
      get_Body:function()
      {
-      return Clienta.loginForm(this.redirectUrl);
+      return Clientb.loginForm(this.redirectUrl);
      }
     })
    },
@@ -793,29 +905,6 @@
     Control:Runtime.Class({
      get_Body:function()
      {
-      return Clientb.main();
-     }
-    })
-   },
-   Video:{
-    Client:{
-     main:function()
-     {
-      var source,_this,x,_this1,_this2,elt,_this3,x1,_this4,_this5,video;
-      source=(_this=HTML5.Tags(),(x=List.ofArray([(_this1=Default.Attr(),_this1.NewAttr("src","/Videos/madagascar.mp4")),(_this2=Default.Attr(),_this2.NewAttr("type","video/mp4"))]),_this.NewTag("source",x)));
-      elt=Operators.add((_this3=HTML5.Tags(),(x1=List.ofArray([(_this4=Default.Attr(),_this4.NewAttr("height","360px")),(_this5=Default.Attr(),_this5.NewAttr("width","640px"))]),_this3.NewTag("video",x1))),List.ofArray([source]));
-      video=elt.Body;
-      video.src="/Videos/madagascar.mp4";
-      video.autoplay=false;
-      video.controls=true;
-      video.preload="metadata";
-      video.poster="/Images/madagascar.jpg";
-      return elt;
-     }
-    },
-    Control:Runtime.Class({
-     get_Body:function()
-     {
       return Clientc.main();
      }
     })
@@ -858,29 +947,30 @@
   document=Runtime.Safe(Global.document);
   Snippet7=Runtime.Safe(Controls.Snippet7);
   Client6=Runtime.Safe(Snippet7.Client);
+  WebSocket=Runtime.Safe(Global.WebSocket);
+  Snippet8=Runtime.Safe(Controls.Snippet8);
+  Client7=Runtime.Safe(Snippet8.Client);
   Forkme=Runtime.Safe(Website.Forkme);
   Highlight=Runtime.Safe(Website.Highlight);
-  Client7=Runtime.Safe(Highlight.Client);
+  Client8=Runtime.Safe(Highlight.Client);
   Formlet=Runtime.Safe(WebSharper.Formlet);
   Controls1=Runtime.Safe(Formlet.Controls);
   Enhance=Runtime.Safe(Formlet.Enhance);
   Data=Runtime.Safe(Formlet.Data);
   Formlet1=Runtime.Safe(Formlet.Formlet);
   Index=Runtime.Safe(Website.Index);
-  Client8=Runtime.Safe(Index.Client);
+  Client9=Runtime.Safe(Index.Client);
   InsertSnippet=Runtime.Safe(Website.InsertSnippet);
-  Client9=Runtime.Safe(InsertSnippet.Client);
+  Clienta=Runtime.Safe(InsertSnippet.Client);
   Login=Runtime.Safe(Website.Login);
-  Clienta=Runtime.Safe(Login.Client);
+  Clientb=Runtime.Safe(Login.Client);
   encodeURIComponent=Runtime.Safe(Global.encodeURIComponent);
   Strings=Runtime.Safe(WebSharper.Strings);
   Search=Runtime.Safe(Website.Search);
-  Clientb=Runtime.Safe(Search.Client);
-  Video=Runtime.Safe(Website.Video);
-  return Clientc=Runtime.Safe(Video.Client);
+  return Clientc=Runtime.Safe(Search.Client);
  });
  Runtime.OnLoad(function()
  {
-  Clienta.passInput();
+  Clientb.passInput();
  });
 }());

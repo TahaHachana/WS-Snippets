@@ -1,26 +1,78 @@
-﻿<div style='margin: 0px; padding: 0px; font-family: Consolas; width: auto'><style type='text/css'>.fs-str {color: #d14;} .fs-key {color: blue;} .fs-com {color: green; font-style: italic;}</style><table><tr><td style='padding: 5px; vertical-align: top; border-right: 1px solid #ececec; color: rgb(160, 160, 160);'><span>1</span><br /><span>2</span><br /><span>3</span><br /><span>4</span><br /><span>5</span><br /><span>6</span><br /><span>7</span><br /><span>8</span><br /><span>9</span><br /><span>10</span><br /><span>11</span><br /><span>12</span><br /><span>13</span><br /><span>14</span><br /><span>15</span><br /><span>16</span><br /><span>17</span><br /><span>18</span><br /><span>19</span><br /><span>20</span><br /><span>21</span><br /><span>22</span><br /><span>23</span><br /><span>24</span><br /><span>25</span><br /><span>26</span></td><td style='vertical-align: top; padding: 5px;'><pre style='margin: 0px; background-color: white; border: none; padding: 0px; font-size: 14px; white-space: pre;'><span class='fs-key'>module </span>ExtJsWindow =
+﻿<div style='margin: 0px; padding: 0px; font-family: Consolas; width: auto'><style type='text/css'>.fs-str {color: #d14;} .fs-key {color: blue;} .fs-com {color: green; font-style: italic;}</style><table><tr><td style='padding: 5px; vertical-align: top; border-right: 1px solid #ececec; color: rgb(160, 160, 160);'><span>1</span><br /><span>2</span><br /><span>3</span><br /><span>4</span><br /><span>5</span><br /><span>6</span><br /><span>7</span><br /><span>8</span><br /><span>9</span><br /><span>10</span><br /><span>11</span><br /><span>12</span><br /><span>13</span><br /><span>14</span><br /><span>15</span><br /><span>16</span><br /><span>17</span><br /><span>18</span><br /><span>19</span><br /><span>20</span><br /><span>21</span><br /><span>22</span><br /><span>23</span><br /><span>24</span><br /><span>25</span><br /><span>26</span><br /><span>27</span><br /><span>28</span><br /><span>29</span><br /><span>30</span><br /><span>31</span><br /><span>32</span><br /><span>33</span><br /><span>34</span><br /><span>35</span><br /><span>36</span><br /><span>37</span><br /><span>38</span><br /><span>39</span><br /><span>40</span><br /><span>41</span><br /><span>42</span><br /><span>43</span><br /><span>44</span><br /><span>45</span><br /><span>46</span><br /><span>47</span><br /><span>48</span><br /><span>49</span><br /><span>50</span><br /><span>51</span><br /><span>52</span><br /><span>53</span><br /><span>54</span><br /><span>55</span><br /><span>56</span><br /><span>57</span><br /><span>58</span><br /><span>59</span><br /><span>60</span><br /><span>61</span><br /><span>62</span><br /><span>63</span><br /><span>64</span><br /><span>65</span><br /><span>66</span><br /><span>67</span><br /><span>68</span><br /><span>69</span><br /><span>70</span><br /><span>71</span><br /><span>72</span><br /><span>73</span><br /><span>74</span><br /><span>75</span><br /><span>76</span><br /><span>77</span><br /><span>78</span></td><td style='vertical-align: top; padding: 5px;'><pre style='margin: 0px; background-color: white; border: none; padding: 0px; font-size: 14px; white-space: pre;'><span class='fs-key'>module </span>WebSocket =
     <span class='fs-key'>open </span>IntelliFactory.WebSharper
-    <span class='fs-key'>open </span>IntelliFactory.WebSharper.ExtJs
-    <span class='fs-key'>open </span>IntelliFactory.WebSharper.Html
 
+    <span class='fs-com'>/// Client-side code.</span>
     [&lt;JavaScript&gt;]
-    <span class='fs-key'>let </span><span class='fs-key'>private </span>window() =
-        <span class='fs-key'>let </span>config = Ext.window.WindowConfiguration()
-        config.Title &lt;- <span class='fs-str'>"Ext JS Window"</span>
-        config.Width &lt;- 400.
-        config.Height &lt;- 300.
-        config.Maximizable &lt;- <span class='fs-key'>true
-</span>        Ext.window.Window config |&gt; <span class='fs-key'>fun </span>x -&gt; x.Show()
+    <span class='fs-key'>module </span>Client =
+        <span class='fs-key'>open </span>IntelliFactory.WebSharper.Html
+        <span class='fs-key'>open </span>IntelliFactory.WebSharper.Html5
 
-    [&lt;JavaScript&gt;]
-    <span class='fs-key'>let </span><span class='fs-key'>private </span>main() =
-        Div [
-            Button [Text <span class='fs-str'>"Open Ext JS Window"</span>]
-            |&gt;! OnClick (<span class='fs-key'>fun </span>elt _ -&gt; Ext.OnReady(<span class='fs-key'>fun </span>() -&gt; window()))
-        ]
+        <span class='fs-com'>/// Appends a &lt;p&gt; element containing the specified text to the DOM.</span>
+        <span class='fs-key'>let </span>log text color =
+            P [Text text; Attr.Style &lt;| <span class='fs-str'>"color: "</span> + color]
+            |&gt; (<span class='fs-key'>fun </span>p -&gt; ById(<span class='fs-str'>"ws-log"</span>).AppendChild p.Dom)
+            |&gt; ignore
 
+        <span class='fs-com'>/// Appends a button to the element with the specified id.</span>
+        <span class='fs-key'>let </span>append id (btn : Element) =
+            ById(id).AppendChild(btn.Dom)
+            |&gt; ignore
+
+        <span class='fs-com'>/// Handles WebSocket events.</span>
+        <span class='fs-key'>let </span>handleEvents (ws : WebSocket) disconnectBtn sendBtn =
+            ws.Onerror &lt;- (<span class='fs-key'>fun </span>() -&gt; log <span class='fs-str'>"Error"</span> <span class='fs-str'>"red"</span>)
+            ws.Onmessage &lt;- (<span class='fs-key'>fun </span>msg -&gt; log (<span class='fs-str'>"Received: "</span> + msg.Data.ToString()) <span class='fs-str'>"blue"</span>)
+            ws.Onopen &lt;- (<span class='fs-key'>fun </span>() -&gt;
+                append <span class='fs-str'>"send-btn"</span> sendBtn
+                append <span class='fs-str'>"btns"</span> disconnectBtn
+                log <span class='fs-str'>"Connected"</span> <span class='fs-str'>"green"</span>)
+            ws.Onclose &lt;- (<span class='fs-key'>fun </span>() -&gt;
+                ById(<span class='fs-str'>"connect-btn"</span>).RemoveAttribute <span class='fs-str'>"disabled"</span>
+                sendBtn.Remove()
+                disconnectBtn.Remove()
+                log <span class='fs-str'>"Disconnected"</span> <span class='fs-str'>"rgb(250, 167, 50)"</span>)
+
+        <span class='fs-com'>/// Creates a WebSocket connection and triggers its event handling.</span>
+        <span class='fs-key'>let </span>connect (msgText : Element) =
+            ById(<span class='fs-str'>"connect-btn"</span>).SetAttribute(<span class='fs-str'>"disabled"</span>, <span class='fs-str'>"disabled"</span>)
+            <span class='fs-key'>let </span>ws = WebSocket <span class='fs-str'>"ws://echo.websocket.org"</span>
+            <span class='fs-key'>let </span>sendBtn =
+                Button [Text <span class='fs-str'>"Send"</span>; Attr.Class <span class='fs-str'>"btn btn-primary"</span>]
+                |&gt;! OnClick (<span class='fs-key'>fun </span>_ _ -&gt;
+                    <span class='fs-key'>let </span>txt = msgText.Value
+                    ws.Send txt
+                    log (<span class='fs-str'>"Sent: "</span> + txt) <span class='fs-str'>"black"</span>)
+            <span class='fs-key'>let </span>disconnectBtn =
+                Button [Text <span class='fs-str'>"Disconnect"</span>; Attr.Class <span class='fs-str'>"btn btn-warning"</span>]
+                |&gt;! OnClick (<span class='fs-key'>fun </span>_ _ -&gt; ws.Close())
+            handleEvents ws disconnectBtn sendBtn
+
+        <span class='fs-key'>let </span>main() =
+            <span class='fs-key'>let </span>msgText = TextArea [Text <span class='fs-str'>"Hello WebSocket"</span>; Attr.Id <span class='fs-str'>"msg"</span>]
+            <span class='fs-key'>let </span>logDiv = Div [Attr.Id <span class='fs-str'>"ws-log"</span>]
+            Div [Attr.Class <span class='fs-str'>"row"</span>] -&lt; [
+                Div [Attr.Class <span class='fs-str'>"span4"</span>] -&lt; [
+                    Div [Attr.Style <span class='fs-str'>"margin-bottom: 10px;"</span>; Attr.Id <span class='fs-str'>"btns"</span>] -&lt; [
+                        Button [Text <span class='fs-str'>"Connect"</span>; Attr.Id <span class='fs-str'>"connect-btn"</span>; Attr.Class <span class='fs-str'>"btn btn-success"</span>; Attr.Style <span class='fs-str'>"margin-right: 10px;"</span>]
+                        |&gt;! OnClick (<span class='fs-key'>fun </span>_ _ -&gt; connect msgText)
+                    ]
+                    Label [Text <span class='fs-str'>"Message:"</span>; Attr.Style <span class='fs-str'>"font-weight: bold;"</span>]
+                    msgText
+                    Div [Attr.Id <span class='fs-str'>"send-btn"</span>]
+                ]
+                Div [Attr.Class <span class='fs-str'>"span5"</span>; Attr.Style <span class='fs-str'>"border-left: 1px solid lightgray;"</span>] -&lt; [
+                    Div [Attr.Style <span class='fs-str'>"margin-left: 20px;"</span>] -&lt; [
+                        Label [Text <span class='fs-str'>"Log:"</span>; Attr.Style <span class='fs-str'>"font-weight: bold;"</span>]
+                        logDiv
+                        Button [Text <span class='fs-str'>"Clear"</span>; Attr.Style <span class='fs-str'>"margin-top: 10px;"</span>; Attr.Class <span class='fs-str'>"btn"</span>]
+                        |&gt;! OnClick (<span class='fs-key'>fun </span>_ _ -&gt; logDiv.Html &lt;- <span class='fs-str'>""</span>)
+                    ]
+                ]
+            ]
+
+    <span class='fs-com'>/// A control for serving the main pagelet.</span>
     <span class='fs-key'>type </span>Control() =
         <span class='fs-key'>inherit </span>Web.Control()
- 
+
         [&lt;JavaScript&gt;]
-        <span class='fs-key'>override </span>__.Body = main() :&gt; _</pre></td></tr></table></div>
+        <span class='fs-key'>override </span>__.Body = Client.main() :&gt; _</pre></td></tr></table></div>

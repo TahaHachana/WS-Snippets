@@ -17,12 +17,12 @@ module Content =
                     P [Class "pull-right"] -< [Text "Developed by "] -< [
                         A ["Taha Hachana" => "http://taha-hachana.apphb.com/"]
                     ]
-                    P [Class "text-center"] -< [Text "Snippets in database: 8"]
+                    P [Class "text-center"] -< [Text "Snippets in database: 9"]
                 ]            
             ]
 
     module Home =
-        let title = "W# Snippets · WebSharper Code Snippets"
+        let title = "WebSharper Snippets"
         let metaDescription = "WebSharper code examples featuring live demos."
         let navigation : HtmlElement = nav <| Some "Home"
 

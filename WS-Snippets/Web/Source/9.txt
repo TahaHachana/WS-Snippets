@@ -1,31 +1,22 @@
-﻿<div style='margin: 0px; padding: 0px; font-family: Consolas; width: auto'><style type='text/css'>.fs-str {color: #d14;} .fs-key {color: blue;} .fs-com {color: green; font-style: italic;}</style><table><tr><td style='padding: 5px; vertical-align: top; border-right: 1px solid #ececec; color: rgb(160, 160, 160);'><span>1</span><br /><span>2</span><br /><span>3</span><br /><span>4</span><br /><span>5</span><br /><span>6</span><br /><span>7</span><br /><span>8</span><br /><span>9</span><br /><span>10</span><br /><span>11</span><br /><span>12</span><br /><span>13</span><br /><span>14</span><br /><span>15</span><br /><span>16</span><br /><span>17</span><br /><span>18</span><br /><span>19</span><br /><span>20</span><br /><span>21</span><br /><span>22</span><br /><span>23</span><br /><span>24</span><br /><span>25</span><br /><span>26</span><br /><span>27</span><br /><span>28</span><br /><span>29</span><br /><span>30</span><br /><span>31</span></td><td style='vertical-align: top; padding: 5px;'><pre style='margin: 0px; background-color: white; border: none; padding: 0px; font-size: 14px; white-space: pre;'><span class='fs-key'>module </span>JQueryUIAutocomplete =
+﻿<div style='margin: 0px; padding: 0px; font-family: Consolas; width: auto'><style type='text/css'>.fs-str {color: #d14;} .fs-key {color: blue;} .fs-com {color: green; font-style: italic;}</style><table><tr><td style='padding: 5px; vertical-align: top; border-right: 1px solid #ececec; color: rgb(160, 160, 160);'><span>1</span><br /><span>2</span><br /><span>3</span><br /><span>4</span><br /><span>5</span><br /><span>6</span><br /><span>7</span><br /><span>8</span><br /><span>9</span><br /><span>10</span><br /><span>11</span><br /><span>12</span><br /><span>13</span><br /><span>14</span><br /><span>15</span><br /><span>16</span><br /><span>17</span><br /><span>18</span><br /><span>19</span><br /><span>20</span><br /><span>21</span><br /><span>22</span></td><td style='vertical-align: top; padding: 5px;'><pre style='margin: 0px; background-color: white; border: none; padding: 0px; font-size: 14px; white-space: pre;'><span class='fs-key'>module </span>ModalDialog =
     <span class='fs-key'>open </span>IntelliFactory.WebSharper
-    <span class='fs-key'>open </span>IntelliFactory.WebSharper.Html
-    <span class='fs-key'>open </span>IntelliFactory.WebSharper.JQueryUI
     
+    <span class='fs-com'>/// Client-side code.</span>
     [&lt;JavaScript&gt;]
-    <span class='fs-key'>let </span>states =
-        [|<span class='fs-str'>"Alabama"</span>; <span class='fs-str'>"Alaska"</span>; <span class='fs-str'>"American Samoa"</span>; <span class='fs-str'>"Arizona"</span>; <span class='fs-str'>"Arkansas"</span>; <span class='fs-str'>"California"</span>; <span class='fs-str'>"Colorado"</span>
-          <span class='fs-str'>"Connecticut"</span>; <span class='fs-str'>"Delaware"</span>; <span class='fs-str'>"District of Columbia"</span>; <span class='fs-str'>"Florida"</span>; <span class='fs-str'>"Georgia"</span>; <span class='fs-str'>"Guam"</span>; <span class='fs-str'>"Hawaii"</span>
-          <span class='fs-str'>"Idaho"</span>; <span class='fs-str'>"Illinois"</span>; <span class='fs-str'>"Indiana"</span>; <span class='fs-str'>"Iowa"</span>; <span class='fs-str'>"Kansas"</span>; <span class='fs-str'>"Kentucky"</span>; <span class='fs-str'>"Louisiana"</span>; <span class='fs-str'>"Maine"</span>
-          <span class='fs-str'>"Maryland"</span>; <span class='fs-str'>"Massachusetts"</span>; <span class='fs-str'>"Michigan"</span>; <span class='fs-str'>"Minnesota"</span>; <span class='fs-str'>"Mississippi"</span>; <span class='fs-str'>"Missouri"</span>; <span class='fs-str'>"Montana"</span>
-          <span class='fs-str'>"Nebraska"</span>; <span class='fs-str'>"Nevada"</span>; <span class='fs-str'>"New Hampshire"</span>; <span class='fs-str'>"New Jersey"</span>; <span class='fs-str'>"New Mexico"</span>; <span class='fs-str'>"New York"</span>; <span class='fs-str'>"North Carolina"</span>
-          <span class='fs-str'>"North Dakota"</span>; <span class='fs-str'>"Northern Marianas Islands"</span>; <span class='fs-str'>"Ohio"</span>; <span class='fs-str'>"Oklahoma"</span>; <span class='fs-str'>"Oregon"</span>; <span class='fs-str'>"Pennsylvania"</span>
-          <span class='fs-str'>"Puerto Rico"</span>; <span class='fs-str'>"Rhode Island"</span>; <span class='fs-str'>"South Carolina"</span>; <span class='fs-str'>"South Dakota"</span>; <span class='fs-str'>"Tennessee"</span>; <span class='fs-str'>"Texas"</span>; <span class='fs-str'>"Utah"</span>
-          <span class='fs-str'>"Vermont"</span>; <span class='fs-str'>"Virginia"</span>; <span class='fs-str'>"Virgin Islands"</span>; <span class='fs-str'>"Washington"</span>; <span class='fs-str'>"West Virginia"</span>; <span class='fs-str'>"Wisconsin"</span>; <span class='fs-str'>"Wyoming"</span>|]
+    <span class='fs-key'>module </span><span class='fs-key'>private </span>Client =
+        <span class='fs-key'>open </span>IntelliFactory.WebSharper.Html
+        <span class='fs-key'>open </span>IntelliFactory.WebSharper.Html5
 
-    [&lt;JavaScript&gt;]
-    <span class='fs-key'>let </span><span class='fs-key'>private </span>main() =
-        <span class='fs-key'>let </span>config = AutocompleteConfiguration(source = states)
-        <span class='fs-key'>let </span>input = Input [Attr.Id <span class='fs-str'>"state-input"</span>; HTML5.Attr.AutoFocus <span class='fs-str'>"true"</span>]
-        Autocomplete.New(input, config) |&gt; ignore
-        Div [Attr.Class <span class='fs-str'>"ui-widget"</span>] -&lt; [
-            Label [Attr.For <span class='fs-str'>"state-input"</span>] -- Text <span class='fs-str'>"State: "</span>
-            input
-        ]
-        
+        <span class='fs-com'>/// A button that displays a modal dialog when clicked.</span>
+        <span class='fs-key'>let </span>main() =
+            Button [Text <span class='fs-str'>"Show Modal Dialog"</span>; Attr.Class <span class='fs-str'>"btn btn-primary"</span>]
+            |&gt;! OnClick (<span class='fs-key'>fun </span>_ _ -&gt;
+                Window.Self.ShowModalDialog <span class='fs-str'>"/modal.html"</span>
+                |&gt; ignore)
+
+    <span class='fs-com'>/// A control for serving the main pagelet.</span>
     <span class='fs-key'>type </span>Control() =
         <span class='fs-key'>inherit </span>Web.Control()
- 
+
         [&lt;JavaScript&gt;]
-        <span class='fs-key'>override </span>__.Body = main() :&gt; _</pre></td></tr></table></div>
+        <span class='fs-key'>override </span>__.Body = Client.main() :&gt; _</pre></td></tr></table></div>

@@ -204,7 +204,7 @@ module Views =
 
     let snippet id =
         let title, metaDesc, desc, tags, control = Controls.hashset |> Seq.find (fun x -> x.Id = id) |> fun x -> x.Title, x.MetaDesc, x.Description, x.Tags, x.Control
-        let title' = title + " · W# Snippets"
+        let title' = title + " · WebSharper Snippets"
         let desc' = Element.VerbatimContent desc
         let path = HttpContext.Current.Server.MapPath <| "~/Source/" + string id + ".txt"
         let source = File.ReadAllText path
@@ -279,8 +279,8 @@ module Views =
 
     let tagged tag =
         let tag' = HttpUtility.UrlDecode tag |> fun x -> x.ToUpper()
-        let title = tag' + " Snippets"
-        let metaDesc = "WebSharper snippets tagged " + tag' + "."
+        let title = "Snippets Tagged " + tag'
+        let metaDesc = "WebSharper code snippets and examples tagged " + tag' + "."
         let divs =
             Snippets.hasTag tag'
             |> Seq.toList

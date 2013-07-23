@@ -460,6 +460,28 @@ module Controls =
             [<JavaScript>]
             override __.Body = Client.main() :> _
 
+    module Snippet9 =
+    
+        /// Client-side code.
+        [<JavaScript>]
+        module private Client =
+            open IntelliFactory.WebSharper.Html
+            open IntelliFactory.WebSharper.Html5
+
+            /// A button that displays a modal dialog when clicked.
+            let main() =
+                Button [Text "Show Modal Dialog"; Attr.Class "btn btn-primary"]
+                |>! OnClick (fun _ _ ->
+                    Window.Self.ShowModalDialog "/modal.html"
+                    |> ignore)
+
+        /// A control for serving the main pagelet.
+        type Control() =
+            inherit Web.Control()
+
+            [<JavaScript>]
+            override __.Body = Client.main() :> _
+
 //    module Snippet5 = 
 //        [<JavaScript>]
 //        let private viewport() =
@@ -707,15 +729,15 @@ module Controls =
                 ["CONNECTIVITY"; "HTML5"; "WEBSOCKET"]
                 <| new Snippet8.Control()
 
-//        let snippet9 =
-//            snippet
-//                9
-//                "jQuery UI Autocomplete Widget"
-//                "WebSharper snippet featuring a jQuery UI autocomplete widget."
-//                "The jQuery UI autocomplete widget gives suggestions selected from a predefined list to the user as he types."
-//                ["JQUERY"; "JQUERY UI"]
-//                <| new Snippet9.Control()
-//
+        let snippet9 =
+            snippet
+                9
+                "Prompting Using showModalDialog"
+                "Prompting the user by opening a new URL in a popup window."
+                "<div><p>The <strong>Window</strong> object offers several options for prompting the user. The <code>showModalDialog</code> method creates a modal dialog box that displays the specified URL. Clicking this example's button shows an HTML document in a popup window.</p></div>"
+                ["JAVASCRIPT"; "WINDOW"]
+                <| new Snippet9.Control()
+
 //        let snippet10 =
 //            snippet
 //                10
@@ -734,7 +756,7 @@ module Controls =
             snippet6
             snippet7
             snippet8
-//            snippet9
+            snippet9
 //            snippet10
         |]
         |> Array.iter (fun x ->

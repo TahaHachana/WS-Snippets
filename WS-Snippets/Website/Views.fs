@@ -309,7 +309,7 @@ module Views =
                         ])
         withMainTemplate title metaDesc <| fun ctx ->
             [
-                About.navigation
+                Shared.navigation
                 Div [new Forkme.Control()]
                 Div [Id "wrap"] -< [
                     Div [Class "container"; Style "width: 1000px; padding-top: 100px;"] -< [

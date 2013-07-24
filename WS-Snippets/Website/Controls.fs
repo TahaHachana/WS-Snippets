@@ -482,6 +482,46 @@ module Controls =
             [<JavaScript>]
             override __.Body = Client.main() :> _
 
+    module Snippet10 =
+
+        /// Client-side code.
+        [<JavaScript>]
+        module private Client =
+
+            /// Computes the factorial of a number using recursion and pattern matching.
+            let rec factRec n =
+                match n with
+                | _ when n < 2 -> 1
+                | _ -> n * factRec (n - 1)
+
+            /// Computes the factorial of a number using the fold function from the Array module.
+            let factFold n = Array.fold (*) 1  [|1 .. n|]
+
+            let main() =
+                let input = Input [Attr.Type "text"; HTML5.Attr.AutoFocus "autofocus"]
+                let recSpan = Span []
+                let foldSpan = Span []
+                let button =
+                    Button [Text "Factorial"; Attr.Class "btn btn-primary"; Attr.Style "margin-left: 8px;"]
+                    |>! OnClick (fun _ _ ->
+                        let v = int input.Value
+                        recSpan.Text <- "Recursion: " + string (factRec v)
+                        foldSpan.Text <- "Array.fold: " + string (factFold v))
+                Div [
+                    Div [Attr.Class "form-inline"]
+                        -< [input; button]
+                    Div [Attr.Style "margin-top: 8px;"]
+                        -< [recSpan; Br []; foldSpan]
+                ]
+
+        /// A control for serving the main pagelet.
+        type Control() =
+            inherit Web.Control()
+
+            [<JavaScript>]
+            override this.Body = Client.main() :> _
+
+
 //    module Snippet5 = 
 //        [<JavaScript>]
 //        let private viewport() =
@@ -738,15 +778,15 @@ module Controls =
                 ["JAVASCRIPT"; "WINDOW"]
                 <| new Snippet9.Control()
 
-//        let snippet10 =
-//            snippet
-//                10
-//                "Drawing Filled Rectangles on HTML5 Canvas"
-//                "HTML5 demo showing how to draw rectangles on the canvas."
-//                "The HTML5 canvas element supports drawing filled rectangular shapes through the FillRect method. This WebSharper code sample draws a blue-filled rectangle."
-//                ["HTML5"; "CANVAS"]
-//                <| new Snippet10.Control()
-//        
+        let snippet10 =
+            snippet
+                10
+                "Factorial"
+                "Computing factorials using pattern matching and the fold function from the Array module."
+                "<div><p>WebSharper brings the expressive power of F# to JavaScript development with a comprehensive coverage of its standard library. This example uses F# language features to compute the factorial of a number using two implementations:</p><ul><li>recursion and pattern matching</li><li>the <code>fold</code> function from the Array module</li></ul></div>"
+                ["FSHARP"; "JAVASCRIPT"]
+                <| new Snippet10.Control()
+        
         [|
             snippet1
             snippet2
@@ -757,7 +797,7 @@ module Controls =
             snippet7
             snippet8
             snippet9
-//            snippet10
+            snippet10
         |]
         |> Array.iter (fun x ->
             hashset.Add x |> ignore

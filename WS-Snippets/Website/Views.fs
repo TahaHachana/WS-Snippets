@@ -39,42 +39,42 @@ module Views =
             Snippets.latest10()
             |> Seq.toList
             |> split 2
-            |> List.map (fun lst ->
-                match lst with
-                    | [snip] ->
-                        Div [Class "row"; Style "margin-bottom: 20px;"] -< [
-                            Div [Class "span4"] -< [
-                                H4 [A [HRef <| "/snippet/" + snip.SnipId.ToString()] -< [Text snip.Title]]
-                                P [Text snip.Desc]
-                            ]
-                        ]
-                    | _ ->
-                        let snip = lst.[0]
-                        let snip' = lst.[1]
-                        Div [Class "row"; Style "margin-bottom: 20px;"] -< [
-                            Div [Class "span4"] -< [
-                                H4 [A [HRef <| "/snippet/" + snip.SnipId.ToString()] -< [Text snip.Title]]
-                                P [Text snip.Desc]
-                            ]
-                            Div [Class "offset1 span4"] -< [
-                                H4 [A [HRef <| "/snippet/" + snip'.SnipId.ToString()] -< [Text snip'.Title]]
-                                P [Text snip'.Desc]
-                            ]
-                        ])
-
 //            |> List.map (fun lst ->
-//                let snip = lst.[0]
-//                let snip' = lst.[1]
-//                Div [Class "row"; Style "margin-bottom: 20px;"] -< [
-//                    Div [Class "span4"] -< [
-//                        H4 [A [HRef <| "/snippet/" + snip.SnipId.ToString()] -< [Text snip.Title]]
-//                        P [Text snip.Desc]
-//                    ]
-//                    Div [Class "offset1 span4"] -< [
-//                        H4 [A [HRef <| "/snippet/" + snip'.SnipId.ToString()] -< [Text snip'.Title]]
-//                        P [Text snip'.Desc]
-//                    ]
-//                ])    
+//                match lst with
+//                    | [snip] ->
+//                        Div [Class "row"; Style "margin-bottom: 20px;"] -< [
+//                            Div [Class "span4"] -< [
+//                                H4 [A [HRef <| "/snippet/" + snip.SnipId.ToString()] -< [Text snip.Title]]
+//                                P [Text snip.Desc]
+//                            ]
+//                        ]
+//                    | _ ->
+//                        let snip = lst.[0]
+//                        let snip' = lst.[1]
+//                        Div [Class "row"; Style "margin-bottom: 20px;"] -< [
+//                            Div [Class "span4"] -< [
+//                                H4 [A [HRef <| "/snippet/" + snip.SnipId.ToString()] -< [Text snip.Title]]
+//                                P [Text snip.Desc]
+//                            ]
+//                            Div [Class "offset1 span4"] -< [
+//                                H4 [A [HRef <| "/snippet/" + snip'.SnipId.ToString()] -< [Text snip'.Title]]
+//                                P [Text snip'.Desc]
+//                            ]
+//                        ])
+
+            |> List.map (fun lst ->
+                let snip = lst.[0]
+                let snip' = lst.[1]
+                Div [Class "row"; Style "margin-bottom: 20px;"] -< [
+                    Div [Class "span4"] -< [
+                        H4 [A [HRef <| "/snippet/" + snip.SnipId.ToString()] -< [Text snip.Title]]
+                        P [Text snip.Desc]
+                    ]
+                    Div [Class "offset1 span4"] -< [
+                        H4 [A [HRef <| "/snippet/" + snip'.SnipId.ToString()] -< [Text snip'.Title]]
+                        P [Text snip'.Desc]
+                    ]
+                ])    
         withHomeTemplate Home.title Home.metaDescription <| fun ctx ->
             [
                 Home.navigation
@@ -318,7 +318,7 @@ module Views =
                                 H1 [Text <| "Snippets tagged \"" + tag' + "\""]
                             ]
                         ]
-                        UL [yield! divs]
+                        UL [Style "margin-bottom: 200px;"] -< [yield! divs]
                     ]
                 ]
                 Shared.footer

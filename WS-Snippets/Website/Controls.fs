@@ -521,6 +521,36 @@ module Controls =
             [<JavaScript>]
             override this.Body = Client.main() :> _
 
+    module Snippet11 =
+
+        /// Client-side code.
+        [<JavaScript>]
+        module Client =
+            open IntelliFactory.WebSharper.Html
+
+            let th txt = TH [Text txt]
+
+            let tr level =
+                let implementation = Dom.Document.Current.Implementation
+                ["Core"; "CSS"; "Events"; "HTML"; "Selectors-API"]
+                |> List.map (fun feature ->
+                    let rslt = implementation.HasFeature(feature, level)
+                    TD [Text <| string rslt])
+                |> fun tds -> TR [th level] -< tds
+
+            /// Displays DOM implementation information in a table.
+            let main() =
+                Table [Attr.Class "span9 table table-bordered table-striped"] -< [
+                    TR [] -< List.map th ["Level"; "Core"; "CSS"; "Events"; "HTML"; "Selectors-API"]
+                ] -< List.map tr ["1.0"; "2.0"; "3.0"]
+
+        /// A control for serving the main pagelet.
+        type Control() =
+            inherit Web.Control()
+
+            [<JavaScript>]
+            override this.Body = Client.main() :> _
+
 
 //    module Snippet5 = 
 //        [<JavaScript>]
@@ -783,9 +813,18 @@ module Controls =
                 10
                 "Factorial"
                 "Computing factorials using pattern matching and the fold function from the Array module."
-                "<div><p>WebSharper brings the expressive power of F# to JavaScript development with a comprehensive coverage of its standard library. This example uses F# language features to compute the factorial of a number using two implementations:</p><ul><li>recursion and pattern matching</li><li>the <code>fold</code> function from the Array module</li></ul></div>"
+                "<div><p>WebSharper brings the expressive power of F# to JavaScript development with a comprehensive coverage of its standard library. This example uses F# language features to compute the factorial of a number using two implementations. The first uses recursion and pattern matching and the second calls the <code>fold</code> function from the Array module.</p></div>"
                 ["FSHARP"; "JAVASCRIPT"]
                 <| new Snippet10.Control()
+
+        let snippet11 =
+            snippet
+                11
+                "DOM Implementation Details"
+                "Getting information about the browser's implementation of DOM features."
+                "<div><p>This example checks whether the browser implements the <em>Core</em>, <em>CSS</em>, <em>HTML</em> and <em>Selectors-API</em> features for <strong>DOM</strong> levels 1.0, 2.0 and 3.0. Browsers might claim to implement a feature when they actually don't and sometimes they do support it but the <code>hasFeature</code> method doesn't report it.</p></div>"
+                ["DOM"]
+                <| new Snippet11.Control()
         
         [|
             snippet1
@@ -798,6 +837,7 @@ module Controls =
             snippet8
             snippet9
             snippet10
+            snippet11
         |]
         |> Array.iter (fun x ->
             hashset.Add x |> ignore

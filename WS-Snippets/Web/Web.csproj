@@ -79,6 +79,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Source\10.txt" />
+    <Content Include="Source\11.txt" />
     <Content Include="Source\2.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

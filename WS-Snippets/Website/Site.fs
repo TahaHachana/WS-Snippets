@@ -1,5 +1,6 @@
 ﻿namespace Website
 
+open IntelliFactory.Html
 open IntelliFactory.WebSharper.Sitelets
 open Model
 open Controller
@@ -18,15 +19,17 @@ module Site =
             ]
         <|> Router.Infer()
 
-    let Main =
+    let main =
         {
             Controller = controller
             Router     = router
         }
-    
+
+//    let Main' = Sitelet.Sum [site; Main]
+
 type Website() =
     interface IWebsite<Action> with
-        member this.Sitelet = Site.Main
+        member this.Sitelet = Sitelet.Sum [NewPage.main; Site.main]
         member this.Actions = []
 
 [<assembly: WebsiteAttribute(typeof<Website>)>]

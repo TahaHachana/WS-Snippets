@@ -117,7 +117,7 @@ module Controls =
             // Displays the properties of the location object in a table.
             let main() =
                 let location = Window.Self.Location
-                Table [Attr.Class "table table-bordered table-striped span8"] -< [
+                Table [Attr.Class "table table-bordered table-striped"; Attr.Style "width: 700px;"] -< [
                     // Table headers.
                     TR [TH [Text "Property"] ; TH [Text "Value"]]
                     // Table row for each property.
@@ -540,7 +540,7 @@ module Controls =
 
             /// Displays DOM implementation information in a table.
             let main() =
-                Table [Attr.Class "span9 table table-bordered table-striped"] -< [
+                Table [Attr.Class "table table-bordered table-striped"; Attr.Style "width: 900px;"] -< [
                     TR [] -< List.map th ["Level"; "Core"; "CSS"; "Events"; "HTML"; "Selectors-API"]
                 ] -< List.map tr ["1.0"; "2.0"; "3.0"]
 
@@ -724,124 +724,25 @@ module Controls =
 //            [<JavaScript>]
 //            override __.Body = main() :> _
 
-    module Snippets =
-        let private snippet id title metaDesc desc tags control = {Id = id; Title = title; MetaDesc = metaDesc; Description = desc; Tags = tags; Control = control }
-        
-        let snippet1 =
-            snippet
-                1
-                "Hello World"
-                "WebSharper hello world example."
-                "<div><p>This snippet implements a <em>Hello World</em> in <strong>WebSharper</strong>. An <code>&lt;h2&gt;</code> heading containing a greeting message is appended to the DOM using the HTML combinators.</p></div>"
-                ["DOM"; "HTML"; "WEBSHARPER"]
-                <| new Snippet1.Control()
-        
-        let snippet2 =
-            snippet
-                2
-                "HTML5 Logo on Canvas"
-                "Using WebSharper's canvas bindings to draw the HTML5 logo."
-                "<div><p>This WebSharper sample draws the W3C's official logo for HTML5 on a <code>&lt;canvas&gt;</code>. The shapes that compose the logo are drawn by calling methods and setting properties of the 2D context attribute.</p></div>"
-                ["CANVAS"; "HTML5"; "JAVASCRIPT"]
-                <| new Snippet2.Control()
-
-        let snippet3 =
-            snippet
-                3
-                "Window's Location Object"
-                "Properties of the document's current location."
-                "<div><p>The properties of the location object describe the address of the current document. Notice in this example that the <em>hash</em>, <em>port</em> and <em>search</em> values are empty. The hash property returns the anchor segment of the URL. The port value is empty if it's the default 80 and since the URL doesn't contain a query the search property is also empty.</p></div>"
-                ["JAVASCRIPT"; "LOCATION"; "WINDOW"]
-                <| new Snippet3.Control()
-
-        let snippet4 =
-            snippet
-                4
-                "Twitter Widget"
-                "Custom Twitter widget for the latest #fsharp tweets."
-                "<div><p>This WebSharper demo features a custom Twitter widget for the latest tweets tagged <em>FSharp</em>. WebSharper's <abbr title='Remote Procedure Call'>RPC</abbr> mechanism is used to retrieve the tweets on the server-side. The client-side code appends a list containing these tweets to the DOM.</p></div>"
-                ["DOM"; "HTML"; "JQUERY"; "TWITTER"; "WEBSHARPER"]
-                <| new Snippet4.Control()
-
-        let snippet5 =
-            snippet
-                5
-                "Console Debugging"
-                "Using the browser's console for debugging purposes from WebSharper."
-                "<div><p>Modern browsers provide a useful console that lets you log debugging messages. Open your browser's JavaScript console and press the \"Log\" button to log the value of the <code>&lt;input&gt;</code> field in this example.</p></div>"
-                ["JAVASCRIPT"]
-                <| new Snippet5.Control()
-
-        let snippet6 =
-            snippet
-                6
-                "User's Current Position"
-                "Getting the user's current position using the geolocation API."
-                "<div><p>This geolocation snippet shows how to call the <code>getCurrentPosition</code> method to receive information about the user's position. After you press the \"Track My Location\" button and approve the request, a success callback function is invoked to display the properties of the position once it becomes available. The number of returned data values depends on the user's device and whether it has an accelerometer, a compass and GPS.</p></div>"
-                ["GEOLOCATION"]
-                <| new Snippet6.Control()
-
-        let snippet7 =
-            snippet
-                7
-                "HTML5 Video"
-                "Native video playback on a web page using the video element."
-                "<div><p>HTML5 standardized native video playback with the introduction of the <code>&lt;video&gt;</code> element. This snippet embeds an MP4 video and uses the <code>poster</code> attribute to display a placeholder image until the user plays the clip.</p></div>"
-                ["HTML5"; "MULTIMEDIA"; "VIDEO"]
-                <| new Snippet7.Control()
-
-        let snippet8 =
-            snippet
-                8
-                "HTML5 WebSocket"
-                "WebSharper WebSocket example that implements an echo test."
-                "<div><p><strong>WebSocket</strong> is an HTML5 connectivity technology that enables full-duplex client-server communication for building real-time web applications. WebSocket reduces the latency issues associated with half duplex older HTTP techniques like polling, Comet and streaming by establishing a bidirectional, single-socket connection and reusing it.</p><p>This example connects to a remote echo server and enables sending/receiving messages and eventually closing the connection using the WebSocket API.</p></div>"
-                ["CONNECTIVITY"; "HTML5"; "WEBSOCKET"]
-                <| new Snippet8.Control()
-
-        let snippet9 =
-            snippet
-                9
-                "Prompting Using showModalDialog"
-                "Prompting the user by opening a new URL in a popup window."
-                "<div><p>The <strong>Window</strong> object offers several options for prompting the user. The <code>showModalDialog</code> method creates a modal dialog box that displays the specified URL. Clicking this example's button shows an HTML document in a popup window.</p></div>"
-                ["JAVASCRIPT"; "WINDOW"]
-                <| new Snippet9.Control()
-
-        let snippet10 =
-            snippet
-                10
-                "Factorial"
-                "Computing factorials using pattern matching and the fold function from the Array module."
-                "<div><p>WebSharper brings the expressive power of F# to JavaScript development with a comprehensive coverage of its standard library. This example uses F# language features to compute the factorial of a number using two implementations. The first uses recursion and pattern matching and the second calls the <code>fold</code> function from the Array module.</p></div>"
-                ["FSHARP"; "JAVASCRIPT"]
-                <| new Snippet10.Control()
-
-        let snippet11 =
-            snippet
-                11
-                "DOM Implementation Details"
-                "Getting information about the browser's implementation of DOM features."
-                "<div><p>This example checks whether the browser implements the <em>Core</em>, <em>CSS</em>, <em>HTML</em> and <em>Selectors-API</em> features for <strong>DOM</strong> levels 1.0, 2.0 and 3.0. Browsers might claim to implement a feature when they actually don't and sometimes they do support it but the <code>hasFeature</code> method doesn't report it.</p></div>"
-                ["DOM"]
-                <| new Snippet11.Control()
-        
-        [|
-            snippet1
-            snippet2
-            snippet3
-            snippet4
-            snippet5
-            snippet6
-            snippet7
-            snippet8
-            snippet9
-            snippet10
-            snippet11
-        |]
-        |> Array.iter (fun x ->
-            hashset.Add x |> ignore
-            x.Tags |> List.iter (fun y -> hashset'.Add y |> ignore))
+        [
+            "CANVAS"
+            "CONNECTIVITY"
+            "DOM"
+            "FSHARP"
+            "GEOLOCATION"
+            "HTML"
+            "HTML5"
+            "JAVASCRIPT"
+            "JQUERY"
+            "LOCATION"
+            "MULTIMEDIA"
+            "TWITTER"
+            "VIDEO"
+            "WEBSHARPER"
+            "WEBSOCKET"
+            "WINDOW"
+        ]  
+        |> List.iter (fun x -> hashset'.Add x |> ignore)
 
 //    module ExtSnippets =
 //        let private extSnippet id control = { Id = id; Control = control }

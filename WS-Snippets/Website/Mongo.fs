@@ -29,23 +29,27 @@ module Mongo =
                 _id    : ObjectId
                 SnipId : int
                 Title  : string
+                MetaDesc : string
                 Desc   : string
+                DescHtml : string
                 Tags   : string []
                 Date   : DateTime
             }
-            static member New id title desc tags date =
+            static member New id title metaDesc desc descHtml tags date =
                 {
                     _id    = ObjectId.GenerateNewId()
                     SnipId = id
                     Title  = title
+                    MetaDesc = metaDesc
                     Desc   = desc
+                    DescHtml = descHtml
                     Tags   = tags
                     Date   = date
                 }
             
     [<AutoOpen>]
     module private Collections =
-        let snippets  = collectionByName<Snippet> database "snippets"
+        let snippets  = collectionByName<Snippet> database "snippet"
 
     [<AutoOpen>]
     module private Queryable =
@@ -70,4 +74,9 @@ module Mongo =
             let rslt = snippets.Insert snip
             rslt.Ok
 
-            
+        let byId id =
+            query {
+                for x in snipQuery do
+                    where (x.SnipId = id)
+                    select x }
+            |> Seq.nth 0

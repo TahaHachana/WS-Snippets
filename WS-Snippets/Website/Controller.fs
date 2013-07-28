@@ -27,4 +27,5 @@ module Controller =
             | Extjs pageId   -> Views.extjs pageId
             | Search (q, id) -> Views.search q id
             | Rss            -> Views.rss
+            | _              -> Content.ServerError
         { Handle = handle }

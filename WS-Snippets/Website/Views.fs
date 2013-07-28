@@ -14,8 +14,10 @@ module Views =
 
     let private homeTemplate = Skin.MakeDefaultTemplate "~/Home.html" Skin.LoadFrequency.Once
     let private mainTemplate = Skin.MakeDefaultTemplate "~/Main.html" Skin.LoadFrequency.Once
+    let private miniTemplate = Skin.MakeDefaultTemplate "~/Mini.html" Skin.LoadFrequency.Once
     let private withHomeTemplate = Skin.WithTemplate<Action> homeTemplate
-    let private withMainTemplate = Skin.WithTemplate<Action> mainTemplate
+    let withMainTemplate = Skin.WithTemplate<Action> mainTemplate
+    let withMiniTemplate = Skin.WithTemplate<Action> miniTemplate
     let private loginInfo' = loginInfo Logout Login
 
     let private split count list =        
@@ -39,6 +41,7 @@ module Views =
             Snippets.latest10()
             |> Seq.toList
             |> split 2
+
 //            |> List.map (fun lst ->
 //                match lst with
 //                    | [snip] ->
@@ -203,13 +206,15 @@ module Views =
             ]
 
     let snippet id =
-        let title, metaDesc, desc, tags, control = Controls.hashset |> Seq.find (fun x -> x.Id = id) |> fun x -> x.Title, x.MetaDesc, x.Description, x.Tags, x.Control
+        let snip = Mongo.Snippets.byId id
+        let title, metaDesc, desc, tags = snip.Title, snip.MetaDesc, snip.DescHtml, snip.Tags
+//        let title, metaDesc, desc, tags, control = Controls.hashset |> Seq.find (fun x -> x.Id = id) |> fun x -> x.Title, x.MetaDesc, x.Description, x.Tags, x.Control
         let title' = title + " · WebSharper Snippets"
         let desc' = Element.VerbatimContent desc
         let path = HttpContext.Current.Server.MapPath <| "~/Source/" + string id + ".txt"
         let source = File.ReadAllText path
         let elt = Element.VerbatimContent source
-        let btns = tags |> List.map (fun x ->
+        let btns = tags |> Array.map (fun x ->
             let href = "/tagged/" + HttpUtility.UrlEncode(x.ToLower())
             A [HRef href] -< [Button [Class "btn btn-success"; Style "margin: 5px;"] -< [Text x]])
         withMainTemplate title' metaDesc <| fun ctx ->
@@ -231,7 +236,7 @@ module Views =
                                     LI [A [HRef "#source"; HTML5.Data "toggle" "tab"] -< [Text "Source"]]
                                 ]
                                 Div [Class "tab-content"; Style "height: 450px;"] -< [
-                                    Div [Class "tab-pane active"; Id "demo"] -< [control]
+                                    Div [Class "tab-pane active"; Id "demo"] -< [IFrame [Src <| "/newpage/" + string id; NewAttribute "seamless" "seamless"; Style "width: 100%; height: 440px; border: none;"]]
                                     Div [Class "tab-pane"; Id "source"] -< [elt]
                                 ]
                             ]
@@ -241,11 +246,10 @@ module Views =
                             Div [yield! btns]
                         ]        
                     ]
-                    Script [Src "http://twitter.github.com/bootstrap/assets/js/bootstrap-tab.js"]
+                    Script [Src "/Scripts/BootstrapTabs.min.js"]
                 ]
                 Shared.footer
             ]
-
 
     let highlight =
         withMainTemplate "" "" <| fun ctx ->
@@ -272,7 +276,7 @@ module Views =
                             ]
                         ]
                     ]
-                    Script [Src "http://twitter.github.com/bootstrap/assets/js/bootstrap-tab.js"]
+                    Script [Src "/Scripts/BootstrapTabs.min.js"]
                 ]
                 Shared.footer
             ]

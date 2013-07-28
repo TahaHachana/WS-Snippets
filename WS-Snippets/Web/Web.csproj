@@ -53,6 +53,7 @@
     <Content Include="Images\Loader.gif" />
     <Content Include="Images\madagascar.jpg" />
     <Content Include="robots.txt" />
+    <Content Include="Scripts\BootstrapTabs.min.js" />
     <Content Include="Scripts\googleAnalytics.js" />
     <Content Include="Scripts\IntelliFactory.Formlet.dll.js" />
     <Content Include="Scripts\IntelliFactory.Formlet.dll.min.js" />
@@ -116,7 +117,11 @@
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="*.html" />
+    <Content Include="Extjs.html" />
+    <Content Include="google1e26600b7e4f9412.html" />
+    <Content Include="Home.html" />
+    <Content Include="Main.html" />
+    <Content Include="modal.html" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="FSharp.Core">

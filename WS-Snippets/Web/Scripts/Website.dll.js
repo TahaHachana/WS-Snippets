@@ -97,7 +97,8 @@
      Client:{
       main:function()
       {
-       return Operators1.add(Operators1.add(Default.Table(List.ofArray([Default.Attr().Class("span9 table table-bordered table-striped")])),List.ofArray([Operators1.add(Default.TR(Runtime.New(T,{
+       var _this;
+       return Operators1.add(Operators1.add(Default.Table(List.ofArray([Default.Attr().Class("table table-bordered table-striped"),(_this=Default.Attr(),_this.NewAttr("style","width: 900px;"))])),List.ofArray([Operators1.add(Default.TR(Runtime.New(T,{
         $:0
        })),List.map(function(txt)
        {
@@ -212,9 +213,9 @@
      Client:{
       main:function()
       {
-       var location;
+       var location,_this;
        location=window.location;
-       return Operators1.add(Default.Table(List.ofArray([Default.Attr().Class("table table-bordered table-striped span8")])),List.ofArray([Default.TR(List.ofArray([Default.TH(List.ofArray([Default.Text("Property")])),Default.TH(List.ofArray([Default.Text("Value")]))])),Client4.tr("Hash",location.hash),Client4.tr("Host",location.host),Client4.tr("Hostname",location.hostname),Client4.tr("Href",location.href),Client4.tr("Pathname",location.pathname),Client4.tr("Port",location.port),Client4.tr("Protocol",location.protocol),Client4.tr("Search",location.search)]));
+       return Operators1.add(Default.Table(List.ofArray([Default.Attr().Class("table table-bordered table-striped"),(_this=Default.Attr(),_this.NewAttr("style","width: 700px;"))])),List.ofArray([Default.TR(List.ofArray([Default.TH(List.ofArray([Default.Text("Property")])),Default.TH(List.ofArray([Default.Text("Value")]))])),Client4.tr("Hash",location.hash),Client4.tr("Host",location.host),Client4.tr("Hostname",location.hostname),Client4.tr("Href",location.href),Client4.tr("Pathname",location.pathname),Client4.tr("Port",location.port),Client4.tr("Protocol",location.protocol),Client4.tr("Search",location.search)]));
       },
       tr:function(td,_td_)
       {
@@ -832,7 +833,7 @@
     Client:{
      main:function()
      {
-      var id,x,f,title,x1,f1,desc,x2,f2,tags,x3,f3,formlet1,x4,x5,x6,f4,f5;
+      var id,x,f,title,x1,f1,metaDesc,x2,f2,desc,x3,f3,descHtml,x4,f4,tags,x5,f5,formlet1,x6,x7,x8,f6,f7;
       id=(x=Controls1.Input(""),(f=function(formlet)
       {
        return Enhance.WithTextLabel("Id",formlet);
@@ -841,42 +842,56 @@
       {
        return Enhance.WithTextLabel("Title",formlet);
       },f1(x1)));
-      desc=(x2=Controls1.TextArea(""),(f2=function(formlet)
+      metaDesc=(x2=Controls1.Input(""),(f2=function(formlet)
+      {
+       return Enhance.WithTextLabel("Meta Description",formlet);
+      },f2(x2)));
+      desc=(x3=Controls1.TextArea(""),(f3=function(formlet)
       {
        return Enhance.WithTextLabel("Description",formlet);
-      },f2(x2)));
-      tags=(x3=Controls1.Input(""),(f3=function(formlet)
+      },f3(x3)));
+      descHtml=(x4=Controls1.TextArea(""),(f4=function(formlet)
+      {
+       return Enhance.WithTextLabel("Description HTML",formlet);
+      },f4(x4)));
+      tags=(x5=Controls1.Input(""),(f5=function(formlet)
       {
        return Enhance.WithTextLabel("Tags",formlet);
-      },f3(x3)));
-      formlet1=(x4=(x5=Data.$(Data.$(Data.$(Data.$((x6=function(id1)
+      },f5(x5)));
+      formlet1=(x6=(x7=Data.$(Data.$(Data.$(Data.$(Data.$(Data.$((x8=function(id1)
       {
        return function(title1)
        {
-        return function(desc1)
+        return function(metaDesc1)
         {
-         return function(tags1)
+         return function(desc1)
          {
-          return[id1,title1,desc1,tags1];
+          return function(descHtml1)
+          {
+           return function(tags1)
+           {
+            return[id1,title1,metaDesc1,desc1,descHtml1,tags1];
+           };
+          };
          };
         };
        };
-      },Formlet1.Return(x6)),id),title),desc),tags),(f4=function(formlet)
+      },Formlet1.Return(x8)),id),title),metaDesc),desc),descHtml),tags),(f6=function(formlet)
       {
        return Enhance.WithSubmitAndResetButtons(formlet);
-      },f4(x5))),(f5=function(formlet)
+      },f6(x7))),(f7=function(formlet)
       {
        return Enhance.WithFormContainer(formlet);
-      },f5(x4)));
-      return Formlet1.Run(Runtime.Tupled(function(x7)
+      },f7(x6)));
+      return Formlet1.Run(Runtime.Tupled(function(x9)
       {
-       var x8,f6,f8;
-       x8=(f6=function()
+       var xa,f8,fa;
+       xa=(f8=function()
        {
-        var x9,id1,title1,desc1,tags1,f7;
-        JavaScript.Log(x7);
-        x9=(id1=x7[0],(title1=x7[1],(desc1=x7[2],(tags1=x7[3],Remoting.Async("Website:3",[id1,title1,desc1,tags1])))));
-        f7=function(_arg1)
+        var xb,id1,title1,metaDesc1,desc1,descHtml1,tags1,f9;
+        JavaScript.Log(x9);
+        xb=(id1=x9[0],(title1=x9[1],(metaDesc1=x9[2],(desc1=x9[3],(descHtml1=x9[4],(tags1=x9[5],Remoting.Async("Website:3",[id1,title1,metaDesc1,desc1,descHtml1,tags1])))))));
+        f9=function(_arg1)
         {
          if(_arg1)
           {
@@ -889,9 +904,9 @@
            return Concurrency.Return(null);
           }
         };
-        return Concurrency.Bind(x9,f7);
-       },Concurrency.Delay(f6));
-       f8=function(arg00)
+        return Concurrency.Bind(xb,f9);
+       },Concurrency.Delay(f8));
+       fa=function(arg00)
        {
         var t;
         t={
@@ -899,7 +914,7 @@
         };
         return Concurrency.Start(arg00);
        };
-       return f8(x8);
+       return fa(xa);
       }),formlet1);
      }
     },

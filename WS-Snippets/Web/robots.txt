@@ -1,4 +1,5 @@
 ﻿User-agent: *
 Disallow: /modal.html
+Disallow: /newpage
 
 Sitemap: http://wssnippets.apphb.com/sitemap.xml

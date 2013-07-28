@@ -54,6 +54,7 @@
     <Compile Include="Model.fs" />
     <Compile Include="Views.fs" />
     <Compile Include="Controller.fs" />
+    <Compile Include="NewPage.fs" />
     <Compile Include="Site.fs" />
     <None Include="packages.config" />
   </ItemGroup>

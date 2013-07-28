@@ -21,3 +21,4 @@ module Model =
         | [<CompiledName("extjs")>] Extjs of PageId
         | [<CompiledName("search")>] Search of Query * PageId
         | Rss
+        | NewPage of int

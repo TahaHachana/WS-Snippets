@@ -551,6 +551,94 @@ module Controls =
             [<JavaScript>]
             override this.Body = Client.main() :> _
 
+    // calculator
+    module Snippet12 =
+    
+        /// Client-side code.
+        [<JavaScript>]
+        module private Client =
+
+            /// Creates a button and adds a click event listener to it.
+            let btn caption action =
+                Button [Attr.Class "btn"; Attr.Style "margin: 3px; width: 45px;"; Text caption]
+                |>! OnClick (fun e _ -> action())
+
+            let main()  =
+                /// Calculator state: old number, current one and arithmetic operation.
+                let oldNum, num, op = ref 0, ref 0, ref None
+            
+                /// Calculator display screen.
+                let display = Input [Attr.Type "text"; Attr.Value "0"]
+
+                /// Updates the claculator display screen.
+                let updateDisplay() = display.Value <- string !num
+
+                /// Updates the current number register.
+                let d n =
+                    num := 10 * !num + n
+                    updateDisplay()
+
+                /// Clears the current number register.
+                let c() =
+                    num := 0
+                    updateDisplay()
+
+                /// Clears all registers.
+                let ac() =
+                    num := 0
+                    oldNum := 0
+                    op := None
+                    updateDisplay()
+
+                /// Negates the current number.
+                let n() =
+                    num := - !num
+                    updateDisplay()
+
+                /// Performs the operation currently in the op register.
+                let e() =
+                    match !op with
+                    | None -> ()
+                    | Some f ->
+                        num := f !oldNum !num
+                        op := None
+                        updateDisplay()
+
+                /// Pushes an arbitrary operation onto the op register.
+                let o op' () =
+                    match !op with
+                    | None -> ()
+                    | Some f ->
+                        num := f !oldNum !num
+                        updateDisplay()
+                    oldNum := !num
+                    num := 0
+                    op := Some op'
+
+                let digit n = btn (string n) (fun () -> d n)
+
+                Div [
+                    display
+                    Br []
+                    Div [
+                        digit 7; digit 8; digit 9; btn "/" (o ( / ))
+                        Br []
+                        digit 4; digit 5; digit 6; btn "*" (o ( * ))
+                        Br []
+                        digit 1; digit 2; digit 3; btn "-" (o ( - ))
+                        Br []
+                        digit 0; btn "C" c; btn "AC" ac; btn "+" (o ( + ));
+                        Br []
+                        btn "+/-" n; btn "=" e
+                    ]
+                ]
+
+        /// A control for serving the main pagelet.
+        type Control() =
+            inherit Web.Control()
+            [<JavaScript>]
+            override this.Body = Client.main() :> _
+
 
 //    module Snippet5 = 
 //        [<JavaScript>]

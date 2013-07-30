@@ -27,6 +27,7 @@ module NewPage =
     let snippet10 = content <| new Snippet10.Control()
     let snippet11 = content <| new Snippet11.Control()
     let snippet12 = content <| new Snippet12.Control()
+    let snippet13 = content <| new Snippet13.Control()
 
     let main =
         [
@@ -42,6 +43,7 @@ module NewPage =
             Sitelet.Content "10" (Action.NewPage 10) snippet10
             Sitelet.Content "11" (Action.NewPage 11) snippet11
             Sitelet.Content "12" (Action.NewPage 12) snippet12
+            Sitelet.Content "13" (Action.NewPage 13) snippet13
         ]
         |> Sitelet.Sum
         |> Sitelet.Shift "newpage"

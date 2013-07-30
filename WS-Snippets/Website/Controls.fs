@@ -639,6 +639,30 @@ module Controls =
             [<JavaScript>]
             override this.Body = Client.main() :> _
 
+    module Snippet13 =
+
+        /// Client-side code.
+        [<JavaScript>]
+        module private Client =
+
+            /// Creates a canvas and draws the text "Hello Canvas" on it.
+            let main() =
+                let elt = HTML5.Tags.Canvas [Text "The canvas element isn't supported by your browser."]
+                elt.SetStyle "border: 1px solid;"
+                let canvas  = As<CanvasElement> elt.Dom
+                canvas.Height <- 400
+                canvas.Width <- 600
+                let ctx = canvas.GetContext "2d"
+                ctx.Font <- "50px Arial"
+                ctx.FillText("Hello Canvas", 20., 50.)
+                elt
+
+        /// A control for serving the main pagelet.
+        type Control() =
+            inherit Web.Control()
+
+            [<JavaScript>]
+            override this.Body = Client.main() :> _
 
 //    module Snippet5 = 
 //        [<JavaScript>]

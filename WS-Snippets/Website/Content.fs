@@ -17,7 +17,7 @@ module Content =
                     P [Class "pull-right"] -< [Text "Developed by "] -< [
                         A ["Taha Hachana" => "http://taha-hachana.apphb.com/"]
                     ]
-                    P [Class "text-center"] -< [Text "Snippets in database: 13"]
+                    P [Class "text-center"] -< [Text "Snippets in database: 14"]
                 ]            
             ]
 

@@ -664,6 +664,45 @@ module Controls =
             [<JavaScript>]
             override this.Body = Client.main() :> _
 
+    module Snippet14 =
+
+        /// Client-side code.
+        [<JavaScript>]
+        module Client =
+            open IntelliFactory.WebSharper.JQuery
+
+            let loremIpsum = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis elit lacus, commodo non posuere sit amet, sodales in risus. Donec et sagittis nisl, at blandit nisl. Cras fermentum libero et erat tincidunt, vel euismod justo elementum. Quisque eget augue quis arcu dictum sagittis. Duis in arcu vulputate lorem sagittis facilisis. In non justo quis metus aliquet luctus a id justo. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Fusce vitae augue sagittis, sodales diam id, blandit turpis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam tempor suscipit nibh vel mollis. Vestibulum eros lorem, pharetra quis varius in, lobortis at risus."
+        
+            /// Accordion group CSS rules.
+            let style = "border: 1px solid; border-radius: 5px; margin-bottom: 10px; padding: 3px; width: 900px;"
+            
+            /// Creates an accordion group.
+            let accordionGroup num =
+                let accordionBody = Div [Attr.Style "display: none;"] -< [Div [Text loremIpsum]]
+                let jq = JQuery.Of(accordionBody.Dom)
+                Div [Attr.Style style] -< [
+                    Div [
+                        Div [Attr.Class "btn-link"; Attr.Style "font-weight: bold;"]
+                        -< [Text <| "Collapsible Group " + string num]
+                        // Toggle expanding and collapsing.
+                        |>! OnClick (fun _ _ ->
+                            match jq.Is ":visible" with
+                            | false -> jq.SlideDown("fast", ignore).Ignore
+                            | true -> jq.SlideUp("fast", ignore).Ignore)
+                    ]
+                    accordionBody
+                ]
+
+            let main() = Div [] -< List.map accordionGroup [1 .. 3]
+
+        /// A control for serving the main pagelet.
+        type Control() =
+            inherit Web.Control()
+
+            [<JavaScript>]
+            override __.Body = Client.main() :> _
+
+
 //    module Snippet5 = 
 //        [<JavaScript>]
 //        let private viewport() =

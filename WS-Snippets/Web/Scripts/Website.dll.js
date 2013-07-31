@@ -1,6 +1,6 @@
 (function()
 {
- var Global=this,Runtime=this.IntelliFactory.Runtime,Website,AddThis,WebSharper,Html,Default,HTML5,List,T,Controls,Snippet1,Client,Arrays,Seq,Operators,Snippet10,Client1,EventsPervasives,Operators1,Snippet11,Client2,document,Snippet12,Client3,Snippet13,Client4,Snippet2,Client5,window,Snippet3,Client6,jQuery,Remoting,Snippet4,Client7,Concurrency,alert,JavaScript,Snippet5,Client8,String,Snippet6,Client9,Snippet7,Clienta,WebSocket,Snippet8,Clientb,Snippet9,Clientc,Forkme,Highlight,Clientd,Formlet,Controls1,Enhance,Data,Formlet1,Index,Cliente,InsertSnippet,Clientf,Login,Client10,encodeURIComponent,Strings,Search,Client11;
+ var Global=this,Runtime=this.IntelliFactory.Runtime,Website,AddThis,WebSharper,Html,Default,HTML5,List,T,Controls,Snippet1,Client,Arrays,Seq,Operators,Snippet10,Client1,EventsPervasives,Operators1,Snippet11,Client2,document,Snippet12,Client3,Snippet13,Client4,Snippet14,Client5,jQuery,Snippet2,Client6,window,Snippet3,Client7,Remoting,Snippet4,Client8,Concurrency,alert,JavaScript,Snippet5,Client9,String,Snippet6,Clienta,Snippet7,Clientb,WebSocket,Snippet8,Clientc,Snippet9,Clientd,Forkme,Highlight,Cliente,Formlet,Controls1,Enhance,Data,Formlet1,Index,Clientf,InsertSnippet,Client10,Login,Client11,encodeURIComponent,Strings,Search,Client12;
  Runtime.Define(Global,{
   Website:{
    AddThis:{
@@ -318,6 +318,64 @@
       }
      })
     },
+    Snippet14:{
+     Client:{
+      accordionGroup:function(num)
+      {
+       var accordionBody,_this,jq,_this1,x,x1,_this2,x2,f,x3;
+       accordionBody=Operators1.add(Default.Div(List.ofArray([(_this=Default.Attr(),_this.NewAttr("style","display: none;"))])),List.ofArray([Default.Div(List.ofArray([Default.Text(Client5.loremIpsum())]))]));
+       jq=jQuery(accordionBody.Body);
+       return Operators1.add(Default.Div(List.ofArray([(_this1=Default.Attr(),(x=Client5.style(),_this1.NewAttr("style",x)))])),List.ofArray([Default.Div(List.ofArray([(x1=Operators1.add(Default.Div(List.ofArray([Default.Attr().Class("btn-link"),(_this2=Default.Attr(),_this2.NewAttr("style","font-weight: bold;"))])),List.ofArray([(x2="Collapsible Group "+Global.String(num),Default.Text(x2))])),(f=(x3=function()
+       {
+        return function()
+        {
+         var matchValue;
+         matchValue=jq.is(":visible");
+         if(matchValue)
+          {
+           return jq.slideUp("fast",function(value)
+           {
+            value;
+           });
+          }
+         else
+          {
+           return jq.slideDown("fast",function(value)
+           {
+            value;
+           });
+          }
+        };
+       },function(arg10)
+       {
+        return EventsPervasives.Events().OnClick(x3,arg10);
+       }),(f(x1),x1)))])),accordionBody]));
+      },
+      loremIpsum:Runtime.Field(function()
+      {
+       return"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis elit lacus, commodo non posuere sit amet, sodales in risus. Donec et sagittis nisl, at blandit nisl. Cras fermentum libero et erat tincidunt, vel euismod justo elementum. Quisque eget augue quis arcu dictum sagittis. Duis in arcu vulputate lorem sagittis facilisis. In non justo quis metus aliquet luctus a id justo. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Fusce vitae augue sagittis, sodales diam id, blandit turpis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam tempor suscipit nibh vel mollis. Vestibulum eros lorem, pharetra quis varius in, lobortis at risus.";
+      }),
+      main:function()
+      {
+       return Operators1.add(Default.Div(Runtime.New(T,{
+        $:0
+       })),List.map(function(num)
+       {
+        return Client5.accordionGroup(num);
+       },Seq.toList(Operators.range(1,3))));
+      },
+      style:Runtime.Field(function()
+      {
+       return"border: 1px solid; border-radius: 5px; margin-bottom: 10px; padding: 3px; width: 900px;";
+      })
+     },
+     Control:Runtime.Class({
+      get_Body:function()
+      {
+       return Client5.main();
+      }
+     })
+    },
     Snippet2:{
      Client:{
       drawLogo:function(ctx)
@@ -325,12 +383,12 @@
        ctx.font="60px 'Gill Sans Ultra Bold'";
        ctx.fillText("HTML",40,60);
        ctx.translate(0,70);
-       Client5.drawShape(ctx,"#E34C26",44,255,List.ofArray([[22,5],[267,5],[244,255],[144,283]]));
-       Client5.drawShape(ctx,"#F06529",144,262,List.ofArray([[225,239],[244,25],[144,25]]));
-       Client5.drawShape(ctx,"#EBEBEB",144,118,List.ofArray([[103,118],[101,87],[144,87],[144,56],[67,56],[75,149],[144,149]]));
-       Client5.drawShape(ctx,"#EBEBEB",144,198,List.ofArray([[110,189],[108,164],[77,164],[81,212],[144,230]]));
-       Client5.drawShape(ctx,"#FFFFFF",144,118,List.ofArray([[144,149],[182,149],[178,189],[144,198],[144,230],[207,212],[215,118]]));
-       return Client5.drawShape(ctx,"#FFFFFF",144,56,List.ofArray([[144,87],[218,87],[221,56]]));
+       Client6.drawShape(ctx,"#E34C26",44,255,List.ofArray([[22,5],[267,5],[244,255],[144,283]]));
+       Client6.drawShape(ctx,"#F06529",144,262,List.ofArray([[225,239],[244,25],[144,25]]));
+       Client6.drawShape(ctx,"#EBEBEB",144,118,List.ofArray([[103,118],[101,87],[144,87],[144,56],[67,56],[75,149],[144,149]]));
+       Client6.drawShape(ctx,"#EBEBEB",144,198,List.ofArray([[110,189],[108,164],[77,164],[81,212],[144,230]]));
+       Client6.drawShape(ctx,"#FFFFFF",144,118,List.ofArray([[144,149],[182,149],[178,189],[144,198],[144,230],[207,212],[215,118]]));
+       return Client6.drawShape(ctx,"#FFFFFF",144,56,List.ofArray([[144,87],[218,87],[221,56]]));
       },
       drawShape:function(_,_1,_2,_3,_4)
       {
@@ -377,14 +435,14 @@
        canvas.height=400;
        canvas.width=600;
        ctx=canvas.getContext("2d");
-       Client5.drawLogo(ctx);
+       Client6.drawLogo(ctx);
        return elt;
       }
      },
      Control:Runtime.Class({
       get_Body:function()
       {
-       return Client5.main();
+       return Client6.main();
       }
      })
     },
@@ -394,7 +452,7 @@
       {
        var location,_this;
        location=window.location;
-       return Operators1.add(Default.Table(List.ofArray([Default.Attr().Class("table table-bordered table-striped"),(_this=Default.Attr(),_this.NewAttr("style","width: 700px;"))])),List.ofArray([Default.TR(List.ofArray([Default.TH(List.ofArray([Default.Text("Property")])),Default.TH(List.ofArray([Default.Text("Value")]))])),Client6.tr("Hash",location.hash),Client6.tr("Host",location.host),Client6.tr("Hostname",location.hostname),Client6.tr("Href",location.href),Client6.tr("Pathname",location.pathname),Client6.tr("Port",location.port),Client6.tr("Protocol",location.protocol),Client6.tr("Search",location.search)]));
+       return Operators1.add(Default.Table(List.ofArray([Default.Attr().Class("table table-bordered table-striped"),(_this=Default.Attr(),_this.NewAttr("style","width: 700px;"))])),List.ofArray([Default.TR(List.ofArray([Default.TH(List.ofArray([Default.Text("Property")])),Default.TH(List.ofArray([Default.Text("Value")]))])),Client7.tr("Hash",location.hash),Client7.tr("Host",location.host),Client7.tr("Hostname",location.hostname),Client7.tr("Href",location.href),Client7.tr("Pathname",location.pathname),Client7.tr("Port",location.port),Client7.tr("Protocol",location.protocol),Client7.tr("Search",location.search)]));
       },
       tr:function(td,_td_)
       {
@@ -404,7 +462,7 @@
      Control:Runtime.Class({
       get_Body:function()
       {
-       return Client6.main();
+       return Client7.main();
       }
      })
     },
@@ -465,15 +523,15 @@
             ul=Default.UL(List.ofArray([(_this=Default.Attr(),_this.NewAttr("style","list-style-type: none;"))]));
             f4=(action=function(tweet)
             {
-             return ul.AppendI(Client7.li(tweet));
+             return ul.AppendI(Client8.li(tweet));
             },function(list)
             {
              return Seq.iter(action,list);
             });
             f4(tweets);
             elt.AppendI(ul);
-            Client7.toggleActionsVisibility();
-            Client7.handleTweetActions();
+            Client8.toggleActionsVisibility();
+            Client8.handleTweetActions();
             return Concurrency.Return(null);
            }
           else
@@ -517,7 +575,7 @@
      Control:Runtime.Class({
       get_Body:function()
       {
-       return Client7.main();
+       return Client8.main();
       }
      })
     },
@@ -543,7 +601,7 @@
      Control:Runtime.Class({
       get_Body:function()
       {
-       return Client8.main();
+       return Client9.main();
       }
      })
     },
@@ -554,21 +612,21 @@
        var coords,txt,copyOfStruct,txt1,copyOfStruct1,txt2,txt3,copyOfStruct2,txt4,txt5,txt6,txt7;
        coords=p.coords;
        txt=(copyOfStruct=[coords.longitude],String(copyOfStruct[0]));
-       Client9.setText("longitude",txt);
+       Clienta.setText("longitude",txt);
        txt1=(copyOfStruct1=[coords.latitude],String(copyOfStruct1[0]));
-       Client9.setText("latitude",txt1);
-       txt2=Client9.toStr(coords.altitude);
-       Client9.setText("altitude",txt2);
+       Clienta.setText("latitude",txt1);
+       txt2=Clienta.toStr(coords.altitude);
+       Clienta.setText("altitude",txt2);
        txt3=(copyOfStruct2=[coords.accuracy],String(copyOfStruct2[0]));
-       Client9.setText("accuracy",txt3);
-       txt4=Client9.toStr(coords.altitudeAccuracy);
-       Client9.setText("alt-acc",txt4);
-       txt5=Client9.toStr(coords.heading);
-       Client9.setText("heading",txt5);
-       txt6=Client9.toStr(coords.speed);
-       Client9.setText("speed",txt6);
+       Clienta.setText("accuracy",txt3);
+       txt4=Clienta.toStr(coords.altitudeAccuracy);
+       Clienta.setText("alt-acc",txt4);
+       txt5=Clienta.toStr(coords.heading);
+       Clienta.setText("heading",txt5);
+       txt6=Clienta.toStr(coords.speed);
+       Clienta.setText("speed",txt6);
        txt7=p.timestamp.toString();
-       return Client9.setText("timestamp",txt7);
+       return Clienta.setText("timestamp",txt7);
       },
       getPosition:function()
       {
@@ -577,7 +635,7 @@
        {
         window.navigator.geolocation.getCurrentPosition(function(p)
         {
-         return Client9.display(p);
+         return Clienta.display(p);
         });
         return Concurrency.Return(null);
        };
@@ -586,7 +644,7 @@
       main:function()
       {
        var x,f,x1;
-       return Operators1.add(Default.Div(List.ofArray([Default.Attr().Class("span6")])),List.ofArray([Operators1.add(Default.Table(List.ofArray([Default.Attr().Class("table table-striped table-bordered")])),List.ofArray([Client9.tr("Longitude","longitude"),Client9.tr("Latitude","latitude"),Client9.tr("Altitude","altitude"),Client9.tr("Accuracy","accuracy"),Client9.tr("Altitude Accuracy","alt-acc"),Client9.tr("Heading","heading"),Client9.tr("Speed","speed"),Client9.tr("Time Stamp","timestamp")])),(x=Default.Button(List.ofArray([Default.Text("Track My Location"),Default.Attr().Class("btn btn-primary btn-large")])),(f=(x1=function()
+       return Operators1.add(Default.Div(List.ofArray([Default.Attr().Class("span6")])),List.ofArray([Operators1.add(Default.Table(List.ofArray([Default.Attr().Class("table table-striped table-bordered")])),List.ofArray([Clienta.tr("Longitude","longitude"),Clienta.tr("Latitude","latitude"),Clienta.tr("Altitude","altitude"),Clienta.tr("Accuracy","accuracy"),Clienta.tr("Altitude Accuracy","alt-acc"),Clienta.tr("Heading","heading"),Clienta.tr("Speed","speed"),Clienta.tr("Time Stamp","timestamp")])),(x=Default.Button(List.ofArray([Default.Text("Track My Location"),Default.Attr().Class("btn btn-primary btn-large")])),(f=(x1=function()
        {
         return function()
         {
@@ -594,7 +652,7 @@
          x2=(f1=function()
          {
           var x3,f2;
-          x3=Client9.getPosition();
+          x3=Clienta.getPosition();
           f2=function()
           {
            return Concurrency.Return(null);
@@ -646,7 +704,7 @@
      Control:Runtime.Class({
       get_Body:function()
       {
-       return Client9.main();
+       return Clienta.main();
       }
      })
     },
@@ -667,7 +725,7 @@
      Control:Runtime.Class({
       get_Body:function()
       {
-       return Clienta.main();
+       return Clientb.main();
       }
      })
     },
@@ -695,7 +753,7 @@
          var txt;
          txt=msgText.get_Value();
          ws.send(txt);
-         return Clientb.log("Sent: "+txt,"black");
+         return Clientc.log("Sent: "+txt,"black");
         };
        },function(arg10)
        {
@@ -711,30 +769,30 @@
        {
         return EventsPervasives.Events().OnClick(x3,arg10);
        }),(f1(x2),x2)));
-       return Clientb.handleEvents(ws,disconnectBtn,sendBtn);
+       return Clientc.handleEvents(ws,disconnectBtn,sendBtn);
       },
       handleEvents:function(ws,disconnectBtn,sendBtn)
       {
        ws.onerror=function()
        {
-        return Clientb.log("Error","red");
+        return Clientc.log("Error","red");
        };
        ws.onmessage=function(msg)
        {
-        return Clientb.log("Received: "+String(msg.data),"blue");
+        return Clientc.log("Received: "+String(msg.data),"blue");
        };
        ws.onopen=function()
        {
-        Clientb.append("send-btn",sendBtn);
-        Clientb.append("btns",disconnectBtn);
-        return Clientb.log("Connected","green");
+        Clientc.append("send-btn",sendBtn);
+        Clientc.append("btns",disconnectBtn);
+        return Clientc.log("Connected","green");
        };
        ws.onclose=function()
        {
         document.getElementById("connect-btn").removeAttribute("disabled");
         sendBtn["HtmlProvider@32"].Remove(sendBtn.Body);
         disconnectBtn["HtmlProvider@32"].Remove(disconnectBtn.Body);
-        return Clientb.log("Disconnected","rgb(250, 167, 50)");
+        return Clientc.log("Disconnected","rgb(250, 167, 50)");
        };
       },
       log:function(text,color)
@@ -759,7 +817,7 @@
        {
         return function()
         {
-         return Clientb.connect(msgText);
+         return Clientc.connect(msgText);
         };
        },function(arg10)
        {
@@ -779,7 +837,7 @@
      Control:Runtime.Class({
       get_Body:function()
       {
-       return Clientb.main();
+       return Clientc.main();
       }
      })
     },
@@ -812,7 +870,7 @@
      Control:Runtime.Class({
       get_Body:function()
       {
-       return Clientc.main();
+       return Clientd.main();
       }
      })
     }
@@ -925,13 +983,13 @@
      },
      main:function()
      {
-      return Default.Div(List.ofArray([Clientd.highlightBtn(),Clientd.clearBtn()]));
+      return Default.Div(List.ofArray([Cliente.highlightBtn(),Cliente.clearBtn()]));
      }
     },
     Control:Runtime.Class({
      get_Body:function()
      {
-      return Clientd.main();
+      return Cliente.main();
      }
     })
    },
@@ -1004,7 +1062,7 @@
     Control:Runtime.Class({
      get_Body:function()
      {
-      return Cliente.main();
+      return Clientf.main();
      }
     })
    },
@@ -1100,7 +1158,7 @@
     Control:Runtime.Class({
      get_Body:function()
      {
-      return Clientf.main();
+      return Client10.main();
      }
     })
    },
@@ -1120,7 +1178,7 @@
          var x3,f2;
          x3=Remoting.Async("Website:2",[{
           Name:userInput.get_Value(),
-          Password:Client10.passInput().get_Value()
+          Password:Client11.passInput().get_Value()
          }]);
          f2=function(_arg11)
          {
@@ -1151,7 +1209,7 @@
       {
        return EventsPervasives.Events().OnClick(x1,arg10);
       }),(f(x),x)));
-      return Default.Form(List.ofArray([(x4=List.ofArray([(x5=List.ofArray([Default.Text("Login")]),(_this4=Default.Tags(),_this4.NewTag("legend",x5))),(x6=List.ofArray([Default.Text("Username")]),(_this5=Default.Tags(),_this5.NewTag("label",x6))),userInput,(x7=List.ofArray([Default.Text("Password")]),(_this6=Default.Tags(),_this6.NewTag("label",x7))),Client10.passInput()]),(_this7=Default.Tags(),_this7.NewTag("fieldset",x4))),(x8=List.ofArray([submitBtn]),(_this8=Default.Tags(),_this8.NewTag("fieldset",x8)))]));
+      return Default.Form(List.ofArray([(x4=List.ofArray([(x5=List.ofArray([Default.Text("Login")]),(_this4=Default.Tags(),_this4.NewTag("legend",x5))),(x6=List.ofArray([Default.Text("Username")]),(_this5=Default.Tags(),_this5.NewTag("label",x6))),userInput,(x7=List.ofArray([Default.Text("Password")]),(_this6=Default.Tags(),_this6.NewTag("label",x7))),Client11.passInput()]),(_this7=Default.Tags(),_this7.NewTag("fieldset",x4))),(x8=List.ofArray([submitBtn]),(_this8=Default.Tags(),_this8.NewTag("fieldset",x8)))]));
      },
      passInput:Runtime.Field(function()
      {
@@ -1183,7 +1241,7 @@
     Control:Runtime.Class({
      get_Body:function()
      {
-      return Client10.loginForm(this.redirectUrl);
+      return Client11.loginForm(this.redirectUrl);
      }
     })
    },
@@ -1235,7 +1293,7 @@
     Control:Runtime.Class({
      get_Body:function()
      {
-      return Client11.main();
+      return Client12.main();
      }
     })
    }
@@ -1268,51 +1326,55 @@
   Client3=Runtime.Safe(Snippet12.Client);
   Snippet13=Runtime.Safe(Controls.Snippet13);
   Client4=Runtime.Safe(Snippet13.Client);
+  Snippet14=Runtime.Safe(Controls.Snippet14);
+  Client5=Runtime.Safe(Snippet14.Client);
+  jQuery=Runtime.Safe(Global.jQuery);
   Snippet2=Runtime.Safe(Controls.Snippet2);
-  Client5=Runtime.Safe(Snippet2.Client);
+  Client6=Runtime.Safe(Snippet2.Client);
   window=Runtime.Safe(Global.window);
   Snippet3=Runtime.Safe(Controls.Snippet3);
-  Client6=Runtime.Safe(Snippet3.Client);
-  jQuery=Runtime.Safe(Global.jQuery);
+  Client7=Runtime.Safe(Snippet3.Client);
   Remoting=Runtime.Safe(WebSharper.Remoting);
   Snippet4=Runtime.Safe(Controls.Snippet4);
-  Client7=Runtime.Safe(Snippet4.Client);
+  Client8=Runtime.Safe(Snippet4.Client);
   Concurrency=Runtime.Safe(WebSharper.Concurrency);
   alert=Runtime.Safe(Global.alert);
   JavaScript=Runtime.Safe(WebSharper.JavaScript);
   Snippet5=Runtime.Safe(Controls.Snippet5);
-  Client8=Runtime.Safe(Snippet5.Client);
+  Client9=Runtime.Safe(Snippet5.Client);
   String=Runtime.Safe(Global.String);
   Snippet6=Runtime.Safe(Controls.Snippet6);
-  Client9=Runtime.Safe(Snippet6.Client);
+  Clienta=Runtime.Safe(Snippet6.Client);
   Snippet7=Runtime.Safe(Controls.Snippet7);
-  Clienta=Runtime.Safe(Snippet7.Client);
+  Clientb=Runtime.Safe(Snippet7.Client);
   WebSocket=Runtime.Safe(Global.WebSocket);
   Snippet8=Runtime.Safe(Controls.Snippet8);
-  Clientb=Runtime.Safe(Snippet8.Client);
+  Clientc=Runtime.Safe(Snippet8.Client);
   Snippet9=Runtime.Safe(Controls.Snippet9);
-  Clientc=Runtime.Safe(Snippet9.Client);
+  Clientd=Runtime.Safe(Snippet9.Client);
   Forkme=Runtime.Safe(Website.Forkme);
   Highlight=Runtime.Safe(Website.Highlight);
-  Clientd=Runtime.Safe(Highlight.Client);
+  Cliente=Runtime.Safe(Highlight.Client);
   Formlet=Runtime.Safe(WebSharper.Formlet);
   Controls1=Runtime.Safe(Formlet.Controls);
   Enhance=Runtime.Safe(Formlet.Enhance);
   Data=Runtime.Safe(Formlet.Data);
   Formlet1=Runtime.Safe(Formlet.Formlet);
   Index=Runtime.Safe(Website.Index);
-  Cliente=Runtime.Safe(Index.Client);
+  Clientf=Runtime.Safe(Index.Client);
   InsertSnippet=Runtime.Safe(Website.InsertSnippet);
-  Clientf=Runtime.Safe(InsertSnippet.Client);
+  Client10=Runtime.Safe(InsertSnippet.Client);
   Login=Runtime.Safe(Website.Login);
-  Client10=Runtime.Safe(Login.Client);
+  Client11=Runtime.Safe(Login.Client);
   encodeURIComponent=Runtime.Safe(Global.encodeURIComponent);
   Strings=Runtime.Safe(WebSharper.Strings);
   Search=Runtime.Safe(Website.Search);
-  return Client11=Runtime.Safe(Search.Client);
+  return Client12=Runtime.Safe(Search.Client);
  });
  Runtime.OnLoad(function()
  {
-  Client10.passInput();
+  Client11.passInput();
+  Client5.style();
+  Client5.loremIpsum();
  });
 }());

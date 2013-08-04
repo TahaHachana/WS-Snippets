@@ -4,6 +4,8 @@ module Controls =
     open System
     open System.Globalization
     open System.Collections.Generic
+    open System.Security.Cryptography
+    open System.Text
     open IntelliFactory.WebSharper
     open IntelliFactory.WebSharper.ExtJs
     open IntelliFactory.WebSharper.Dom
@@ -702,6 +704,49 @@ module Controls =
             [<JavaScript>]
             override __.Body = Client.main() :> _
 
+    module Snippet15 =
+
+        /// Server-side code.
+        module private Server =
+
+            /// Computes the MD5 hash of a string.
+            [<Rpc>]
+            let md5 (data:string) =
+                async {
+                    use md5 = MD5.Create()
+                    let sb = StringBuilder()
+                    data.ToCharArray()
+                    |> Encoding.Unicode.GetBytes
+                    |> md5.ComputeHash
+                    |> Array.iter (fun b -> sb.Append(b.ToString("X2")) |> ignore)
+                    return sb.ToString()
+                }
+
+        /// Client-side code.
+        [<JavaScript>]
+        module private Client =
+
+            let main() =
+                let output = Div [Attr.Style "margin-top: 8px;"]
+                let input = Input [Attr.Type "text"; HTML5.Attr.AutoFocus "autofocus"]
+                Div [Attr.Class "form-inline"] -< [
+                    input
+                    Button [Text "MD5"; Attr.Class "btn btn-primary"; Attr.Style "margin-left: 8px;"]
+                    // Click event listener to invoke the md5 server-side function asynchronously.
+                    |>! OnClick (fun _ _ ->
+                        async {
+                            let! md5 = Server.md5 input.Value
+                            output.Text <- md5
+                        } |> Async.Start)                        
+                    output]
+    
+        /// A control for serving the main pagelet.              
+        type Control() =
+            inherit Web.Control()
+
+            [<JavaScript>]
+            override __.Body = Client.main() :> _
+
 
 //    module Snippet5 = 
 //        [<JavaScript>]
@@ -876,6 +921,7 @@ module Controls =
 //            override __.Body = main() :> _
 
         [
+            "ACCORDION"
             "CANVAS"
             "CONNECTIVITY"
             "DOM"
@@ -887,10 +933,12 @@ module Controls =
             "JQUERY"
             "LOCATION"
             "MULTIMEDIA"
+            "RPC"
             "TWITTER"
             "VIDEO"
             "WEBSHARPER"
             "WEBSOCKET"
+            "WIDGET"
             "WINDOW"
         ]  
         |> List.iter (fun x -> hashset'.Add x |> ignore)

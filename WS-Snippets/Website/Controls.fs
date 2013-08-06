@@ -11,10 +11,12 @@ module Controls =
     open IntelliFactory.WebSharper.Dom
     open IntelliFactory.WebSharper.Html
     open IntelliFactory.WebSharper.Html5
+    open IntelliFactory.WebSharper.Google.Visualization
+    open IntelliFactory.WebSharper.Google.Visualization.Base
+
 //    open IntelliFactory.WebSharper.JQuery
 //    open IntelliFactory.WebSharper.JQueryUI
     open TweetSharp
-
 
     type Snippet =
         {
@@ -747,6 +749,56 @@ module Controls =
             [<JavaScript>]
             override __.Body = Client.main() :> _
 
+    module Snippet16 =
+
+        /// Client-side code.
+        [<JavaScript>]
+        module private Client =
+
+            /// Sets the value of a google visualization DataTable cell.
+            let setCell (dataTable:DataTable) row column value =
+                dataTable.setCell(row, column, value)
+                |> ignore
+
+
+            let main() =
+                // Line chart options with custom title.
+                let options =
+                    { Visualizations.LineChartOptions.Default with
+                        title = "Company Performance" }
+
+                // Chart data.
+                let data =
+                    let dataTable = DataTable()
+                    dataTable.addColumn(ColumnType.StringType, "Year") |> ignore
+                    dataTable.addColumn(ColumnType.NumberType, "Sales") |> ignore
+                    dataTable.addColumn(ColumnType.NumberType, "Expenses") |> ignore
+                    dataTable.addRows 4 |> ignore
+                    setCell dataTable 0 0 "2004"
+                    setCell dataTable 1 0 "2005"
+                    setCell dataTable 2 0 "2006"
+                    setCell dataTable 3 0 "2007"
+                    setCell dataTable 0 1 1000
+                    setCell dataTable 1 1 1170
+                    setCell dataTable 2 1 660
+                    setCell dataTable 3 1 1030
+                    setCell dataTable 0 2 400
+                    setCell dataTable 1 2 460
+                    setCell dataTable 2 2 1120
+                    setCell dataTable 3 2 540
+                    dataTable
+
+                Div [Attr.Style "width: 900px; height: 500px;"]
+                |>! OnAfterRender (fun elt ->
+                    let geoMap = Visualizations.LineChart elt.Dom
+                    geoMap.draw(data, options))
+    
+        /// A control for serving the main pagelet.
+        type Control() =
+            inherit Web.Control()
+
+            [<JavaScript>]
+            override __.Body = Client.main() :> _
 
 //    module Snippet5 = 
 //        [<JavaScript>]
@@ -924,9 +976,11 @@ module Controls =
             "ACCORDION"
             "CANVAS"
             "CONNECTIVITY"
+            "CHART"
             "DOM"
             "FSHARP"
             "GEOLOCATION"
+            "GOOGLE"
             "HTML"
             "HTML5"
             "JAVASCRIPT"
@@ -936,6 +990,7 @@ module Controls =
             "RPC"
             "TWITTER"
             "VIDEO"
+            "VISUALIZATION"
             "WEBSHARPER"
             "WEBSOCKET"
             "WIDGET"

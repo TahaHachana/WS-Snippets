@@ -67,6 +67,7 @@
     <Content Include="Scripts\IntelliFactory.WebSharper.dll.min.js" />
     <Content Include="Scripts\IntelliFactory.WebSharper.Formlet.dll.js" />
     <Content Include="Scripts\IntelliFactory.WebSharper.Formlet.dll.min.js" />
+    <Content Include="Scripts\IntelliFactory.WebSharper.Google.Visualization.dll.min.js" />
     <Content Include="Scripts\IntelliFactory.WebSharper.Html.dll.js" />
     <Content Include="Scripts\IntelliFactory.WebSharper.Html.dll.min.js" />
     <Content Include="Scripts\IntelliFactory.WebSharper.JQueryUI.dll.js" />
@@ -85,6 +86,7 @@
     <Content Include="Source\13.txt" />
     <Content Include="Source\14.txt" />
     <Content Include="Source\15.txt" />
+    <Content Include="Source\16.txt" />
     <Content Include="Source\2.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

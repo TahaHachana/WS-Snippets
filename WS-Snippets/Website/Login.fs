@@ -31,7 +31,7 @@ module Login =
 
         [<JavaScript>]
         let passInput =
-            Input [Attr.Type "text"; HTML5.Attr.PlaceHolder "password"]
+            Input [Attr.Type "password"; HTML5.Attr.PlaceHolder "password"]
             |>! OnKeyDown (fun _ keyCode ->
                 match keyCode.KeyCode with
                     | 13 -> JQuery.Of("#login-btn").Click().Ignore

@@ -800,6 +800,128 @@ module Controls =
             [<JavaScript>]
             override __.Body = Client.main() :> _
 
+    module Snippet17 =
+
+        /// Client-side code.
+        [<JavaScript>]
+        module Client =
+
+            /// Draws the clock's shapes.
+            let draw (ctx: CanvasRenderingContext2D) =
+                let now = new EcmaScript.Date()
+                ctx.Save()
+                ctx.ClearRect(0., 0., 150., 150.)
+                ctx.Translate(75., 75.)
+                ctx.Scale(0.4, 0.4)
+                ctx.Rotate(- Math.PI / 2.)
+                ctx.StrokeStyle <- "black"
+                ctx.FillStyle <- "white"
+                ctx.LineWidth <- 8.
+                ctx.Save()
+
+                // Hour marks
+                for i in 1..12 do
+                    ctx.BeginPath()
+                    ctx.Rotate(Math.PI / 6.)
+                    ctx.MoveTo(100., 0.)
+                    ctx.LineTo(120., 0.)
+                    ctx.Stroke()
+                ctx.Restore()
+
+                // Minute marks
+                ctx.Save()
+                ctx.LineWidth <- 5.
+                for i in 0 .. 59 do
+                    if (i % 5) <> 0 then
+                        ctx.BeginPath()
+                        ctx.MoveTo(117., 0.)
+                        ctx.LineTo(120., 0.)
+                        ctx.Stroke()
+                    ctx.Rotate(Math.PI / 30.)
+                ctx.Restore()
+
+                let sec = now.GetSeconds()
+                let min = now.GetMinutes()
+                let hr  =
+                    let hr = float (now.GetHours())
+                    if hr >= 12. then hr - 12. else hr
+            
+                ctx.FillStyle <- "black"
+
+                // Hours hand
+                ctx.Save()
+                Math.PI * (float hr / 6. + float min / 360. + float sec / 21600.)
+                |> ctx.Rotate
+                ctx.LineWidth <- 14.
+                ctx.BeginPath()
+                ctx.MoveTo(-20., 0.)
+                ctx.LineTo(80., 0.)
+                ctx.Stroke()
+                ctx.Restore()
+
+                // Minutes hand
+                ctx.Save()
+                ctx.Rotate(Math.PI * (float min / 30. + float sec / 1800.))
+                ctx.LineWidth <- 10.
+                ctx.BeginPath()
+                ctx.MoveTo(-28., 0.)
+                ctx.LineTo(112., 0.)
+                ctx.Stroke()
+                ctx.Restore()
+
+                // Seconds hand
+                ctx.Save()
+                ctx.Rotate(float sec * Math.PI / 30.)
+                ctx.StrokeStyle <- "#D40000"
+                ctx.FillStyle <- "#D40000"
+                ctx.LineWidth <- 6.
+                ctx.BeginPath()
+                ctx.MoveTo (-30., 0.)
+                ctx.LineTo (83., 0.)
+                ctx.Stroke()
+                ctx.BeginPath()
+                ctx.Arc(0., 0., 10., 0., Math.PI * 2., true)
+                ctx.Fill()
+                ctx.BeginPath()
+                ctx.Arc(95., 0., 10., 0., Math.PI * 2., true)
+                ctx.Stroke()
+                ctx.FillStyle <- "#555"
+                ctx.Arc(0., 0., 3., 0., Math.PI * 2., true)
+                ctx.Fill()
+                ctx.Restore()
+                ctx.BeginPath()
+                ctx.LineWidth <- 14.
+                ctx.StrokeStyle <- "#325FA2"
+                ctx.Arc(0., 0., 142., 0., Math.PI * 2., true)
+                ctx.Stroke()
+                ctx.Restore()
+
+            /// Calls the draw function every 1000 milliseconds.
+            let rec loop ctx =
+                async {
+                    do! Async.Sleep 1000
+                    do draw ctx
+                    do! loop ctx
+                }
+
+            /// Draws a clock on a <canvas> and starts the updates loop.
+            let main() =
+                let elt = HTML5.Tags.Canvas []
+                let canvas  = As<CanvasElement> elt.Dom
+                canvas.Width <- 150
+                canvas.Height <- 150
+                let ctx = canvas.GetContext "2d"
+                draw ctx
+                Async.Start(loop ctx)
+                elt
+
+        /// A control for serving the main pagelet.
+        type Control() =
+            inherit Web.Control()
+
+            [<JavaScript>]
+            override __.Body = Client.main() :> _
+
 //    module Snippet5 = 
 //        [<JavaScript>]
 //        let private viewport() =

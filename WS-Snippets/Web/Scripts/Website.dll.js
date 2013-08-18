@@ -1,6 +1,6 @@
 (function()
 {
- var Global=this,Runtime=this.IntelliFactory.Runtime,Website,AddThis,WebSharper,Html,Default,HTML5,List,T,Controls,Snippet1,Client,Arrays,Seq,Operators,Snippet10,Client1,EventsPervasives,Operators1,Snippet11,Client2,document,Snippet12,Client3,Snippet13,Client4,Snippet14,Client5,jQuery,Remoting,Concurrency,Snippet15,Client6,Google,Visualization,Visualizations,LineChartOptions,google,visualization,DataTable,Snippet16,Client7,LineChart,Date,Number,Snippet17,Client8,Snippet2,Client9,window,Snippet3,Clienta,Snippet4,Clientb,alert,JavaScript,Snippet5,Clientc,String,Snippet6,Clientd,Snippet7,Cliente,WebSocket,Snippet8,Clientf,Snippet9,Client10,Forkme,Highlight,Client11,Formlet,Controls1,Enhance,Data,Formlet1,Index,Client12,InsertSnippet,Client13,Login,Client14,encodeURIComponent,Strings,Search,Client15;
+ var Global=this,Runtime=this.IntelliFactory.Runtime,Website,AddThis,WebSharper,Html,Default,HTML5,List,T,Controls,Snippet1,Client,Arrays,Seq,Operators,Snippet10,Client1,EventsPervasives,Operators1,Snippet11,Client2,document,Snippet12,Client3,Snippet13,Client4,Snippet14,Client5,jQuery,Remoting,Concurrency,Snippet15,Client6,Google,Visualization,Visualizations,LineChartOptions,google,visualization,DataTable,Snippet16,Client7,LineChart,Date,Number,Snippet17,Client8,Snippet18,JS,JQueryUI,Tabs,Snippet2,Client9,window,Snippet3,Clienta,Snippet4,Clientb,alert,JavaScript,Snippet5,Clientc,String,Snippet6,Clientd,Snippet7,Cliente,WebSocket,Snippet8,Clientf,Snippet9,Client10,Forkme,Highlight,Client11,Formlet,Controls1,Enhance,Data,Formlet1,Index,Client12,InsertSnippet,Client13,Login,Client14,encodeURIComponent,Strings,Search,Client15;
  Runtime.Define(Global,{
   Website:{
    AddThis:{
@@ -624,6 +624,81 @@
        return Client8.main();
       }
      })
+    },
+    Snippet18:{
+     Control:Runtime.Class({
+      get_Body:function()
+      {
+       return JS.main();
+      }
+     }),
+     JS:{
+      addTabBtn:function(tabs)
+      {
+       var x,el,_this,inner,f,x1;
+       x=(el=Default.Button(List.ofArray([Default.Attr().Class("btn btn-success"),(_this=Default.Attr(),_this.NewAttr("style","margin-right: 8px;"))])),(inner=Default.Text("Add"),Operators1.add(el,List.ofArray([inner]))));
+       f=(x1=function()
+       {
+        return function()
+        {
+         var patternInput,x2,label,elt;
+         patternInput=(x2=tabs.get_Length()+1,JS.tab(x2));
+         label=patternInput[0];
+         elt=patternInput[1];
+         return tabs.Add1(elt,label);
+        };
+       },function(arg10)
+       {
+        return EventsPervasives.Events().OnClick(x1,arg10);
+       });
+       f(x);
+       return x;
+      },
+      main:function()
+      {
+       var tabs,x,f,_this;
+       tabs=(x=List.map(function(x1)
+       {
+        return JS.tab(x1);
+       },Seq.toList(Operators.range(1,3))),(f=function(arg00)
+       {
+        return Tabs.New2(arg00);
+       },f(x)));
+       return Operators1.add(Default.Div(List.ofArray([Default.Attr().Class("span10")])),List.ofArray([tabs,Operators1.add(Default.Div(List.ofArray([(_this=Default.Attr(),_this.NewAttr("style","margin-top: 8px;"))])),List.ofArray([JS.addTabBtn(tabs),JS.removeTabBtn(tabs)]))]));
+      },
+      removeTabBtn:function(tabs)
+      {
+       var x,el,inner,f,x1;
+       x=(el=Default.Button(List.ofArray([Default.Attr().Class("btn btn-danger")])),(inner=Default.Text("Remove"),Operators1.add(el,List.ofArray([inner]))));
+       f=(x1=function()
+       {
+        return function()
+        {
+         var index,matchValue;
+         try
+         {
+          index=tabs.get_Length()-1;
+          return jQuery(tabs.element.Body).tabs("remove",index);
+         }
+         catch(matchValue)
+         {
+          return null;
+         }
+        };
+       },function(arg10)
+       {
+        return EventsPervasives.Events().OnClick(x1,arg10);
+       });
+       f(x);
+       return x;
+      },
+      tab:function(x)
+      {
+       var xStr,x1;
+       xStr=Global.String(x);
+       return["Header "+xStr,Default.Div(List.ofArray([(x1="Tab "+xStr+" content",Default.Text(x1))]))];
+      }
+     }
     },
     Snippet2:{
      Client:{
@@ -1463,7 +1538,7 @@
      passInput:Runtime.Field(function()
      {
       var x,_this,_this1,f,x1;
-      x=Default.Input(List.ofArray([(_this=Default.Attr(),_this.NewAttr("type","text")),(_this1=HTML5.Attr(),_this1.NewAttr("placeholder","password"))]));
+      x=Default.Input(List.ofArray([(_this=Default.Attr(),_this.NewAttr("type","password")),(_this1=HTML5.Attr(),_this1.NewAttr("placeholder","password"))]));
       f=(x1=function()
       {
        return function(keyCode)
@@ -1596,6 +1671,10 @@
   Number=Runtime.Safe(Global.Number);
   Snippet17=Runtime.Safe(Controls.Snippet17);
   Client8=Runtime.Safe(Snippet17.Client);
+  Snippet18=Runtime.Safe(Controls.Snippet18);
+  JS=Runtime.Safe(Snippet18.JS);
+  JQueryUI=Runtime.Safe(WebSharper.JQueryUI);
+  Tabs=Runtime.Safe(JQueryUI.Tabs);
   Snippet2=Runtime.Safe(Controls.Snippet2);
   Client9=Runtime.Safe(Snippet2.Client);
   window=Runtime.Safe(Global.window);

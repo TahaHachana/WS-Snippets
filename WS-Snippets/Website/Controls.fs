@@ -964,6 +964,22 @@ module Controls =
             [<JavaScript>]
             override __.Body = JS.main() :> _
 
+    module Snippet19 =
+
+        /// Displays a button that redirects to the home page when clicked.
+        [<JavaScript>]
+        let main() =
+            Button [Attr.Class "btn btn-primary btn-large"]
+            -- Text "Home Page"
+            |>! OnClick (fun _ _ -> Window.Self.Parent.Location.Assign "/")
+
+        /// A control for serving the main pagelet.
+        type Control() =
+            inherit Web.Control()
+
+            [<JavaScript>]
+            override __.Body = main() :> _
+
 //    module Snippet5 = 
 //        [<JavaScript>]
 //        let private viewport() =

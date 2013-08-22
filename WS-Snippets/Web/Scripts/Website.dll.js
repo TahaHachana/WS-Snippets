@@ -1,6 +1,6 @@
 (function()
 {
- var Global=this,Runtime=this.IntelliFactory.Runtime,Website,AddThis,WebSharper,Html,Default,HTML5,List,T,Controls,Snippet1,Client,Arrays,Seq,Operators,Snippet10,Client1,EventsPervasives,Operators1,Snippet11,Client2,document,Snippet12,Client3,Snippet13,Client4,Snippet14,Client5,jQuery,Remoting,Concurrency,Snippet15,Client6,Google,Visualization,Visualizations,LineChartOptions,google,visualization,DataTable,Snippet16,Client7,LineChart,Date,Number,Snippet17,Client8,Snippet18,JS,JQueryUI,Tabs,Snippet2,Client9,window,Snippet3,Clienta,Snippet4,Clientb,alert,JavaScript,Snippet5,Clientc,String,Snippet6,Clientd,Snippet7,Cliente,WebSocket,Snippet8,Clientf,Snippet9,Client10,Forkme,Highlight,Client11,Formlet,Controls1,Enhance,Data,Formlet1,Index,Client12,InsertSnippet,Client13,Login,Client14,encodeURIComponent,Strings,Search,Client15;
+ var Global=this,Runtime=this.IntelliFactory.Runtime,Website,AddThis,WebSharper,Html,Default,HTML5,List,T,Controls,Snippet1,Client,Arrays,Seq,Operators,Snippet10,Client1,EventsPervasives,Operators1,Snippet11,Client2,document,Snippet12,Client3,Snippet13,Client4,Snippet14,Client5,jQuery,Remoting,Concurrency,Snippet15,Client6,Google,Visualization,Visualizations,LineChartOptions,google,visualization,DataTable,Snippet16,Client7,LineChart,Date,Number,Snippet17,Client8,Snippet18,JS,JQueryUI,Tabs,Snippet19,window,Snippet2,Client9,Snippet3,Clienta,Snippet4,Clientb,alert,JavaScript,Snippet5,Clientc,String,Snippet6,Clientd,Snippet7,Cliente,WebSocket,Snippet8,Clientf,Snippet9,Client10,Forkme,Highlight,Client11,Formlet,Controls1,Enhance,Data,Formlet1,Index,Client12,InsertSnippet,Client13,Login,Client14,encodeURIComponent,Strings,Search,Client15;
  Runtime.Define(Global,{
   Website:{
    AddThis:{
@@ -698,6 +698,31 @@
        xStr=Global.String(x);
        return["Header "+xStr,Default.Div(List.ofArray([(x1="Tab "+xStr+" content",Default.Text(x1))]))];
       }
+     }
+    },
+    Snippet19:{
+     Control:Runtime.Class({
+      get_Body:function()
+      {
+       return Snippet19.main();
+      }
+     }),
+     main:function()
+     {
+      var x,el,inner,f,x1;
+      x=(el=Default.Button(List.ofArray([Default.Attr().Class("btn btn-primary btn-large")])),(inner=Default.Text("Home Page"),Operators1.add(el,List.ofArray([inner]))));
+      f=(x1=function()
+      {
+       return function()
+       {
+        return window.parent.location.assign("/");
+       };
+      },function(arg10)
+      {
+       return EventsPervasives.Events().OnClick(x1,arg10);
+      });
+      f(x);
+      return x;
      }
     },
     Snippet2:{
@@ -1675,9 +1700,10 @@
   JS=Runtime.Safe(Snippet18.JS);
   JQueryUI=Runtime.Safe(WebSharper.JQueryUI);
   Tabs=Runtime.Safe(JQueryUI.Tabs);
+  Snippet19=Runtime.Safe(Controls.Snippet19);
+  window=Runtime.Safe(Global.window);
   Snippet2=Runtime.Safe(Controls.Snippet2);
   Client9=Runtime.Safe(Snippet2.Client);
-  window=Runtime.Safe(Global.window);
   Snippet3=Runtime.Safe(Controls.Snippet3);
   Clienta=Runtime.Safe(Snippet3.Client);
   Snippet4=Runtime.Safe(Controls.Snippet4);

@@ -1,0 +1,30 @@
+﻿<div style='margin: 0px; padding: 0px; font-family: Consolas; width: auto'><style type='text/css'>.fs-str {color: #d14;} .fs-key {color: blue;} .fs-com {color: green; font-style: italic;}</style><table><tr><td style='padding: 5px; vertical-align: top; border-right: 1px solid #ececec; color: rgb(160, 160, 160);'><span>1</span><br /><span>2</span><br /><span>3</span><br /><span>4</span><br /><span>5</span><br /><span>6</span><br /><span>7</span><br /><span>8</span><br /><span>9</span><br /><span>10</span><br /><span>11</span><br /><span>12</span><br /><span>13</span><br /><span>14</span><br /><span>15</span><br /><span>16</span><br /><span>17</span><br /><span>18</span><br /><span>19</span><br /><span>20</span><br /><span>21</span><br /><span>22</span><br /><span>23</span><br /><span>24</span><br /><span>25</span><br /><span>26</span><br /><span>27</span><br /><span>28</span><br /><span>29</span><br /><span>30</span></td><td style='vertical-align: top; padding: 5px;'><pre style='margin: 0px; background-color: white; border: none; padding: 0px; font-size: 14px; white-space: pre;'><span class='fs-key'>module </span>DomImplementation =
+    <span class='fs-key'>open </span>IntelliFactory.WebSharper
+
+    <span class='fs-com'>/// Client-side code.</span>
+    [&lt;JavaScript&gt;]
+    <span class='fs-key'>module </span>Client =
+        <span class='fs-key'>open </span>IntelliFactory.WebSharper.Html
+
+        <span class='fs-key'>let </span>th txt = TH [Text txt]
+
+        <span class='fs-key'>let </span>tr level =
+            <span class='fs-key'>let </span>implementation = Dom.Document.Current.Implementation
+            [<span class='fs-str'>"Core"</span>; <span class='fs-str'>"CSS"</span>; <span class='fs-str'>"Events"</span>; <span class='fs-str'>"HTML"</span>; <span class='fs-str'>"Selectors-API"</span>]
+            |&gt; List.map (<span class='fs-key'>fun </span>feature -&gt;
+                <span class='fs-key'>let </span>rslt = implementation.HasFeature(feature, level)
+                TD [Text &lt;| string rslt])
+            |&gt; <span class='fs-key'>fun </span>tds -&gt; TR [th level] -&lt; tds
+
+        <span class='fs-com'>/// Displays DOM implementation information in a table.</span>
+        <span class='fs-key'>let </span>main() =
+            Table [Attr.Class <span class='fs-str'>"span9 table table-bordered table-striped"</span>] -&lt; [
+                TR [] -&lt; List.map th [<span class='fs-str'>"Level"</span>; <span class='fs-str'>"Core"</span>; <span class='fs-str'>"CSS"</span>; <span class='fs-str'>"Events"</span>; <span class='fs-str'>"HTML"</span>; <span class='fs-str'>"Selectors-API"</span>]
+            ] -&lt; List.map tr [<span class='fs-str'>"1.0"</span>; <span class='fs-str'>"2.0"</span>; <span class='fs-str'>"3.0"</span>]
+
+    <span class='fs-com'>/// A control for serving the main pagelet.</span>
+    <span class='fs-key'>type </span>Control() =
+        <span class='fs-key'>inherit </span>Web.Control()
+
+        [&lt;JavaScript&gt;]
+        <span class='fs-key'>override </span>this.Body = Client.main() :&gt; _</pre></td></tr></table></div>

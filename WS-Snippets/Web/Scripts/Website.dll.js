@@ -1,6 +1,6 @@
 (function()
 {
- var Global=this,Runtime=this.IntelliFactory.Runtime,Website,AddThis,WebSharper,Html,Default,HTML5,List,T,Controls,Snippet1,Client,Arrays,Seq,Operators,Snippet10,Client1,EventsPervasives,Operators1,Snippet11,Client2,document,Snippet12,Client3,Snippet13,Client4,Snippet14,Client5,jQuery,Remoting,Concurrency,Snippet15,Client6,Google,Visualization,Visualizations,LineChartOptions,google,visualization,DataTable,Snippet16,Client7,LineChart,Date,Number,Snippet17,Client8,Snippet18,JS,JQueryUI,Tabs,Snippet19,window,Snippet2,Client9,Snippet3,Clienta,Snippet4,Clientb,alert,JavaScript,Snippet5,Clientc,String,Snippet6,Clientd,Snippet7,Cliente,WebSocket,Snippet8,Clientf,Snippet9,Client10,Forkme,Highlight,Client11,Formlet,Controls1,Enhance,Data,Formlet1,Index,Client12,InsertSnippet,Client13,Login,Client14,encodeURIComponent,Strings,Search,Client15;
+ var Global=this,Runtime=this.IntelliFactory.Runtime,Website,AddThis,WebSharper,Html,Default,HTML5,List,T,Controls,Snippet1,Client,Arrays,Seq,Operators,Snippet10,Client1,EventsPervasives,Operators1,Snippet11,Client2,document,Snippet12,Client3,Snippet13,Client4,Snippet14,Client5,jQuery,Remoting,Concurrency,Snippet15,Client6,Google,Visualization,Visualizations,LineChartOptions,google,visualization,DataTable,Snippet16,Client7,LineChart,Date,Number,Snippet17,Client8,Snippet18,JS,JQueryUI,Tabs,Snippet19,window,Snippet2,Client9,Snippet20,Snippet3,Clienta,Snippet4,Clientb,alert,JavaScript,Snippet5,Clientc,String,Snippet6,Clientd,Snippet7,Cliente,WebSocket,Snippet8,Clientf,Snippet9,Client10,Forkme,Highlight,Client11,Formlet,Controls1,Enhance,Data,Formlet1,Index,Client12,InsertSnippet,Client13,Login,Client14,encodeURIComponent,Strings,Search,Client15;
  Runtime.Define(Global,{
   Website:{
    AddThis:{
@@ -794,6 +794,31 @@
        return Client9.main();
       }
      })
+    },
+    Snippet20:{
+     Control:Runtime.Class({
+      get_Body:function()
+      {
+       return Snippet20.main();
+      }
+     }),
+     main:function()
+     {
+      var elt,_this,x,objectArg,arg00,canvas,ctx;
+      elt=(_this=HTML5.Tags(),(x=List.ofArray([Default.Text("The canvas element isn't supported by your browser.")]),_this.NewTag("canvas",x)));
+      objectArg=elt["HtmlProvider@32"];
+      (arg00=elt.Body,function(arg10)
+      {
+       return objectArg.SetStyle(arg00,arg10);
+      })("border: 1px solid;");
+      canvas=elt.Body;
+      canvas.height=400;
+      canvas.width=600;
+      ctx=canvas.getContext("2d");
+      ctx.fillStyle="blue";
+      ctx.fillRect(50,50,300,100);
+      return elt;
+     }
     },
     Snippet3:{
      Client:{
@@ -1704,6 +1729,7 @@
   window=Runtime.Safe(Global.window);
   Snippet2=Runtime.Safe(Controls.Snippet2);
   Client9=Runtime.Safe(Snippet2.Client);
+  Snippet20=Runtime.Safe(Controls.Snippet20);
   Snippet3=Runtime.Safe(Controls.Snippet3);
   Clienta=Runtime.Safe(Snippet3.Client);
   Snippet4=Runtime.Safe(Controls.Snippet4);

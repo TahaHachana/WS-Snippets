@@ -980,6 +980,28 @@ module Controls =
             [<JavaScript>]
             override __.Body = main() :> _
 
+    module Snippet20 =
+
+        /// Draws a blue filled rectangle on a canvas element.
+        [<JavaScript>]
+        let private main() =
+            let elt = HTML5.Tags.Canvas [Text "The canvas element isn't supported by your browser."]
+            elt.SetStyle "border: 1px solid;"
+            let canvas  = As<CanvasElement> elt.Dom
+            canvas.Height <- 400
+            canvas.Width <- 600
+            let ctx = canvas.GetContext "2d"
+            ctx.FillStyle <- "blue"
+            ctx.FillRect(50., 50., 300., 100.)
+            elt
+
+        /// A control for serving the main pagelet.
+        type Control() =
+            inherit Web.Control()
+
+            [<JavaScript>]
+            override __.Body = main() :> _
+
 //    module Snippet5 = 
 //        [<JavaScript>]
 //        let private viewport() =

@@ -33,7 +33,7 @@ module Views =
         loop list
 
     let private tags = Controls.hashset' |> Seq.toList |> List.sort |> List.map (fun x ->
-        let href = "/tagged/" + HttpUtility.UrlEncode(x.ToLower())
+        let href = "/tagged/" + x.ToLower() //HttpUtility.UrlEncode(x.ToLower())
         A [HRef href] -< [Button [Class "btn btn-info"; Style "margin: 5px;"] -< [Text x]])
 
     let home =
@@ -215,7 +215,7 @@ module Views =
         let source = File.ReadAllText path
         let elt = Element.VerbatimContent source
         let btns = tags |> Array.map (fun x ->
-            let href = "/tagged/" + HttpUtility.UrlEncode(x.ToLower())
+            let href = "/tagged/" + x.ToLower() //HttpUtility.UrlEncode(x.ToLower())
             A [HRef href] -< [Button [Class "btn btn-success"; Style "margin: 5px;"] -< [Text x]])
         withMainTemplate title' metaDesc <| fun ctx ->
             [

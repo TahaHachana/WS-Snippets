@@ -91,3 +91,28 @@ body {
     word-wrap: break-word;
     padding: 10px;
 }
+
+/* Native Drag & Drop */
+#src {
+    margin-bottom: 70px;
+}
+
+#target {
+    width: 400px;
+    height: 180px;
+    border: solid;
+}
+
+.cat-img {
+    padding: 10px;
+    cursor: move;
+}
+
+.cat-img-div {
+    border: 1px solid;
+}
+
+#target-text {
+    padding: 50px;
+    font-size: xx-large;
+}

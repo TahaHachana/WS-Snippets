@@ -1,6 +1,6 @@
 (function()
 {
- var Global=this,Runtime=this.IntelliFactory.Runtime,Website,AddThis,WebSharper,Html,Default,HTML5,List,T,Controls,Snippet1,Client,Arrays,Seq,Operators,Snippet10,Client1,EventsPervasives,Operators1,Snippet11,Client2,document,Snippet12,Client3,Snippet13,Client4,Snippet14,Client5,jQuery,Remoting,Concurrency,Snippet15,Client6,Google,Visualization,Visualizations,LineChartOptions,google,visualization,DataTable,Snippet16,Client7,LineChart,Date,Number,Snippet17,Client8,Snippet18,JS,JQueryUI,Tabs,Snippet19,window,Snippet2,Client9,Snippet20,Snippet3,Clienta,Snippet4,Clientb,alert,JavaScript,Snippet5,Clientc,String,Snippet6,Clientd,Snippet7,Cliente,WebSocket,Snippet8,Clientf,Snippet9,Client10,Forkme,Highlight,Client11,Formlet,Controls1,Enhance,Data,Formlet1,Index,Client12,InsertSnippet,Client13,Login,Client14,encodeURIComponent,Strings,Search,Client15;
+ var Global=this,Runtime=this.IntelliFactory.Runtime,Website,AddThis,WebSharper,Html,Default,HTML5,List,T,Controls,Snippet1,Client,Arrays,Seq,Operators,Snippet10,Client1,EventsPervasives,Operators1,Snippet11,Client2,document,Snippet12,Client3,Snippet13,Client4,Snippet14,Client5,jQuery,Remoting,Concurrency,Snippet15,Client6,Google,Visualization,Visualizations,LineChartOptions,google,visualization,DataTable,Snippet16,Client7,LineChart,Date,Number,Snippet17,Client8,Snippet18,JS,JQueryUI,Tabs,Snippet19,window,Snippet2,Client9,Snippet20,Snippet21,JS1,Snippet3,Clienta,Snippet4,Clientb,alert,JavaScript,Snippet5,Clientc,String,Snippet6,Clientd,Snippet7,Cliente,WebSocket,Snippet8,Clientf,Snippet9,Client10,Forkme,Highlight,Client11,Formlet,Controls1,Enhance,Data,Formlet1,Index,Client12,InsertSnippet,Client13,Login,Client14,encodeURIComponent,Strings,Search,Client15;
  Runtime.Define(Global,{
   Website:{
    AddThis:{
@@ -818,6 +818,129 @@
       ctx.fillStyle="blue";
       ctx.fillRect(50,50,300,100);
       return elt;
+     }
+    },
+    Snippet21:{
+     Control:Runtime.Class({
+      get_Body:function()
+      {
+       return JS1.main();
+      }
+     }),
+     JS:{
+      handleDragStart:function(idRef,elt)
+      {
+       return elt.Body.addEventListener("dragstart",function()
+       {
+        idRef.contents=elt.get_Id();
+       },false);
+      },
+      handleDragging:function(elt,idRef)
+      {
+       var dom;
+       dom=elt.Body;
+       dom.addEventListener("dragenter",function(e)
+       {
+        var objectArg,arg00,objectArg1,arg001;
+        e.preventDefault();
+        objectArg=elt["HtmlProvider@32"];
+        ((arg00=elt.Body,function(arg10)
+        {
+         return function(arg20)
+         {
+          return objectArg.SetCss(arg00,arg10,arg20);
+         };
+        })("background-color"))("lightgray");
+        objectArg1=elt["HtmlProvider@32"];
+        return((arg001=elt.Body,function(arg10)
+        {
+         return function(arg20)
+         {
+          return objectArg1.SetCss(arg001,arg10,arg20);
+         };
+        })("border"))("dotted");
+       },false);
+       dom.addEventListener("dragleave",function(e)
+       {
+        var objectArg,arg00,objectArg1,arg001;
+        e.preventDefault();
+        objectArg=elt["HtmlProvider@32"];
+        ((arg00=elt.Body,function(arg10)
+        {
+         return function(arg20)
+         {
+          return objectArg.SetCss(arg00,arg10,arg20);
+         };
+        })("background-color"))("white");
+        objectArg1=elt["HtmlProvider@32"];
+        return((arg001=elt.Body,function(arg10)
+        {
+         return function(arg20)
+         {
+          return objectArg1.SetCss(arg001,arg10,arg20);
+         };
+        })("border"))("solid");
+       },false);
+       dom.addEventListener("dragover",function(e)
+       {
+        return e.preventDefault();
+       },false);
+       return dom.addEventListener("drop",function(e)
+       {
+        var nodeClone,objectArg,arg00,objectArg1,arg001;
+        e.preventDefault();
+        nodeClone=document.getElementById(idRef.contents).cloneNode(false);
+        elt.set_Html("");
+        elt.AppendN(nodeClone);
+        objectArg=elt["HtmlProvider@32"];
+        ((arg00=elt.Body,function(arg10)
+        {
+         return function(arg20)
+         {
+          return objectArg.SetCss(arg00,arg10,arg20);
+         };
+        })("background-color"))("white");
+        objectArg1=elt["HtmlProvider@32"];
+        return((arg001=elt.Body,function(arg10)
+        {
+         return function(arg20)
+         {
+          return objectArg1.SetCss(arg001,arg10,arg20);
+         };
+        })("border"))("black solid");
+       },false);
+      },
+      img:function(x)
+      {
+       var arg00,_this,arg001,_this1,_this2;
+       return Default.Img(List.ofArray([Default.Attr().Class("cat-img"),(arg00="cat-"+x,(_this=Default.Attr(),_this.NewAttr("id",arg00))),(arg001="/Images/cat"+x+".jpg",(_this1=Default.Attr(),_this1.NewAttr("src",arg001))),(_this2=HTML5.Attr(),_this2.NewAttr("draggable","true"))]));
+      },
+      imgDiv:function(img)
+      {
+       var _this;
+       return Operators1.add(Default.Div(List.ofArray([Default.Attr().Class("span3 cat-img-div"),(_this=Default.Attr(),_this.NewAttr("style","width: auto;"))])),List.ofArray([img]));
+      },
+      main:function()
+      {
+       var patternInput,img3,img2,img1,idRef,src,_this,target,_this1,el,_this2,inner,f,l;
+       patternInput=[{
+        contents:""
+       },JS1.img("1"),JS1.img("2"),JS1.img("3")];
+       img3=patternInput[3];
+       img2=patternInput[2];
+       img1=patternInput[1];
+       idRef=patternInput[0];
+       src=Operators1.add(Default.Div(List.ofArray([Default.Attr().Class("row"),(_this=Default.Attr(),_this.NewAttr("id","src"))])),List.ofArray([JS1.imgDiv(img1),JS1.imgDiv(img2),JS1.imgDiv(img3)]));
+       target=Operators1.add(Default.Div(List.ofArray([(_this1=Default.Attr(),_this1.NewAttr("id","target"))])),List.ofArray([(el=Default.P(List.ofArray([Default.Attr().Class("text-center"),(_this2=Default.Attr(),_this2.NewAttr("id","target-text"))])),(inner=Default.Text("Drop image here"),Operators1.add(el,List.ofArray([inner]))))]));
+       f=function(elt)
+       {
+        return JS1.handleDragStart(idRef,elt);
+       };
+       l=List.ofArray([img1,img2,img3]);
+       Seq.iter(f,l);
+       JS1.handleDragging(target,idRef);
+       return Default.Div(List.ofArray([src,target]));
+      }
      }
     },
     Snippet3:{
@@ -1730,6 +1853,8 @@
   Snippet2=Runtime.Safe(Controls.Snippet2);
   Client9=Runtime.Safe(Snippet2.Client);
   Snippet20=Runtime.Safe(Controls.Snippet20);
+  Snippet21=Runtime.Safe(Controls.Snippet21);
+  JS1=Runtime.Safe(Snippet21.JS);
   Snippet3=Runtime.Safe(Controls.Snippet3);
   Clienta=Runtime.Safe(Snippet3.Client);
   Snippet4=Runtime.Safe(Controls.Snippet4);

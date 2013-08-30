@@ -1002,6 +1002,87 @@ module Controls =
             [<JavaScript>]
             override __.Body = main() :> _
 
+    module Snippet21 =
+
+        [<JavaScript>]
+        module JS =
+            /// Creates a draggable <img> element.
+            let img x =
+                Img [
+                    Attr.Class "cat-img"
+                    Attr.Id <| "cat-" + x
+                    Attr.Src <| "/Images/cat" + x + ".jpg"
+                    HTML5.Attr.Draggable "true"
+                ]
+        
+            /// Wraps an <img> element inside a div.
+            let imgDiv img =
+                Div [Attr.Class "span3 cat-img-div"; Attr.Style "width: auto;"]
+                -< [img]
+
+            /// Assigns the id of a dragged element to the specified reference cell.
+            let handleDragStart idRef (elt:Element) =
+                elt.Dom.AddEventListener(
+                    "dragstart",
+                    (fun () -> idRef := elt.Id),
+                    false)
+
+            /// Handle dragging events.
+            let handleDragging (elt:Element) idRef =
+                let dom = elt.Dom
+                dom.AddEventListener(
+                    "dragenter",
+                    (fun (e : Dom.Event) ->
+                        e.PreventDefault()
+                        elt.SetCss("background-color", "lightgray")
+                        elt.SetCss("border", "dotted")),
+                    false)
+                dom.AddEventListener(
+                    "dragleave",
+                    (fun (e : Dom.Event) ->
+                        e.PreventDefault()
+                        elt.SetCss("background-color", "white")
+                        elt.SetCss("border", "solid")),
+                    false)
+                dom.AddEventListener(
+                    "dragover",
+                    (fun (e : Dom.Event) -> e.PreventDefault()),
+                    false)
+                dom.AddEventListener(
+                    "drop",
+                    (fun (e : Dom.Event) ->
+                        e.PreventDefault()
+                        let nodeClone = ById(!idRef).CloneNode(false)
+                        elt.Html <- ""
+                        elt.Append nodeClone
+                        elt.SetCss("background-color", "white")
+                        elt.SetCss("border", "black solid")),
+                    false)
+
+            let main() =
+                let idRef, img1, img2, img3 = ref "", img "1", img "2", img "3"
+                let src =
+                    Div [Attr.Class "row"; Attr.Id "src"] -< [
+                        imgDiv img1
+                        imgDiv img2
+                        imgDiv img3
+                    ]
+                let target =
+                    Div [Attr.Id "target"] -< [
+                        P [Attr.Class "text-center"; Attr.Id "target-text"]
+                        -- Text "Drop image here"
+                    ]
+                List.iter (handleDragStart idRef) [img1; img2; img3]
+                handleDragging target idRef
+                Div [src; target]
+
+        /// A control for serving the main pagelet.
+        type Control() =
+            inherit Web.Control()
+
+            [<JavaScript>]
+            override __.Body = JS.main() :> _
+
 //    module Snippet5 = 
 //        [<JavaScript>]
 //        let private viewport() =
@@ -1179,6 +1260,7 @@ module Controls =
             "CANVAS"
             "CONNECTIVITY"
             "CHART"
+            "DRAG DROP"
             "DOM"
             "FSHARP"
             "GEOLOCATION"

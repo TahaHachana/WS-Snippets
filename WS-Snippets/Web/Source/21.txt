@@ -1,0 +1,82 @@
+﻿<div style='margin: 0px; padding: 0px; font-family: Consolas; width: auto'><style type='text/css'>.fs-str {color: #d14;} .fs-key {color: blue;} .fs-com {color: green; font-style: italic;}</style><table><tr><td style='padding: 5px; vertical-align: top; border-right: 1px solid #ececec; color: rgb(160, 160, 160);'><span>1</span><br /><span>2</span><br /><span>3</span><br /><span>4</span><br /><span>5</span><br /><span>6</span><br /><span>7</span><br /><span>8</span><br /><span>9</span><br /><span>10</span><br /><span>11</span><br /><span>12</span><br /><span>13</span><br /><span>14</span><br /><span>15</span><br /><span>16</span><br /><span>17</span><br /><span>18</span><br /><span>19</span><br /><span>20</span><br /><span>21</span><br /><span>22</span><br /><span>23</span><br /><span>24</span><br /><span>25</span><br /><span>26</span><br /><span>27</span><br /><span>28</span><br /><span>29</span><br /><span>30</span><br /><span>31</span><br /><span>32</span><br /><span>33</span><br /><span>34</span><br /><span>35</span><br /><span>36</span><br /><span>37</span><br /><span>38</span><br /><span>39</span><br /><span>40</span><br /><span>41</span><br /><span>42</span><br /><span>43</span><br /><span>44</span><br /><span>45</span><br /><span>46</span><br /><span>47</span><br /><span>48</span><br /><span>49</span><br /><span>50</span><br /><span>51</span><br /><span>52</span><br /><span>53</span><br /><span>54</span><br /><span>55</span><br /><span>56</span><br /><span>57</span><br /><span>58</span><br /><span>59</span><br /><span>60</span><br /><span>61</span><br /><span>62</span><br /><span>63</span><br /><span>64</span><br /><span>65</span><br /><span>66</span><br /><span>67</span><br /><span>68</span><br /><span>69</span><br /><span>70</span><br /><span>71</span><br /><span>72</span><br /><span>73</span><br /><span>74</span><br /><span>75</span><br /><span>76</span><br /><span>77</span><br /><span>78</span><br /><span>79</span><br /><span>80</span><br /><span>81</span><br /><span>82</span></td><td style='vertical-align: top; padding: 5px;'><pre style='margin: 0px; background-color: white; border: none; padding: 0px; font-size: 14px; white-space: pre;'><span class='fs-key'>module </span>DragDrop =
+    <span class='fs-key'>open </span>IntelliFactory.WebSharper
+    <span class='fs-key'>open </span>IntelliFactory.WebSharper.Html
+
+    [&lt;JavaScript&gt;]
+    <span class='fs-key'>module </span>JS =
+        <span class='fs-com'>/// Creates a draggable &lt;img&gt; element.</span>
+        <span class='fs-key'>let </span>img x =
+            Img [
+                Attr.Class <span class='fs-str'>"cat-img"</span>
+                Attr.Id &lt;| <span class='fs-str'>"cat-"</span> + x
+                Attr.Src &lt;| <span class='fs-str'>"cat"</span> + x + <span class='fs-str'>".jpg"</span>
+                HTML5.Attr.Draggable <span class='fs-str'>"true"</span>
+            ]
+        
+        <span class='fs-com'>/// Wraps an &lt;img&gt; element inside a div.</span>
+        <span class='fs-key'>let </span>imgDiv img =
+            Div [Attr.Class <span class='fs-str'>"span3 cat-img-div"</span>]
+            -&lt; [img]
+
+        <span class='fs-com'>/// Assigns the id of a dragged element to the specified reference cell.</span>
+        <span class='fs-key'>let </span>handleDragStart idRef (elt:Element) =
+            elt.Dom.AddEventListener(
+                <span class='fs-str'>"dragstart"</span>,
+                (<span class='fs-key'>fun </span>() -&gt; idRef := elt.Id),
+                false)
+
+        <span class='fs-com'>/// Handles dragging events.</span>
+        <span class='fs-key'>let </span>handleDragging (elt:Element) idRef =
+            <span class='fs-key'>let </span>dom = elt.Dom
+            dom.AddEventListener(
+                <span class='fs-str'>"dragenter"</span>,
+                (<span class='fs-key'>fun </span>(e : Dom.Event) -&gt;
+                    e.PreventDefault()
+                    elt.SetCss(<span class='fs-str'>"background-color"</span>, <span class='fs-str'>"lightgray"</span>)
+                    elt.SetCss(<span class='fs-str'>"border"</span>, <span class='fs-str'>"dotted"</span>)),
+                false)
+            dom.AddEventListener(
+                <span class='fs-str'>"dragleave"</span>,
+                (<span class='fs-key'>fun </span>(e : Dom.Event) -&gt;
+                    e.PreventDefault()
+                    elt.SetCss(<span class='fs-str'>"background-color"</span>, <span class='fs-str'>"white"</span>)
+                    elt.SetCss(<span class='fs-str'>"border"</span>, <span class='fs-str'>"solid"</span>)),
+                false)
+            dom.AddEventListener(
+                <span class='fs-str'>"dragover"</span>,
+                (<span class='fs-key'>fun </span>(e : Dom.Event) -&gt; e.PreventDefault()),
+                false)
+            dom.AddEventListener(
+                <span class='fs-str'>"drop"</span>,
+                (<span class='fs-key'>fun </span>(e : Dom.Event) -&gt;
+                    e.PreventDefault()
+                    <span class='fs-key'>let </span>nodeClone = ById(!idRef).CloneNode(false)
+                    elt.Html &lt;- <span class='fs-str'>""</span>
+                    elt.Append nodeClone
+                    elt.SetCss(<span class='fs-str'>"background-color"</span>, <span class='fs-str'>"white"</span>)
+                    elt.SetCss(<span class='fs-str'>"border"</span>, <span class='fs-str'>"black solid"</span>)),
+                false)
+
+        <span class='fs-key'>let </span>main() =
+            <span class='fs-key'>let </span>idRef, img1, img2, img3 = ref <span class='fs-str'>""</span>, img <span class='fs-str'>"1"</span>, img <span class='fs-str'>"2"</span>, img <span class='fs-str'>"3"</span>
+            <span class='fs-key'>let </span>src =
+                Div [Attr.Class <span class='fs-str'>"row"</span>; Attr.Id <span class='fs-str'>"src"</span>] -&lt; [
+                    imgDiv img1
+                    imgDiv img2
+                    imgDiv img3
+                ]
+            <span class='fs-key'>let </span>target =
+                Div [Attr.Id <span class='fs-str'>"target"</span>] -&lt; [
+                    P [Attr.Class <span class='fs-str'>"text-center"</span>; Attr.Id <span class='fs-str'>"target-text"</span>]
+                    -- Text <span class='fs-str'>"Drop image here"</span>
+                ]
+            List.iter (handleDragStart idRef) [img1; img2; img3]
+            handleDragging target idRef
+            Div [src; target]
+
+    <span class='fs-com'>/// A control for serving the main pagelet.</span>
+    <span class='fs-key'>type </span>Control() =
+        <span class='fs-key'>inherit </span>Web.Control()
+
+        [&lt;JavaScript&gt;]
+        <span class='fs-key'>override </span>__.Body = JS.main() :&gt; _</pre></td></tr></table></div>

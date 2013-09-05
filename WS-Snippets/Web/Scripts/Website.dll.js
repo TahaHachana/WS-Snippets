@@ -1,6 +1,6 @@
 (function()
 {
- var Global=this,Runtime=this.IntelliFactory.Runtime,Website,AddThis,WebSharper,Html,Default,HTML5,List,T,Controls,Snippet1,Client,Arrays,Seq,Operators,Snippet10,Client1,EventsPervasives,Operators1,Snippet11,Client2,document,Snippet12,Client3,Snippet13,Client4,Snippet14,Client5,jQuery,Remoting,Concurrency,Snippet15,Client6,Google,Visualization,Visualizations,LineChartOptions,google,visualization,DataTable,Snippet16,Client7,LineChart,Date,Number,Snippet17,Client8,Snippet18,JS,JQueryUI,Tabs,Snippet19,window,Snippet2,Client9,Snippet20,Snippet21,JS1,Snippet3,Clienta,Snippet4,Clientb,alert,JavaScript,Snippet5,Clientc,String,Snippet6,Clientd,Snippet7,Cliente,WebSocket,Snippet8,Clientf,Snippet9,Client10,Forkme,Highlight,Client11,Formlet,Controls1,Enhance,Data,Formlet1,Index,Client12,InsertSnippet,Client13,Login,Client14,encodeURIComponent,Strings,Search,Client15;
+ var Global=this,Runtime=this.IntelliFactory.Runtime,Website,AddThis,WebSharper,Html,Default,HTML5,List,T,Controls,Snippet1,Client,Arrays,Seq,Operators,Snippet10,Client1,EventsPervasives,Operators1,Snippet11,Client2,document,Snippet12,Client3,Snippet13,Client4,Snippet14,Client5,jQuery,Remoting,Concurrency,Snippet15,Client6,Google,Visualization,Visualizations,LineChartOptions,google,visualization,DataTable,Snippet16,Client7,LineChart,Date,Number,Snippet17,Client8,Snippet18,JS,JQueryUI,Tabs,Snippet19,window,Snippet2,Client9,Snippet20,Snippet21,JS1,Snippet22,JS2,String,Datepicker,Snippet3,Clienta,Snippet4,Clientb,alert,JavaScript,Snippet5,Clientc,Snippet6,Clientd,Snippet7,Cliente,WebSocket,Snippet8,Clientf,Snippet9,Client10,Forkme,Highlight,Client11,Formlet,Controls1,Enhance,Data,Formlet1,Index,Client12,InsertSnippet,Client13,Login,Client14,encodeURIComponent,Strings,Search,Client15;
  Runtime.Define(Global,{
   Website:{
    AddThis:{
@@ -943,6 +943,115 @@
       }
      }
     },
+    Snippet22:{
+     Control:Runtime.Class({
+      get_Body:function()
+      {
+       return JS2.main();
+      }
+     }),
+     JS:{
+      displayPosition:function(p)
+      {
+       var coords;
+       coords=p.coords;
+       JS2.setText("longitude",coords.longitude);
+       JS2.setText("latitude",coords.latitude);
+       JS2.setText("altitude",coords.altitude);
+       JS2.setText("accuracy",coords.accuracy);
+       JS2.setText("alt-acc",coords.altitudeAccuracy);
+       JS2.setText("heading",coords.heading);
+       JS2.setText("speed",coords.speed);
+       return JS2.setText("timestamp",p.timestamp);
+      },
+      main:function()
+      {
+       var options,returnVal,trackPosition,x,el,inner,f1,x1;
+       options=(returnVal=[{}],(null,returnVal[0].enableHighAccuracy=true,returnVal[0].maximumAge=60000,returnVal[0].timeout=10000,returnVal[0]));
+       trackPosition=function()
+       {
+        var f;
+        f=function()
+        {
+         window.navigator.geolocation.getCurrentPosition(function(p)
+         {
+          return JS2.displayPosition(p);
+         },function()
+         {
+          return null;
+         },options);
+         return Concurrency.Return(null);
+        };
+        return Concurrency.Delay(f);
+       };
+       return Operators1.add(Default.Div(List.ofArray([Default.Attr().Class("span6")])),List.ofArray([Operators1.add(Default.Table(List.ofArray([Default.Attr().Class("table table-striped table-bordered")])),List.ofArray([JS2.tr("Longitude","longitude"),JS2.tr("Latitude","latitude"),JS2.tr("Altitude","altitude"),JS2.tr("Accuracy","accuracy"),JS2.tr("Altitude Accuracy","alt-acc"),JS2.tr("Heading","heading"),JS2.tr("Speed","speed"),JS2.tr("Time Stamp","timestamp")])),(x=(el=Default.Button(List.ofArray([Default.Attr().Class("btn btn-primary btn-large")])),(inner=Default.Text("Track My Location"),Operators1.add(el,List.ofArray([inner])))),(f1=(x1=function()
+       {
+        return function()
+        {
+         var x2,f,f3;
+         x2=(f=function()
+         {
+          var x3,f2;
+          x3=trackPosition(null);
+          f2=function()
+          {
+           return Concurrency.Return(null);
+          };
+          return Concurrency.Bind(x3,f2);
+         },Concurrency.Delay(f));
+         f3=function(arg00)
+         {
+          var t;
+          t={
+           $:0
+          };
+          return Concurrency.Start(arg00);
+         };
+         return f3(x2);
+        };
+       },function(arg10)
+       {
+        return EventsPervasives.Events().OnClick(x1,arg10);
+       }),(f1(x),x)))]));
+      },
+      setText:function(id,property)
+      {
+       var propertyStr;
+       propertyStr=JS2.toStr(property);
+       document.getElementById(id).textContent=propertyStr;
+      },
+      toStr:function(x)
+      {
+       var x1,f;
+       x1=String(x);
+       f=function(_arg1)
+       {
+        if(_arg1==="null")
+         {
+          return"NA";
+         }
+        else
+         {
+          return _arg1;
+         }
+       };
+       return f(x1);
+      },
+      tr:function(thTxt,tdId)
+      {
+       var _this,_this1;
+       return Default.TR(List.ofArray([Default.TH(List.ofArray([Default.Text(thTxt)])),Default.TD(List.ofArray([(_this=Default.Attr(),_this.NewAttr("id",tdId)),(_this1=Default.Attr(),_this1.NewAttr("style","width: 250px;"))]))]));
+      }
+     }
+    },
+    Snippet23:{
+     Control:Runtime.Class({
+      get_Body:function()
+      {
+       return Datepicker.New4();
+      }
+     })
+    },
     Snippet3:{
      Client:{
       main:function()
@@ -1855,6 +1964,10 @@
   Snippet20=Runtime.Safe(Controls.Snippet20);
   Snippet21=Runtime.Safe(Controls.Snippet21);
   JS1=Runtime.Safe(Snippet21.JS);
+  Snippet22=Runtime.Safe(Controls.Snippet22);
+  JS2=Runtime.Safe(Snippet22.JS);
+  String=Runtime.Safe(Global.String);
+  Datepicker=Runtime.Safe(JQueryUI.Datepicker);
   Snippet3=Runtime.Safe(Controls.Snippet3);
   Clienta=Runtime.Safe(Snippet3.Client);
   Snippet4=Runtime.Safe(Controls.Snippet4);
@@ -1863,7 +1976,6 @@
   JavaScript=Runtime.Safe(WebSharper.JavaScript);
   Snippet5=Runtime.Safe(Controls.Snippet5);
   Clientc=Runtime.Safe(Snippet5.Client);
-  String=Runtime.Safe(Global.String);
   Snippet6=Runtime.Safe(Controls.Snippet6);
   Clientd=Runtime.Safe(Snippet6.Client);
   Snippet7=Runtime.Safe(Controls.Snippet7);

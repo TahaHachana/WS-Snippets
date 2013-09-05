@@ -1083,6 +1083,92 @@ module Controls =
             [<JavaScript>]
             override __.Body = JS.main() :> _
 
+    module Snippet22 =
+
+        [<JavaScript>]
+        module JS =
+
+            /// Performs conversion to string and replaces the JS null with NA.
+            let toStr x =
+                x.ToString()
+                |> function
+                    | "null" -> "NA"
+                    | str    -> str
+
+            /// Sets the text of the element with the specified id.
+            let setText id property =
+                let propertyStr = toStr property
+                ById(id).TextContent <- propertyStr
+
+            /// Displays the properties of a position object.
+            let displayPosition (p : Position) =
+                let coords = p.Coords
+                setText "longitude" coords.Longitude
+                setText "latitude"  coords.Latitude
+                setText "altitude"  coords.Altitude
+                setText "accuracy"  coords.Accuracy
+                setText "alt-acc"   coords.AltitudeAccuracy
+                setText "heading"   coords.Heading
+                setText "speed"     coords.Speed
+                setText "timestamp" p.Timestamp
+
+            let tr thTxt tdId =
+                TR [
+                    TH [Text thTxt]
+                    TD [Attr.Id tdId; Attr.Style "width: 250px;"]
+                ]
+
+            /// Tracks the position of the user and displays its properties in a table.
+            let main() =
+                // Geolocation options
+                let options =
+                    Html5.PositionOptions(
+                        EnableHighAccuracy = true,
+                        MaximumAge = 60000,
+                        Timeout = 10000)
+
+                /// Calls the getCurrentPosition method asynchronously.
+                let trackPosition() =
+                    async {
+                        Window.Self.Navigator.Geolocation.GetCurrentPosition(
+                            displayPosition,
+                            (fun _ -> ()),
+                            options)
+                    }
+
+                Div [Attr.Class "span6"] -< [
+                    Table [Attr.Class "table table-striped table-bordered"] -< [
+                        tr "Longitude"         "longitude"
+                        tr "Latitude"          "latitude"
+                        tr "Altitude"          "altitude"
+                        tr "Accuracy"          "accuracy"
+                        tr "Altitude Accuracy" "alt-acc"
+                        tr "Heading"           "heading"
+                        tr "Speed"             "speed"
+                        tr "Time Stamp"        "timestamp"
+                    ]
+                    Button [Attr.Class "btn btn-primary btn-large"]
+                    -- Text "Track My Location"
+                    |>! OnClick (fun _ _ ->
+                        async { do! trackPosition() }
+                        |> Async.Start)
+                ]
+    
+        /// A control for serving the main pagelet.                
+        type Control() =
+            inherit Web.Control()
+ 
+            [<JavaScript>]
+            override __.Body = JS.main() :> _
+
+    module Snippet23 =
+            
+        type Control() =
+            inherit Web.Control()
+ 
+            [<JavaScript>]
+            override __.Body = JQueryUI.Datepicker.New() :> _
+
 //    module Snippet5 = 
 //        [<JavaScript>]
 //        let private viewport() =

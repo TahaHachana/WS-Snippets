@@ -27,7 +27,7 @@
             <span class='fs-key'>let </span>tabs =
                 List.map tab [1 .. 3]
                 |&gt; JQueryUI.Tabs.New
-            Div [Attr.Class <span class='fs-str'>"span10"</span>] -&lt; [
+            Div [
                 tabs :&gt; IPagelet
                 Div [Attr.Style <span class='fs-str'>"margin-top: 8px;"</span>] -&lt; [
                     addTabBtn tabs

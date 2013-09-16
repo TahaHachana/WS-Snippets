@@ -37,6 +37,7 @@
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <ItemGroup>
     <Compile Include="Utils.fs" />
+    <Compile Include="Skin.fs" />
     <Compile Include="Secret.fs" />
     <Compile Include="AddThis.fs" />
     <Compile Include="Search.fs" />
@@ -59,10 +60,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="ExtSharper">
-      <HintPath>..\..\packages\ExtSharper.0.1.13\lib\Net45\ExtSharper.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Hammock.ClientProfile">
       <HintPath>..\..\packages\TweetSharp.2.3.1\lib\4.0\Hammock.ClientProfile.dll</HintPath>
       <Private>True</Private>

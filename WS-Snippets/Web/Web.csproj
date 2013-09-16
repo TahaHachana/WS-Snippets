@@ -49,12 +49,18 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="*.aspx" />
+    <Content Include="HTML\About.html" />
+    <Content Include="HTML\Admin.html" />
+    <Content Include="HTML\Error.html" />
+    <Content Include="HTML\Highlight.html" />
     <Content Include="Images\cat1.jpg" />
     <Content Include="Images\cat2.jpg" />
     <Content Include="Images\cat3.jpg" />
     <Content Include="Images\feed-icon.png" />
     <Content Include="Images\Loader.gif" />
     <Content Include="Images\madagascar.jpg" />
+    <Content Include="HTML\Login.html" />
+    <Content Include="HTML\NewPage.html" />
     <Content Include="robots.txt" />
     <Content Include="Scripts\BootstrapTabs.min.js" />
     <Content Include="Scripts\googleAnalytics.js" />
@@ -79,7 +85,9 @@
     <Content Include="Scripts\AutoComplete.js" />
     <Content Include="Scripts\jquery-ui-1.10.3.custom.min.js" />
     <Content Include="Scripts\Website.dll.min.js" />
+    <Content Include="HTML\Search.html" />
     <Content Include="sitemap.xml" />
+    <Content Include="HTML\Snippet.html" />
     <Content Include="Source\1.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -125,6 +133,7 @@
     <Content Include="StyleSheets\images\ui-icons_f9bd01_256x240.png" />
     <Content Include="StyleSheets\jquery-ui-1.10.3.custom.min.css" />
     <Content Include="StyleSheets\StyleSheet1.css" />
+    <Content Include="HTML\Tagged.html" />
     <Content Include="Themes\**\*.*" />
     <Content Include="Videos\madagascar.mp4" />
     <Content Include="Views\**\*.*" />
@@ -135,8 +144,7 @@
     </Content>
     <Content Include="Extjs.html" />
     <Content Include="google1e26600b7e4f9412.html" />
-    <Content Include="Home.html" />
-    <Content Include="Main.html" />
+    <Content Include="HTML\Home.html" />
     <Content Include="modal.html" />
   </ItemGroup>
   <ItemGroup>

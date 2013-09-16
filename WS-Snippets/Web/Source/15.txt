@@ -26,7 +26,7 @@
 
         <span class='fs-key'>let </span>main() =
             <span class='fs-key'>let </span>output = Div [Attr.Style <span class='fs-str'>"margin-top: 8px;"</span>]
-            <span class='fs-key'>let </span>input = Input [Attr.Type <span class='fs-str'>"text"</span>; HTML5.Attr.AutoFocus <span class='fs-str'>"autofocus"</span>]
+            <span class='fs-key'>let </span>input = Input [Attr.Type <span class='fs-str'>"text"</span>; HTML5.Attr.AutoFocus <span class='fs-str'>"autofocus"</span>; Attr.Class <span class='fs-str'>"form-control"</span>; Attr.Id <span class='fs-str'>"display"</span>]
             Div [Attr.Class <span class='fs-str'>"form-inline"</span>] -&lt; [
                 input
                 Button [Text <span class='fs-str'>"MD5"</span>; Attr.Class <span class='fs-str'>"btn btn-primary"</span>; Attr.Style <span class='fs-str'>"margin-left: 8px;"</span>]

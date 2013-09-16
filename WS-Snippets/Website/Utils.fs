@@ -23,16 +23,37 @@ module Utils =
 
         let nav activeLiOption =
             let li' = li activeLiOption
-            Div [Class "navbar navbar-inverse navbar-fixed-top"] -< [
-                Div [Class "navbar-inner"] -< [
-                    Div [Class "container"; Style "width: 1000px;"] -< [
-                        A [Class "brand"; HRef "/"; Style "padding: 15px;"] -< [Text "W# Snippets"]
-                        UL [Class "nav"] -< [
-                            li' "/"      "Home"
-                            li' "/about" "About"
-                        ]
+            //<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+            HTML5.Nav [Class "navbar navbar-default navbar-fixed-top"; Html.NewAttribute "role" "navigation"] -< [
+                Div [Class "navbar-header"] -< [
+                    Button [Type "button"; Class "navbar-toggle"; HTML5.Data "toggle" "collapse"; HTML5.Data "target" ".navbar-ex1-collapse"] -< [
+                        Span [Class "sr-only"] -< [Text "Toggle navigation"]
+                        Span [Class "icon-bar"]
+                        Span [Class "icon-bar"]
+                        Span [Class "icon-bar"]
                     ]
-                ]
+                    A [Class "navbar-brand"; HRef "#"] -< [Text "W# Snippets"]
+                ]       
+//<div class="collapse navbar-collapse navbar-ex1-collapse">
+//    <ul class="nav navbar-nav">
+//      <li class="active"><a href="#">Link</a></li>
+//      <li><a href="#">Link</a></li>
+                Div [Class "collapse navbar-collapse navbar-ex1-collapse"] -< [
+                    UL [Class "nav navbar-nav"] -< [
+                        LI [Class "active"] -< [A [HRef "#"] -< [Text "Home"]]
+                        LI [A [HRef "#"] -< [Text "About"]]
+                    ]
+
+                ]                               
+//                Div [Class "navbar-inner"] -< [
+//                    Div [Class "container"; Style "width: 1000px;"] -< [
+//                        A [Class "brand"; HRef "/"; Style "padding: 15px;"] -< [Text "W# Snippets"]
+//                        UL [Class "nav"] -< [
+//                            li' "/"      "Home"
+//                            li' "/about" "About"
+//                        ]
+//                    ]
+//                ]
             ]
 //<div class="masthead">
 //        <ul class="nav nav-pills pull-right">
@@ -60,6 +81,6 @@ module Utils =
             let userOption = UserSession.GetLoggedInUser ()
             let link =
                 match userOption with
-                    | Some user -> "Log Out (" + user + ")" => (randomizeUrl <| ctx.Link logoutAction)
-                    | None      -> "Login"                  => (ctx.Link <| loginAction None)
-            Div [Class "pull-right"; Style "margin-top: 50px;"] -< [link]
+                    | Some user -> A [HRef (randomizeUrl <| ctx.Link logoutAction); Class "pull-right"] -< [Text <| "Log Out (" + user + ")"]
+                    | None      -> A [HRef (ctx.Link <| loginAction None); Class "pull-right"] -< [Text "Login"]
+            Div [Class "row"] -< [link]

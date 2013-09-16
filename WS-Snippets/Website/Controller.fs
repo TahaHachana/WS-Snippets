@@ -24,7 +24,7 @@ module Controller =
             | Snippet pageId -> Views.snippet pageId
             | Highlight      -> Views.highlight
             | Tagged tag     -> Views.tagged tag
-            | Extjs pageId   -> Views.extjs pageId
+//            | Extjs pageId   -> Views.extjs pageId
             | Search (q, id) -> Views.search q id
             | Rss            -> Views.rss
             | _              -> Content.ServerError

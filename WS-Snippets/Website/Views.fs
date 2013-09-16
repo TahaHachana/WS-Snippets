@@ -6,403 +6,475 @@ module Views =
     open IntelliFactory.Html
     open IntelliFactory.WebSharper
     open IntelliFactory.WebSharper.Sitelets
-    open ExtSharper
-    open Content
     open Model
     open Utils.Server
     open Mongo
+    open Skin
 
-    let private homeTemplate = Skin.MakeDefaultTemplate "~/Home.html" Skin.LoadFrequency.Once
-    let private mainTemplate = Skin.MakeDefaultTemplate "~/Main.html" Skin.LoadFrequency.Once
-    let private miniTemplate = Skin.MakeDefaultTemplate "~/Mini.html" Skin.LoadFrequency.Once
-    let private withHomeTemplate = Skin.WithTemplate<Action> homeTemplate
-    let withMainTemplate = Skin.WithTemplate<Action> mainTemplate
-    let withMiniTemplate = Skin.WithTemplate<Action> miniTemplate
-    let private loginInfo' = loginInfo Logout Login
+    module Templates =
+
+        let loadFrequency =
+            #if DEBUG
+                Content.Template.PerRequest
+            #else
+                Content.Template.Once
+            #endif
+
+        let home = makeDefaultTemplate "~/HTML/Home.html" loadFrequency
+        let about = makeDefaultTemplate "~/HTML/About.html" loadFrequency
+        let error = makeDefaultTemplate "~/HTML/Error.html" loadFrequency
+        let login = makeDefaultTemplate "~/HTML/Login.html" loadFrequency
+        let admin = makeDefaultTemplate "~/HTML/Admin.html" loadFrequency
+        let snippet = makeDefaultTemplate "~/HTML/Snippet.html" loadFrequency
+        let highlight = makeDefaultTemplate "~/HTML/Highlight.html" loadFrequency
+        let tagged = makeDefaultTemplate "~/HTML/Tagged.html" loadFrequency
+        let search = makeDefaultTemplate "~/HTML/Search.html" loadFrequency
+        let newPage = makeDefaultTemplate "~/HTML/NewPage.html" loadFrequency
 
     let private split count list =        
         let rec loop list =
             [
                 yield Seq.truncate count list |> Seq.toList
                 match List.length list <= count with
-                    | false ->
-                        let list' = Seq.skip count list |> Seq.toList
-                        yield! loop list'
-                    | true -> ()
+                | false -> yield! loop (Seq.skip count list |> Seq.toList)
+                | true -> ()
             ]
         loop list
 
-    let private tags = Controls.hashset' |> Seq.toList |> List.sort |> List.map (fun x ->
-        let href = "/tagged/" + x.ToLower() //HttpUtility.UrlEncode(x.ToLower())
-        A [HRef href] -< [Button [Class "btn btn-info"; Style "margin: 5px;"] -< [Text x]])
+    module private HomeUtils =
+
+        let snippetColumn classes snippet =    
+            Div [Class classes] -< [
+                H4 [
+                    A [HRef <| "/snippet/" + string snippet.SnipId] -< [
+                        Text snippet.Title
+                    ]
+                ]
+                P [Text snippet.Desc]
+            ]
+
+        let snippetsRow snippet snippet' =
+            Div [Class "row"] -< [
+                snippetColumn "col-lg-5 snippet" snippet
+                snippetColumn "col-lg-offset-1 col-lg-5 snippet" snippet'
+            ]  
+
+        let searchDiv =
+            Div [Class "row"; Id "search-control"] -< [
+                new Search.Control()
+            ]
+
+        let addthisDiv =
+            Div [Class "row"; Id "addthis-control"] -< [
+                Div [Class "col-lg-offset-3"] -< [
+                    new AddThis.Control()
+                ]
+            ]
+
+        let headerDiv =
+            Div [Class "row col-lg-offset-1"] -< [
+                H3 [Style "float: left;"] -< [
+                    Text "Latest snippets"
+                ]
+                A [HRef "/rss"] -< [
+                    Img [
+                        Src "/Images/feed-icon.png"
+                        Alt "RSS Feed"
+                        Style "padding: 15px;"]
+                ]
+            ]
+                                
+        let snippetsDiv =
+            let snippets =
+                Snippets.latest10()
+                |> Seq.toList
+                |> split 2
+                |> List.map (fun lst -> snippetsRow lst.[0] lst.[1])
+            Div [Class "row col-lg-offset-1"] -< snippets
+
+        let tags =
+            Controls.hashset'
+            |> Seq.toList
+            |> List.sort 
+            |> List.map (fun tag ->
+                let href = "/tagged/" + tag.ToLower()
+                A [HRef href] -< [
+                    Button [Class "btn btn-info"; Style "margin: 5px;"] -< [
+                        Text tag
+                    ]
+                ])
+
+        let tagsDiv =
+            Div [Class "row"; Id "tags"] -< [
+                yield H3 [Text "Tags"]
+                yield! tags
+            ] 
+        
+        let body =
+            Div [Class "container"] -< [
+                searchDiv
+                addthisDiv
+                HR []
+                headerDiv
+                snippetsDiv
+                HR []
+                tagsDiv
+            ]
+
+    module private LoginUtils =
+        let redirectLink actionOption ctx =
+            match actionOption with
+            | Some action -> action
+            | None -> Action.Admin
+            |> ctx.Link
+       
+        let body actionOption ctx =
+            let link = redirectLink actionOption ctx
+            Div [Class "container"; Id "main"] -< [
+                new Login.Control(link)
+            ]
+
+    module private AdminUtils =
+        let loginInfo' ctx = loginInfo Logout Login ctx
+
+        let formsDiv =
+            Div [Class "row"] -< [
+                Div [Class "col-lg-6"] -< [
+                    H3 [Text "Insert a new snippet"]
+                    Div [new InsertSnippet.Control()]
+                ]
+                Div [Class "col-lg-6"] -< [
+                    H3 [Text "Index a new snippet"]
+                    Div [new Index.Control()]
+                ]
+            ]
+
+        let body ctx =
+            Div [Id "main"; Class "container"] -< [
+                loginInfo' ctx
+                formsDiv
+            ]
+
+    module private SnippetUtils =
+
+        let title (snippet:Snippet) = snippet.Title + " · WebSharper Snippets"
+        
+        let desc snippet = Element.VerbatimContent snippet.DescHtml
+        
+        let code id =
+            let path = HttpContext.Current.Server.MapPath <| "~/Source/" + string id + ".txt"
+            let source = File.ReadAllText path
+            Element.VerbatimContent source
+        
+        let tags snippet =
+            snippet.Tags
+            |> Array.map (fun tag ->
+                let href = "/tagged/" + tag.ToLower()
+                A [HRef href] -< [
+                    Button [Class "btn btn-success"; Style "margin: 5px;"] -< [
+                        Text tag
+                    ]
+                ])
+
+        let detailsDiv (snippet:Snippet) =
+            Div [Class "row"; Id "snippet-details"] -< [
+                H1 [Text snippet.Title]
+                Div [Class "row col-lg-8"] -< [desc snippet]
+            ]
+
+        let addthisDiv =
+            Div [Class "row"; Style "height: 30px;"] -< [
+                new AddThis.Control()
+            ]
+
+        let tabsDiv id =
+            Div [Class "row"; Id "demo-tabs"] -< [
+                UL [Class "nav nav-tabs nav-justified"] -< [
+                    LI [Class "active"] -< [
+                        A [HRef "#demo"; HTML5.Data "toggle" "tab"] -< [
+                            Text "Demo"
+                        ]
+                    ]
+                    LI [
+                        A [HRef "#source"; HTML5.Data "toggle" "tab"] -< [
+                            Text "Source"
+                        ]
+                    ]
+                ]
+                Div [Class "tab-content"; Style "height: 450px;"] -< [
+                    Div [Class "tab-pane active"; Id "demo"] -< [
+                        IFrame [
+                            Src <| "/newpage/" + string id
+                            NewAttribute "seamless" "seamless"
+                            Style "width: 100%; height: 440px; border: none;"
+                        ]
+                    ]
+                    Div [Class "tab-pane"; Id "source"] -< [code id]
+                ]
+            ]
+
+        let tagsDiv snippet =
+            Div [Class "row"; Id "tags-div"] -< [
+                H3 [Text "Tags"]
+                Div [yield! tags snippet]
+            ]        
+
+        let body snippet id =
+            Div [Class "container"; Id "main"] -< [
+                detailsDiv snippet
+                addthisDiv
+                tabsDiv id
+                tagsDiv snippet
+            ]
+
+    module private HighlightUtils =
+        let codeDiv =
+            Div [Class "row"] -< [
+                TextArea [
+                    Class "col-lg-10"
+                    HTML5.SpellCheck "false"
+                    HTML5.AutoFocus "autofocus"
+                    Id "code-textarea"
+                ]
+            ]
+
+        let btnsDiv =
+            Div [Class "row"] -< [
+                Div [new Highlight.Control()]
+                Div [
+                    Img [
+                        Id "loader"
+                        Src "Images/Loader.gif"
+                    ]
+                ]
+            ]
+        
+        let tabsDiv =
+            Div [Id "highlight-tabs"; Class "row"] -< [
+                UL [Class "nav nav-tabs nav-justified"] -< [
+                    LI [Class "active"] -< [
+                        A [HRef "#html"; HTML5.Data "toggle" "tab"] -< [
+                            Text "HTML"
+                        ]
+                    ]
+                    LI [
+                        A [HRef "#html-preview"; HTML5.Data "toggle" "tab"] -< [
+                            Text "HTML Preview"
+                        ]
+                    ]
+                ]
+                Div [Class "tab-content"] -< [
+                    Div [Class "tab-pane active"; Id "html"] -< [
+                        TextArea [
+                            Id "html-textarea"
+                            Class "col-lg-10"
+                            HTML5.SpellCheck "false"
+                        ]
+                    ]
+                    Div [Class "tab-pane"; Id "html-preview"]
+                ]
+            ]
+        
+        let body =
+            Div [Class "container"; Id "main"] -< [
+                Div [Class "row"] -< [H3 [Text "F# Code"]]
+                codeDiv
+                btnsDiv
+                tabsDiv
+            ]
+
+    module private TaggedUtils =
+        let snippetDiv classes snippet =
+            Div [Class classes] -< [
+                H4 [
+                    A [HRef <| "/snippet/" + snippet.SnipId.ToString()] -< [
+                        Text snippet.Title
+                    ]
+                ]
+                P [Text snippet.Desc]
+            ]
+
+        let snippetsRow lst =
+            match lst with
+            | [snippet] ->
+                Div [Class "row"] -< [
+                    snippetDiv "col-lg-4 snippet" snippet
+                ]
+            | _ ->
+                Div [Class "row"] -< [
+                    snippetDiv "col-lg-4 snippet" lst.[0]
+                    snippetDiv "col-lg-offset-1 col-lg-4 snippet" lst.[1]
+                ]
+
+        let snippetsDiv tag =
+            let rows =
+                Snippets.hasTag tag
+                |> Seq.toList
+                |> split 2
+                |> List.map snippetsRow
+            Div [Class "row"] -< rows
+
+        let body tag =
+            Div [Class "container"; Id "main"] -< [
+                Div [Class "row page-header"] -< [
+                        H1 [Text <| "Snippets tagged \"" + tag + "\""]
+                ]
+                snippetsDiv tag
+            ]
+
+    module private SearchUtils =
+        let subStr (str:string) =
+            match str.Length with
+            | length when length < 150 -> str
+            | _ -> str.[..147] + "..."
+
+        let resultLi (id, title, description) =
+            let description' = subStr description
+            LI [Class "list-group-item"] -< [
+                A [HRef <| "/snippet/" + id; Class "search-result-link"] -< [
+                    Element.VerbatimContent title
+                ]
+                Div [Text description']
+            ]
+
+        let resultsDiv results =
+            results
+            |> Array.map resultLi
+            |> fun lis ->
+                Div [Class "row"] -< [
+                    UL [Class "list-group col-lg-8"] -< lis
+                ]
+
+        let prevLi pageId queryStr =
+            match pageId with
+            | 1 -> LI [Class "disabled"] -< [A [HRef "#"] -< [Text "«"]]
+            | _ -> LI [A [HRef <| "/search/" + queryStr + "/" + string (pageId - 1)] -< [Text "«"]]
+
+        let nextLi pageId pagesLength queryStr =
+            match pageId with
+            | _ when pageId = pagesLength -> LI [Class "disabled"] -< [A [HRef "#"] -< [Text "»"]]
+            | _ -> LI [A [HRef <| "/search/" + queryStr + "/" + string (pageId + 1)] -< [Text "»"]]
+
+        let pageLi x pageId queryStr =
+            match x with
+            | _ when x = pageId -> LI [Class "active"] -< [A [HRef <| "/search/" + queryStr + "/" + string x] -< [Text <| string x]]
+            | _ -> LI [A [HRef <| "/search/" + queryStr + "/" + string x] -< [Text <| string x]]
+
+        let pagesUl pageId queryStr pages length =
+            UL [Class "pagination"] -< [
+                yield prevLi pageId queryStr
+                yield! Array.map (fun x -> pageLi x pageId queryStr) pages
+                yield nextLi pageId length queryStr
+            ]
+
+        let paginationDiv matches pageId queryStr =
+            let pages = matches / 5. |> ceil |> int |> fun x -> [|1 .. x|]
+            let length = pages.Length
+            let pages' =
+                match length with
+                | l when l < 11 -> pages
+                | _ -> pages.[(pageId - 5) .. ] |> Seq.truncate 10 |> Seq.toArray
+            match length with
+                | 1 -> Div []
+                | _ ->
+                    Div [Class "row"] -< [
+                        pagesUl pageId queryStr pages' length
+                    ]
+
+        let body (results:(string * string * string) []) pageId matches queryStr =
+            match results.Length with
+                | 0 ->
+                    Div [Class "container"; Id "main"] -< [
+                        Div [Class "row page-header"] -< [
+                            H1 [Text "Results"]
+                            P [Text "The query did not match any documents."]
+                        ]
+                    
+                    ]
+                | _ ->
+                    Div [Class "container"; Id "main"] -< [
+                        Div [Class "row page-header"] -< [
+                            H1 [Text "Results"]
+                        ]
+                        resultsDiv results
+                        paginationDiv matches pageId queryStr
+                    ]
 
     let home =
-        let snippets =
-            Snippets.latest10()
-            |> Seq.toList
-            |> split 2
-
-//            |> List.map (fun lst ->
-//                match lst with
-//                    | [snip] ->
-//                        Div [Class "row"; Style "margin-bottom: 20px;"] -< [
-//                            Div [Class "span4"] -< [
-//                                H4 [A [HRef <| "/snippet/" + snip.SnipId.ToString()] -< [Text snip.Title]]
-//                                P [Text snip.Desc]
-//                            ]
-//                        ]
-//                    | _ ->
-//                        let snip = lst.[0]
-//                        let snip' = lst.[1]
-//                        Div [Class "row"; Style "margin-bottom: 20px;"] -< [
-//                            Div [Class "span4"] -< [
-//                                H4 [A [HRef <| "/snippet/" + snip.SnipId.ToString()] -< [Text snip.Title]]
-//                                P [Text snip.Desc]
-//                            ]
-//                            Div [Class "offset1 span4"] -< [
-//                                H4 [A [HRef <| "/snippet/" + snip'.SnipId.ToString()] -< [Text snip'.Title]]
-//                                P [Text snip'.Desc]
-//                            ]
-//                        ])
-
-            |> List.map (fun lst ->
-                let snip = lst.[0]
-                let snip' = lst.[1]
-                Div [Class "row"; Style "margin-bottom: 20px;"] -< [
-                    Div [Class "span4"] -< [
-                        H4 [A [HRef <| "/snippet/" + snip.SnipId.ToString()] -< [Text snip.Title]]
-                        P [Text snip.Desc]
-                    ]
-                    Div [Class "offset1 span4"] -< [
-                        H4 [A [HRef <| "/snippet/" + snip'.SnipId.ToString()] -< [Text snip'.Title]]
-                        P [Text snip'.Desc]
-                    ]
-                ])    
-        withHomeTemplate Home.title Home.metaDescription <| fun ctx ->
-            [
-                Home.navigation
-                Div [new Forkme.Control()]
-                Div [Id "wrap"] -< [
-                    Div [Class "container"; Style "width: 1000px; padding-top: 60px;"] -< [
-                        HTML5.Header [Class "hero-unit"; Style "background-color: white; height: 80px;"] -< [
-                            Div [Class "text-center"] -< [
-                                H1 [Text "WebSharper Snippets"]
-                                P [Class "lead"; Style "padding-top: 10px;"] -< [Text "Snippets and examples of WebSharper code with live demos."]
-                                HR []
-                            ]
-                        ]
-                        Div [
-                            Div [
-                                HTML5.Section [Style "margin-bottom: 30px; width: 647px; margin-right: auto; margin-left: auto;"] -< [
-                                    new Search.Control()]
-//                                    Div [Class "form-search"] -< [
-//                                        Div [Class "input-append"] -< [
-//                                            Input [Id "query"]
-////                                            Button [Text "Search"; Attr.Type "button"; Attr.Class "btn btn-success"; Attr.Style "height: 50px; font-size: 20px;"]
-////                                            |>! OnClick (fun _ _ ->
-////                                                let q = inp.Value.Trim() |> encode
-////                                                Window.Self.Location.Href <- "/search/" + q + "/1")
-//                                        ]
-//                                    ]
-//                                ]
-                                Div [Style "height: 20px; width: 400px;"; Class "pull-right"] -< [new AddThis.Control()]
-                                HTML5.Section [Style "clear: both;"] -< [
-                                    yield Div [
-                                        H3 [Style "float: left;"] -< [Text "Latest snippets"]
-                                        A [HRef "/rss"] -< [Img [Src "/Images/feed-icon.png"; Alt "RSS Feed"; Style "padding: 15px;"]]
-                                    ]
-                                    yield Div [Style "clear: both;" ] -< [yield! snippets]
-                                    yield HR []
-                                ]
-                                HTML5.Section [Style "margin-bottom: 200px;"] -< [
-                                    yield H3 [Text "Tags"]
-                                    yield! tags
-                                ] 
-                            ]
-                        ]
-                    ]
-                ]
-                Shared.footer
-            ]
+        withTemplate<Action>
+            Templates.home
+            "WebSharper Snippets"
+            "WebSharper code examples featuring live demos."
+            (fun ctx -> HomeUtils.body)
+            Content.footer
 
     let about =
-        withMainTemplate About.title About.metaDescription <| fun ctx ->
-            [
-                About.navigation
-                Div [new Forkme.Control()]
-                Div [Id "wrap"] -< [
-                    Div [Class "container"; Style "width: 1000px; padding-top: 100px;"] -< [
-                        HTML5.Header [H1 [Text "About"]]
-                        P [
-                            Text "This application is built with "
-                            A [HRef "http://www.websharper.com/"; Target "_blank"] -< [Text "WebSharper"]
-                            Text " by "
-                            A [HRef "http://taha-hachana.apphb.com/"; Target "_blank"] -< [Text "Taha Hachana"]
-                            Text " in the hope that it would be useful for WebSharper developers both beginners and experienced ones. The code shared on this website is written in a fashion that lets you easily use it in your applications."
-                        ]
-                        P [
-                            Text "The majority of the snippets should also render smoothly inside "
-                            A [HRef "#"; Target "_blank"] -< [Text "CloudSharper"]
-                            Text "'s FSI with little or no modification."
-                        ]
-                    ]
-                ]
-                Shared.footer
-            ]
+        withTemplate<Action>
+            Templates.about
+            "About WebSharper Snippets"
+            "WebSharper demos application built and maintained by Taha Hachana." 
+            (fun ctx -> Div [])
+            Content.footer
 
-    let login (redirectAction: Action option) =
-        withMainTemplate "Login" "" <| fun ctx ->
-            let redirectLink =
-                match redirectAction with
-                | Some action -> action
-                | None        -> Action.Admin
-                |> ctx.Link
-            [
-                Shared.navigation
-                Div [Id "wrap"] -< [
-                    Div [Class "container"; Style "width: 1000px; padding-top: 100px;"] -< [
-                        Div [new Login.Control(redirectLink)]
-                    ]
-                ]
-                Shared.footer
-            ]
+    let login actionOption =
+        withTemplate
+            Templates.login
+            "Login"
+            ""
+            (fun ctx -> LoginUtils.body actionOption ctx)
+            Content.footer
 
     let admin =
-        withMainTemplate "Admin" "" <| fun ctx ->
-            [
-                Shared.navigation
-                Div [Id "main"] -< [
-                    Div [Class "container"; Style "width: 1200px; padding-top: 10px;"] -< [
-                        loginInfo' ctx
-                        Div [Style "margin-top: 80px;"] -< [
-                            Div [Class "row"] -< [
-                                Div [Class "span6"] -< [
-                                    H3 [Text "Insert a new snippet"]
-                                    Div [new InsertSnippet.Control()]
-                                ]
-                                Div [Class "span6"] -< [
-                                    H3 [Text "Index a new snippet"]
-                                    Div [new Index.Control()]
-                                ]
-                            ]
-                        ]
-                    ]
-                ]
-            ]
+        withTemplate
+            Templates.admin
+            "Admin"
+            ""
+            (fun ctx -> AdminUtils.body ctx)
+            Content.footer
 
     let error =
-        withMainTemplate "Error · Page Not Found" "" <| fun ctx ->
-            [
-                Shared.navigation
-                Div [Id "wrap"] -< [
-                    Div [Class "container"; Style "width: 1000px; padding-top: 100px;"] -< [
-                        Div [Style "margin-top: 80px;"] -< [
-                            H3 [Text "Page Not Found"]
-                            P [Text "The requested URL doesn't exist."]
-                        ]
-                    ]
-                ]
-                Shared.footer
-            ]
+        withTemplate<Action>
+            Templates.error
+            "Error · Page Not Found"
+            ""
+            (fun ctx -> Div [])
+            Content.footer
 
     let snippet id =
-        let snip = Mongo.Snippets.byId id
-        let title, metaDesc, desc, tags = snip.Title, snip.MetaDesc, snip.DescHtml, snip.Tags
-//        let title, metaDesc, desc, tags, control = Controls.hashset |> Seq.find (fun x -> x.Id = id) |> fun x -> x.Title, x.MetaDesc, x.Description, x.Tags, x.Control
-        let title' = title + " · WebSharper Snippets"
-        let desc' = Element.VerbatimContent desc
-        let path = HttpContext.Current.Server.MapPath <| "~/Source/" + string id + ".txt"
-        let source = File.ReadAllText path
-        let elt = Element.VerbatimContent source
-        let btns = tags |> Array.map (fun x ->
-            let href = "/tagged/" + x.ToLower() //HttpUtility.UrlEncode(x.ToLower())
-            A [HRef href] -< [Button [Class "btn btn-success"; Style "margin: 5px;"] -< [Text x]])
-        withMainTemplate title' metaDesc <| fun ctx ->
-            [
-                Shared.navigation
-                Div [new Forkme.Control()]                
-                Div [Id "wrap"] -< [
-                    Div [Class "container"; Style "width: 1000px; padding-top: 100px;"] -< [
-                        Div [Id "snippet-details"] -< [
-                            H1 [Text title]
-                            desc'
-                        ]
-                        Div [Class "pull-right"; Style "height: 30px; width: 400px;"] -< [new AddThis.Control()]
-
-                        Div [Style "height: 500px;"] -< [
-                            Div [Class "tabbable"] -< [
-                                UL [Class "nav nav-tabs"] -< [
-                                    LI [Class "active"] -< [A [HRef "#demo"; HTML5.Data "toggle" "tab"] -< [Text "Demo"]]
-                                    LI [A [HRef "#source"; HTML5.Data "toggle" "tab"] -< [Text "Source"]]
-                                ]
-                                Div [Class "tab-content"; Style "height: 450px;"] -< [
-                                    Div [Class "tab-pane active"; Id "demo"] -< [IFrame [Src <| "/newpage/" + string id; NewAttribute "seamless" "seamless"; Style "width: 100%; height: 440px; border: none;"]]
-                                    Div [Class "tab-pane"; Id "source"] -< [elt]
-                                ]
-                            ]
-                        ]
-                        HTML5.Section [Style "min-height: 300px;"] -< [
-                            H3 [Text "Tags"]
-                            Div [yield! btns]
-                        ]        
-                    ]
-                    Script [Src "/Scripts/BootstrapTabs.min.js"]
-                ]
-                Shared.footer
-            ]
-
+        let snippet = Mongo.Snippets.byId id
+        withTemplate
+            Templates.snippet
+            (SnippetUtils.title snippet)
+            snippet.MetaDesc
+            (fun ctx -> SnippetUtils.body snippet id)
+            Content.footer
+                                       
     let highlight =
-        withMainTemplate "" "" <| fun ctx ->
-            [
-                Shared.navigation
-                Div [Id "wrap"] -< [
-                    Div [Class "container"; Style "width: 1000px; padding-top: 100px;"] -< [
-                        H3 [Text "F# Code"]
-                        TextArea [Id "code-textarea"; Style "overflow: scroll; word-wrap: normal; height: 300px;"; Class "span10"; HTML5.SpellCheck "false"]
-                        Div [Style "padding: 10px 0px 10px 0px; padding-left: 0px"] -< [
-                            Div [new Highlight.Control()]
-                            Div [Img [Style "padding-top: 10px; visibility: hidden;"; Src "Images/Loader.gif"; Id "loader"]]
-                        ]
-                        Div [Style "height: 500px; margin-bottom: 50px;"] -< [
-                            Div [Class "tabbable"] -< [
-                                UL [Class "nav nav-tabs"] -< [
-                                    LI [Class "active"] -< [A [HRef "#html"; HTML5.Data "toggle" "tab"] -< [Text "HTML"]]
-                                    LI [A [HRef "#html-preview"; HTML5.Data "toggle" "tab"] -< [Text "HTML Preview"]]
-                                ]
-                                Div [Class "tab-content"] -< [
-                                    Div [Class "tab-pane active"; Id "html"] -< [TextArea [Id "html-textarea"; Style "overflow: scroll; word-wrap: normal; height: 300px;"; Class "span10"; HTML5.SpellCheck "false"]]
-                                    Div [Class "tab-pane"; Id "html-preview"; Style "height: 300px;"]
-                                ]
-                            ]
-                        ]
-                    ]
-                    Script [Src "/Scripts/BootstrapTabs.min.js"]
-                ]
-                Shared.footer
-            ]
+        withTemplate<Action>
+            Templates.highlight
+            ""
+            ""
+            (fun ctx -> HighlightUtils.body)
+            Content.footer
 
     let tagged tag =
         let tag' = HttpUtility.UrlDecode tag |> fun x -> x.ToUpper()
-        let title = "Snippets Tagged " + tag'
-        let metaDesc = "WebSharper code snippets and examples tagged " + tag' + "."
-        let divs =
-            Snippets.hasTag tag'
-            |> Seq.toList
-            |> split 2
-            |> List.map (fun lst ->
-                match lst with
-                    | [snip] ->
-                        Div [Class "row"; Style "margin-bottom: 20px;"] -< [
-                            Div [Class "span4"] -< [
-                                H4 [A [HRef <| "/snippet/" + snip.SnipId.ToString()] -< [Text snip.Title]]
-                                P [Text snip.Desc]
-                            ]
-                        ]
-                    | _ ->
-                        let snip = lst.[0]
-                        let snip' = lst.[1]
-                        Div [Class "row"; Style "margin-bottom: 20px;"] -< [
-                            Div [Class "span4"] -< [
-                                H4 [A [HRef <| "/snippet/" + snip.SnipId.ToString()] -< [Text snip.Title]]
-                                P [Text snip.Desc]
-                            ]
-                            Div [Class "offset1 span4"] -< [
-                                H4 [A [HRef <| "/snippet/" + snip'.SnipId.ToString()] -< [Text snip'.Title]]
-                                P [Text snip'.Desc]
-                            ]
-                        ])
-        withMainTemplate title metaDesc <| fun ctx ->
-            [
-                Shared.navigation
-                Div [new Forkme.Control()]
-                Div [Id "wrap"] -< [
-                    Div [Class "container"; Style "width: 1000px; padding-top: 100px;"] -< [
-                        Div [
-                            HTML5.Header [
-                                H1 [Text <| "Snippets tagged \"" + tag' + "\""]
-                            ]
-                        ]
-                        UL [Style "margin-bottom: 200px;"] -< [yield! divs]
-                    ]
-                ]
-                Shared.footer
-            ]
+        withTemplate
+            Templates.tagged
+            ("Snippets Tagged " + tag')
+            ("WebSharper code snippets and examples tagged " + tag' + ".")
+            (fun ctx -> TaggedUtils.body tag')
+            Content.footer
 
-    let extjs id =
-        let control = Controls.hashset'' |> Seq.find (fun x -> x.Id = id) |> fun x -> x.Control
-        ExtjsSkin.withTemplate
-            [
-                Div [control]
-            ]
-    
-    let search q pageId =
-        let q' = HttpUtility.UrlDecode q
-        let matches, results = Search.Server.results q' ((pageId - 1) * 5)
-        let div =
-            match results.Length with
-                | 0 -> Div [Text "The query did not match any documents."]
-                | _ ->
-                let results' =
-                    match results.Length with
-                        | l when l < 6 -> results
-                        | _ -> results.[(pageId - 1) ..] |> Seq.truncate 5 |> Seq.toArray
-                let pages = matches / 5. |> ceil |> int |> fun x -> [|1 .. x|] 
-                let pages' =
-                    match pages.Length with
-                    | l when l < 11 -> pages
-                    | _ -> pages.[(pageId - 5) .. ] |> Seq.truncate 5 |> Seq.toArray
-                let lis =
-                    results' //.[(pageId - 1) .. (pageId + 3)]
-                    |> Array.map (fun (id, title, desc) ->
-                        let desc' =
-                            match desc.Length with
-                                | length when length < 150 -> desc
-                                | _ -> desc.[..147] + "..."
-                        LI [Style "margin-bottom: 25px;"] -< [
-                            A [HRef <| "/snippet/" + id; Style "font-size: large;"] -< [Element.VerbatimContent title]
-                            Div [Text desc']
-                        ])
-                let ul = UL [Class "unstyled span8"; Style "min-height: 450px;"] -< [yield! lis]
-                let pagination =
-                    match pages.Length with
-                        | 1 -> Div []
-                        | _ ->
-                            let prev =
-                                match pageId with
-                                    | 1 -> LI [Class "disabled"] -< [A [HRef "#"] -< [Text "«"]]
-                                    | _ -> LI [A [HRef <| "/search/" + q + "/" + string (pageId - 1)] -< [Text "«"]]
-                            let next =
-                                match pageId with
-                                    | _ when pageId = pages.Length -> LI [Class "disabled"] -< [A [HRef "#"] -< [Text "»"]]
-                                    | _ -> LI [A [HRef <| "/search/" + q + "/" + string (pageId + 1)] -< [Text "»"]]
-                            Div [Class "pagination pagination-centered"; Style "clear: left;"] -< [
-                                UL [
-                                    yield prev
-                                    let lis = pages' |> Array.map (fun x ->
-                                        match x with
-                                            | _ when x = pageId -> LI [Class "active"] -< [A [HRef <| "/search/" + q + "/" + string x] -< [Text <| string x]]
-                                            | _ -> LI [A [HRef <| "/search/" + q + "/" + string x] -< [Text <| string x]])
-                                    yield! lis
-                                    yield next
-                                ]
-                            ]
-                Div [ul; pagination]
-        withMainTemplate "" "" <| fun ctx ->
-            [
-                Shared.navigation
-                Div [new Forkme.Control()]
-                Div [Id "wrap"] -< [
-                    Div [Class "container"; Style "width: 1000px; padding-top: 100px; padding-bottom: 200px;"] -< [
-                        Div [Class "pull-down"] -< [
-                            HTML5.Header [
-                                H1 [Text "Search Results"]
-                            ]
-                        ]
-                        div
-                    ]
-                ]
-                Shared.footer
-            ]
+    let search queryStr pageId =
+        let queryStr' = HttpUtility.UrlDecode queryStr
+        let matches, results = Search.Server.results queryStr' ((pageId - 1) * 5)
+        withTemplate
+            Templates.search
+            ""
+            ""
+            (fun ctx -> SearchUtils.body results pageId matches queryStr)
+            Content.footer
 
     let rss : Content<Action> =
         let feed = Rss.rssFeed()
@@ -415,5 +487,10 @@ module Views =
                     tw.WriteLine feed
             }
 
-
-
+//    let extjs id =
+//        let control = Controls.hashset'' |> Seq.find (fun x -> x.Id = id) |> fun x -> x.Control
+//        ExtjsSkin.withTemplate
+//            [
+//                Div [control]
+//            ]
+//

@@ -25,8 +25,6 @@ module Site =
             Router     = router
         }
 
-//    let Main' = Sitelet.Sum [site; Main]
-
 type Website() =
     interface IWebsite<Action> with
         member this.Sitelet = Sitelet.Sum [NewPage.main; Site.main]

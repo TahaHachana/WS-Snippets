@@ -13,9 +13,6 @@ module Controls =
     open IntelliFactory.WebSharper.Html5
     open IntelliFactory.WebSharper.Google.Visualization
     open IntelliFactory.WebSharper.Google.Visualization.Base
-
-//    open IntelliFactory.WebSharper.JQuery
-//    open IntelliFactory.WebSharper.JQueryUI
     open TweetSharp
 
     type Snippet =
@@ -40,71 +37,58 @@ module Controls =
 
     // Hello world snippet.
     module Snippet1 =
-        [<JavaScript>]
-        module private Client =
 
-            // Displays a greeting.
-            [<JavaScript>]
-            let main() =
-                let greeting = "Hello World!"
-                // Append an <h2> tag containing the greeting text to the DOM.
-                H2 [Text greeting]
-
+        /// Appends a heading containing a greeting to the DOM.
         type Control() =
             inherit Web.Control()
 
             [<JavaScript>]
-            override __.Body = Client.main() :> _
-
+            override __.Body = H2 [Text "Hello World!"] :> _
+            
     // HTML5 logo on canvas snippet.
     module Snippet2 =
-        // Client side code.    
+    
+        /// Client-side code.    
         [<JavaScript>]
         module private Client =
-            open IntelliFactory.WebSharper.Html
-            open IntelliFactory.WebSharper.Html5
 
-            // Draws a shape formed by lines that join a list of coordinates.
-            [<JavaScript>]
+            /// Draws a shape formed by sub-paths that join a list of coordinates.
             let drawShape (ctx : CanvasRenderingContext2D) style moveTo coords =
                 ctx.FillStyle <- style
                 ctx.BeginPath()
                 ctx.MoveTo moveTo
-                coords |> List.iter (fun (x, y) -> do ctx.LineTo(x, y))
-                do ctx.ClosePath()
-                do ctx.Fill()
+                List.iter (fun (x, y) -> ctx.LineTo(x, y)) coords
+                ctx.ClosePath()
+                ctx.Fill()
 
-            // Draws the shapes that form the HTML5 logo.
-            [<JavaScript>]
+            /// Draws the shapes that form the HTML5 logo.
             let drawLogo (ctx : CanvasRenderingContext2D) =
-                // Draw the "HTML" text.
+                // HTML
                 ctx.Font <- "60px 'Gill Sans Ultra Bold'"
                 ctx.FillText("HTML", 40., 60.)
-                // Move down.
+                // move down
                 ctx.Translate(0., 70.)
-                // Draw the background.
+                // background
                 drawShape ctx "#E34C26" (44., 255.) [(22.0, 5.0); (267.0, 5.0); (244.0, 255.0); (144.0, 283.0)]
-                // Draw the shield-shaped right part.
+                // shield-shaped right part
                 drawShape ctx "#F06529" (144., 262.) [(225.0, 239.0); (244.0, 25.0); (144.0, 25.0)]
-                // Draw the 5.
+                // 5
                 drawShape ctx "#EBEBEB" (144., 118.) [(103.0, 118.0); (101.0, 87.0); (144.0, 87.0); (144.0, 56.0); (67.0, 56.0); (75.0, 149.0); (144.0, 149.0)]
                 drawShape ctx "#EBEBEB" (144., 198.) [(110.0, 189.0); (108.0, 164.0); (77.0, 164.0); (81.0, 212.0); (144.0, 230.0)]
                 drawShape ctx "#FFFFFF" (144., 118.) [(144.0, 149.0); (182.0, 149.0); (178.0, 189.0); (144.0, 198.0); (144.0, 230.0); (207.0, 212.0); (215.0, 118.0)]
                 drawShape ctx "#FFFFFF" (144., 56.) [(144.0, 87.0); (218.0, 87.0); (221.0, 56.0)]
 
-            // Draws the HTML5 logo on canvas.
-            [<JavaScript>]
+            /// Draws the HTML5 logo on canvas.
             let main() =
-                let elt = HTML5.Tags.Canvas [Text "The canvas tag isn't supported by your browser."]
-                do elt.SetStyle "border: 1px solid;"
+                let elt = HTML5.Tags.Canvas []
                 let canvas  = As<CanvasElement> elt.Dom
                 canvas.Height <- 400
                 canvas.Width <- 600
                 let ctx = canvas.GetContext "2d"
-                do drawLogo ctx
+                drawLogo ctx
                 elt
 
-        // A control for serving the main pagelet.
+        /// A control for serving the main pagelet.
         type Control() =
             inherit Web.Control()
 
@@ -112,36 +96,43 @@ module Controls =
             override __.Body = Client.main() :> _
 
     module Snippet3 =
-        // Client side code.
+
+        /// Client-side code.
         [<JavaScript>]
         module Client =
-            // Creates a <tr> element containing two <td> tags.
-            let tr td td' = TR [TD [Text td]; TD [Text td']]
 
-            // Displays the properties of the location object in a table.
-            let main() =
-                let location = Window.Self.Location
-                Table [Attr.Class "table table-bordered table-striped"; Attr.Style "width: 700px;"] -< [
-                    // Table headers.
-                    TR [TH [Text "Property"] ; TH [Text "Value"]]
-                    // Table row for each property.
-                    tr "Hash"     location.Hash
-                    tr "Host"     location.Host
-                    tr "Hostname" location.Hostname
-                    tr "Href"     location.Href
-                    tr "Pathname" location.Pathname
-                    tr "Port"     location.Port
-                    tr "Protocol" location.Protocol
-                    tr "Search"   location.Search
+            /// Creates a <tr> element containing two <td> tags.
+            let tr td td' =
+                TR [
+                    TD [Text td]
+                    TD [Text td']
                 ]
 
-        // A control for serving the main pagelet.
+            /// Displays the properties of the location object in a table.
+            let main() =
+                let location = Window.Self.Location
+                Div [Attr.Class "table-responsive"] -< [
+                    Table [Attr.Class "table table-striped"; Id "location-table"] -< [
+                        // table headers
+                        TR [TH [Text "Property"] ; TH [Text "Value"]]
+                        // table row for each property
+                        tr "Hash"     location.Hash
+                        tr "Host"     location.Host
+                        tr "Hostname" location.Hostname
+                        tr "Href"     location.Href
+                        tr "Pathname" location.Pathname
+                        tr "Port"     location.Port
+                        tr "Protocol" location.Protocol
+                        tr "Search"   location.Search
+                    ]
+                ]
+
+        /// A control for serving the main pagelet.
         type Control() =
             inherit Web.Control()
 
             [<JavaScript>]
             override __.Body = Client.main() :> _
-
 
     module Snippet4 =
 
@@ -169,26 +160,25 @@ module Controls =
                     ScreenName = screenName
                 }
 
-        type SearchResults = Failure | Success of Tweet list
+        type SearchResult = Failure | Success of Tweet list
 
+        /// Server-side code.
         module private Server =
-            open TweetSharp
-            open System
 
-            // Twitter authentication.
+            // Twitter authentication
             let ts = TwitterService(Secret.consKey, Secret.consSecret)
             ts.AuthenticateWith(Secret.token, Secret.tokenSecret)
 
-            // Set search options.
+            // search options
             let options = SearchOptions()
             options.Q <- "#fsharp"
             options.Count <- Nullable 100
 
-            // Searches the latest 100 tweets tagged "fsharp".
+            /// Returns the latest 100 "#fsharp" tweets.
             [<Rpc>]
             let fetchTweets() =
                 async {
-                    let searchResults =
+                    let searchResult =
                         try
                             ts.Search(options).Statuses
                             |> Seq.toList
@@ -202,14 +192,14 @@ module Controls =
                                     status.Author.ScreenName)
                             |> Success
                         with _ -> Failure
-                    return searchResults }
+                    return searchResult }
 
+        /// Client-side code.
         [<JavaScript>]
         module private Client =
-            open IntelliFactory.WebSharper.Html
             open IntelliFactory.WebSharper.JQuery
 
-            // Creates an <li> containing the details of a tweet (screen name, creation date...).
+            /// Creates an <li> containing the details of a tweet (screen name, creation date...).
             let li tweet =
                 let id = tweet.Id
                 let name = tweet.Name
@@ -220,7 +210,7 @@ module Controls =
                 let favoriteLink = "https://twitter.com/intent/favorite?tweet_id=" + id
                 let p = P []
                 p.Html <- tweet.Html
-                LI [Attr.Class "tweet"] -< [
+                LI [Attr.Class "list-group-item"] -< [
                     Div [
                         A [HRef profileLink; Attr.Class "profile-link"; Attr.Target "_blank"] -< [
                             Img [Src tweet.Avatar; Alt name; Attr.Class "avatar"]
@@ -237,67 +227,80 @@ module Controls =
                     ]
                 ]
 
-            // Toggles the visibility of the reply, retweet and favorite links.
+            /// Toggles the visibility of the reply, retweet and favorite links.
             let toggleActionsVisibility() =
-                let jquery = JQuery.Of ".tweet"
+                let jquery = JQuery.Of ".list-group-item"
                 jquery.Mouseenter(fun x _ -> JQuery.Of(".tweet-actions", x).Css("visibility", "visible").Ignore).Ignore
                 jquery.Mouseleave(fun x _ -> JQuery.Of(".tweet-actions", x).Css("visibility", "hidden").Ignore).Ignore
 
-            // Opens the reply, retweet and favorite links in a modal dialog.
+            /// Opens the reply, retweet and favorite links in a modal dialog.
             let handleTweetActions() =
                 let jquery = JQuery.Of "a.tweet-action"
                 jquery.Click(fun elt event ->
-                    do event.PreventDefault()
+                    event.PreventDefault()
                     let href = elt.GetAttribute "href"
                     Html5.Window.Self.ShowModalDialog href |> ignore).Ignore
 
-            // Appends a <div> containing a list of tweets to the DOM.
+            /// Appends a <div> containing a list of tweets to the DOM.
             let main() =
-                Div [Id "tweets"; Attr.Class "span6"]
+                Div [Attr.Id "tweets"]
                 |>! OnAfterRender (fun elt ->
                     async {
                         let! searchResults = Server.fetchTweets()
                         match searchResults with
                             | Failure -> JavaScript.Alert "Failed to fetch the latest tweets."
                             | Success tweets ->
-                                let ul = UL [Attr.Style "list-style-type: none;"]
-                                tweets |> List.iter (fun tweet -> do ul.Append (li tweet))
-                                do elt.Append ul
-                                do toggleActionsVisibility()
-                                do handleTweetActions() }
+                                let ul = UL [Attr.Class "list-group"; Attr.Id "tweets-ul"]
+                                tweets |> List.iter (fun tweet -> ul.Append (li tweet))
+                                elt.Append ul
+                                toggleActionsVisibility()
+                                handleTweetActions() }
                     |> Async.Start)
 
+        /// A control for serving the main pagelet.
         type Control() =
             inherit Web.Control()
- 
+
             [<JavaScript>]
-            override __.Body = Client.main() :> _
+            override this.Body = Client.main() :> _
 
     module Snippet5 =
-        // Client-side code.
+
+        /// Client-side code.
         [<JavaScript>]
         module private Client =
-            // Logs messages to the console.
+
+            /// Creates an input element.
+            let inputElt _ =
+                Input [
+                    Attr.Class "form-control"
+                    Attr.Type "text"
+                    Attr.Value "Hello console!"
+                    HTML5.Attr.AutoFocus "autofocus"
+                ]
+
+            /// Creates a button that logs the value
+            /// of the specified element when clicked.
+            let logBtn (elt:Element) =
+                Button [
+                    Attr.Class "btn btn-primary"
+                    Attr.Type "button"
+                ]
+                -- Text "Log"
+                |>! OnClick (fun _ _ -> JavaScript.Log elt.Value)
+        
             let main() =
-                let input =
-                    Input [
-                        Attr.Value "Hello console!"
-                        Attr.Type "text"
-                        HTML5.Attr.AutoFocus "autofocus"
-                    ]
-                let btn =
-                    Button [Text "Log"; Attr.Class "btn btn-primary"; Attr.Type "button"]
-                    |>! OnClick (fun _ _ -> JavaScript.Log input.Value)
-                Div [Attr.Class "span5"] -< [
+                let input = inputElt ()
+                Div [Attr.Id "console-log"] -< [
                     Legend [Text "Log messages to the console"]
-                    FieldSet [
+                    FieldSet [Attr.Class "form-group"] -< [
                         Label [Text "Message"]
                         input
                     ]
-                    btn
-                ]    
+                    logBtn input
+                ]
 
-        // A control for serving the main pagelet.
+        /// A control for serving the main pagelet.
         type Control() =
             inherit Web.Control()
 
@@ -306,17 +309,17 @@ module Controls =
 
     module Snippet6 =
 
-        // Client-side code.
+        /// Client-side code.
         [<JavaScript>]
         module Client =
 
-            // Sets the text content of the element with the specified id.
+            /// Sets the text content of the element with the specified id.
             let setText id txt = Document.Current.GetElementById(id).TextContent <- txt
 
-            // Performs conversion to string and replaces the JS null with NA.
+            /// Performs conversion to string and replaces the JS null with NA.
             let toStr f = f.ToString() |> function "null" -> "NA" | x -> x
 
-            // Displays the properties of a position.
+            /// Displays the properties of a position object.
             let display (p : Position) =
                 let coords = p.Coords
                 setText "longitude" <| coords.Longitude.ToString()
@@ -328,34 +331,36 @@ module Controls =
                 setText "speed"     <| toStr coords.Speed
                 setText "timestamp" <| p.Timestamp.ToString()
 
-            // Calls getCurrentPosition asynchronously.
+            // Calls the getCurrentPosition method asynchronously.
             let getPosition() =
                 async {
                     Window.Self.Navigator.Geolocation.GetCurrentPosition display }
 
-            let tr thTxt tdId = TR [TH [Text thTxt]; TD [Attr.Id tdId; Attr.Style "width: 250px;"]]
+            let tr thTxt tdId = TR [TH [Text thTxt]; TD [Attr.Id tdId]]
 
-            // Tracks the position of the user and displays its properties in a table.
+            /// Tracks the position of the user and displays its properties in a table.
             let main() =
-                Div [Attr.Class "span6"] -< [
-                    Table [Attr.Class "table table-striped table-bordered"] -< [
-                        tr "Longitude"         "longitude"
-                        tr "Latitude"          "latitude"
-                        tr "Altitude"          "altitude"
-                        tr "Accuracy"          "accuracy"
-                        tr "Altitude Accuracy" "alt-acc"
-                        tr "Heading"           "heading"
-                        tr "Speed"             "speed"
-                        tr "Time Stamp"        "timestamp"
+                Div [
+                    Tags.Style [Text "td {width: 200px;}"]
+                    Div [Attr.Class "table-responsive"] -< [
+                        Table [Attr.Class "table table-bordered"; Attr.Id "geolocation-table"] -< [
+                            tr "Longitude"         "longitude"
+                            tr "Latitude"          "latitude"
+                            tr "Altitude"          "altitude"
+                            tr "Accuracy"          "accuracy"
+                            tr "Altitude Accuracy" "alt-acc"
+                            tr "Heading"           "heading"
+                            tr "Speed"             "speed"
+                            tr "Time Stamp"        "timestamp"
+                        ]
                     ]
-                    Button [Text "Track My Location"; Attr.Class "btn btn-primary btn-large"]
+                    Button [Text "Track My Location"; Attr.Class "btn btn-primary"]
                     |>! OnClick (fun _ _ ->
-                        async {
-                            do! getPosition() }
+                        async { do! getPosition() }
                         |> Async.Start)
                 ]
     
-        // A control for serving the main pagelet.                
+        /// A control for serving the main pagelet.                
         type Control() =
             inherit Web.Control()
  
@@ -435,23 +440,25 @@ module Controls =
                 handleEvents ws disconnectBtn sendBtn
 
             let main() =
-                let msgText = TextArea [Text "Hello WebSocket"; Attr.Id "msg"]
+                let msgText = TextArea [Text "Hello WebSocket"; Attr.Id "msg"; Attr.Class "form-control"]
                 let logDiv = Div [Attr.Id "ws-log"]
                 Div [Attr.Class "row"] -< [
-                    Div [Attr.Class "span4"] -< [
+                    Div [Attr.Class "col-lg-4"; Attr.Id "ws-col-1"] -< [
                         Div [Attr.Style "margin-bottom: 10px;"; Attr.Id "btns"] -< [
                             Button [Text "Connect"; Attr.Id "connect-btn"; Attr.Class "btn btn-success"; Attr.Style "margin-right: 10px;"]
                             |>! OnClick (fun _ _ -> connect msgText)
                         ]
-                        Label [Text "Message:"; Attr.Style "font-weight: bold;"]
-                        msgText
+                        Div [Attr.Class "form-group"] -< [
+                            Label [Text "Message:"; Attr.Style "font-weight: bold;"]
+                            msgText
+                        ]
                         Div [Attr.Id "send-btn"]
                     ]
-                    Div [Attr.Class "span5"; Attr.Style "border-left: 1px solid lightgray;"] -< [
+                    Div [Attr.Class "col-lg-5"; Attr.Style "border-left: 1px solid lightgray;"; Attr.Id "ws-col-1"] -< [
                         Div [Attr.Style "margin-left: 20px;"] -< [
                             Label [Text "Log:"; Attr.Style "font-weight: bold;"]
                             logDiv
-                            Button [Text "Clear"; Attr.Style "margin-top: 10px;"; Attr.Class "btn"]
+                            Button [Text "Clear"; Attr.Style "margin-top: 10px;"; Attr.Class "btn btn-default"]
                             |>! OnClick (fun _ _ -> logDiv.Html <- "")
                         ]
                     ]
@@ -502,7 +509,7 @@ module Controls =
             let factFold n = Array.fold (*) 1  [|1 .. n|]
 
             let main() =
-                let input = Input [Attr.Type "text"; HTML5.Attr.AutoFocus "autofocus"]
+                let input = Input [Attr.Type "text"; HTML5.Attr.AutoFocus "autofocus"; Attr.Class "form-control"; Attr.Id "factorial"]
                 let recSpan = Span []
                 let foldSpan = Span []
                 let button =
@@ -572,7 +579,7 @@ module Controls =
                 let oldNum, num, op = ref 0, ref 0, ref None
             
                 /// Calculator display screen.
-                let display = Input [Attr.Type "text"; Attr.Value "0"]
+                let display = Input [Attr.Type "text"; Attr.Value "0"; Attr.Class "form-control"; Attr.Id "display"]
 
                 /// Updates the claculator display screen.
                 let updateDisplay() = display.Value <- string !num
@@ -730,7 +737,7 @@ module Controls =
 
             let main() =
                 let output = Div [Attr.Style "margin-top: 8px;"]
-                let input = Input [Attr.Type "text"; HTML5.Attr.AutoFocus "autofocus"]
+                let input = Input [Attr.Type "text"; HTML5.Attr.AutoFocus "autofocus"; Attr.Class "form-control"; Attr.Id "display"]
                 Div [Attr.Class "form-inline"] -< [
                     input
                     Button [Text "MD5"; Attr.Class "btn btn-primary"; Attr.Style "margin-left: 8px;"]
@@ -906,7 +913,7 @@ module Controls =
 
             /// Draws a clock on a <canvas> and starts the updates loop.
             let main() =
-                let elt = HTML5.Tags.Canvas []
+                let elt = HTML5.Tags.Canvas [Attr.Id "clock"]
                 let canvas  = As<CanvasElement> elt.Dom
                 canvas.Width <- 150
                 canvas.Height <- 150
@@ -949,7 +956,7 @@ module Controls =
                 let tabs =
                     List.map tab [1 .. 3]
                     |> JQueryUI.Tabs.New
-                Div [Attr.Class "span10"] -< [
+                Div [
                     tabs :> IPagelet
                     Div [Attr.Style "margin-top: 8px;"] -< [
                         addTabBtn tabs
@@ -1017,7 +1024,7 @@ module Controls =
         
             /// Wraps an <img> element inside a div.
             let imgDiv img =
-                Div [Attr.Class "span3 cat-img-div"; Attr.Style "width: auto;"]
+                Div [Attr.Class "col-lg-3 cat-img-div"; Attr.Style "width: auto;"]
                 -< [img]
 
             /// Assigns the id of a dragged element to the specified reference cell.
@@ -1136,8 +1143,8 @@ module Controls =
                             options)
                     }
 
-                Div [Attr.Class "span6"] -< [
-                    Table [Attr.Class "table table-striped table-bordered"] -< [
+                Div [Attr.Class "table-responsive"] -< [
+                    Table [Attr.Class "table table-bordered"; Attr.Id "geolocation-table"] -< [
                         tr "Longitude"         "longitude"
                         tr "Latitude"          "latitude"
                         tr "Altitude"          "altitude"

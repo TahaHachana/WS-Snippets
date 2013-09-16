@@ -1,12 +1,126 @@
-﻿#forkme {
+﻿#main {
+    padding-top: 70px;
+}
+
+.jumbotron {
+    background-color: white;
+}
+
+#query {
+    border-radius: 6px 0 0 6px;
+}
+
+.snippet {
+    margin-bottom: 20px;
+}
+
+/*#forkme {
     position: fixed;
     top: 0;
     border: 0;
     right: 0;
-}
+}*/
 
 #snippet-details {
     margin-bottom: 20px;
+}
+
+#signin {
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+#push {
+    height: 60px;
+}
+
+#code-textarea, #html-textarea {
+    overflow: scroll;
+    word-wrap: normal;
+    height: 300px;
+    margin-bottom: 30px;
+}
+
+#loader {
+    padding-top: 10px;
+    visibility: hidden;
+}
+
+#highlight-tabs {
+    height: 500px;
+    margin-bottom: 50px;
+}
+
+#html-preview {
+    height: 300px;
+}
+
+.search-result-link {
+    font-size: large;
+}
+
+#source, #demo {
+    height: 450px;
+    overflow: auto;
+    padding-top: 10px;
+}
+
+#demo-tabs {
+    height: 500px;
+}
+
+#tags-div {
+    margin-top: 100px;
+}
+
+#search-control {
+    height: 50px;
+}
+
+#addthis-control {
+height: 30px;
+}
+
+.container .credit {
+    margin: 20px 0;
+}
+
+canvas {
+    border: 1px solid;
+}
+
+#location-table {
+    width: 40%;
+}
+
+#console-log {
+    width: 400px;
+}
+
+#geolocation-table {
+    width: 500px;
+}
+
+#ws-col-1 {
+    width: 33.33333333333333%;
+    float: left;
+}
+
+#ws-col-2 {
+    width: 41.66666666666667%;
+    float: left;
+}
+
+#display {
+    width: 200px;
+}
+
+#factorial {
+    width: 100px;
+}
+
+#clock {
+    border: none;
 }
 
 /* Sticky footer styles */
@@ -15,33 +129,28 @@
 html,
 body {
     height: 100%;
+    /* The html and body elements cannot have any padding or margin. */
 }
 
+/* Wrapper for page content to push down footer */
 #wrap {
     min-height: 100%;
     height: auto !important;
     height: 100%;
-    margin: 0 auto -140px;
+    /* Negative indent footer by its height */
+    margin: 0 auto -200px;
+    /* Pad bottom by footer height */
+    padding: 0 0 200px;
 }
 
+/* Set the fixed height of the footer here */
 #footer {
-    height: 200px;
-    background-color: rgb(27, 27, 27);
+    height: 199px;
+    background-color: rgb(34, 34, 34);
     color: white;
 }
 
-
-@media (max-width: 767px) {
-    #footer {
-        margin-left: -20px;
-        margin-right: -20px;
-        padding-left: 20px;
-        padding-right: 20px;
-    }
-}
-
 /* Twitter widget styles */
-
 .avatar {
     float: left;
     margin-right: 10px;
@@ -54,24 +163,18 @@ body {
     text-decoration: none;
 }
 
-.tweet {
-    margin: 12px 12px 25px 12px;
-    border-bottom: 1px solid lightgrey;
-    clear: both;
-}
-
 #tweets {
     height: 400px;
     overflow-y: scroll;
-    border-top: 1px solid lightgrey;
-    border-left: 1px solid lightgrey;
-    border-top-left-radius: 6px;
-    border-bottom: 1px solid lightgrey;
-    border-bottom-left-radius: 6px;
+    width: 500px;
 }
 
 .tweet-actions {
     visibility: hidden;
+}
+
+#tweets-ul {
+    padding: 7px;
 }
 
 /* jQuery UI Autocomplete */
@@ -104,12 +207,11 @@ body {
 }
 
 .cat-img {
-    padding: 10px;
     cursor: move;
 }
 
 .cat-img-div {
-    border: 1px solid;
+    float: left;
 }
 
 #target-text {

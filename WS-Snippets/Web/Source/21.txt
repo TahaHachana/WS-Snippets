@@ -15,7 +15,7 @@
         
         <span class='fs-com'>/// Wraps an &lt;img&gt; element inside a div.</span>
         <span class='fs-key'>let </span>imgDiv img =
-            Div [Attr.Class <span class='fs-str'>"span3 cat-img-div"</span>]
+            Div [Attr.Class <span class='fs-str'>"col-lg-3 cat-img-div"</span>]
             -&lt; [img]
 
         <span class='fs-com'>/// Assigns the id of a dragged element to the specified reference cell.</span>

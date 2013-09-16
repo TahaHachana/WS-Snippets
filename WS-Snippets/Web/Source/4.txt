@@ -29,8 +29,8 @@
         <span class='fs-key'>open </span>System
 
         <span class='fs-com'>// Twitter authentication</span>
-        <span class='fs-key'>let </span>ts = TwitterService(<span class='fs-str'>"consumerKey"</span>, <span class='fs-str'>"consumerSecret"</span>)
-        ts.AuthenticateWith(<span class='fs-str'>"token"</span>, <span class='fs-str'>"tokenSecret"</span>)
+        <span class='fs-key'>let </span>ts = TwitterService(Secret.consKey, Secret.consSecret)
+        ts.AuthenticateWith(Secret.token, Secret.tokenSecret)
 
         <span class='fs-com'>// search options</span>
         <span class='fs-key'>let </span>options = SearchOptions()
@@ -74,7 +74,7 @@
             <span class='fs-key'>let </span>favoriteLink = <span class='fs-str'>"https://twitter.com/intent/favorite?tweet_id="</span> + id
             <span class='fs-key'>let </span>p = P []
             p.Html &lt;- tweet.Html
-            LI [Attr.Class <span class='fs-str'>"tweet"</span>] -&lt; [
+            LI [Attr.Class <span class='fs-str'>"list-group-item"</span>] -&lt; [
                 Div [
                     A [HRef profileLink; Attr.Class <span class='fs-str'>"profile-link"</span>; Attr.Target <span class='fs-str'>"_blank"</span>] -&lt; [
                         Img [Src tweet.Avatar; Alt name; Attr.Class <span class='fs-str'>"avatar"</span>]
@@ -93,7 +93,7 @@
 
         <span class='fs-com'>/// Toggles the visibility of the reply, retweet and favorite links.</span>
         <span class='fs-key'>let </span>toggleActionsVisibility() =
-            <span class='fs-key'>let </span>jquery = JQuery.Of <span class='fs-str'>".tweet"</span>
+            <span class='fs-key'>let </span>jquery = JQuery.Of <span class='fs-str'>".list-group-item"</span>
             jquery.Mouseenter(<span class='fs-key'>fun </span>x _ -&gt; JQuery.Of(<span class='fs-str'>".tweet-actions"</span>, x).Css(<span class='fs-str'>"visibility"</span>, <span class='fs-str'>"visible"</span>).Ignore).Ignore
             jquery.Mouseleave(<span class='fs-key'>fun </span>x _ -&gt; JQuery.Of(<span class='fs-str'>".tweet-actions"</span>, x).Css(<span class='fs-str'>"visibility"</span>, <span class='fs-str'>"hidden"</span>).Ignore).Ignore
 
@@ -107,14 +107,14 @@
 
         <span class='fs-com'>/// Appends a &lt;div&gt; containing a list of tweets to the DOM.</span>
         <span class='fs-key'>let </span>main() =
-            Div [Id <span class='fs-str'>"tweets"</span>; Attr.Class <span class='fs-str'>"span6"</span>]
+            Div [Attr.Id <span class='fs-str'>"tweets"</span>]
             |&gt;! OnAfterRender (<span class='fs-key'>fun </span>elt -&gt;
                 async {
                     <span class='fs-key'>let! </span>searchResults = Server.fetchTweets()
                     <span class='fs-key'>match </span>searchResults <span class='fs-key'>with
 </span>                        | Failure -&gt; JavaScript.Alert <span class='fs-str'>"Failed to fetch the latest tweets."</span>
                         | Success tweets -&gt;
-                            <span class='fs-key'>let </span>ul = UL [Attr.Style <span class='fs-str'>"list-style-type: none;"</span>]
+                            <span class='fs-key'>let </span>ul = UL [Attr.Class <span class='fs-str'>"list-group"</span>; Attr.Id <span class='fs-str'>"tweets-ul"</span>]
                             tweets |&gt; List.iter (<span class='fs-key'>fun </span>tweet -&gt; ul.Append (li tweet))
                             elt.Append ul
                             toggleActionsVisibility()

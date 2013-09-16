@@ -31,7 +31,7 @@ module Login =
 
         [<JavaScript>]
         let passInput =
-            Input [Attr.Type "password"; HTML5.Attr.PlaceHolder "password"]
+            Input [Attr.Type "password"; Attr.Class "form-control"; Attr.Id "password"]
             |>! OnKeyDown (fun _ keyCode ->
                 match keyCode.KeyCode with
                     | 13 -> JQuery.Of("#login-btn").Click().Ignore
@@ -39,22 +39,22 @@ module Login =
 
         [<JavaScript>]
         let loginForm (redirectUrl : string) =
-            let userInput = Input [Attr.Type "text"; HTML5.Attr.AutoFocus "autofocus"; HTML5.Attr.PlaceHolder "username"]
+            let userInput = Input [Attr.Type "text"; HTML5.Attr.AutoFocus "autofocus"; Attr.Class "form-control"; Attr.Id "username"]
             let submitBtn =
-                Button [Attr.Type "button"; Attr.Class "btn"; Id "login-btn"] -< [Text "Submit"]
+                Button [Attr.Type "button"; Attr.Class "btn btn-primary btn-block"; Id "login-btn"] -< [Text "Submit"]
                |>! OnClick (fun _ _ ->
                     async {
                         let! access = Server.login {Name = userInput.Value; Password = passInput.Value}
                         match access with
                             | Denied -> JavaScript.Alert "Login failed"
-                            | Granted -> Html5.Window.Self.Location.Href <- redirectUrl
+                            | Granted -> Html5.Window.Self.Location.Assign redirectUrl
                     } |> Async.Start)
-            Form [
-                FieldSet [
-                    Legend [Text "Login"]
-                    Label [Text "Username"]
+            Form [Attr.NewAttr "role" "form"; Attr.Id "signin"] -< [
+                H2 [Text "Please sign in"]
+                FieldSet [Attr.Class "form-group"] -< [
+                    Label [Text "Username"; Attr.For "username"]
                     userInput
-                    Label [Text "Password"]
+                    Label [Text "Password"; Attr.For "password"]
                     passInput
                 ]
                 FieldSet [

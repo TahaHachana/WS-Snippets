@@ -16,7 +16,7 @@
             <span class='fs-key'>let </span>oldNum, num, op = ref 0, ref 0, ref None
             
             <span class='fs-com'>/// Calculator display screen.</span>
-            <span class='fs-key'>let </span>display = Input [Attr.Type <span class='fs-str'>"text"</span>; Attr.Value <span class='fs-str'>"0"</span>]
+            <span class='fs-key'>let </span>display = Input [Attr.Type <span class='fs-str'>"text"</span>; Attr.Value <span class='fs-str'>"0"</span>; Attr.Class <span class='fs-str'>"form-control"</span>; Attr.Id <span class='fs-str'>"display"</span>]
 
             <span class='fs-com'>/// Updates the claculator display screen.</span>
             <span class='fs-key'>let </span>updateDisplay() = display.Value &lt;- string !num

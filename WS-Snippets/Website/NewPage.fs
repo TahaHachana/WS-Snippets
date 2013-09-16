@@ -6,14 +6,17 @@ module NewPage =
     open IntelliFactory.WebSharper.Sitelets
     open Controls
     open Model
+    open Skin
+    open Content
 
     let content control = 
-        Views.withMainTemplate "" "" <| fun ctx ->
-            [
-//                Div [Class "container"; Style "width: 1000px; overflow: hidden;"] -< [control]
-                Div [Style "overflow: hidden;"] -< [control]
-
-            ]
+        withTemplate
+            Views.Templates.newPage
+            ""
+            ""
+            (fun ctx -> Div [Style "overflow: hidden;"] -< [control])
+//            (fun ctx ->  [Div [control]])
+            (Div []) //Shared.footer
 
     let snippet1 = content <| new Snippet1.Control()
     let snippet2 = content <| new Snippet2.Control()

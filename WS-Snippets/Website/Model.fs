@@ -18,7 +18,7 @@ module Model =
         | [<CompiledName("snippet")>] Snippet of PageId
         | Highlight
         | [<CompiledName("tagged")>] Tagged of Tag
-        | [<CompiledName("extjs")>] Extjs of PageId
+//        | [<CompiledName("extjs")>] Extjs of PageId
         | [<CompiledName("search")>] Search of Query * PageId
         | Rss
         | NewPage of int

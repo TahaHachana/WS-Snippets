@@ -18,7 +18,7 @@
 
         <span class='fs-com'>/// Displays DOM implementation information in a table.</span>
         <span class='fs-key'>let </span>main() =
-            Table [Attr.Class <span class='fs-str'>"span9 table table-bordered table-striped"</span>] -&lt; [
+            Table [Attr.Class <span class='fs-str'>"table table-bordered table-striped"</span>] -&lt; [
                 TR [] -&lt; List.map th [<span class='fs-str'>"Level"</span>; <span class='fs-str'>"Core"</span>; <span class='fs-str'>"CSS"</span>; <span class='fs-str'>"Events"</span>; <span class='fs-str'>"HTML"</span>; <span class='fs-str'>"Selectors-API"</span>]
             ] -&lt; List.map tr [<span class='fs-str'>"1.0"</span>; <span class='fs-str'>"2.0"</span>; <span class='fs-str'>"3.0"</span>]
 

@@ -53,8 +53,8 @@
 
         <span class='fs-com'>/// Tracks the position of the user and displays its properties in a table.</span>
         <span class='fs-key'>let </span>main() =
-            Div [Attr.Class <span class='fs-str'>"span6"</span>] -&lt; [
-                Table [Attr.Class <span class='fs-str'>"table table-striped table-bordered"</span>] -&lt; [
+            Div [Attr.Class <span class='fs-str'>"table-responsive"</span>] -&lt; [
+                Table [Attr.Class <span class='fs-str'>"table table-bordered"</span>; Attr.Id <span class='fs-str'>"geolocation-table"</span>] -&lt; [
                     tr <span class='fs-str'>"Longitude"</span>         <span class='fs-str'>"longitude"</span>
                     tr <span class='fs-str'>"Latitude"</span>          <span class='fs-str'>"latitude"</span>
                     tr <span class='fs-str'>"Altitude"</span>          <span class='fs-str'>"altitude"</span>

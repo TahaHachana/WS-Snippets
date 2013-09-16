@@ -105,7 +105,7 @@ module Highlight =
         open IntelliFactory.WebSharper.JQuery
 
         let highlightBtn() =
-            Button [Attr.Class "btn btn-primary btn-large"] -- Text "Highlight"
+            Button [Attr.Class "btn btn-primary"] -- Text "Highlight"
             |>! OnClick (fun elt _ ->
                 async {
                     elt.SetAttribute("disabled", "disabled")
@@ -127,7 +127,7 @@ module Highlight =
                 } |> Async.Start)
 
         let clearBtn() =
-            Button [Attr.Class "btn btn-large"; Attr.Style "margin-left: 10px;"] -- Text "Clear"
+            Button [Attr.Class "btn btn-default"; Attr.Style "margin-left: 10px;"] -- Text "Clear"
             |>! OnClick (fun _ _ -> JQuery.Of("#code-textarea").Val("").Ignore)
 
         let main() =

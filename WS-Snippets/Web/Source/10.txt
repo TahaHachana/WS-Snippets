@@ -15,7 +15,7 @@
         <span class='fs-com'>/// Computes the factorial of a number using the fold function from the Array module.</span>
         <span class='fs-key'>let </span>factFold n = Array.fold (*) 1  [|1 .. n|]
 
-        <span class='fs-key'>let </span>input = Input [Attr.Type <span class='fs-str'>"text"</span>; HTML5.Attr.AutoFocus <span class='fs-str'>"autofocus"</span>]
+        <span class='fs-key'>let </span>input = Input [Attr.Type <span class='fs-str'>"text"</span>; HTML5.Attr.AutoFocus <span class='fs-str'>"autofocus"</span>; Attr.Class <span class='fs-str'>"form-control"</span>; Attr.Id <span class='fs-str'>"factorial"</span>]
         <span class='fs-key'>let </span>recSpan = Span []
         <span class='fs-key'>let </span>foldSpan = Span []
         <span class='fs-key'>let </span>button =

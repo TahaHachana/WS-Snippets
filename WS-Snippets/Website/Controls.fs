@@ -1176,6 +1176,18 @@ module Controls =
             [<JavaScript>]
             override __.Body = JQueryUI.Datepicker.New() :> _
 
+    module Snippet24 =
+
+        type Control() =
+            inherit Web.Control()
+
+            [<JavaScript>]
+            override __.Body =
+                Button [Attr.Class "btn btn-primary btn-lg"]
+                -- Text "Click me"
+                |>! OnClick (fun _ _ -> Window.Self.Alert "This is an alert dialog.")
+                :> _
+
 //    module Snippet5 = 
 //        [<JavaScript>]
 //        let private viewport() =

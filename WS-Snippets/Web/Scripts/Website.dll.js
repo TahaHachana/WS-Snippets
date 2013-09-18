@@ -1036,6 +1036,27 @@
       }
      })
     },
+    Snippet24:{
+     Control:Runtime.Class({
+      get_Body:function()
+      {
+       var x,el,inner,f,x1;
+       x=(el=Default.Button(List.ofArray([Default.Attr().Class("btn btn-primary btn-lg")])),(inner=Default.Text("Click me"),Operators1.add(el,List.ofArray([inner]))));
+       f=(x1=function()
+       {
+        return function()
+        {
+         return window.alert("This is an alert dialog.");
+        };
+       },function(arg10)
+       {
+        return EventsPervasives.Events().OnClick(x1,arg10);
+       });
+       f(x);
+       return x;
+      }
+     })
+    },
     Snippet3:{
      Client:{
       main:function()

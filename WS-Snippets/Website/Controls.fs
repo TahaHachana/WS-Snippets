@@ -1188,6 +1188,41 @@ module Controls =
                 |>! OnClick (fun _ _ -> Window.Self.Alert "This is an alert dialog.")
                 :> _
 
+    module Snippet25 =
+
+        [<JavaScript>]
+        module private Client =
+            /// Draws a line between two points using the specified cap style.
+            let lineTo (ctx:CanvasRenderingContext2D) lineCap coords coords' =
+                ctx.LineCap <- lineCap
+                ctx.BeginPath()
+                ctx.MoveTo coords
+                ctx.LineTo coords'
+                ctx.Stroke()
+            
+            let main() =
+                let elt = HTML5.Tags.Canvas []
+                let canvas = As<CanvasElement> elt.Dom
+                canvas.Height <- 400
+                canvas.Width <- 600
+                let ctx = canvas.GetContext "2d"
+                ctx.LineWidth <- 40.
+                // butt
+                lineTo ctx LineCap.Butt (50., 50.) (50., 350.)
+                // round
+                lineTo ctx LineCap.Round (250., 50.) (250., 350.)
+                // square
+                lineTo ctx LineCap.Square (450., 50.) (450., 350.)
+                elt
+
+        /// A control for serving the main pagelet.              
+        type Control() =
+            inherit Web.Control()
+
+            [<JavaScript>]
+            override __.Body = Client.main() :> _
+
+
 //    module Snippet5 = 
 //        [<JavaScript>]
 //        let private viewport() =

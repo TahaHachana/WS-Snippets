@@ -17,7 +17,7 @@ module Content =
                 ]
                 Div [Class "col-lg-4"] -< [
                     P [Class "text-center credit"] -< [
-                        Text "Snippets in database: 25"
+                        Text "Snippets in database: 26"
                     ]
                 ]
                 Div [Class "col-lg-4"] -< [

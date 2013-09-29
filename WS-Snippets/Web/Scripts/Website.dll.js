@@ -1109,6 +1109,21 @@
       }
      })
     },
+    Snippet26:{
+     Control:Runtime.Class({
+      get_Body:function()
+      {
+       var elt,_this,x,audio;
+       elt=(_this=HTML5.Tags(),(x=Runtime.New(T,{
+        $:0
+       }),_this.NewTag("audio",x)));
+       audio=elt.Body;
+       audio.src="/AlFatiha.mp3";
+       audio.controls=true;
+       return elt;
+      }
+     })
+    },
     Snippet3:{
      Client:{
       main:function()

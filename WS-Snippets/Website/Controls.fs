@@ -1222,6 +1222,18 @@ module Controls =
             [<JavaScript>]
             override __.Body = Client.main() :> _
 
+    module Snippet26 =
+
+        type Control() =
+            inherit Web.Control()
+
+            [<JavaScript>]
+            override __.Body =
+                let elt = HTML5.Tags.Audio []
+                let audio = As<HTMLAudioElement> elt.Dom
+                audio.Src <- "/AlFatiha.mp3"
+                audio.Controls <- true
+                elt :> _
 
 //    module Snippet5 = 
 //        [<JavaScript>]

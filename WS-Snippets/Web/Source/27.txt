@@ -1,0 +1,25 @@
+﻿<div style='margin: 0px; padding: 0px; font-family: Consolas; width: auto'><style type='text/css'>.fs-str {color: #d14;} .fs-key {color: blue;} .fs-com {color: green; font-style: italic;}</style><table><tr><td style='padding: 5px; vertical-align: top; border-right: 1px solid #ececec; color: rgb(160, 160, 160);'><span>1</span><br /><span>2</span><br /><span>3</span><br /><span>4</span><br /><span>5</span><br /><span>6</span><br /><span>7</span><br /><span>8</span><br /><span>9</span><br /><span>10</span><br /><span>11</span><br /><span>12</span><br /><span>13</span><br /><span>14</span><br /><span>15</span><br /><span>16</span><br /><span>17</span><br /><span>18</span><br /><span>19</span><br /><span>20</span><br /><span>21</span><br /><span>22</span><br /><span>23</span><br /><span>24</span><br /><span>25</span></td><td style='vertical-align: top; padding: 5px;'><pre style='margin: 0px; background-color: white; border: none; padding: 0px; font-size: 14px; white-space: pre;'><span class='fs-key'>module </span>HelloExtJs =
+    <span class='fs-key'>open </span>IntelliFactory.WebSharper
+    <span class='fs-key'>open </span>IntelliFactory.WebSharper.ExtJs
+    <span class='fs-key'>open </span>IntelliFactory.WebSharper.Html
+
+    [&lt;JavaScript&gt;]
+    <span class='fs-key'>let </span>main() =
+        <span class='fs-key'>let </span>pConfig = Ext.panel.PanelConfiguration()
+        <span class='fs-key'>let </span>vConfig = Ext.container.ViewportConfiguration()
+        pConfig.Title &lt;- <span class='fs-str'>"Ext JS Panel"</span>
+        pConfig.Html &lt;- <span class='fs-str'>"Hello, world!"</span>
+        vConfig.Layout &lt;- <span class='fs-str'>"fit"</span>
+        vConfig.Items &lt;- [|pConfig|]
+        Ext.container.Viewport vConfig
+        |&gt; ignore
+
+    <span class='fs-com'>/// A control for serving the main pagelet.</span>
+    <span class='fs-key'>type </span>Control() =
+        <span class='fs-key'>inherit </span>Web.Control()
+
+        [&lt;JavaScript&gt;]
+        <span class='fs-key'>override </span>__.Body =
+            Div []
+            |&gt;! OnAfterRender (<span class='fs-key'>fun </span>_ -&gt; Ext.OnReady(<span class='fs-key'>fun </span>_ -&gt; main()))
+            :&gt; _</pre></td></tr></table></div>

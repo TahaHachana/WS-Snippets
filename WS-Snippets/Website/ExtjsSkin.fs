@@ -5,7 +5,7 @@ module ExtjsSkin =
     open IntelliFactory.WebSharper.Sitelets
     open IntelliFactory.WebSharper.Sitelets
 
-    type private Page = { Body : Content.HtmlElement list }
+    type private Page = { Body : Content.HtmlElement }
 
     let private template =
         let path = HttpContext.Current.Server.MapPath("~/Extjs.html")

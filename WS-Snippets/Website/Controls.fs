@@ -1235,6 +1235,28 @@ module Controls =
                 audio.Controls <- true
                 elt :> _
 
+    module Snippet27 =
+        [<JavaScript>]
+        let main() =
+            let pConfig = Ext.panel.PanelConfiguration()
+            let vConfig = Ext.container.ViewportConfiguration()
+            pConfig.Title <- "Ext JS Panel"
+            pConfig.Html <- "Hello, world!"
+            vConfig.Layout <- "fit"
+            vConfig.Items <- [|pConfig|]
+            Ext.container.Viewport vConfig
+            |> ignore
+
+        /// A control for serving the main pagelet.
+        type Control() =
+            inherit Web.Control()
+
+            [<JavaScript>]
+            override __.Body =
+                Div []
+                |>! OnAfterRender (fun _ -> Ext.OnReady(fun _ -> main()))
+                :> _
+
 //    module Snippet5 = 
 //        [<JavaScript>]
 //        let private viewport() =

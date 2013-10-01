@@ -11,26 +11,6 @@ module Views =
     open Mongo
     open Skin
 
-    module Templates =
-
-        let loadFrequency =
-            #if DEBUG
-                Content.Template.PerRequest
-            #else
-                Content.Template.Once
-            #endif
-
-        let home = makeDefaultTemplate "~/HTML/Home.html" loadFrequency
-        let about = makeDefaultTemplate "~/HTML/About.html" loadFrequency
-        let error = makeDefaultTemplate "~/HTML/Error.html" loadFrequency
-        let login = makeDefaultTemplate "~/HTML/Login.html" loadFrequency
-        let admin = makeDefaultTemplate "~/HTML/Admin.html" loadFrequency
-        let snippet = makeDefaultTemplate "~/HTML/Snippet.html" loadFrequency
-        let highlight = makeDefaultTemplate "~/HTML/Highlight.html" loadFrequency
-        let tagged = makeDefaultTemplate "~/HTML/Tagged.html" loadFrequency
-        let search = makeDefaultTemplate "~/HTML/Search.html" loadFrequency
-        let newPage = makeDefaultTemplate "~/HTML/NewPage.html" loadFrequency
-
     let private split count list =        
         let rec loop list =
             [

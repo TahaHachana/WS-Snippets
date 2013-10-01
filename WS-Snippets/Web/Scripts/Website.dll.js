@@ -1,6 +1,6 @@
 (function()
 {
- var Global=this,Runtime=this.IntelliFactory.Runtime,Website,AddThis,WebSharper,Html,Default,List,Arrays,Seq,Operators,Controls,Snippet10,Client,HTML5,T,EventsPervasives,Operators1,Snippet11,Client1,document,Snippet12,Client2,Snippet13,Client3,Snippet14,Client4,jQuery,Remoting,Concurrency,Snippet15,Client5,Google,Visualization,Visualizations,LineChartOptions,google,visualization,DataTable,Snippet16,Client6,LineChart,Date,Number,Snippet17,Client7,Snippet18,JS,JQueryUI,Tabs,Snippet19,window,Snippet2,Client8,Snippet20,Snippet21,JS1,Snippet22,JS2,String,Datepicker,Snippet25,Client9,Snippet3,Clienta,Snippet4,Clientb,alert,JavaScript,Snippet5,Clientc,Snippet6,Clientd,Snippet7,Cliente,WebSocket,Snippet8,Clientf,Snippet9,Client10,Forkme,Highlight,Client11,Formlet,Controls1,Enhance,Data,Formlet1,Index,Client12,InsertSnippet,Client13,Login,Client14,encodeURIComponent,Strings,Search,Client15;
+ var Global=this,Runtime=this.IntelliFactory.Runtime,Website,AddThis,WebSharper,Html,Default,List,Arrays,Seq,Operators,Controls,Snippet10,Client,HTML5,T,EventsPervasives,Operators1,Snippet11,Client1,document,Snippet12,Client2,Snippet13,Client3,Snippet14,Client4,jQuery,Remoting,Concurrency,Snippet15,Client5,Google,Visualization,Visualizations,LineChartOptions,google,visualization,DataTable,Snippet16,Client6,LineChart,Date,Number,Snippet17,Client7,Snippet18,JS,JQueryUI,Tabs,Snippet19,window,Snippet2,Client8,Snippet20,Snippet21,JS1,Snippet22,JS2,String,Datepicker,Snippet25,Client9,Ext,Snippet27,Snippet3,Clienta,Snippet4,Clientb,alert,JavaScript,Snippet5,Clientc,Snippet6,Clientd,Snippet7,Cliente,WebSocket,Snippet8,Clientf,Snippet9,Client10,Forkme,Highlight,Client11,Formlet,Controls1,Enhance,Data,Formlet1,Index,Client12,InsertSnippet,Client13,Login,Client14,encodeURIComponent,Strings,Search,Client15;
  Runtime.Define(Global,{
   Website:{
    AddThis:{
@@ -1124,6 +1124,45 @@
       }
      })
     },
+    Snippet27:{
+     Control:Runtime.Class({
+      get_Body:function()
+      {
+       var x,f,f1;
+       x=Default.Div(Runtime.New(T,{
+        $:0
+       }));
+       f=(f1=function()
+       {
+        return Ext.onReady(function()
+        {
+         return Snippet27.main();
+        });
+       },function(w)
+       {
+        return Operators1.OnAfterRender(f1,w);
+       });
+       f(x);
+       return x;
+      }
+     }),
+     main:function()
+     {
+      var pConfig,vConfig,x,f;
+      pConfig={};
+      vConfig={};
+      pConfig.title="Ext JS Panel";
+      pConfig.html="Hello, world!";
+      vConfig.layout="fit";
+      vConfig.items=[pConfig];
+      x=new Ext.container.Viewport(vConfig);
+      f=function(value)
+      {
+       value;
+      };
+      return f(x);
+     }
+    },
     Snippet3:{
      Client:{
       main:function()
@@ -2052,6 +2091,8 @@
   Datepicker=Runtime.Safe(JQueryUI.Datepicker);
   Snippet25=Runtime.Safe(Controls.Snippet25);
   Client9=Runtime.Safe(Snippet25.Client);
+  Ext=Runtime.Safe(Global.Ext);
+  Snippet27=Runtime.Safe(Controls.Snippet27);
   Snippet3=Runtime.Safe(Controls.Snippet3);
   Clienta=Runtime.Safe(Snippet3.Client);
   Snippet4=Runtime.Safe(Controls.Snippet4);

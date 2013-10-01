@@ -53,6 +53,7 @@
     <Compile Include="Highlight.fs" />
     <Compile Include="Controls.fs" />
     <Compile Include="Model.fs" />
+    <Compile Include="Templates.fs" />
     <Compile Include="Views.fs" />
     <Compile Include="Controller.fs" />
     <Compile Include="NewPage.fs" />

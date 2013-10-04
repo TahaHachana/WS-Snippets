@@ -1,0 +1,50 @@
+﻿<div style='margin: 0px; padding: 0px; font-family: Consolas; width: auto'><style type='text/css'>.fs-str {color: #d14;} .fs-key {color: blue;} .fs-com {color: green; font-style: italic;}</style><table><tr><td style='padding: 5px; vertical-align: top; border-right: 1px solid #ececec; color: rgb(160, 160, 160);'><span>1</span><br /><span>2</span><br /><span>3</span><br /><span>4</span><br /><span>5</span><br /><span>6</span><br /><span>7</span><br /><span>8</span><br /><span>9</span><br /><span>10</span><br /><span>11</span><br /><span>12</span><br /><span>13</span><br /><span>14</span><br /><span>15</span><br /><span>16</span><br /><span>17</span><br /><span>18</span><br /><span>19</span><br /><span>20</span><br /><span>21</span><br /><span>22</span><br /><span>23</span><br /><span>24</span><br /><span>25</span><br /><span>26</span><br /><span>27</span><br /><span>28</span><br /><span>29</span><br /><span>30</span><br /><span>31</span><br /><span>32</span><br /><span>33</span><br /><span>34</span><br /><span>35</span><br /><span>36</span><br /><span>37</span><br /><span>38</span><br /><span>39</span><br /><span>40</span><br /><span>41</span><br /><span>42</span><br /><span>43</span><br /><span>44</span><br /><span>45</span><br /><span>46</span><br /><span>47</span><br /><span>48</span><br /><span>49</span><br /><span>50</span></td><td style='vertical-align: top; padding: 5px;'><pre style='margin: 0px; background-color: white; border: none; padding: 0px; font-size: 14px; white-space: pre;'><span class='fs-key'>module </span>GoogleVisPie =
+    <span class='fs-key'>open </span>IntelliFactory.WebSharper
+
+    [&lt;JavaScript&gt;]
+    <span class='fs-key'>module </span>Client =
+        <span class='fs-key'>open </span>IntelliFactory.WebSharper.Google.Visualization
+        <span class='fs-key'>open </span>IntelliFactory.WebSharper.Google.Visualization.Base
+        <span class='fs-key'>open </span>IntelliFactory.WebSharper.Html
+
+        <span class='fs-key'>let </span>dataTable data =
+            <span class='fs-key'>let </span>dataTable = DataTable()
+            dataTable.addColumn(ColumnType.StringType, <span class='fs-str'>"Resource"</span>) |&gt; ignore
+            dataTable.addColumn(ColumnType.NumberType, <span class='fs-str'>"Size"</span>) |&gt; ignore
+            dataTable.addRows 5 |&gt; ignore
+            List.iteri
+                (<span class='fs-key'>fun </span>idx (x, y) -&gt;
+                    dataTable.setCell(idx, 0, x)
+                    dataTable.setCell(idx, 1, y))
+                data
+            dataTable
+        
+        <span class='fs-key'>let </span>pie data dom =
+            <span class='fs-key'>let </span>dt = dataTable data
+            <span class='fs-key'>let </span>options =
+                {
+                    Visualizations.PieChartOptions.Default <span class='fs-key'>with
+</span>                        title = <span class='fs-str'>"Resources Breakdown"</span>
+                }
+            <span class='fs-key'>let </span>pie = Visualizations.PieChart dom
+            pie.draw(dt, options)
+
+        <span class='fs-key'>let </span>data =
+            [
+                <span class='fs-str'>"CSS"</span>       , 5421.54
+                <span class='fs-str'>"HTML"</span>      , 15632.47
+                <span class='fs-str'>"Images"</span>    , 12478.98
+                <span class='fs-str'>"JavaScript"</span>, 42568.47
+                <span class='fs-str'>"Other"</span>     , 3456.29
+            ]
+
+        <span class='fs-key'>let </span>main() =
+            Div [Attr.Style <span class='fs-str'>"width: 900px; height: 500px;"</span>]
+            |&gt;! OnAfterRender (<span class='fs-key'>fun </span>elt -&gt; pie data elt.Dom)
+
+    <span class='fs-com'>/// A control for serving the main pagelet.              </span>
+    <span class='fs-key'>type </span>Control() =
+        <span class='fs-key'>inherit </span>Web.Control()
+
+        [&lt;JavaScript&gt;]
+        <span class='fs-key'>override </span>__.Body = Client.main() :&gt; _</pre></td></tr></table></div>

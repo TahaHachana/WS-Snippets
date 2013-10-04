@@ -1257,6 +1257,52 @@ module Controls =
                 |>! OnAfterRender (fun _ -> Ext.OnReady(fun _ -> main()))
                 :> _
 
+    module Snippet28 =
+
+        [<JavaScript>]
+        module Client =
+            let dataTable data =
+                let dataTable = DataTable()
+                dataTable.addColumn(ColumnType.StringType, "Resource") |> ignore
+                dataTable.addColumn(ColumnType.NumberType, "Size") |> ignore
+                dataTable.addRows 5 |> ignore
+                List.iteri
+                    (fun idx (x, y) ->
+                        dataTable.setCell(idx, 0, x)
+                        dataTable.setCell(idx, 1, y))
+                    data
+                dataTable
+        
+            let pie data dom =
+                let dt = dataTable data
+                let options =
+                    {
+                        Visualizations.PieChartOptions.Default with
+                            title = "Resources Breakdown"
+                    }
+                let pie = Visualizations.PieChart dom
+                pie.draw(dt, options)
+
+            let data =
+                [
+                    "CSS"       , 5421.54
+                    "HTML"      , 15632.47
+                    "Images"    , 12478.98
+                    "JavaScript", 42568.47
+                    "Other"     , 3456.29
+                ]
+
+            let main() =
+                Div [Attr.Style "width: 900px; height: 500px;"]
+                |>! OnAfterRender (fun elt -> pie data elt.Dom)
+
+        /// A control for serving the main pagelet.              
+        type Control() =
+            inherit Web.Control()
+
+            [<JavaScript>]
+            override __.Body = Client.main() :> _
+
 //    module Snippet5 = 
 //        [<JavaScript>]
 //        let private viewport() =

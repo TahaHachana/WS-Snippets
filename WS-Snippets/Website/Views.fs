@@ -99,6 +99,7 @@ module Views =
                 snippetsDiv
                 HR []
                 tagsDiv
+                Div [Id "push"]
             ]
 
     module private LoginUtils =
@@ -111,7 +112,8 @@ module Views =
         let body actionOption ctx =
             let link = redirectLink actionOption ctx
             Div [Class "container"; Id "main"] -< [
-                new Login.Control(link)
+                new Login.Control(link) :> INode<_>
+                Div [Id "push"] :> _
             ]
 
     module private AdminUtils =
@@ -133,6 +135,7 @@ module Views =
             Div [Id "main"; Class "container"] -< [
                 loginInfo' ctx
                 formsDiv
+                Div [Id "push"]
             ]
 
     module private SnippetUtils =
@@ -205,6 +208,7 @@ module Views =
                 addthisDiv
                 tabsDiv id
                 tagsDiv snippet
+                Div [Id "push"]
             ]
 
     module private HighlightUtils =
@@ -261,6 +265,7 @@ module Views =
                 codeDiv
                 btnsDiv
                 tabsDiv
+                Div [Id "push"]
             ]
 
     module private TaggedUtils =
@@ -300,6 +305,7 @@ module Views =
                         H1 [Text <| "Snippets tagged \"" + tag + "\""]
                 ]
                 snippetsDiv tag
+                Div [Id "push"]
             ]
 
     module private SearchUtils =
@@ -368,6 +374,7 @@ module Views =
                         Div [Class "row page-header"] -< [
                             H1 [Text "Results"]
                             P [Text "The query did not match any documents."]
+                            Div [Id "push"]
                         ]
                     
                     ]
@@ -378,6 +385,7 @@ module Views =
                         ]
                         resultsDiv results
                         paginationDiv matches pageId queryStr
+                        Div [Id "push"]
                     ]
 
     let home =

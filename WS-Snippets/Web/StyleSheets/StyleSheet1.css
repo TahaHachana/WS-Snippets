@@ -85,6 +85,10 @@ height: 30px;
     margin: 20px 0;
 }
 
+.btn-tag {
+    margin: 5px;
+}
+
 canvas {
     border: 1px solid;
 }

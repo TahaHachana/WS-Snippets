@@ -15,25 +15,25 @@ module Controls =
     open IntelliFactory.WebSharper.Google.Visualization.Base
     open TweetSharp
 
-    type Snippet =
-        {
-            Id          : int
-            Title       : string
-            MetaDesc    : string
-            Description : string
-            Tags        : string list
-            Control     : Web.Control
-        }
+//    type Snippet =
+//        {
+//            Id          : int
+//            Title       : string
+//            MetaDesc    : string
+//            Description : string
+//            Tags        : string list
+//            Control     : Web.Control
+//        }
 
-    type ExtSnippet =
-        {
-            Id      : int
-            Control : Web.Control
-        }
+//    type ExtSnippet =
+//        {
+//            Id      : int
+//            Control : Web.Control
+//        }
 
-    let hashset   = HashSet<Snippet>()
-    let hashset'  = HashSet<string>()
-    let hashset'' = HashSet<ExtSnippet>()
+//    let hashset   = HashSet<Snippet>()
+//    let hashset'  = HashSet<string>()
+//    let hashset'' = HashSet<ExtSnippet>()
 
     // Hello world snippet.
     module Snippet1 =
@@ -1475,33 +1475,33 @@ module Controls =
 //            [<JavaScript>]
 //            override __.Body = main() :> _
 
-        [
-            "ACCORDION"
-            "CANVAS"
-            "CONNECTIVITY"
-            "CHART"
-            "DRAG DROP"
-            "DOM"
-            "FSHARP"
-            "GEOLOCATION"
-            "GOOGLE"
-            "HTML"
-            "HTML5"
-            "JAVASCRIPT"
-            "JQUERY"
-            "JQUERY UI"
-            "LOCATION"
-            "MULTIMEDIA"
-            "RPC"
-            "TWITTER"
-            "VIDEO"
-            "VISUALIZATION"
-            "WEBSHARPER"
-            "WEBSOCKET"
-            "WIDGET"
-            "WINDOW"
-        ]  
-        |> List.iter (fun x -> hashset'.Add x |> ignore)
+//        [
+//            "ACCORDION"
+//            "CANVAS"
+//            "CONNECTIVITY"
+//            "CHART"
+//            "DRAG DROP"
+//            "DOM"
+//            "FSHARP"
+//            "GEOLOCATION"
+//            "GOOGLE"
+//            "HTML"
+//            "HTML5"
+//            "JAVASCRIPT"
+//            "JQUERY"
+//            "JQUERY UI"
+//            "LOCATION"
+//            "MULTIMEDIA"
+//            "RPC"
+//            "TWITTER"
+//            "VIDEO"
+//            "VISUALIZATION"
+//            "WEBSHARPER"
+//            "WEBSOCKET"
+//            "WIDGET"
+//            "WINDOW"
+//        ]  
+//        |> List.iter (fun x -> hashset'.Add x |> ignore)
 
 //    module ExtSnippets =
 //        let private extSnippet id control = { Id = id; Control = control }

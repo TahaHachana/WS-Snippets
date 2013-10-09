@@ -39,6 +39,8 @@
     <Compile Include="Utils.fs" />
     <Compile Include="Skin.fs" />
     <Compile Include="Secret.fs" />
+    <Compile Include="Model.fs" />
+    <Compile Include="LoginInfo.fs" />
     <Compile Include="AddThis.fs" />
     <Compile Include="Search.fs" />
     <Compile Include="Index.fs" />
@@ -47,12 +49,12 @@
     <Compile Include="Rss.fs" />
     <Compile Include="InsertSnippet.fs" />
     <Compile Include="Dependencies.fs" />
-    <Compile Include="Content.fs" />
     <Compile Include="Forkme.fs" />
     <Compile Include="Login.fs" />
     <Compile Include="Highlight.fs" />
     <Compile Include="Controls.fs" />
-    <Compile Include="Model.fs" />
+    <Compile Include="Tags.fs" />
+    <Compile Include="Content.fs" />
     <Compile Include="Templates.fs" />
     <Compile Include="Views.fs" />
     <Compile Include="Controller.fs" />

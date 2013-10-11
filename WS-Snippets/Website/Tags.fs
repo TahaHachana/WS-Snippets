@@ -17,6 +17,7 @@ let tags =
         "jquery"
         "jquery ui"
         "location"
+        "map"
         "multimedia"
         "rpc"
         "twitter"

@@ -71,6 +71,10 @@
       <HintPath>..\..\packages\WebSharper.ExtJs.2.4.48.145\lib\IntelliFactory.WebSharper.ExtJs.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="IntelliFactory.WebSharper.Google.Maps">
+      <HintPath>..\..\packages\WebSharper.Google.Maps.2.4.52.144\lib\IntelliFactory.WebSharper.Google.Maps.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="IntelliFactory.WebSharper.Google.Visualization">
       <HintPath>..\..\packages\WebSharper.Google.Visualization.2.4.51.145\lib\IntelliFactory.WebSharper.Google.Visualization.dll</HintPath>
       <Private>True</Private>

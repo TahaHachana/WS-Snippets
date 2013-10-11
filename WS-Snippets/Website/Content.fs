@@ -26,7 +26,7 @@ module Content =
         let col2 =
             Div [Class "col-lg-4"] -< [
                 P [Class "text-center credit"] -< [
-                    Text "Snippets in database: 28"
+                    Text "Snippets in database: 29"
                 ]
             ]
 
@@ -53,7 +53,7 @@ module Content =
 
         let snippetColumn classes snippet =    
             Div [Class classes] -< [
-                H4 [
+                H3 [
                     A [HRef <| "/snippet/" + string snippet.SnipId] -< [
                         Text snippet.Title
                     ]
@@ -81,7 +81,7 @@ module Content =
 
         let headerDiv =
             Div [Class "row col-lg-offset-1"] -< [
-                H3 [Attributes.Style "float: left;"] -< [
+                H2 [Attributes.Style "float: left;"] -< [
                     Text "Latest snippets"
                 ]
                 A [HRef "/rss"] -< [
@@ -111,7 +111,7 @@ module Content =
 
         let tagsDiv =
             Div [Class "row"; Id "tags"] -< [
-                yield H3 [Text "Tags"]
+                yield H2 [Text "Tags"]
                 yield! tagsBtns
             ] 
         
@@ -222,7 +222,7 @@ module Content =
 
         let tagsDiv snippet =
             Div [Class "row"; Id "tags-div"] -< [
-                H3 [Text "Tags"]
+                H2 [Text "Tags"]
                 Div [yield! tags snippet]
             ]        
 
@@ -295,7 +295,7 @@ module Content =
     module Tagged =
         let snippetDiv classes snippet =
             Div [Class classes] -< [
-                H4 [
+                H3 [
                     A [HRef <| "/snippet/" + snippet.SnipId.ToString()] -< [
                         Text snippet.Title
                     ]

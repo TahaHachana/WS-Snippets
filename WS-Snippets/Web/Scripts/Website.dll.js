@@ -1,6 +1,6 @@
 (function()
 {
- var Global=this,Runtime=this.IntelliFactory.Runtime,Website,AddThis,WebSharper,Html,Default,List,Arrays,Seq,Operators,Controls,Snippet10,Client,HTML5,T,EventsPervasives,Operators1,Snippet11,Client1,document,Snippet12,Client2,Snippet13,Client3,Snippet14,Client4,jQuery,Remoting,Concurrency,Snippet15,Client5,Google,Visualization,Visualizations,LineChartOptions,google,visualization,DataTable,Snippet16,Client6,LineChart,Date,Number,Snippet17,Client7,Snippet18,JS,JQueryUI,Tabs,Snippet19,window,Snippet2,Client8,Snippet20,Snippet21,JS1,Snippet22,JS2,String,Datepicker,Snippet25,Client9,Ext,Snippet27,Snippet28,Clienta,PieChartOptions,PieChart,Snippet29,Snippet3,Clientb,Snippet4,Clientc,alert,JavaScript,Snippet5,Clientd,Snippet6,Cliente,Snippet7,Clientf,WebSocket,Snippet8,Client10,Snippet9,Client11,Forkme,Highlight,Client12,Formlet,Controls1,Enhance,Data,Formlet1,Index,Client13,InsertSnippet,Client14,Login,Client15,encodeURIComponent,Strings,Search,Client16;
+ var Global=this,Runtime=this.IntelliFactory.Runtime,Website,AddThis,WebSharper,Html,Default,List,Arrays,Seq,Operators,Controls,Snippet10,Client,HTML5,T,EventsPervasives,Operators1,Snippet11,Client1,document,Snippet12,Client2,Snippet13,Client3,Snippet14,Client4,jQuery,Remoting,Concurrency,Snippet15,Client5,Google,Visualization,Visualizations,LineChartOptions,google,visualization,DataTable,Snippet16,Client6,LineChart,Date,Number,Snippet17,Client7,Snippet18,JS,JQueryUI,Tabs,Snippet19,window,Snippet2,Client8,Snippet20,Snippet21,JS1,Snippet22,JS2,String,Datepicker,Snippet25,Client9,Ext,Snippet27,Snippet28,Clienta,PieChartOptions,PieChart,Snippet29,Snippet3,Clientb,kendo,Snippet4,Clientc,alert,JavaScript,Snippet5,Clientd,Snippet6,Cliente,Snippet7,Clientf,WebSocket,Snippet8,Client10,Snippet9,Client11,Forkme,Highlight,Client12,Formlet,Controls1,Enhance,Data,Formlet1,Index,Client13,InsertSnippet,Client14,Login,Client15,encodeURIComponent,Strings,Search,Client16;
  Runtime.Define(Global,{
   Website:{
    AddThis:{
@@ -1300,6 +1300,32 @@
       }
      })
     },
+    Snippet30:{
+     Control:Runtime.Class({
+      get_Body:function()
+      {
+       var x,f,f1;
+       x=Default.Div(Runtime.New(T,{
+        $:0
+       }));
+       f=(f1=function(elt)
+       {
+        var x1,f2;
+        x1=new kendo.ui.Calendar(elt.Body);
+        f2=function(value)
+        {
+         value;
+        };
+        return f2(x1);
+       },function(w)
+       {
+        return Operators1.OnAfterRender(f1,w);
+       });
+       f(x);
+       return x;
+      }
+     })
+    },
     Snippet4:{
      Client:{
       handleTweetActions:function()
@@ -2217,6 +2243,7 @@
   Snippet29=Runtime.Safe(Controls.Snippet29);
   Snippet3=Runtime.Safe(Controls.Snippet3);
   Clientb=Runtime.Safe(Snippet3.Client);
+  kendo=Runtime.Safe(Global.kendo);
   Snippet4=Runtime.Safe(Controls.Snippet4);
   Clientc=Runtime.Safe(Snippet4.Client);
   alert=Runtime.Safe(Global.alert);

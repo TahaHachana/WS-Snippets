@@ -83,6 +83,10 @@
       <HintPath>..\..\packages\WebSharper.JQueryUi.2.4.56.140\lib\IntelliFactory.WebSharper.JQueryUI.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="IntelliFactory.WebSharper.KendoUI">
+      <HintPath>..\..\packages\WebSharper.KendoUI.2.4.44.47\lib\IntelliFactory.WebSharper.KendoUI.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="MongoDB.Bson">
       <HintPath>..\..\packages\mongocsharpdriver.1.8.1\lib\net35\MongoDB.Bson.dll</HintPath>
       <Private>True</Private>

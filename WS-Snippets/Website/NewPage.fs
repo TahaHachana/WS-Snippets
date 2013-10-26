@@ -50,6 +50,7 @@ module NewPage =
     let snippet27 = extjsContent <| new Snippet27.Control()
     let snippet28 = content <| new Snippet28.Control()
     let snippet29 = content <| new Snippet29.Control()
+    let snippet30 = content <| new Snippet30.Control()
 
     let main =
         [
@@ -82,6 +83,7 @@ module NewPage =
             Sitelet.Content "27" (Action.NewPage 27) snippet27
             Sitelet.Content "28" (Action.NewPage 28) snippet28
             Sitelet.Content "29" (Action.NewPage 29) snippet29
+            Sitelet.Content "30" (Action.NewPage 30) snippet30
         ]
         |> Sitelet.Sum
         |> Sitelet.Shift "newpage"

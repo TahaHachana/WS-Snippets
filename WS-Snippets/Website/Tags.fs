@@ -16,6 +16,7 @@ let tags =
         "javascript"
         "jquery"
         "jquery ui"
+        "kendo ui"
         "location"
         "map"
         "multimedia"

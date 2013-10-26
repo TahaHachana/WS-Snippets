@@ -14,6 +14,7 @@ module Controls =
     open IntelliFactory.WebSharper.Google.Maps
     open IntelliFactory.WebSharper.Google.Visualization
     open IntelliFactory.WebSharper.Google.Visualization.Base
+    open IntelliFactory.WebSharper.KendoUI
     open TweetSharp
 
     // Hello world snippet.
@@ -1300,3 +1301,16 @@ module Controls =
 
             [<JavaScript>]
             override __.Body = map() :> _
+
+    module Snippet30 =
+
+        type Control() =
+            inherit Web.Control()
+
+            [<JavaScript>]
+            override __.Body =
+                Div []
+                |>! OnAfterRender (fun elt ->
+                    kendo.ui.Calendar(elt.Body)
+                    |> ignore)
+                :> _

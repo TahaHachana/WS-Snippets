@@ -26,7 +26,7 @@ module Content =
         let col2 =
             Div [Class "col-lg-4"] -< [
                 P [Class "text-center credit"] -< [
-                    Text "Snippets in database: 30"
+                    Text "Snippets in database: 31"
                 ]
             ]
 

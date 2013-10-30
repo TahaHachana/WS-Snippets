@@ -1,6 +1,6 @@
 (function()
 {
- var Global=this,Runtime=this.IntelliFactory.Runtime,Website,AddThis,WebSharper,Html,Default,List,Arrays,Seq,Operators,Controls,Snippet10,Client,HTML5,T,EventsPervasives,Operators1,Snippet11,Client1,document,Snippet12,Client2,Snippet13,Client3,Snippet14,Client4,jQuery,Remoting,Concurrency,Snippet15,Client5,Google,Visualization,Visualizations,LineChartOptions,google,visualization,DataTable,Snippet16,Client6,LineChart,Date,Number,Snippet17,Client7,Snippet18,JS,JQueryUI,Tabs,Snippet19,window,Snippet2,Client8,Snippet20,Snippet21,JS1,Snippet22,JS2,String,Datepicker,Snippet25,Client9,Ext,Snippet27,Snippet28,Clienta,PieChartOptions,PieChart,Snippet29,Snippet3,Clientb,kendo,Snippet4,Clientc,alert,JavaScript,Snippet5,Clientd,Snippet6,Cliente,Snippet7,Clientf,WebSocket,Snippet8,Client10,Snippet9,Client11,Forkme,Highlight,Client12,Formlet,Controls1,Enhance,Data,Formlet1,Index,Client13,InsertSnippet,Client14,Login,Client15,encodeURIComponent,Strings,Search,Client16;
+ var Global=this,Runtime=this.IntelliFactory.Runtime,Website,AddThis,WebSharper,Html,Default,List,Arrays,Seq,Operators,Controls,Snippet10,Client,HTML5,T,EventsPervasives,Operators1,Snippet11,Client1,document,Snippet12,Client2,Snippet13,Client3,Snippet14,Client4,jQuery,Remoting,Concurrency,Snippet15,Client5,Google,Visualization,Visualizations,LineChartOptions,google,visualization,DataTable,Snippet16,Client6,LineChart,Date,Number,Snippet17,Client7,Snippet18,JS,JQueryUI,Tabs,Snippet19,window,Snippet2,Client8,Snippet20,Snippet21,JS1,Snippet22,JS2,String,Datepicker,Snippet25,Client9,Ext,Snippet27,Snippet28,Clienta,PieChartOptions,PieChart,Snippet29,Snippet3,Clientb,kendo,Snippet31,Snippet4,Clientc,alert,JavaScript,Snippet5,Clientd,Snippet6,Cliente,Snippet7,Clientf,WebSocket,Snippet8,Client10,Snippet9,Client11,Forkme,Highlight,Client12,Formlet,Controls1,Enhance,Data,Formlet1,Index,Client13,InsertSnippet,Client14,Login,Client15,encodeURIComponent,Strings,Search,Client16;
  Runtime.Define(Global,{
   Website:{
    AddThis:{
@@ -1326,6 +1326,53 @@
       }
      })
     },
+    Snippet31:{
+     Control:Runtime.Class({
+      get_Body:function()
+      {
+       return Snippet31.main();
+      }
+     }),
+     btn:function(txt)
+     {
+      var el,_this,inner;
+      el=Default.Button(List.ofArray([Default.Attr().Class("btn btn-default"),(_this=Default.Attr(),_this.NewAttr("type","button"))]));
+      inner=Default.Text(txt);
+      return Operators1.add(el,List.ofArray([inner]));
+     },
+     main:function()
+     {
+      var x,f,x1,x2,f1,x3,x4,f2,x5;
+      return Operators1.add(Default.Div(List.ofArray([Default.Attr().Class("btn-group btn-group-lg")])),List.ofArray([(x=Snippet31.btn("Back"),(f=(x1=function()
+      {
+       return function()
+       {
+        return window.history.back();
+       };
+      },function(arg10)
+      {
+       return EventsPervasives.Events().OnClick(x1,arg10);
+      }),(f(x),x))),(x2=Snippet31.btn("Forward"),(f1=(x3=function()
+      {
+       return function()
+       {
+        return window.history.forward();
+       };
+      },function(arg10)
+      {
+       return EventsPervasives.Events().OnClick(x3,arg10);
+      }),(f1(x2),x2))),(x4=Snippet31.btn("Go back 2 pages"),(f2=(x5=function()
+      {
+       return function()
+       {
+        return window.history.go(-2);
+       };
+      },function(arg10)
+      {
+       return EventsPervasives.Events().OnClick(x5,arg10);
+      }),(f2(x4),x4)))]));
+     }
+    },
     Snippet4:{
      Client:{
       handleTweetActions:function()
@@ -2244,6 +2291,7 @@
   Snippet3=Runtime.Safe(Controls.Snippet3);
   Clientb=Runtime.Safe(Snippet3.Client);
   kendo=Runtime.Safe(Global.kendo);
+  Snippet31=Runtime.Safe(Controls.Snippet31);
   Snippet4=Runtime.Safe(Controls.Snippet4);
   Clientc=Runtime.Safe(Snippet4.Client);
   alert=Runtime.Safe(Global.alert);

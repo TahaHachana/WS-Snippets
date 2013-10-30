@@ -1314,3 +1314,30 @@ module Controls =
                     kendo.ui.Calendar(elt.Body)
                     |> ignore)
                 :> _
+
+    module Snippet31 =
+
+        [<JavaScript>]
+        let btn txt =
+            Button [
+                Attr.Class "btn btn-default"
+                Attr.Type "button"
+            ]
+            -- Text txt
+
+        [<JavaScript>]
+        let main() =
+            Div [Attr.Class "btn-group btn-group-lg"] -< [
+                btn "Back"
+                |>! OnClick (fun _ _ -> Window.Self.History.Back())
+                btn "Forward"
+                |>! OnClick (fun _ _ -> Window.Self.History.Forward())
+                btn "Go back 2 pages"
+                |>! OnClick (fun _ _ -> Window.Self.History.Go -2)
+            ]
+
+        type Control() =
+            inherit Web.Control()
+
+            [<JavaScript>]
+            override __.Body = main() :> _

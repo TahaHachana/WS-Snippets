@@ -1,6 +1,6 @@
 (function()
 {
- var Global=this,Runtime=this.IntelliFactory.Runtime,Website,AddThis,WebSharper,Html,Default,List,Arrays,Seq,Operators,Controls,Snippet10,Client,HTML5,T,EventsPervasives,Operators1,Snippet11,Client1,document,Snippet12,Client2,Snippet13,Client3,Snippet14,Client4,jQuery,Remoting,Concurrency,Snippet15,Client5,Google,Visualization,Visualizations,LineChartOptions,google,visualization,DataTable,Snippet16,Client6,LineChart,Date,Number,Snippet17,Client7,Snippet18,JS,JQueryUI,Tabs,Snippet19,window,Snippet2,Client8,Snippet20,Snippet21,JS1,Snippet22,JS2,String,Datepicker,Snippet25,Client9,Ext,Snippet27,Snippet28,Clienta,PieChartOptions,PieChart,Snippet29,Snippet3,Clientb,kendo,Snippet31,Snippet4,Clientc,alert,JavaScript,Snippet5,Clientd,Snippet6,Cliente,Snippet7,Clientf,WebSocket,Snippet8,Client10,Snippet9,Client11,Forkme,Highlight,Client12,Formlet,Controls1,Enhance,Data,Formlet1,Index,Client13,InsertSnippet,Client14,Login,Client15,encodeURIComponent,Strings,Search,Client16;
+ var Global=this,Runtime=this.IntelliFactory.Runtime,Website,AddThis,WebSharper,Html,Default,List,Arrays,Seq,Operators,Controls,Snippet10,Client,HTML5,T,EventsPervasives,Operators1,Snippet11,Client1,document,Snippet12,Client2,Snippet13,Client3,Snippet14,Client4,jQuery,Remoting,Concurrency,Snippet15,Client5,Google,Visualization,Visualizations,LineChartOptions,google,visualization,DataTable,Snippet16,Client6,LineChart,Date,Number,Snippet17,Client7,Snippet18,JS,JQueryUI,Tabs,Snippet19,window,Snippet2,Client8,Snippet20,Snippet21,JS1,Snippet22,JS2,String,Datepicker,Snippet25,Client9,Ext,Snippet27,Snippet28,Clienta,PieChartOptions,PieChart,Snippet29,Snippet3,Clientb,kendo,Snippet31,Snippet32,JS3,clearTimeout,setTimeout,alert,Snippet4,Clientc,JavaScript,Snippet5,Clientd,Snippet6,Cliente,Snippet7,Clientf,WebSocket,Snippet8,Client10,Snippet9,Client11,Forkme,Highlight,Client12,Formlet,Controls1,Enhance,Data,Formlet1,Index,Client13,InsertSnippet,Client14,Login,Client15,encodeURIComponent,Strings,Search,Client16;
  Runtime.Define(Global,{
   Website:{
    AddThis:{
@@ -1373,6 +1373,83 @@
       }),(f2(x4),x4)))]));
      }
     },
+    Snippet32:{
+     Control:Runtime.Class({
+      get_Body:function()
+      {
+       return JS3.main();
+      }
+     }),
+     JS:{
+      clearBtn:function()
+      {
+       var el,_this,_this1,inner;
+       el=Default.Button(List.ofArray([Default.Attr().Class("btn btn-lg btn-warning"),(_this=Default.Attr(),_this.NewAttr("id","clear-btn")),(_this1=Default.Attr(),_this1.NewAttr("type","button"))]));
+       inner=Default.Text("Clear Timeout");
+       return Operators1.add(el,List.ofArray([inner]));
+      },
+      clearTimeout:function(btn,handle)
+      {
+       var x,f,x1,f1;
+       x=(f=(x1=function(elt)
+       {
+        return function()
+        {
+         elt["HtmlProvider@32"].Remove(elt.Body);
+         clearTimeout(handle);
+         return document.getElementById("set-btn").removeAttribute("disabled");
+        };
+       },function(arg10)
+       {
+        return EventsPervasives.Events().OnClick(x1,arg10);
+       }),(f(btn),btn));
+       f1=function(value)
+       {
+        value;
+       };
+       return f1(x);
+      },
+      main:function()
+      {
+       var btnsDiv,setBtn,x,el,_this,_this1,inner,f,x1;
+       btnsDiv=Default.Div(Runtime.New(T,{
+        $:0
+       }));
+       setBtn=(x=(el=Default.Button(List.ofArray([Default.Attr().Class("btn btn-lg btn-primary"),(_this=Default.Attr(),_this.NewAttr("id","set-btn")),(_this1=Default.Attr(),_this1.NewAttr("type","button"))])),(inner=Default.Text("Set Timeout"),Operators1.add(el,List.ofArray([inner])))),(f=(x1=function(elt)
+       {
+        return function()
+        {
+         var objectArg,arg00,btn,handle;
+         objectArg=elt["HtmlProvider@32"];
+         ((arg00=elt.Body,function(arg10)
+         {
+          return function(arg20)
+          {
+           return objectArg.SetAttribute(arg00,arg10,arg20);
+          };
+         })("disabled"))("disabled");
+         btn=JS3.clearBtn();
+         handle=JS3.timerHandle(btn);
+         JS3.clearTimeout(btn,handle);
+         return btnsDiv.AppendI(btn);
+        };
+       },function(arg10)
+       {
+        return EventsPervasives.Events().OnClick(x1,arg10);
+       }),(f(x),x)));
+       return Operators1.add(btnsDiv,List.ofArray([setBtn]));
+      },
+      timerHandle:function(btn)
+      {
+       return setTimeout(function()
+       {
+        btn["HtmlProvider@32"].Remove(btn.Body);
+        document.getElementById("set-btn").removeAttribute("disabled");
+        return alert("Timeout Expired");
+       },3000);
+      }
+     }
+    },
     Snippet4:{
      Client:{
       handleTweetActions:function()
@@ -2292,9 +2369,13 @@
   Clientb=Runtime.Safe(Snippet3.Client);
   kendo=Runtime.Safe(Global.kendo);
   Snippet31=Runtime.Safe(Controls.Snippet31);
+  Snippet32=Runtime.Safe(Controls.Snippet32);
+  JS3=Runtime.Safe(Snippet32.JS);
+  clearTimeout=Runtime.Safe(Global.clearTimeout);
+  setTimeout=Runtime.Safe(Global.setTimeout);
+  alert=Runtime.Safe(Global.alert);
   Snippet4=Runtime.Safe(Controls.Snippet4);
   Clientc=Runtime.Safe(Snippet4.Client);
-  alert=Runtime.Safe(Global.alert);
   JavaScript=Runtime.Safe(WebSharper.JavaScript);
   Snippet5=Runtime.Safe(Controls.Snippet5);
   Clientd=Runtime.Safe(Snippet5.Client);

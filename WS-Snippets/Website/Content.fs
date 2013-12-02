@@ -12,6 +12,16 @@ module Content =
     open Tags
     open Model
 
+    let snippetColumn classes snippet =    
+        Div [Class classes] -< [
+            H3 [
+                A [HRef <| "/snippet/" + string snippet.SnipId] -< [
+                    Text snippet.Title
+                ]
+            ]
+            P [Text snippet.Desc]
+        ]
+
     module Footer =
         let col1 =
             Div [Class "col-lg-4"] -< [
@@ -26,7 +36,7 @@ module Content =
         let col2 =
             Div [Class "col-lg-4"] -< [
                 P [Class "text-center credit"] -< [
-                    Text "Snippets in database: 31"
+                    Text "Snippets in database: 32"
                 ]
             ]
 
@@ -50,16 +60,6 @@ module Content =
             ]
 
     module Home =
-
-        let snippetColumn classes snippet =    
-            Div [Class classes] -< [
-                H3 [
-                    A [HRef <| "/snippet/" + string snippet.SnipId] -< [
-                        Text snippet.Title
-                    ]
-                ]
-                P [Text snippet.Desc]
-            ]
 
         let snippetsRow snippet snippet' =
             Div [Class "row"] -< [
@@ -293,26 +293,26 @@ module Content =
             ]
 
     module Tagged =
-        let snippetDiv classes snippet =
-            Div [Class classes] -< [
-                H3 [
-                    A [HRef <| "/snippet/" + snippet.SnipId.ToString()] -< [
-                        Text snippet.Title
-                    ]
-                ]
-                P [Text snippet.Desc]
-            ]
+//        let snippetDiv classes snippet =
+//            Div [Class classes] -< [
+//                H3 [
+//                    A [HRef <| "/snippet/" + snippet.SnipId.ToString()] -< [
+//                        Text snippet.Title
+//                    ]
+//                ]
+//                P [Text snippet.Desc]
+//            ]
 
         let snippetsRow lst =
             match lst with
             | [snippet] ->
                 Div [Class "row"] -< [
-                    snippetDiv "col-lg-4 snippet" snippet
+                    snippetColumn "col-lg-5 snippet" snippet
                 ]
             | _ ->
                 Div [Class "row"] -< [
-                    snippetDiv "col-lg-4 snippet" lst.[0]
-                    snippetDiv "col-lg-offset-1 col-lg-4 snippet" lst.[1]
+                    snippetColumn "col-lg-5 snippet" lst.[0]
+                    snippetColumn "col-lg-offset-1 col-lg-5 snippet" lst.[1]
                 ]
 
         let snippetsDiv tag =

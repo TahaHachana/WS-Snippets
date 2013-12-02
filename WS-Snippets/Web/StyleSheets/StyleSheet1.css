@@ -228,3 +228,8 @@ body {
     height: 300px;
     width: 500px;
 }
+
+/* Timers */
+#clear-btn {
+    margin-left: 5px;
+}

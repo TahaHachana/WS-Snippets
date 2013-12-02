@@ -1341,3 +1341,59 @@ module Controls =
 
             [<JavaScript>]
             override __.Body = main() :> _
+
+    module Snippet32 =
+
+        [<JavaScript>]
+        module JS =
+
+            /// Schedules the dispaly of an alert box after 3 seconds.
+            let timerHandle (btn:Element) =
+                JavaScript.SetTimeout
+                    (fun () ->
+                        btn.Remove()
+                        ById("set-btn").RemoveAttribute "disabled"
+                        JavaScript.Alert "Timeout Expired")
+                    3000
+
+            let clearBtn() =
+                Button [
+                    Attr.Class "btn btn-lg btn-warning"
+                    Attr.Id "clear-btn"
+                    Attr.Type "button"
+                ] -- Text "Clear Timeout"
+                    
+            let clearTimeout (btn:Element) handle =                    
+                btn
+                |>! OnClick (fun elt _ ->
+                    // Remove the clear timeout button.
+                    elt.Remove()
+                    // Clear alert box timeout.
+                    JavaScript.ClearTimeout handle
+                    ById("set-btn").RemoveAttribute "disabled")
+                |> ignore
+
+            let main() =
+                let btnsDiv = Div []
+
+                let setBtn =
+                    Button [
+                        Attr.Class "btn btn-lg btn-primary"
+                        Attr.Id "set-btn"
+                        Attr.Type "button"
+                    ] -- Text "Set Timeout"
+                    |>! OnClick (fun elt _ ->
+                        elt.SetAttribute("disabled", "disabled")
+                        let btn = clearBtn()
+                        let handle = timerHandle btn
+                        clearTimeout btn handle
+                        // Append the clear timeout button.
+                        btnsDiv.Append btn)
+
+                btnsDiv -- setBtn
+
+        type Control() =
+            inherit Web.Control()
+
+            [<JavaScript>]
+            override __.Body = JS.main() :> _

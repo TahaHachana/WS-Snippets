@@ -1,0 +1,182 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{FBE6328C-EE13-4A39-BC73-A5985BAA18E2}</ProjectGuid>
+    <ProjectTypeGuids>{349C5851-65DF-11DA-9384-00065B846F21};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <RootNamespace>SiteletHost</RootNamespace>
+    <AssemblyName>SiteletHost</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <WebSharperProject>Web</WebSharperProject>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+    <NuGetPackageImportStamp>13d464d4</NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="AlFatiha.mp3" />
+    <Content Include="Extjs.html" />
+    <Content Include="google1e26600b7e4f9412.html" />
+    <Content Include="HTML\About.html" />
+    <Content Include="HTML\Admin.html" />
+    <Content Include="HTML\Error.html" />
+    <Content Include="HTML\ExtJS.html" />
+    <Content Include="HTML\Highlight.html" />
+    <Content Include="HTML\Home.html" />
+    <Content Include="HTML\Login.html" />
+    <Content Include="HTML\NewPage.html" />
+    <Content Include="HTML\Search.html" />
+    <Content Include="HTML\Snippet.html" />
+    <Content Include="HTML\Tagged.html" />
+    <Content Include="Images\cat1.jpg" />
+    <Content Include="Images\cat2.jpg" />
+    <Content Include="Images\cat3.jpg" />
+    <Content Include="Images\feed-icon.png" />
+    <Content Include="Images\Loader.gif" />
+    <Content Include="Images\madagascar.jpg" />
+    <Content Include="modal.html" />
+    <Content Include="robots.txt" />
+    <Content Include="Scripts\*.*" />
+    <Content Include="sitemap.xml" />
+    <Content Include="Source\1.txt" />
+    <Content Include="Source\10.txt" />
+    <Content Include="Source\11.txt" />
+    <Content Include="Source\12.txt" />
+    <Content Include="Source\13.txt" />
+    <Content Include="Source\14.txt" />
+    <Content Include="Source\15.txt" />
+    <Content Include="Source\16.txt" />
+    <Content Include="Source\17.txt" />
+    <Content Include="Source\18.txt" />
+    <Content Include="Source\19.txt" />
+    <Content Include="Source\2.txt" />
+    <Content Include="Source\20.txt" />
+    <Content Include="Source\21.txt" />
+    <Content Include="Source\22.txt" />
+    <Content Include="Source\23.txt" />
+    <Content Include="Source\24.txt" />
+    <Content Include="Source\25.txt" />
+    <Content Include="Source\26.txt" />
+    <Content Include="Source\27.txt" />
+    <Content Include="Source\28.txt" />
+    <Content Include="Source\29.txt" />
+    <Content Include="Source\3.txt" />
+    <Content Include="Source\30.txt" />
+    <Content Include="Source\31.txt" />
+    <Content Include="Source\32.txt" />
+    <Content Include="Source\4.txt" />
+    <Content Include="Source\5.txt" />
+    <Content Include="Source\6.txt" />
+    <Content Include="Source\7.txt" />
+    <Content Include="Source\8.txt" />
+    <Content Include="Source\9.txt" />
+    <Content Include="StyleSheets\images\animated-overlay.gif" />
+    <Content Include="StyleSheets\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="StyleSheets\images\ui-bg_flat_55_fbec88_40x100.png" />
+    <Content Include="StyleSheets\images\ui-bg_glass_75_d0e5f5_1x400.png" />
+    <Content Include="StyleSheets\images\ui-bg_glass_85_dfeffc_1x400.png" />
+    <Content Include="StyleSheets\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="StyleSheets\images\ui-bg_gloss-wave_55_5c9ccc_500x100.png" />
+    <Content Include="StyleSheets\images\ui-bg_inset-hard_100_f5f8f9_1x100.png" />
+    <Content Include="StyleSheets\images\ui-bg_inset-hard_100_fcfdfd_1x100.png" />
+    <Content Include="StyleSheets\images\ui-icons_217bc0_256x240.png" />
+    <Content Include="StyleSheets\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="StyleSheets\images\ui-icons_469bdd_256x240.png" />
+    <Content Include="StyleSheets\images\ui-icons_6da8d5_256x240.png" />
+    <Content Include="StyleSheets\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="StyleSheets\images\ui-icons_d8e7f3_256x240.png" />
+    <Content Include="StyleSheets\images\ui-icons_f9bd01_256x240.png" />
+    <Content Include="StyleSheets\jquery-ui-1.10.3.custom.min.css" />
+    <Content Include="StyleSheets\StyleSheet1.css" />
+    <Content Include="Videos\madagascar.mp4" />
+    <Content Include="Web.config" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Scripts\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Sitelet\Sitelet.fsproj">
+      <Project>{b9ff7857-e3ef-49cd-b575-f7aab36aff51}</Project>
+      <Name>Sitelet</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349C5851-65DF-11DA-9384-00065B846F21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>52314</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:52314/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+    <Error Condition="!Exists('..\packages\WebSharper.2.5.108.41\build\WebSharper.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\WebSharper.2.5.108.41\build\WebSharper.targets'))" />
+  </Target>
+  <Import Project="..\packages\WebSharper.2.5.108.41\build\WebSharper.targets" Condition="Exists('..\packages\WebSharper.2.5.108.41\build\WebSharper.targets')" />
+</Project>

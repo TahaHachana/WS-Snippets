@@ -1,10 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Express 2012 for Web
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Website", "WS-Snippets\Website\Website.fsproj", "{5B7C7F80-F56E-4799-A2F8-4225AB9AEF7B}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web", "WS-Snippets\Web\Web.csproj", "{9E758BB8-7056-4CE3-AAF0-4D7229CEB77C}"
-EndProject
+# Visual Studio Express 2013 for Web
+VisualStudioVersion = 12.0.30110.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{CA81C2A5-3A82-4F15-8EDF-770FF951FBB2}"
 	ProjectSection(SolutionItems) = preProject
 		.nuget\NuGet.Config = .nuget\NuGet.Config
@@ -12,20 +10,24 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{CA81C2
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Sitelet", "Sitelet\Sitelet.fsproj", "{B9FF7857-E3EF-49CD-B575-F7AAB36AFF51}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SiteletHost", "SiteletHost\SiteletHost.csproj", "{FBE6328C-EE13-4A39-BC73-A5985BAA18E2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{5B7C7F80-F56E-4799-A2F8-4225AB9AEF7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5B7C7F80-F56E-4799-A2F8-4225AB9AEF7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5B7C7F80-F56E-4799-A2F8-4225AB9AEF7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5B7C7F80-F56E-4799-A2F8-4225AB9AEF7B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9E758BB8-7056-4CE3-AAF0-4D7229CEB77C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9E758BB8-7056-4CE3-AAF0-4D7229CEB77C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9E758BB8-7056-4CE3-AAF0-4D7229CEB77C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9E758BB8-7056-4CE3-AAF0-4D7229CEB77C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B9FF7857-E3EF-49CD-B575-F7AAB36AFF51}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9FF7857-E3EF-49CD-B575-F7AAB36AFF51}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9FF7857-E3EF-49CD-B575-F7AAB36AFF51}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9FF7857-E3EF-49CD-B575-F7AAB36AFF51}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FBE6328C-EE13-4A39-BC73-A5985BAA18E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBE6328C-EE13-4A39-BC73-A5985BAA18E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FBE6328C-EE13-4A39-BC73-A5985BAA18E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FBE6328C-EE13-4A39-BC73-A5985BAA18E2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

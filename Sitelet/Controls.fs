@@ -148,8 +148,8 @@ module Controls =
         module private Server =
 
             // Twitter authentication
-            let ts = TwitterService(Secret.consKey, Secret.consSecret)
-            ts.AuthenticateWith(Secret.token, Secret.tokenSecret)
+            let ts = TwitterService(AppSettings.consumerKey, AppSettings.consumerSecret)
+            ts.AuthenticateWith(AppSettings.token, AppSettings.tokenSecret)
 
             // search options
             let options = SearchOptions()

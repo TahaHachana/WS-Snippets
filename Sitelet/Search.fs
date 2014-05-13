@@ -8,7 +8,7 @@ module Search =
         open TankTop
         open TankTop.Dto
 
-        let client = TankTopClient Secret.indexdenUrl
+        let client = TankTopClient AppSettings.indexdenUrl
 
         let query text start =
             let q = Query text

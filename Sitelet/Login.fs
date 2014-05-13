@@ -18,7 +18,7 @@ module Login =
         let login loginInfo =
             async {
                 let access =
-                    if loginInfo.Password = Secret.password then
+                    if loginInfo.Password = AppSettings.password then
                         UserSession.LoginUser loginInfo.Name
                         Granted
                     else Denied

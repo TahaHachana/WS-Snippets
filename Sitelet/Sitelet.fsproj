@@ -114,7 +114,6 @@
     </VisualStudio>
   </ProjectExtensions>
   <ItemGroup>
-    <Content Include="Setup.fsx" />
     <None Include="packages.config" />
     <Compile Include="Utils.fs" />
     <Compile Include="Skin.fs" />
@@ -140,6 +139,7 @@
     <Compile Include="Controller.fs" />
     <Compile Include="NewPage.fs" />
     <Compile Include="Site.fs" />
+    <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Hammock.ClientProfile">
@@ -176,6 +176,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Numerics" />
     <Reference Include="System.ServiceModel" />

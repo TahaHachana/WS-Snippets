@@ -10,7 +10,7 @@ open MongoDB.Driver.Builders
 let culture = CultureInfo.CreateSpecificCulture "en-US"
 System.Threading.Thread.CurrentThread.CurrentCulture <- culture
 
-let client = MongoClient Secret.connStr
+let client = MongoClient AppSettings.mongoConnectionString
 let server = client.GetServer()
 let db = server.GetDatabase "WSSnippets"
 let collection<'T> (name : string) = db.GetCollection<'T> name

@@ -1,13 +1,15 @@
 ﻿namespace Website
 
-module Secret =
+module AppSettings =
 
-    let connStr = "mongodb://readonly:readonly@dharma.mongohq.com:10042/WSSnippets"
-    let password = ""
-    let indexdenUrl = ""
-    let consKey = ""
-    let consSecret = ""
-    let token = ""
-    let tokenSecret = ""
+    open System.Configuration
 
+    let keyValue (key:string) = ConfigurationManager.AppSettings.Get key
 
+    let mongoConnectionString = keyValue "MongoConnectionString"
+    let password = keyValue "Password"
+    let indexdenUrl = keyValue "IndexdenUrl"
+    let consumerKey = keyValue "ConsumerKey"
+    let consumerSecret = keyValue "ConsumerSecret"
+    let token = keyValue "Token"
+    let tokenSecret = "TokenSecret"

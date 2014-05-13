@@ -15,7 +15,7 @@ module Index =
             regex.Replace(str, " ")
             |> fun x -> regex'.Replace(x, " ")
         
-        let client = TankTopClient Secret.indexdenUrl
+        let client = TankTopClient AppSettings.indexdenUrl
 
         [<Rpc>]
         let addDoc (id : string, title : string, desc : string, code : string) =

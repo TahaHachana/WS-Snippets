@@ -72,13 +72,6 @@ module Content =
                 new Search.Control()
             ]
 
-        let addthisDiv =
-            Div [Class "row"; Id "addthis-control"] -< [
-                Div [Class "col-lg-offset-3"] -< [
-                    new AddThis.Control()
-                ]
-            ]
-
         let headerDiv =
             Div [Class "row col-lg-offset-1"] -< [
                 H2 [Attributes.Style "float: left;"] -< [
@@ -118,7 +111,6 @@ module Content =
         let body =
             Div [Class "container"] -< [
                 searchDiv
-                addthisDiv
                 HR []
                 headerDiv
                 snippetsDiv
@@ -189,11 +181,6 @@ module Content =
                 Div [Class "row col-lg-8"] -< [desc snippet]
             ]
 
-        let addthisDiv =
-            Div [Class "row"; Attributes.Style "height: 30px;"] -< [
-                new AddThis.Control()
-            ]
-
         let tabsDiv id =
             Div [Class "row"; Id "demo-tabs"] -< [
                 UL [Class "nav nav-tabs nav-justified"] -< [
@@ -229,7 +216,6 @@ module Content =
         let body snippet id =
             Div [Class "container"; Id "main"] -< [
                 detailsDiv snippet
-                addthisDiv
                 tabsDiv id
                 tagsDiv snippet
                 Div [Id "push"]

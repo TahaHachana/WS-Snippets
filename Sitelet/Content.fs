@@ -23,48 +23,53 @@ module Content =
         ]
 
     module Footer =
-        let col1 =
-            Div [Class "col-lg-4"] -< [
-                P [Class "text-center credit"] -< [
-                    Text "Built with "
-                    A [HRef "http://www.websharper.com/"; Target "_blank"] -< [
-                        Text "WebSharper"
-                    ]
-                ]
-            ]
-
-        let col2 =
-            Div [Class "col-lg-4"] -< [
-                P [Class "text-center credit"] -< [
-                    Text "Snippets in database: 32"
-                ]
-            ]
-
-        let col3 =
-            Div [Class "col-lg-4"] -< [
-                P [Class "text-center credit"] -< [
-                    Text "Developed by "
-                    A [HRef "http://taha-hachana.apphb.com/"; Target "_blank"] -< [
-                        Text "Taha Hachana"
-                    ]
-                ]
-            ]
+//        let col1 =
+//            Div [Class "col-lg-4"] -< [
+//                P [Class "text-center credit"] -< [
+//                    Text "Built with "
+//                    A [HRef "http://www.websharper.com/"; Target "_blank"] -< [
+//                        Text "WebSharper"
+//                    ]
+//                ]
+//            ]
+//
+//        let col2 =
+//            Div [Class "col-lg-4"] -< [
+//                P [Class "text-center credit"] -< [
+//                    Text "Snippets in database: 32"
+//                ]
+//            ]
+//
+//        let col3 =
+//            Div [Class "col-lg-4"] -< [
+//                P [Class "text-center credit"] -< [
+//                    Text "Developed by "
+//                    A [HRef "http://taha-hachana.apphb.com/"; Target "_blank"] -< [
+//                        Text "Taha Hachana"
+//                    ]
+//                ]
+//            ]
 
         let elt : HtmlElement =
             HTML5.Footer [Id "footer"] -< [
-                Div [Class "container"] -< [
-                    col1
-                    col2
-                    col3
-                ]
+                    P [Class "text-center"] -< [
+                        Text "Built with "
+                        A [HRef "http://www.websharper.com/"; Target "_blank"] -< [
+                            Text "WebSharper"
+                        ]
+                    ]
+                    P [Class "text-center"] -< [
+                        Text "Snippets in database: 32"
+                    ]
+
             ]
 
     module Home =
 
         let snippetsRow snippet snippet' =
             Div [Class "row"] -< [
-                snippetColumn "col-lg-5 snippet" snippet
-                snippetColumn "col-lg-offset-1 col-lg-5 snippet" snippet'
+                snippetColumn "col-lg-6 snippet" snippet
+                snippetColumn "col-lg-6 snippet" snippet'
             ]  
 
         let searchDiv =
@@ -72,18 +77,24 @@ module Content =
                 new Search.Control()
             ]
 
-        let headerDiv =
-            Div [Class "row col-lg-offset-1"] -< [
-                H2 [Attributes.Style "float: left;"] -< [
-                    Text "Latest snippets"
-                ]
-                A [HRef "/rss"] -< [
-                    Img [
-                        Src "/Images/feed-icon.png"
-                        Alt "RSS Feed"
-                        Attributes.Style "padding: 15px;"]
-                ]
-            ]
+//        let headerDiv =
+//            Div [Class "featured"] -< [
+//                H2 [
+//                    Text "Latest snippets "
+//                    Img [
+//                        Src "/Images/feed-icon.png"
+//                        Alt "RSS Feed"
+//                        Attributes.Style "padding: 15px;"
+//                    ]                    
+//                ]
+//            ]
+////                A [HRef "/rss"] -< [
+////                    Img [
+//                        Src "/Images/feed-icon.png"
+//                        Alt "RSS Feed"
+//                        Attributes.Style "padding: 15px;"]
+//                ]
+//            ]
                                 
         let snippetsDiv =
             let snippets =
@@ -91,7 +102,19 @@ module Content =
                 |> Seq.toList
                 |> split 2
                 |> List.map (fun lst -> snippetsRow lst.[0] lst.[1])
-            Div [Class "row col-lg-offset-1"] -< snippets
+            Div [Class "featured"] -< [
+                yield H2 [
+                    Text "Latest snippets "
+                    A [HRef "/rss"] -< [
+                        Img [
+                            Src "/Images/feed-icon.png"
+                            Alt "RSS Feed"
+                            Id "feed-icon"
+                        ]                    
+                    ]
+                ]
+                yield! snippets
+            ]
 
         let tagsBtns =
             tags
@@ -103,7 +126,7 @@ module Content =
                 ])
 
         let tagsDiv =
-            Div [Class "row"; Id "tags"] -< [
+            Div [Class "featured"; Id "tags"] -< [
                 yield H2 [Text "Tags"]
                 yield! tagsBtns
             ] 
@@ -112,7 +135,7 @@ module Content =
             Div [Class "container"] -< [
                 searchDiv
                 HR []
-                headerDiv
+//                headerDiv
                 snippetsDiv
                 HR []
                 tagsDiv

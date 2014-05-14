@@ -10,9 +10,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{CA81C2
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Sitelet", "Sitelet\Sitelet.fsproj", "{B9FF7857-E3EF-49CD-B575-F7AAB36AFF51}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SiteletHost", "SiteletHost\SiteletHost.csproj", "{FBE6328C-EE13-4A39-BC73-A5985BAA18E2}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Sitelet", "Sitelet\Sitelet.fsproj", "{8B16F655-7D80-4086-87CC-B88F2AAF7880}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -20,14 +20,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{B9FF7857-E3EF-49CD-B575-F7AAB36AFF51}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B9FF7857-E3EF-49CD-B575-F7AAB36AFF51}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B9FF7857-E3EF-49CD-B575-F7AAB36AFF51}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B9FF7857-E3EF-49CD-B575-F7AAB36AFF51}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FBE6328C-EE13-4A39-BC73-A5985BAA18E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FBE6328C-EE13-4A39-BC73-A5985BAA18E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FBE6328C-EE13-4A39-BC73-A5985BAA18E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FBE6328C-EE13-4A39-BC73-A5985BAA18E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8B16F655-7D80-4086-87CC-B88F2AAF7880}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B16F655-7D80-4086-87CC-B88F2AAF7880}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B16F655-7D80-4086-87CC-B88F2AAF7880}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B16F655-7D80-4086-87CC-B88F2AAF7880}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

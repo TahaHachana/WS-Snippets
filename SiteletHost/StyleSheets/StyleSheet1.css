@@ -1,6 +1,15 @@
-﻿#main {
-    padding-top: 70px;
+﻿body {
+    /*background-color: rgb(203, 201, 192);*/
+    /*font-family: 'open sans', 'helvetica neue', helvetica, arial, sans-serif;*/
 }
+
+.navbar {
+    border-radius: 0;
+}
+
+/*#main {
+    padding-top: 70px;
+}*/
 
 .jumbotron {
     background-color: white;
@@ -131,30 +140,23 @@ canvas {
 }
 
 /* Sticky footer styles */
-/* See http://twitter.github.io/bootstrap/examples/sticky-footer-navbar.html */
+html {
+  position: relative;
+  min-height: 100%;
+}
 
-html,
 body {
-    height: 100%;
-    /* The html and body elements cannot have any padding or margin. */
+  /* Margin bottom by footer height */
+  margin-bottom: 60px;
 }
 
-/* Wrapper for page content to push down footer */
-#wrap {
-    min-height: 100%;
-    height: auto !important;
-    height: 100%;
-    /* Negative indent footer by its height */
-    margin: 0 auto -200px;
-    /* Pad bottom by footer height */
-    padding: 0 0 200px;
-}
-
-/* Set the fixed height of the footer here */
 #footer {
-    height: 200px;
-    background-color: rgb(34, 34, 34);
-    color: white;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  background-color: #f5f5f5;
 }
 
 /* Twitter widget styles */

@@ -1,15 +1,50 @@
-﻿body {
-    /*background-color: rgb(203, 201, 192);*/
-    /*font-family: 'open sans', 'helvetica neue', helvetica, arial, sans-serif;*/
-}
+﻿/* Shared */
 
 .navbar {
     border-radius: 0;
 }
 
-.featured {width: 80%; margin: 0 auto;}
+/* Home */
 
-#feed-icon {vertical-align: baseline;}
+#fork-me {
+    position: fixed;
+    top: 0;
+    right: 0;
+    border: 0;
+    z-index: 2000;
+}
+
+.featured {
+    width: 80%;
+    margin: 0 auto;
+}
+
+#feed-icon {
+    vertical-align: baseline;
+}
+
+.tag-link:hover {
+    text-decoration: none;
+}
+
+.btn-tag {
+    margin: 5px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /*#main {
     padding-top: 70px;
@@ -44,7 +79,7 @@
 }
 
 #push {
-    height: 60px;
+    height: 50px;
 }
 
 #code-textarea, #html-textarea {
@@ -89,21 +124,15 @@
     margin-top: 100px;
 }
 
-#search-control {
-    height: 50px;
-}
 
 #addthis-control {
-height: 30px;
+    height: 30px;
 }
 
 .container .credit {
     margin: 20px 0;
 }
 
-.btn-tag {
-    margin: 5px;
-}
 
 canvas {
     border: 1px solid;
@@ -145,24 +174,24 @@ canvas {
 
 /* Sticky footer styles */
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
-  /* Margin bottom by footer height */
-  margin-bottom: 100px;
+    /* Margin bottom by footer height */
+    margin-bottom: 100px;
 }
 
 #footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  /* Set the fixed height of the footer here */
-  height: 100px;
-  /*background-color: #f5f5f5;*/
-  padding-top: 20px;
-  border-top: 1px solid lightgray;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    height: 100px;
+    /*background-color: #f5f5f5;*/
+    padding-top: 20px;
+    border-top: 1px solid lightgray;
 }
 
 /* Twitter widget styles */

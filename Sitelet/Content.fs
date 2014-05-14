@@ -12,8 +12,8 @@ module Content =
     open Tags
     open Model
 
-    let snippetColumn classes snippet =    
-        Div [Class classes] -< [
+    let snippetColumn snippet =    
+        Div [Class "col-md-6 snippet"] -< [
             H3 [
                 A [HRef <| "/snippet/" + string snippet.SnipId] -< [
                     Text snippet.Title
@@ -23,32 +23,6 @@ module Content =
         ]
 
     module Footer =
-//        let col1 =
-//            Div [Class "col-lg-4"] -< [
-//                P [Class "text-center credit"] -< [
-//                    Text "Built with "
-//                    A [HRef "http://www.websharper.com/"; Target "_blank"] -< [
-//                        Text "WebSharper"
-//                    ]
-//                ]
-//            ]
-//
-//        let col2 =
-//            Div [Class "col-lg-4"] -< [
-//                P [Class "text-center credit"] -< [
-//                    Text "Snippets in database: 32"
-//                ]
-//            ]
-//
-//        let col3 =
-//            Div [Class "col-lg-4"] -< [
-//                P [Class "text-center credit"] -< [
-//                    Text "Developed by "
-//                    A [HRef "http://taha-hachana.apphb.com/"; Target "_blank"] -< [
-//                        Text "Taha Hachana"
-//                    ]
-//                ]
-//            ]
 
         let elt : HtmlElement =
             HTML5.Footer [Id "footer"] -< [
@@ -68,41 +42,22 @@ module Content =
 
         let snippetsRow snippet snippet' =
             Div [Class "row"] -< [
-                snippetColumn "col-lg-6 snippet" snippet
-                snippetColumn "col-lg-6 snippet" snippet'
+                snippetColumn snippet
+                snippetColumn snippet'
             ]  
 
-        let searchDiv =
-            Div [Class "row"; Id "search-control"] -< [
+        let searchSection =
+            HTML5.Section [Class "row"] -< [
                 new Search.Control()
             ]
-
-//        let headerDiv =
-//            Div [Class "featured"] -< [
-//                H2 [
-//                    Text "Latest snippets "
-//                    Img [
-//                        Src "/Images/feed-icon.png"
-//                        Alt "RSS Feed"
-//                        Attributes.Style "padding: 15px;"
-//                    ]                    
-//                ]
-//            ]
-////                A [HRef "/rss"] -< [
-////                    Img [
-//                        Src "/Images/feed-icon.png"
-//                        Alt "RSS Feed"
-//                        Attributes.Style "padding: 15px;"]
-//                ]
-//            ]
                                 
-        let snippetsDiv =
+        let snippetsSection =
             let snippets =
                 Snippets.latest10()
                 |> Seq.toList
                 |> split 2
                 |> List.map (fun lst -> snippetsRow lst.[0] lst.[1])
-            Div [Class "featured"] -< [
+            HTML5.Section [Class "featured container"] -< [
                 yield H2 [
                     Text "Latest snippets "
                     A [HRef "/rss"] -< [
@@ -119,30 +74,30 @@ module Content =
         let tagsBtns =
             tags
             |> List.map (fun tag ->
-                A [HRef <| "/tagged/" + tag] -< [
+                A [HRef <| "/tagged/" + tag; Class "tag-link"] -< [
                     Button [Class "btn btn-info btn-tag"] -< [
                         Text <| tag.ToUpper()
                     ]
                 ])
 
-        let tagsDiv =
-            Div [Class "featured"; Id "tags"] -< [
+        let tagsSection =
+            Div [Class "featured container"; Id "tags"] -< [
                 yield H2 [Text "Tags"]
                 yield! tagsBtns
             ] 
         
         let body =
-            Div [Class "container"] -< [
-                searchDiv
+            Div [
+                searchSection
                 HR []
-//                headerDiv
-                snippetsDiv
+                snippetsSection
                 HR []
-                tagsDiv
+                tagsSection
                 Div [Id "push"]
             ]
 
     module Login =
+
         let link action (ctx:Context<_>) =
             match action with
             | Some action -> action
@@ -307,12 +262,12 @@ module Content =
             match lst with
             | [snippet] ->
                 Div [Class "row"] -< [
-                    snippetColumn "col-lg-5 snippet" snippet
+                    snippetColumn snippet
                 ]
             | _ ->
                 Div [Class "row"] -< [
-                    snippetColumn "col-lg-5 snippet" lst.[0]
-                    snippetColumn "col-lg-offset-1 col-lg-5 snippet" lst.[1]
+                    snippetColumn lst.[0]
+                    snippetColumn lst.[1]
                 ]
 
         let snippetsDiv tag =

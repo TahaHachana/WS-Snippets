@@ -376,14 +376,6 @@ declare module Website {
             get_Body(): __ABBREV.__Html.IPagelet;
         }
     }
-    module AddThis {
-        interface Control {
-            get_Body(): __ABBREV.__Html.IPagelet;
-        }
-        var main : {
-            (): __ABBREV.__Html.Element;
-        };
-    }
     module Model {
         interface Action {
         }

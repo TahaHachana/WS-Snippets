@@ -1,23 +1,8 @@
 (function()
 {
- var Global=this,Runtime=this.IntelliFactory.Runtime,Website,AddThis,WebSharper,Html,Default,List,Arrays,Seq,Operators,Controls,Snippet10,Client,HTML5,T,EventsPervasives,Operators1,Snippet11,Client1,document,Snippet12,Client2,Snippet13,Client3,Snippet14,Client4,jQuery,Concurrency,Remoting,Snippet15,Client5,google,visualization,DataTable,Snippet16,Client6,LineChart,Date,Number,Snippet17,Client7,Snippet18,JS,JQueryUI,Tabs,Snippet19,window,Snippet2,Client8,Snippet20,Snippet21,JS1,Snippet22,JS2,String,Datepicker,Snippet25,Client9,Snippet28,Clienta,PieChart,Snippet29,Snippet3,Clientb,Snippet31,Snippet32,JS3,clearTimeout,setTimeout,alert,Snippet4,Clientc,JavaScript,Snippet5,Clientd,Snippet6,Cliente,Snippet7,Clientf,WebSocket,Snippet8,Client10,Snippet9,Client11,Forkme,Highlight,Client12,Formlet,Controls1,Enhance,Data,Formlet1,Index,Client13,InsertSnippet,Client14,Login,Client15,Piglets,Piglet1,Search,Client16,Validation,Pervasives,Controls2;
+ var Global=this,Runtime=this.IntelliFactory.Runtime,WebSharper,Html,Default,List,Arrays,Seq,Operators,Website,Controls,Snippet10,Client,HTML5,T,EventsPervasives,Operators1,Snippet11,Client1,document,Snippet12,Client2,Snippet13,Client3,Snippet14,Client4,jQuery,Concurrency,Remoting,Snippet15,Client5,google,visualization,DataTable,Snippet16,Client6,LineChart,Date,Number,Snippet17,Client7,Snippet18,JS,JQueryUI,Tabs,Snippet19,window,Snippet2,Client8,Snippet20,Snippet21,JS1,Snippet22,JS2,String,Datepicker,Snippet25,Client9,Snippet28,Clienta,PieChart,Snippet29,Snippet3,Clientb,Snippet31,Snippet32,JS3,clearTimeout,setTimeout,alert,Snippet4,Clientc,JavaScript,Snippet5,Clientd,Snippet6,Cliente,Snippet7,Clientf,WebSocket,Snippet8,Client10,Snippet9,Client11,Forkme,Highlight,Client12,Formlet,Controls1,Enhance,Data,Formlet1,Index,Client13,InsertSnippet,Client14,Login,Client15,Piglets,Piglet1,Search,Client16,Validation,Pervasives,Controls2;
  Runtime.Define(Global,{
   Website:{
-   AddThis:{
-    Control:Runtime.Class({
-     get_Body:function()
-     {
-      return AddThis.main();
-     }
-    }),
-    main:function()
-    {
-     var div;
-     div=Default.Div(List.ofArray([Default.Attr().Class("hidden-xs")]));
-     div.set_Html("<div class=\"addthis_toolbox addthis_default_style \">\r\n               <a class=\"addthis_button_facebook_like\" fb:like:layout=\"button_count\"></a>\r\n               <a class=\"addthis_button_tweet\" tw:hashtags=\"fsharp,websharper\"></a>\r\n               <a class=\"addthis_button_pinterest_pinit\"></a>\r\n               <a class=\"addthis_counter addthis_pill_style\"></a>\r\n               </div>");
-     return div;
-    }
-   },
    Controls:{
     Snippet1:{
      Control:Runtime.Class({
@@ -1786,7 +1771,7 @@
        };
       };
       EventsPervasives.Events().OnKeyUp(arg00,x);
-      return Operators1.add(Default.Div(List.ofArray([Default.Attr().Class("input-group input-group-lg col-md-8 col-md-offset-2")])),List.ofArray([x,Operators1.add(Default.Span(List.ofArray([Default.Attr().Class("input-group-btn")])),List.ofArray([Operators1.add(Controls2.SubmitValidate(submit),List.ofArray([Default.Attr().Class("btn btn-primary"),Default.Attr().NewAttr("id","search-btn"),Default.Attr().NewAttr("value","Search"),HTML5.Attr().NewAttr("data-"+"loading-text","Please wait...")]))]))]));
+      return Operators1.add(Default.Div(List.ofArray([Default.Attr().Class("input-group input-group-lg col-md-6 col-md-offset-3")])),List.ofArray([x,Operators1.add(Default.Span(List.ofArray([Default.Attr().Class("input-group-btn")])),List.ofArray([Operators1.add(Controls2.SubmitValidate(submit),List.ofArray([Default.Attr().Class("btn btn-primary"),Default.Attr().NewAttr("id","search-btn"),Default.Attr().NewAttr("value","Search"),HTML5.Attr().NewAttr("data-"+"loading-text","Please wait...")]))]))]));
      }
     },
     Control:Runtime.Class({
@@ -1800,8 +1785,6 @@
  });
  Runtime.OnInit(function()
  {
-  Website=Runtime.Safe(Global.Website);
-  AddThis=Runtime.Safe(Website.AddThis);
   WebSharper=Runtime.Safe(Global.IntelliFactory.WebSharper);
   Html=Runtime.Safe(WebSharper.Html);
   Default=Runtime.Safe(Html.Default);
@@ -1809,6 +1792,7 @@
   Arrays=Runtime.Safe(WebSharper.Arrays);
   Seq=Runtime.Safe(WebSharper.Seq);
   Operators=Runtime.Safe(WebSharper.Operators);
+  Website=Runtime.Safe(Global.Website);
   Controls=Runtime.Safe(Website.Controls);
   Snippet10=Runtime.Safe(Controls.Snippet10);
   Client=Runtime.Safe(Snippet10.Client);

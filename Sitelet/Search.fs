@@ -48,7 +48,7 @@ module Search =
 
         let view uriString submit =
             Div [
-                Attr.Class "input-group input-group-lg col-md-8 col-md-offset-2"
+                Attr.Class "input-group input-group-lg col-md-6 col-md-offset-3"
             ] -< [
                 Controls.Input uriString -<[
                     Attr.Class "form-control"

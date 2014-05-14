@@ -1,6 +1,6 @@
 (function()
 {
- var Global=this,Runtime=this.IntelliFactory.Runtime,Website,AddThis,WebSharper,Html,Default,List,Arrays,Seq,Operators,Controls,Snippet10,Client,HTML5,T,EventsPervasives,Operators1,Snippet11,Client1,document,Snippet12,Client2,Snippet13,Client3,Snippet14,Client4,jQuery,Concurrency,Remoting,Snippet15,Client5,google,visualization,DataTable,Snippet16,Client6,LineChart,Date,Number,Snippet17,Client7,Snippet18,JS,JQueryUI,Tabs,Snippet19,window,Snippet2,Client8,Snippet20,Snippet21,JS1,Snippet22,JS2,String,Datepicker,Snippet25,Client9,Snippet28,Clienta,PieChart,Snippet29,Snippet3,Clientb,Snippet31,Snippet32,JS3,clearTimeout,setTimeout,alert,Snippet4,Clientc,JavaScript,Snippet5,Clientd,Snippet6,Cliente,Snippet7,Clientf,WebSocket,Snippet8,Client10,Snippet9,Client11,Forkme,Highlight,Client12,Formlet,Controls1,Enhance,Data,Formlet1,Index,Client13,InsertSnippet,Client14,Login,Client15,encodeURIComponent,Strings,Search,Client16;
+ var Global=this,Runtime=this.IntelliFactory.Runtime,Website,AddThis,WebSharper,Html,Default,List,Arrays,Seq,Operators,Controls,Snippet10,Client,HTML5,T,EventsPervasives,Operators1,Snippet11,Client1,document,Snippet12,Client2,Snippet13,Client3,Snippet14,Client4,jQuery,Concurrency,Remoting,Snippet15,Client5,google,visualization,DataTable,Snippet16,Client6,LineChart,Date,Number,Snippet17,Client7,Snippet18,JS,JQueryUI,Tabs,Snippet19,window,Snippet2,Client8,Snippet20,Snippet21,JS1,Snippet22,JS2,String,Datepicker,Snippet25,Client9,Snippet28,Clienta,PieChart,Snippet29,Snippet3,Clientb,Snippet31,Snippet32,JS3,clearTimeout,setTimeout,alert,Snippet4,Clientc,JavaScript,Snippet5,Clientd,Snippet6,Cliente,Snippet7,Clientf,WebSocket,Snippet8,Client10,Snippet9,Client11,Forkme,Highlight,Client12,Formlet,Controls1,Enhance,Data,Formlet1,Index,Client13,InsertSnippet,Client14,Login,Client15,Piglets,Piglet1,Search,Client16,Validation,Pervasives,Controls2;
  Runtime.Define(Global,{
   Website:{
    AddThis:{
@@ -1739,27 +1739,54 @@
     Client:{
      main:function()
      {
-      var x,arg00,inp,x1,arg001;
-      x=Default.Input(List.ofArray([Default.Attr().NewAttr("id","query"),Default.Attr().NewAttr("type","text"),Default.Attr().Class("form-control input-lg"),HTML5.Attr().NewAttr("autofocus","autofocus")]));
-      arg00=function(elt)
+      return Piglet1.Render(function(uriString)
+      {
+       return function(submit)
+       {
+        return Client16.view(uriString,submit);
+       };
+      },Piglet1.Run(function()
+      {
+       window.location.href="/search/"+Global.String(jQuery("#query").val())+"/1";
+      },Client16.piglet("")));
+     },
+     piglet:function(init)
+     {
+      return Piglet1.WithSubmit(Validation.Is(function(value)
+      {
+       return Validation.NotEmpty(value);
+      },"Please enter a search query.",Pervasives.op_LessMultiplyGreater(Piglet1.Return(function(x)
+      {
+       return x;
+      }),Piglet1.Yield(init))));
+     },
+     view:function(uriString,submit)
+     {
+      var x,arg00;
+      x=Operators1.add(Controls2.input("text",function(x1)
+      {
+       return x1;
+      },function(x1)
+      {
+       return x1;
+      },uriString),List.ofArray([Default.Attr().Class("form-control"),Default.Attr().NewAttr("id","query"),Default.Attr().NewAttr("type","text"),HTML5.Attr().NewAttr("autofocus","autofocus")]));
+      arg00=function()
       {
        return function(key)
        {
-        return key.KeyCode===13?void(window.location.href="/search/"+encodeURIComponent(elt.get_Value())+"/1"):null;
+        if(key.KeyCode===13)
+         {
+          jQuery("#query").blur();
+          return jQuery("#search-btn").click();
+         }
+        else
+         {
+          return null;
+         }
        };
       };
       EventsPervasives.Events().OnKeyUp(arg00,x);
-      inp=x;
-      x1=Default.Button(List.ofArray([Default.Text("Search"),Default.Attr().NewAttr("type","button"),Default.Attr().Class("btn btn-success btn-lg")]));
-      arg001=function()
-      {
-       return function()
-       {
-        window.location.href="/search/"+encodeURIComponent(Strings.Trim(inp.get_Value()))+"/1";
-       };
-      };
-      EventsPervasives.Events().OnClick(arg001,x1);
-      return Operators1.add(Default.Div(List.ofArray([Default.Attr().Class("row")])),List.ofArray([Operators1.add(Default.Div(List.ofArray([Default.Attr().Class("col-lg-6 col-lg-offset-3")])),List.ofArray([Operators1.add(Default.Div(List.ofArray([Default.Attr().Class("input-group")])),List.ofArray([inp,Operators1.add(Default.Span(List.ofArray([Default.Attr().Class("input-group-btn")])),List.ofArray([x1]))])),Default.Script(List.ofArray([Default.Attr().NewAttr("src","Scripts/AutoComplete.js")]))]))]));
+      return Operators1.add(Default.Div(List.ofArray([Default.Attr().Class("input-group input-group-lg col-md-8 col-md-offset-2")])),List.ofArray([x,Operators1.add(Default.Span(List.ofArray([Default.Attr().Class("input-group-btn")])),List.ofArray([Operators1.add(Controls2.SubmitValidate(submit),List.ofArray([Default.Attr().Class("btn btn-primary"),Default.Attr().NewAttr("id","search-btn"),Default.Attr().NewAttr("value","Search"),HTML5.Attr().NewAttr("data-"+"loading-text","Please wait...")]))]))]));
      }
     },
     Control:Runtime.Class({
@@ -1870,10 +1897,13 @@
   Client14=Runtime.Safe(InsertSnippet.Client);
   Login=Runtime.Safe(Website.Login);
   Client15=Runtime.Safe(Login.Client);
-  encodeURIComponent=Runtime.Safe(Global.encodeURIComponent);
-  Strings=Runtime.Safe(WebSharper.Strings);
+  Piglets=Runtime.Safe(WebSharper.Piglets);
+  Piglet1=Runtime.Safe(Piglets.Piglet1);
   Search=Runtime.Safe(Website.Search);
-  return Client16=Runtime.Safe(Search.Client);
+  Client16=Runtime.Safe(Search.Client);
+  Validation=Runtime.Safe(Piglet1.Validation);
+  Pervasives=Runtime.Safe(Piglets.Pervasives);
+  return Controls2=Runtime.Safe(Piglets.Controls);
  });
  Runtime.OnLoad(function()
  {

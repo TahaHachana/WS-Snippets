@@ -43,6 +43,11 @@
     margin: 5px;
 }
 
+/* Sign In */
+#login-form {
+    max-width: 300px;
+    margin: 100px auto 20px auto;
+}
 
 
 
@@ -91,10 +96,6 @@
     margin-bottom: 20px;
 }*/
 
-/*#signin {
-    max-width: 300px;
-    margin: 0 auto;
-}*/
 
 
 /*#code-textarea, #html-textarea {

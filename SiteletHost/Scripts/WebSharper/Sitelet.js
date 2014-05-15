@@ -1,6 +1,6 @@
 (function()
 {
- var Global=this,Runtime=this.IntelliFactory.Runtime,WebSharper,Html,Default,List,Arrays,Seq,Operators,Website,Controls,Snippet10,Client,HTML5,T,EventsPervasives,Operators1,Snippet11,Client1,document,Snippet12,Client2,Snippet13,Client3,Snippet14,Client4,jQuery,Concurrency,Remoting,Snippet15,Client5,google,visualization,DataTable,Snippet16,Client6,LineChart,Date,Number,Snippet17,Client7,Snippet18,JS,JQueryUI,Tabs,Snippet19,window,Snippet2,Client8,Snippet20,Snippet21,JS1,Snippet22,JS2,String,Datepicker,Snippet25,Client9,Snippet28,Clienta,PieChart,Snippet29,Snippet3,Clientb,Snippet31,Snippet32,JS3,clearTimeout,setTimeout,alert,Snippet4,Clientc,JavaScript,Snippet5,Clientd,Snippet6,Cliente,Snippet7,Clientf,WebSocket,Snippet8,Client10,Snippet9,Client11,Forkme,Highlight,Client12,Formlet,Controls1,Enhance,Data,Formlet1,Index,Client13,InsertSnippet,Client14,Login,Client15,Piglets,Piglet1,Search,Client16,Validation,Pervasives,Controls2;
+ var Global=this,Runtime=this.IntelliFactory.Runtime,WebSharper,Html,Default,List,Arrays,Seq,Operators,Website,Controls,Snippet10,Client,HTML5,T,EventsPervasives,Operators1,Snippet11,Client1,document,Snippet12,Client2,Snippet13,Client3,Snippet14,Client4,jQuery,Concurrency,Remoting,Snippet15,Client5,google,visualization,DataTable,Snippet16,Client6,LineChart,Date,Number,Snippet17,Client7,Snippet18,JS,JQueryUI,Tabs,Snippet19,window,Snippet2,Client8,Snippet20,Snippet21,JS1,Snippet22,JS2,String,Datepicker,Snippet25,Client9,Snippet28,Clienta,PieChart,Snippet29,Snippet3,Clientb,Snippet31,Snippet32,JS3,clearTimeout,setTimeout,alert,Snippet4,Clientc,JavaScript,Snippet5,Clientd,Snippet6,Cliente,Snippet7,Clientf,WebSocket,Snippet8,Client10,Snippet9,Client11,Forkme,Highlight,Client12,Formlet,Controls1,Enhance,Data,Formlet1,Index,Client13,InsertSnippet,Client14,Piglets,Piglet1,Login,Client15,LoginInfo,Pervasives,Validation,Controls2,Search,Client16;
  Runtime.Define(Global,{
   Website:{
    Controls:{
@@ -1660,63 +1660,96 @@
    },
    Login:{
     Client:{
-     loginForm:function(redirectUrl)
+     form:function(redirectUrl)
      {
-      var userInput,x,arg00,submitBtn,arg102,arg103,arg104,arg105;
-      userInput=Default.Input(List.ofArray([Default.Attr().NewAttr("type","text"),HTML5.Attr().NewAttr("autofocus","autofocus"),Default.Attr().Class("form-control"),Default.Attr().NewAttr("id","username")]));
-      x=Operators1.add(Default.Button(List.ofArray([Default.Attr().NewAttr("type","button"),Default.Attr().Class("btn btn-primary btn-block"),Default.Id("login-btn")])),List.ofArray([Default.Text("Submit")]));
-      arg00=function()
+      return Piglet1.Render(function(name)
       {
-       return function()
+       return function(password)
        {
-        return Concurrency.Start(Concurrency.Delay(function()
+        return function(submit)
         {
-         return Concurrency.Bind(Remoting.Async("Sitelet:3",[{
-          Name:userInput.get_Value(),
-          Password:Client15.passInput().get_Value()
-         }]),function(arg101)
-         {
-          if(arg101.$==1)
-           {
-            window.location.assign(redirectUrl);
-            return Concurrency.Return(null);
-           }
-          else
-           {
-            alert("Login failed");
-            return Concurrency.Return(null);
-           }
-         });
-        }));
+         return Client15.loginRender(name,password,submit);
+        };
        };
-      };
-      EventsPervasives.Events().OnClick(arg00,x);
-      submitBtn=x;
-      arg102=List.ofArray([Default.Attr().Class("form-group")]);
-      arg103=List.ofArray([Default.Text("Username"),Default.Attr().NewAttr("for","username")]);
-      arg104=List.ofArray([Default.Text("Password"),Default.Attr().NewAttr("for","password")]);
-      arg105=List.ofArray([submitBtn]);
-      return Operators1.add(Default.Form(List.ofArray([Default.Attr().NewAttr("role","form"),Default.Attr().NewAttr("id","signin")])),List.ofArray([Default.H2(List.ofArray([Default.Text("Please sign in")])),Operators1.add(Default.Tags().NewTag("fieldset",arg102),List.ofArray([Default.Tags().NewTag("label",arg103),userInput,Default.Tags().NewTag("label",arg104),Client15.passInput()])),Default.Tags().NewTag("fieldset",arg105)]));
+      },Piglet1.Run(function(loginInfo)
+      {
+       return Concurrency.Start(Concurrency.Delay(function()
+       {
+        return Concurrency.Bind(Remoting.Async("Sitelet:3",[loginInfo]),function(arg101)
+        {
+         if(arg101.$==1)
+          {
+           window.location.assign(redirectUrl);
+           return Concurrency.Return(null);
+          }
+         else
+          {
+           alert("Login failed");
+           return Concurrency.Return(null);
+          }
+        });
+       }));
+      },Client15.loginPiglet(Runtime.New(LoginInfo,{
+       Username:"",
+       Password:""
+      }))));
      },
-     passInput:Runtime.Field(function()
+     loginPiglet:function(init)
      {
-      var x,arg00;
-      x=Default.Input(List.ofArray([Default.Attr().NewAttr("type","password"),Default.Attr().Class("form-control"),Default.Attr().NewAttr("id","password")]));
+      return Piglet1.WithSubmit(Pervasives.op_LessMultiplyGreater(Pervasives.op_LessMultiplyGreater(Piglet1.Return(function(username)
+      {
+       return function(password)
+       {
+        return LoginInfo.New(username,password);
+       };
+      }),Validation.Is(function(value)
+      {
+       return Validation.NotEmpty(value);
+      },"Please enter your username.",Piglet1.Yield(init.Username))),Validation.Is(function(value)
+      {
+       return Validation.NotEmpty(value);
+      },"Please enter your password.",Piglet1.Yield(init.Password))));
+     },
+     loginRender:function(name,password,submit)
+     {
+      var x1,arg00;
+      x1=Operators1.add(Controls2.input("text",function(x)
+      {
+       return x;
+      },function(x)
+      {
+       return x;
+      },password),List.ofArray([Default.Attr().Class("form-control"),Default.Attr().NewAttr("type","password"),HTML5.Attr().NewAttr("placeholder","Password")]));
       arg00=function()
       {
        return function(keyCode)
        {
-        return keyCode.KeyCode===13?jQuery("#login-btn").click():null;
+        return keyCode.KeyCode===13?jQuery("#submit-btn").click():null;
        };
       };
-      EventsPervasives.Events().OnKeyDown(arg00,x);
-      return x;
-     })
+      EventsPervasives.Events().OnKeyDown(arg00,x1);
+      return Operators1.add(Default.Div(List.ofArray([Default.Attr().Class("well"),Default.Attr().NewAttr("id","login-form")])),List.ofArray([Operators1.add(Default.Div(List.ofArray([Default.Attr().Class("form-group")])),List.ofArray([Operators1.add(Controls2.input("text",function(x)
+      {
+       return x;
+      },function(x)
+      {
+       return x;
+      },name),List.ofArray([Default.Attr().Class("form-control"),Default.Attr().NewAttr("type","text"),HTML5.Attr().NewAttr("autofocus","autofocus"),HTML5.Attr().NewAttr("required","required"),HTML5.Attr().NewAttr("placeholder","Username")]))])),Operators1.add(Default.Div(List.ofArray([Default.Attr().Class("form-group")])),List.ofArray([x1])),Operators1.add(Controls2.SubmitValidate(submit),List.ofArray([Default.Attr().Class("btn btn-primary"),Default.Attr().NewAttr("id","submit-btn")]))]));
+     }
     },
     Control:Runtime.Class({
      get_Body:function()
      {
-      return Client15.loginForm(this.redirectUrl);
+      return Client15.form(this.redirectUrl);
+     }
+    }),
+    LoginInfo:Runtime.Class({},{
+     New:function(username,password)
+     {
+      return Runtime.New(LoginInfo,{
+       Username:username,
+       Password:password
+      });
      }
     })
    },
@@ -1879,19 +1912,19 @@
   Client13=Runtime.Safe(Index.Client);
   InsertSnippet=Runtime.Safe(Website.InsertSnippet);
   Client14=Runtime.Safe(InsertSnippet.Client);
-  Login=Runtime.Safe(Website.Login);
-  Client15=Runtime.Safe(Login.Client);
   Piglets=Runtime.Safe(WebSharper.Piglets);
   Piglet1=Runtime.Safe(Piglets.Piglet1);
-  Search=Runtime.Safe(Website.Search);
-  Client16=Runtime.Safe(Search.Client);
-  Validation=Runtime.Safe(Piglet1.Validation);
+  Login=Runtime.Safe(Website.Login);
+  Client15=Runtime.Safe(Login.Client);
+  LoginInfo=Runtime.Safe(Login.LoginInfo);
   Pervasives=Runtime.Safe(Piglets.Pervasives);
-  return Controls2=Runtime.Safe(Piglets.Controls);
+  Validation=Runtime.Safe(Piglet1.Validation);
+  Controls2=Runtime.Safe(Piglets.Controls);
+  Search=Runtime.Safe(Website.Search);
+  return Client16=Runtime.Safe(Search.Client);
  });
  Runtime.OnLoad(function()
  {
-  Client15.passInput();
   Clienta.data();
   Client4.style();
   Client4.loremIpsum();

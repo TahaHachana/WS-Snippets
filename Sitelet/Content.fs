@@ -106,9 +106,8 @@ module Content =
        
         let body action ctx =
             let link = link action ctx
-            Div [Class "container"; Id "main"] -< [
-                new Login.Control(link) :> INode<_>
-                Div [Id "push"] :> _
+            Div [Class "container"] -< [
+                new Login.Control(link)
             ]
 
     module Admin =

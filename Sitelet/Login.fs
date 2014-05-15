@@ -1,69 +1,89 @@
-﻿namespace Website
+﻿module Website.Login
 
-module Login =
-    open IntelliFactory.WebSharper
+open IntelliFactory.WebSharper
 
-    type private LoginInfo =
+[<ReflectedDefinition>]
+type LoginInfo =
+    {
+        Username : string
+        Password : string
+    }
+
+    static member New username password =
         {
-            Name     : string
-            Password : string
+            Username = username
+            Password = password
         }
 
-    type private Access = Denied | Granted
+type Access = Denied | Granted
 
-    module private Server =
-        open IntelliFactory.WebSharper.Sitelets
+module Server =
+    open IntelliFactory.WebSharper.Sitelets
 
-        [<Rpc>]
-        let login loginInfo =
-            async {
-                let access =
-                    if loginInfo.Password = AppSettings.password then
-                        UserSession.LoginUser loginInfo.Name
-                        Granted
-                    else Denied
-                return access }
+    [<Remote>]
+    let login loginInfo =
+        async {
+            match loginInfo.Password = AppSettings.password with
+            | false -> return Denied
+            | true ->
+                UserSession.LoginUser loginInfo.Username
+                return Granted
+        }
 
-    module private Client =
-        open IntelliFactory.WebSharper.Html
-        open IntelliFactory.WebSharper.Formlet
-        open IntelliFactory.WebSharper.JQuery
+[<JavaScript>]
+module Client =
+    open IntelliFactory.WebSharper.Html
+    open IntelliFactory.WebSharper.JQuery
+    open IntelliFactory.WebSharper.Piglets
 
-        [<JavaScript>]
-        let passInput =
-            Input [Attr.Type "password"; Attr.Class "form-control"; Attr.Id "password"]
-            |>! OnKeyDown (fun _ keyCode ->
-                match keyCode.KeyCode with
-                    | 13 -> JQuery.Of("#login-btn").Click().Ignore
-                    | _  -> ())
+    let loginPiglet (init:LoginInfo) =
+        Piglet.Return (fun username password -> LoginInfo.New username password)
+        <*> (Piglet.Yield init.Username
+            |> Piglet.Validation.Is Piglet.Validation.NotEmpty "Please enter your username.")
+        <*> (Piglet.Yield init.Password
+            |> Piglet.Validation.Is Piglet.Validation.NotEmpty "Please enter your password.")
+        |> Piglet.WithSubmit
 
-        [<JavaScript>]
-        let loginForm (redirectUrl : string) =
-            let userInput = Input [Attr.Type "text"; HTML5.Attr.AutoFocus "autofocus"; Attr.Class "form-control"; Attr.Id "username"]
-            let submitBtn =
-                Button [Attr.Type "button"; Attr.Class "btn btn-primary btn-block"; Id "login-btn"] -< [Text "Submit"]
-               |>! OnClick (fun _ _ ->
-                    async {
-                        let! access = Server.login {Name = userInput.Value; Password = passInput.Value}
-                        match access with
-                            | Denied -> JavaScript.Alert "Login failed"
-                            | Granted -> Html5.Window.Self.Location.Assign redirectUrl
-                    } |> Async.Start)
-            Form [Attr.NewAttr "role" "form"; Attr.Id "signin"] -< [
-                H2 [Text "Please sign in"]
-                FieldSet [Attr.Class "form-group"] -< [
-                    Label [Text "Username"; Attr.For "username"]
-                    userInput
-                    Label [Text "Password"; Attr.For "password"]
-                    passInput
+    let loginRender name password submit =
+            Div [Attr.Class "well"; Attr.Id "login-form"] -< [
+                Div [Attr.Class "form-group"] -< [
+                    Controls.Input name -< [
+                        Attr.Class "form-control"
+                        Attr.Type "text"
+                        HTML5.Attr.AutoFocus "autofocus"
+                        HTML5.Attr.Required "required"
+                        HTML5.Attr.PlaceHolder "Username"
+                    ]
                 ]
-                FieldSet [
-                    submitBtn
+                Div [Attr.Class "form-group"] -< [
+                    Controls.Input password -< [
+                        Attr.Class "form-control"
+                        Attr.Type "password"
+                        HTML5.Attr.PlaceHolder "Password"
+                    ]
+                    |>! OnKeyDown (fun _ keyCode ->
+                        match keyCode.KeyCode with
+                        | 13 -> JQuery.Of("#submit-btn").Click().Ignore
+                        | _  -> ())
+                ]
+                Controls.SubmitValidate submit -< [
+                    Attr.Class "btn btn-primary"; Attr.Id "submit-btn"
                 ]
             ]
 
-    type Control(redirectUrl) =
-        inherit Web.Control ()
+    let form redirectUrl =
+        loginPiglet {Username = ""; Password = ""}
+        |> Piglet.Run (fun loginInfo ->
+            async {
+                let! access = Server.login loginInfo
+                match access with
+                | Denied -> JavaScript.Alert "Login failed"
+                | Granted -> Html5.Window.Self.Location.Assign redirectUrl
+            } |> Async.Start)
+        |> Piglet.Render loginRender
 
-        [<JavaScript>]
-        override __.Body = Client.loginForm redirectUrl :> _
+type Control(redirectUrl) =
+    inherit Web.Control ()
+
+    [<JavaScript>]
+    override __.Body = Client.form redirectUrl :> _

@@ -5,6 +5,7 @@ open IntelliFactory.WebSharper.Sitelets.Content
 module Model =
 
     type PageId = int
+    type Path = string
     type Tag = string
     type Query = string
 
@@ -15,7 +16,7 @@ module Model =
         | Home
         | Login of Action option
         | Logout
-        | [<CompiledName("snippet")>] Snippet of PageId
+        | [<CompiledName("snippet")>] Snippet of PageId * Path
         | Highlight
         | [<CompiledName("tagged")>] Tagged of Tag
 //        | [<CompiledName("extjs")>] Extjs of PageId

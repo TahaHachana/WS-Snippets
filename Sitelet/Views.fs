@@ -51,7 +51,7 @@ module Views =
             (fun ctx -> Div [])
             Footer.elt
 
-    let snippet id =
+    let snippet id path =
         let snippet = Mongo.Snippets.byId id
         withTemplate
             Templates.snippet

@@ -48,9 +48,11 @@ module NewPage =
             content <| new Snippet24.Control()
             content <| new Snippet25.Control()
             content <| new Snippet26.Control()
+            content <| Div []
 //            extjsContent <| new Snippet27.Control()
             content <| new Snippet28.Control()
             content <| new Snippet29.Control()
+            content <| Div []
 //            content <| new Snippet30.Control()
             content <| new Snippet31.Control()
             content <| new Snippet32.Control()

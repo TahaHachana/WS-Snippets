@@ -5,7 +5,7 @@ module Highlight =
 
     type Result = Error | Success of string
 
-    module private Server =
+    module Server =
         open System
         open System.Text.RegularExpressions
 
@@ -66,7 +66,7 @@ module Highlight =
         let lineNums (str : String) =
             let count = str.Split '\n' |> fun x -> x.Length
             let spans = [for x in 1 .. count -> "<span>" + string x + "</span>"] |> String.concat "<br />"
-            "<div style='margin: 0px; padding: 0px; font-family: Consolas; width: auto'><style type='text/css'>.fs-str {color: #d14;} .fs-key {color: blue;} .fs-com {color: green; font-style: italic;}</style><table><tr><td style='padding: 5px; vertical-align: top; border-right: 1px solid #ececec; color: rgb(160, 160, 160);'>" + spans + "</td><td style='vertical-align: top; padding: 5px;'>" + str + "</td></tr></table></div>"
+            "<div style='margin: 0px; padding: 0px; font-family: Consolas; overflow-x: scroll;'><style type='text/css'>.fs-str {color: #d14;} .fs-key {color: blue;} .fs-com {color: green; font-style: italic;}</style><table><tr><td style='padding: 5px; vertical-align: top; border-right: 1px solid #ececec; color: rgb(160, 160, 160);'>" + spans + "</td><td style='vertical-align: top; padding: 5px;'>" + str + "</td></tr></table></div>"
 
         let serialize (tokens : Token list) =
             List.foldBack (fun token str ->
@@ -75,7 +75,7 @@ module Highlight =
                         | String    x -> "<span class='fs-str'>" + x + "</span>"
                         | Keyword   x -> "<span class='fs-key'>" + x + "</span>"
                         | Comment   x
-                        | MLComment x -> "<span class='fs-com'>" + x + "</span>"
+                        | MLComment x -> "<span class='fs-com'>" + x.Trim() + "</span>"
                         | Else      x -> x
                 str + token') tokens ""
             |> fun x -> "<pre style='margin: 0px; background-color: white; border: none; padding: 0px; font-size: 14px; white-space: pre;'>" + x + "</pre>"
@@ -92,7 +92,7 @@ module Highlight =
             |> serialize
 
         [<Rpc>]
-        let format src =
+        let format src = //highlight src
             async {
                 let result =
                     try let html = highlight src in Success html

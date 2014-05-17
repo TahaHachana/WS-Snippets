@@ -1,5 +1,9 @@
 declare module Website {
     module Highlight {
+        module Server {
+            interface Token {
+            }
+        }
         interface Result {
         }
         interface Control {

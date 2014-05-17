@@ -135,67 +135,53 @@ module Content =
     module Snippet =
 
         let title (snippet:Snippet) = snippet.Title + " · WebSharper Snippets"
-        
-        let desc snippet = Element.VerbatimContent snippet.DescHtml
-        
+                
         let code id =
             let path = HttpContext.Current.Server.MapPath <| "~/Source/" + string id + ".txt"
             let source = File.ReadAllText path
-            Element.VerbatimContent source
+            let html = Highlight.Server.highlight source
+            Element.VerbatimContent html
         
         let tags snippet =
             snippet.Tags
             |> Array.map (fun tag ->
                 let href = "/tagged/" + tag.ToLower()
-                A [HRef href] -< [
-                    Button [Class "btn btn-success btn-tag"] -< [
+                A [HRef href; Class "tag-link"] -< [
+                    Button [Class "btn btn-info btn-tag"] -< [
                         Text tag
                     ]
                 ])
 
         let detailsDiv (snippet:Snippet) =
-            Div [Class "row"; Id "snippet-details"] -< [
+            Div [Id "snippet-description"] -< [
                 H1 [Text snippet.Title]
-                Div [Class "row col-lg-8"] -< [desc snippet]
+                Element.VerbatimContent snippet.DescHtml
             ]
-
-        let tabsDiv id =
-            Div [Class "row"; Id "demo-tabs"] -< [
-                UL [Class "nav nav-tabs nav-justified"] -< [
-                    LI [Class "active"] -< [
-                        A [HRef "#demo"; HTML5.Data "toggle" "tab"] -< [
-                            Text "Demo"
-                        ]
-                    ]
-                    LI [
-                        A [HRef "#source"; HTML5.Data "toggle" "tab"] -< [
-                            Text "Source"
-                        ]
-                    ]
-                ]
-                Div [Class "tab-content"; Attributes.Style "height: 450px;"] -< [
-                    Div [Class "tab-pane active"; Id "demo"] -< [
-                        IFrame [
-                            Src <| "/newpage/" + string id
-                            NewAttribute "seamless" "seamless"
-                            Attributes.Style "width: 100%; height: 440px; border: none;"
-                        ]
-                    ]
-                    Div [Class "tab-pane"; Id "source"] -< [code id]
-                ]
-            ]
-
-        let tagsDiv snippet =
-            Div [Class "row"; Id "tags-div"] -< [
-                H2 [Text "Tags"]
-                Div [yield! tags snippet]
-            ]        
 
         let body snippet id =
-            Div [Class "container"; Id "main"] -< [
+            Div [Class "container"] -< [
                 detailsDiv snippet
-                tabsDiv id
-                tagsDiv snippet
+                Div [Class "page-header"] -< [
+                    H2 [Text "Demo"]
+                ]
+                IFrame [
+                    Src <| "/newpage/" + string id
+                    Scrolling "no"
+                    Attributes.Style "width: 100%; border: none;"
+                ]
+                A [HRef <| "/newpage/" + string id; Class "tag-link"; Target "_blank"] -< [
+                    Button [Class "btn btn-primary btn-tag"] -< [
+                        Text "Open in new page"
+                    ]                        
+                ]
+                Div [Class "page-header"] -< [
+                    H2 [Text "Code"]
+                ]
+                code id
+                Div [Class "page-header"] -< [
+                    H2 [Text "Tags"]
+                ]
+                Div [yield! tags snippet]
                 Div [Id "push"]
             ]
 

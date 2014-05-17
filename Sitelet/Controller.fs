@@ -21,7 +21,7 @@ module Controller =
             | Home           -> Views.home
             | Login action   -> Views.login action
             | Logout         -> logout()
-            | Snippet pageId -> Views.snippet pageId
+            | Snippet (id, path) -> Views.snippet id path
             | Highlight      -> Views.highlight
             | Tagged tag     -> Views.tagged tag
 //            | Extjs pageId   -> Views.extjs pageId

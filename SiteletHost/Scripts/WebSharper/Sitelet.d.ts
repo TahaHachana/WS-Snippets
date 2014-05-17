@@ -374,7 +374,59 @@ declare module Website {
             (): __ABBREV.__Html.Element;
         };
     }
-    module InsertSnippet {
+    module NewSnippet {
+        module Client {
+            var tagPiglet : {
+                <_M1>(init: string): __ABBREV.__Piglets.Piglet<string, {
+                    (x: {
+                        (x: __ABBREV.__Piglets.Stream<string>): _M1;
+                    }): _M1;
+                }>;
+            };
+            var snippetPiglet : {
+                <_M1, _M2>(init: any): __ABBREV.__Piglets.Piglet<any, {
+                    (x: {
+                        (x: __ABBREV.__Piglets.Stream<string>): {
+                            (x: __ABBREV.__Piglets.Stream<string>): {
+                                (x: __ABBREV.__Piglets.Stream<string>): {
+                                    (x: __ABBREV.__Piglets.Stream<string>): {
+                                        (x: __ABBREV.__Piglets.Stream<string>): {
+                                            (x: __ABBREV.__Many.UnitStream<string, {
+                                                (x: __ABBREV.__Piglets.Stream<string>): _M1;
+                                            }, _M1>): {
+                                                (x: __ABBREV.__Piglets.Submitter<any>): _M2;
+                                            };
+                                        };
+                                    };
+                                };
+                            };
+                        };
+                    }): _M2;
+                }>;
+            };
+            var tagView : {
+                (tag: __ABBREV.__Piglets.Stream<string>): __ABBREV.__Html.Element;
+            };
+            var Button : {
+                (writer: __ABBREV.__Piglets.Writer<string>): __ABBREV.__Html.Element;
+            };
+            var snippetView : {
+                <_M1, _M2, _M3>(id: __ABBREV.__Piglets.Stream<string>, title: __ABBREV.__Piglets.Stream<string>, metaDescription: __ABBREV.__Piglets.Stream<string>, description: __ABBREV.__Piglets.Stream<string>, descriptionHtml: __ABBREV.__Piglets.Stream<string>, tags: __ABBREV.__Many.Stream<string, {
+                    (x: __ABBREV.__Piglets.Stream<string>): __ABBREV.__Html.Element;
+                }, __ABBREV.__Html.Element, _M1, _M2>, submit: __ABBREV.__Piglets.Submitter<_M3>): __ABBREV.__Html.Element;
+            };
+            var form : {
+                (): __ABBREV.__Html.Element;
+            };
+        }
+        interface Snippet {
+            Id: string;
+            Title: string;
+            MetaDescription: string;
+            Description: string;
+            DescriptionHtml: string;
+            Tags: string[];
+        }
         interface Control {
             get_Body(): __ABBREV.__Html.IPagelet;
         }
@@ -389,16 +441,6 @@ declare module Website {
             DescHtml: string;
             Tags: string[];
             Date: __ABBREV.__WebSharper.DateTimeProxy;
-        }
-    }
-    module Index {
-        module Client {
-            var main : {
-                (): __ABBREV.__Html.IPagelet;
-            };
-        }
-        interface Control {
-            get_Body(): __ABBREV.__Html.IPagelet;
         }
     }
     module Search {
@@ -436,4 +478,5 @@ declare module __ABBREV {
     export import __WebSharper = IntelliFactory.WebSharper;
     export import __Login = Website.Login;
     export import __Piglets = IntelliFactory.WebSharper.Piglets;
+    export import __Many = IntelliFactory.WebSharper.Piglets.Many;
 }

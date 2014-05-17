@@ -112,23 +112,24 @@ module Content =
 
     module Admin =
 
-        let formsDiv =
-            Div [Class "row"] -< [
-                Div [Class "col-lg-6"] -< [
-                    H3 [Text "Insert a new snippet"]
-                    Div [new InsertSnippet.Control()]
-                ]
-                Div [Class "col-lg-6"] -< [
-                    H3 [Text "Index a new snippet"]
-                    Div [new Index.Control()]
-                ]
-            ]
+//        let formsDiv =
+//            Div [Class "row"] -< [
+//                Div [Class "col-lg-6"] -< [
+//                    H3 [Text "Insert a new snippet"]
+//                    Div [new InsertSnippet.Control()]
+//                ]
+//                Div [Class "col-lg-6"] -< [
+//                    H3 [Text "Index a new snippet"]
+//                    Div [new Index.Control()]
+//                ]
+//            ]
 
         let body ctx =
-            Div [Id "main"; Class "container"] -< [
-                LoginInfo.elt ctx
-                formsDiv
-                Div [Id "push"]
+            Div [Class "container"] -< [
+                LoginInfo.elt ctx :> INode<_>
+                new NewSnippet.Control() :> _
+//                formsDiv
+                Div [Id "push"] :> _
             ]
 
     module Snippet =

@@ -1,6 +1,6 @@
 (function()
 {
- var Global=this,Runtime=this.IntelliFactory.Runtime,WebSharper,Html,Default,List,Arrays,Seq,Operators,Website,Controls,Snippet10,Client,HTML5,T,EventsPervasives,Operators1,Snippet11,Client1,document,Snippet12,Client2,Snippet13,Client3,Snippet14,Client4,jQuery,Concurrency,Remoting,Snippet15,Client5,google,visualization,DataTable,Snippet16,Client6,LineChart,Date,Number,Snippet17,Client7,Snippet18,JS,JQueryUI,Tabs,Snippet19,window,Snippet2,Client8,Snippet20,Snippet21,JS1,Snippet22,JS2,String,Datepicker,Snippet25,Client9,Snippet28,Clienta,PieChart,Snippet29,Snippet3,Clientb,Snippet31,Snippet32,JS3,clearTimeout,setTimeout,alert,Snippet4,Clientc,JavaScript,Snippet5,Clientd,Snippet6,Cliente,Snippet7,Clientf,WebSocket,Snippet8,Client10,Snippet9,Client11,Forkme,Highlight,Client12,Formlet,Controls1,Enhance,Data,Formlet1,Index,Client13,InsertSnippet,Client14,Piglets,Piglet1,Login,Client15,LoginInfo,Pervasives,Validation,Controls2,Search,Client16;
+ var Global=this,Runtime=this.IntelliFactory.Runtime,WebSharper,Html,Default,List,Arrays,Seq,Operators,Website,Controls,Snippet10,Client,HTML5,T,EventsPervasives,Operators1,Snippet11,Client1,document,Snippet12,Client2,Snippet13,Client3,Snippet14,Client4,jQuery,Concurrency,Remoting,Snippet15,Client5,google,visualization,DataTable,Snippet16,Client6,LineChart,Date,Number,Snippet17,Client7,Snippet18,JS,JQueryUI,Tabs,Snippet19,window,Snippet2,Client8,Snippet20,Snippet21,JS1,Snippet22,JS2,String,Datepicker,Snippet25,Client9,Snippet28,Clienta,PieChart,Snippet29,Snippet3,Clientb,Snippet31,Snippet32,JS3,clearTimeout,setTimeout,alert,Snippet4,Clientc,JavaScript,Snippet5,Clientd,Snippet6,Cliente,Snippet7,Clientf,WebSocket,Snippet8,Client10,Snippet9,Client11,Forkme,Highlight,Client12,Piglets,Piglet1,Login,Client13,LoginInfo,Pervasives,Validation,Controls1,Result,NewSnippet,Client14,Search,Client15;
  Runtime.Define(Global,{
   Website:{
    Controls:{
@@ -1545,119 +1545,6 @@
      }
     })
    },
-   Index:{
-    Client:{
-     main:function()
-     {
-      var x,id,x1,title,x2,desc,x3,code,formlet;
-      x=Controls1.Input("");
-      id=Enhance.WithTextLabel("Id",x);
-      x1=Controls1.Input("");
-      title=Enhance.WithTextLabel("Title",x1);
-      x2=Controls1.TextArea("");
-      desc=Enhance.WithTextLabel("Description",x2);
-      x3=Controls1.TextArea("");
-      code=Enhance.WithTextLabel("Code",x3);
-      formlet=Enhance.WithFormContainer(Enhance.WithSubmitAndResetButtons(Data.$(Data.$(Data.$(Data.$(Formlet1.Return(function(id1)
-      {
-       return function(title1)
-       {
-        return function(desc1)
-        {
-         return function(code1)
-         {
-          return[id1,title1,desc1,code1];
-         };
-        };
-       };
-      }),id),title),desc),code)));
-      return Formlet1.Run(Runtime.Tupled(function(x4)
-      {
-       return Concurrency.Start(Concurrency.Delay(function()
-       {
-        return Concurrency.Bind(Remoting.Async("Sitelet:5",[x4[0],x4[1],x4[2],x4[3]]),function()
-        {
-         alert("Document indexed.");
-         return Concurrency.Return(null);
-        });
-       }));
-      }),formlet);
-     }
-    },
-    Control:Runtime.Class({
-     get_Body:function()
-     {
-      return Client13.main();
-     }
-    })
-   },
-   InsertSnippet:{
-    Client:{
-     main:function()
-     {
-      var x,id,x1,title,x2,metaDesc,x3,desc,x4,descHtml,x5,tags,formlet,x6,formlet1;
-      x=Controls1.Input("");
-      id=Enhance.WithTextLabel("Id",x);
-      x1=Controls1.Input("");
-      title=Enhance.WithTextLabel("Title",x1);
-      x2=Controls1.Input("");
-      metaDesc=Enhance.WithTextLabel("Meta Description",x2);
-      x3=Controls1.TextArea("");
-      desc=Enhance.WithTextLabel("Description",x3);
-      x4=Controls1.TextArea("");
-      descHtml=Enhance.WithTextLabel("Description HTML",x4);
-      x5=Controls1.Input("");
-      tags=Enhance.WithTextLabel("Tags",x5);
-      formlet=Data.$(Data.$(Data.$(Data.$(Data.$(Data.$(Formlet1.Return(function(id1)
-      {
-       return function(title1)
-       {
-        return function(metaDesc1)
-        {
-         return function(desc1)
-         {
-          return function(descHtml1)
-          {
-           return function(tags1)
-           {
-            return[id1,title1,metaDesc1,desc1,descHtml1,tags1];
-           };
-          };
-         };
-        };
-       };
-      }),id),title),metaDesc),desc),descHtml),tags);
-      x6=Enhance.WithSubmitAndResetButtons(formlet);
-      formlet1=Enhance.WithFormContainer(x6);
-      return Formlet1.Run(Runtime.Tupled(function(x7)
-      {
-       return Concurrency.Start(Concurrency.Delay(function()
-       {
-        JavaScript.Log(x7);
-        return Concurrency.Bind(Remoting.Async("Sitelet:4",[x7[0],x7[1],x7[2],x7[3],x7[4],x7[5]]),function(arg101)
-        {
-         if(arg101)
-          {
-           alert("New snippet inserted successfully.");
-           return Concurrency.Return(null);
-          }
-         else
-          {
-           alert("The query failed.");
-           return Concurrency.Return(null);
-          }
-        });
-       }));
-      }),formlet1);
-     }
-    },
-    Control:Runtime.Class({
-     get_Body:function()
-     {
-      return Client14.main();
-     }
-    })
-   },
    Login:{
     Client:{
      form:function(redirectUrl)
@@ -1668,7 +1555,7 @@
        {
         return function(submit)
         {
-         return Client15.loginRender(name,password,submit);
+         return Client13.loginRender(name,password,submit);
         };
        };
       },Piglet1.Run(function(loginInfo)
@@ -1689,7 +1576,7 @@
           }
         });
        }));
-      },Client15.loginPiglet(Runtime.New(LoginInfo,{
+      },Client13.loginPiglet(Runtime.New(LoginInfo,{
        Username:"",
        Password:""
       }))));
@@ -1713,7 +1600,7 @@
      loginRender:function(name,password,submit)
      {
       var x1,arg00;
-      x1=Operators1.add(Controls2.input("text",function(x)
+      x1=Operators1.add(Controls1.input("text",function(x)
       {
        return x;
       },function(x)
@@ -1728,19 +1615,19 @@
        };
       };
       EventsPervasives.Events().OnKeyDown(arg00,x1);
-      return Operators1.add(Default.Div(List.ofArray([Default.Attr().Class("well"),Default.Attr().NewAttr("id","login-form")])),List.ofArray([Operators1.add(Default.Div(List.ofArray([Default.Attr().Class("form-group")])),List.ofArray([Operators1.add(Controls2.input("text",function(x)
+      return Operators1.add(Default.Div(List.ofArray([Default.Attr().Class("well"),Default.Attr().NewAttr("id","login-form")])),List.ofArray([Operators1.add(Default.Div(List.ofArray([Default.Attr().Class("form-group")])),List.ofArray([Operators1.add(Controls1.input("text",function(x)
       {
        return x;
       },function(x)
       {
        return x;
-      },name),List.ofArray([Default.Attr().Class("form-control"),Default.Attr().NewAttr("type","text"),HTML5.Attr().NewAttr("autofocus","autofocus"),HTML5.Attr().NewAttr("required","required"),HTML5.Attr().NewAttr("placeholder","Username")]))])),Operators1.add(Default.Div(List.ofArray([Default.Attr().Class("form-group")])),List.ofArray([x1])),Operators1.add(Controls2.SubmitValidate(submit),List.ofArray([Default.Attr().Class("btn btn-primary"),Default.Attr().NewAttr("id","submit-btn")]))]));
+      },name),List.ofArray([Default.Attr().Class("form-control"),Default.Attr().NewAttr("type","text"),HTML5.Attr().NewAttr("autofocus","autofocus"),HTML5.Attr().NewAttr("required","required"),HTML5.Attr().NewAttr("placeholder","Username")]))])),Operators1.add(Default.Div(List.ofArray([Default.Attr().Class("form-group")])),List.ofArray([x1])),Operators1.add(Controls1.SubmitValidate(submit),List.ofArray([Default.Attr().Class("btn btn-primary"),Default.Attr().NewAttr("id","submit-btn")]))]));
      }
     },
     Control:Runtime.Class({
      get_Body:function()
      {
-      return Client15.form(this.redirectUrl);
+      return Client13.form(this.redirectUrl);
      }
     }),
     LoginInfo:Runtime.Class({},{
@@ -1753,6 +1640,147 @@
      }
     })
    },
+   NewSnippet:{
+    Client:{
+     Button:function(writer)
+     {
+      var x,arg00;
+      x=Default.Button(Runtime.New(T,{
+       $:0
+      }));
+      arg00=function()
+      {
+       return function()
+       {
+        return writer.Trigger(Runtime.New(Result,{
+         $:0,
+         $0:""
+        }));
+       };
+      };
+      EventsPervasives.Events().OnClick(arg00,x);
+      return x;
+     },
+     form:Runtime.Field(function()
+     {
+      return Piglet1.Render(function(id)
+      {
+       return function(title)
+       {
+        return function(metaDescription)
+        {
+         return function(description)
+         {
+          return function(descriptionHtml)
+          {
+           return function(tags)
+           {
+            return function(submit)
+            {
+             return Client14.snippetView(id,title,metaDescription,description,descriptionHtml,tags,submit);
+            };
+           };
+          };
+         };
+        };
+       };
+      },Piglet1.Run(function(snippet)
+      {
+       return Concurrency.Start(Concurrency.Delay(function()
+       {
+        JavaScript.Log(snippet);
+        return Concurrency.Return(null);
+       }));
+      },Client14.snippetPiglet({
+       Id:"",
+       Title:"",
+       MetaDescription:"",
+       Description:"",
+       DescriptionHtml:"",
+       Tags:[""]
+      })));
+     }),
+     snippetPiglet:function(init)
+     {
+      return Piglet1.WithSubmit(Pervasives.op_LessMultiplyGreater(Pervasives.op_LessMultiplyGreater(Pervasives.op_LessMultiplyGreater(Pervasives.op_LessMultiplyGreater(Pervasives.op_LessMultiplyGreater(Pervasives.op_LessMultiplyGreater(Piglet1.Return(function(id)
+      {
+       return function(title)
+       {
+        return function(metaDescription)
+        {
+         return function(description)
+         {
+          return function(descriptionHtml)
+          {
+           return function(tags)
+           {
+            return{
+             Id:id,
+             Title:title,
+             MetaDescription:metaDescription,
+             Description:description,
+             DescriptionHtml:descriptionHtml,
+             Tags:tags
+            };
+           };
+          };
+         };
+        };
+       };
+      }),Piglet1.Yield(init.Id)),Piglet1.Yield(init.Title)),Piglet1.Yield(init.MetaDescription)),Piglet1.Yield(init.Description)),Piglet1.Yield(init.DescriptionHtml)),Piglet1.ManyInit(init.Tags,"",function(init1)
+      {
+       return Client14.tagPiglet(init1);
+      })));
+     },
+     snippetView:function(id,title,metaDescription,description,descriptionHtml,tags,submit)
+     {
+      return Operators1.add(Default.Div(List.ofArray([Default.Attr().Class("well col-md-4")])),List.ofArray([Operators1.add(Default.Div(List.ofArray([Default.Attr().Class("form-group")])),List.ofArray([Operators1.add(Controls1.input("text",function(x)
+      {
+       return x;
+      },function(x)
+      {
+       return x;
+      },id),List.ofArray([Default.Attr().Class("form-control"),Default.Attr().NewAttr("type","text"),HTML5.Attr().NewAttr("autofocus","autofocus"),HTML5.Attr().NewAttr("placeholder","Id")]))])),Operators1.add(Default.Div(List.ofArray([Default.Attr().Class("form-group")])),List.ofArray([Operators1.add(Controls1.input("text",function(x)
+      {
+       return x;
+      },function(x)
+      {
+       return x;
+      },title),List.ofArray([Default.Attr().Class("form-control"),Default.Attr().NewAttr("type","text"),HTML5.Attr().NewAttr("placeholder","Title")]))])),Operators1.add(Default.Div(List.ofArray([Default.Attr().Class("form-group")])),List.ofArray([Operators1.add(Controls1.TextArea(metaDescription),List.ofArray([Default.Attr().Class("form-control"),Default.Attr().NewAttr("type","text"),HTML5.Attr().NewAttr("placeholder","Meta Description")]))])),Operators1.add(Default.Div(List.ofArray([Default.Attr().Class("form-group")])),List.ofArray([Operators1.add(Controls1.TextArea(description),List.ofArray([Default.Attr().Class("form-control"),Default.Attr().NewAttr("type","text"),HTML5.Attr().NewAttr("placeholder","Description")]))])),Operators1.add(Default.Div(List.ofArray([Default.Attr().Class("form-group")])),List.ofArray([Operators1.add(Controls1.TextArea(descriptionHtml),List.ofArray([Default.Attr().Class("form-control"),Default.Attr().NewAttr("type","text"),HTML5.Attr().NewAttr("placeholder","Description HTML")]))])),Controls1.RenderMany(tags,function()
+      {
+       return function(tag)
+       {
+        return Client14.tagView(tag);
+       };
+      },Default.Div(Runtime.New(T,{
+       $:0
+      }))),Default.Div(List.ofArray([Operators1.add(Client14.Button(tags.get_Add()),List.ofArray([Default.Text("New Tag"),Default.Attr().Class("btn btn-default")])),Operators1.add(Controls1.SubmitValidate(submit),List.ofArray([Default.Attr().Class("btn btn-primary"),Default.Attr().NewAttr("id","submit-btn")]))]))]));
+     },
+     tagPiglet:function(init)
+     {
+      return Pervasives.op_LessMultiplyGreater(Piglet1.Return(function(x)
+      {
+       return x;
+      }),Piglet1.Yield(init));
+     },
+     tagView:function(tag)
+     {
+      return Operators1.add(Default.Div(List.ofArray([Default.Attr().Class("form-group")])),List.ofArray([Operators1.add(Controls1.input("text",function(x)
+      {
+       return x;
+      },function(x)
+      {
+       return x;
+      },tag),List.ofArray([Default.Attr().Class("form-control"),Default.Attr().NewAttr("type","text"),HTML5.Attr().NewAttr("placeholder","Tag")]))]));
+     }
+    },
+    Control:Runtime.Class({
+     get_Body:function()
+     {
+      return Client14.form();
+     }
+    })
+   },
    Search:{
     Client:{
      main:function()
@@ -1761,12 +1789,12 @@
       {
        return function(submit)
        {
-        return Client16.view(uriString,submit);
+        return Client15.view(uriString,submit);
        };
       },Piglet1.Run(function()
       {
        window.location.href="/search/"+Global.String(jQuery("#query").val())+"/1";
-      },Client16.piglet("")));
+      },Client15.piglet("")));
      },
      piglet:function(init)
      {
@@ -1781,7 +1809,7 @@
      view:function(uriString,submit)
      {
       var x,arg00;
-      x=Operators1.add(Controls2.input("text",function(x1)
+      x=Operators1.add(Controls1.input("text",function(x1)
       {
        return x1;
       },function(x1)
@@ -1804,13 +1832,13 @@
        };
       };
       EventsPervasives.Events().OnKeyUp(arg00,x);
-      return Operators1.add(Default.Div(List.ofArray([Default.Attr().Class("input-group input-group-lg col-md-6 col-md-offset-3")])),List.ofArray([x,Operators1.add(Default.Span(List.ofArray([Default.Attr().Class("input-group-btn")])),List.ofArray([Operators1.add(Controls2.SubmitValidate(submit),List.ofArray([Default.Attr().Class("btn btn-primary"),Default.Attr().NewAttr("id","search-btn"),Default.Attr().NewAttr("value","Search"),HTML5.Attr().NewAttr("data-"+"loading-text","Please wait...")]))]))]));
+      return Operators1.add(Default.Div(List.ofArray([Default.Attr().Class("input-group input-group-lg col-md-6 col-md-offset-3")])),List.ofArray([x,Operators1.add(Default.Span(List.ofArray([Default.Attr().Class("input-group-btn")])),List.ofArray([Operators1.add(Controls1.SubmitValidate(submit),List.ofArray([Default.Attr().Class("btn btn-primary"),Default.Attr().NewAttr("id","search-btn"),Default.Attr().NewAttr("value","Search"),HTML5.Attr().NewAttr("data-"+"loading-text","Please wait...")]))]))]));
      }
     },
     Control:Runtime.Class({
      get_Body:function()
      {
-      return Client16.main();
+      return Client15.main();
      }
     })
    }
@@ -1903,28 +1931,23 @@
   Forkme=Runtime.Safe(Website.Forkme);
   Highlight=Runtime.Safe(Website.Highlight);
   Client12=Runtime.Safe(Highlight.Client);
-  Formlet=Runtime.Safe(WebSharper.Formlet);
-  Controls1=Runtime.Safe(Formlet.Controls);
-  Enhance=Runtime.Safe(Formlet.Enhance);
-  Data=Runtime.Safe(Formlet.Data);
-  Formlet1=Runtime.Safe(Formlet.Formlet);
-  Index=Runtime.Safe(Website.Index);
-  Client13=Runtime.Safe(Index.Client);
-  InsertSnippet=Runtime.Safe(Website.InsertSnippet);
-  Client14=Runtime.Safe(InsertSnippet.Client);
   Piglets=Runtime.Safe(WebSharper.Piglets);
   Piglet1=Runtime.Safe(Piglets.Piglet1);
   Login=Runtime.Safe(Website.Login);
-  Client15=Runtime.Safe(Login.Client);
+  Client13=Runtime.Safe(Login.Client);
   LoginInfo=Runtime.Safe(Login.LoginInfo);
   Pervasives=Runtime.Safe(Piglets.Pervasives);
   Validation=Runtime.Safe(Piglet1.Validation);
-  Controls2=Runtime.Safe(Piglets.Controls);
+  Controls1=Runtime.Safe(Piglets.Controls);
+  Result=Runtime.Safe(Piglets.Result);
+  NewSnippet=Runtime.Safe(Website.NewSnippet);
+  Client14=Runtime.Safe(NewSnippet.Client);
   Search=Runtime.Safe(Website.Search);
-  return Client16=Runtime.Safe(Search.Client);
+  return Client15=Runtime.Safe(Search.Client);
  });
  Runtime.OnLoad(function()
  {
+  Client14.form();
   Clienta.data();
   Client4.style();
   Client4.loremIpsum();

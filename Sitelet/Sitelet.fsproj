@@ -64,6 +64,7 @@
     <Compile Include="Mongo.fs" />
     <Compile Include="Rss.fs" />
     <Compile Include="InsertSnippet.fs" />
+    <Compile Include="NewSnippet.fs" />
     <Compile Include="Dependencies.fs" />
     <Compile Include="Forkme.fs" />
     <Compile Include="Login.fs" />

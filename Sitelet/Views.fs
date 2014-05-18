@@ -80,7 +80,7 @@ module Views =
 
     let search queryStr pageId =
         let queryStr' = HttpUtility.UrlDecode queryStr
-        let matches, results = Search.Server.results queryStr' ((pageId - 1) * 5)
+        let matches, results = Search.Server.results queryStr' ((pageId - 1) * 10)
         withTemplate
             Templates.search
             ""

@@ -16,7 +16,7 @@ module Search =
             q.Fetch <- ["title"; "description"]
             q.Snippet <- ["title"; "description"]
             q.Start <- Nullable start
-            q.Len <- Nullable 5
+            q.Len <- Nullable 10
             q
 //        let search = client.Search("WSSnippets", query)
 

@@ -279,32 +279,26 @@ module Content =
             | length when length < 150 -> str
             | _ -> str.[..147] + "..."
 
-        let resultLi (id, title, description) =
+        let resultDiv (id, title, description) =
             let description' = subStr description
-            LI [Class "list-group-item"] -< [
-                A [HRef <| "/snippet/" + id; Class "search-result-link"] -< [
-                    Element.VerbatimContent title
+            Div [
+                H3 [
+                    A [HRef <| "/snippet/" + id] -< [
+                        Element.VerbatimContent title
+                    ]
                 ]
                 Div [Text description']
             ]
 
         let resultsDiv results =
             results
-            |> Array.map resultLi
-            |> fun lis ->
-                Div [Class "row"] -< [
-                    UL [Class "list-group col-lg-8"] -< lis
-                ]
+            |> Array.map resultDiv
+            |> fun divs -> Div [Id "search-results"] -< divs
 
         let prevLi pageId queryStr =
             match pageId with
             | 1 -> LI [Class "disabled"] -< [Utils.link "#" "«"]
-            | _ ->
-                LI [
-                    Utils.link
-                        ("/search/" + queryStr + "/" + string (pageId - 1))
-                        "«"
-                ]
+            | _ -> LI [Utils.link ("/search/" + queryStr + "/" + string (pageId - 1)) "«"]
 
         let nextLi pageId pagesLength queryStr =
             match pageId with
@@ -342,37 +336,61 @@ module Content =
 
         let paginationDiv matches pageId queryStr =
             let pages =
-                matches / 5. |> ceil
-                |> int |> fun x -> [|1 .. x|]
+                matches / 10.
+                |> ceil |> int |> fun x -> [|1 .. x|]
             let length = pages.Length
             let pages' =
-                match length with
-                | l when l < 11 -> pages
+                match pageId with
+                | _ when pageId < 7 -> pages |> Seq.truncate 10 |> Seq.toArray
                 | _ ->
-                    pages.[(pageId - 5) .. ]
-                    |> Seq.truncate 10
+                    let tail =
+                        pages.[pageId ..]
+                        |> Seq.truncate 4
+                        |> Seq.toArray
+                    pages.[.. pageId - 1]
+                    |> Array.rev
+                    |> Seq.truncate (10 - tail.Length)
                     |> Seq.toArray
+                    |> Array.rev
+                    |> fun x -> Array.append x tail
             match length with
                 | 1 -> Div []
                 | _ ->
-                    Div [Class "row"] -< [
+                    Div [
                         pagesUl pageId queryStr pages' length
                     ]
 
+//            let pages =
+//                matches / 5. |> ceil
+//                |> int |> fun x -> [|1 .. x|]
+//            let length = pages.Length
+//            let pages' =
+//                match length with
+//                | l when l < 11 -> pages
+//                | _ ->
+//                    pages.[(pageId - 5) .. ]
+//                    |> Seq.truncate 10
+//                    |> Seq.toArray
+//            match length with
+//                | 1 -> Div []
+//                | _ ->
+//                    Div [Class "row"] -< [
+//                        pagesUl pageId queryStr pages' length
+//                    ]
+//
         let body (results:(string * string * string) []) pageId matches queryStr =
             match results.Length with
                 | 0 ->
-                    Div [Class "container"; Id "main"] -< [
-                        Div [Class "row page-header"] -< [
+                    Div [Class "container"] -< [
+                        Div [Class "page-header"] -< [
                             H1 [Text "Results"]
-                            P [Text "The query did not match any documents."]
-                            Div [Id "push"]
                         ]
-                    
+                        P [Text "The query did not match any documents."]
+                        Div [Id "push"]
                     ]
                 | _ ->
-                    Div [Class "container"; Id "main"] -< [
-                        Div [Class "row page-header"] -< [
+                    Div [Class "container"] -< [
+                        Div [Class "page-header"] -< [
                             H1 [Text "Results"]
                         ]
                         resultsDiv results

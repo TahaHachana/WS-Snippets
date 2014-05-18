@@ -60,13 +60,13 @@ module Views =
             (fun ctx -> Snippet.body snippet id)
             Footer.elt
                                        
-    let highlight =
-        withTemplate<Action>
-            Templates.highlight
-            ""
-            ""
-            (fun ctx -> Highlight.body)
-            Footer.elt
+//    let highlight =
+//        withTemplate<Action>
+//            Templates.highlight
+//            ""
+//            ""
+//            (fun ctx -> Highlight.body)
+//            Footer.elt
 
     let tagged (tag:string) =
         let tagUpper = tag.ToUpper()

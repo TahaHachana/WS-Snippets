@@ -262,11 +262,11 @@ module Content =
                 |> Seq.toList
                 |> split 2
                 |> List.map snippetsRow
-            Div [Class "row"] -< rows
+            Div [Id "tagged-snippets"] -< rows
 
         let body tagUpper tag =
             Div [Class "container"; Id "main"] -< [
-                Div [Class "row page-header"] -< [
+                Div [Class "page-header"] -< [
                         H1 [Text <| "Snippets tagged \"" + tagUpper + "\""]
                 ]
                 snippetsDiv tag

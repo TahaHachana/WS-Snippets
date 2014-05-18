@@ -1667,17 +1667,20 @@
       {
        return function(title)
        {
-        return function(metaDescription)
+        return function(url)
         {
-         return function(description)
+         return function(metaDescription)
          {
-          return function(descriptionHtml)
+          return function(description)
           {
-           return function(tags)
+           return function(descriptionHtml)
            {
-            return function(submit)
+            return function(tags)
             {
-             return Client14.snippetView(id,title,metaDescription,description,descriptionHtml,tags,submit);
+             return function(submit)
+             {
+              return Client14.snippetView(id,title,url,metaDescription,description,descriptionHtml,tags,submit);
+             };
             };
            };
           };
@@ -1688,12 +1691,16 @@
       {
        return Concurrency.Start(Concurrency.Delay(function()
        {
-        JavaScript.Log(snippet);
-        return Concurrency.Return(null);
+        return Concurrency.Bind(Remoting.Async("Sitelet:4",[snippet]),function()
+        {
+         alert("Done");
+         return Concurrency.Return(null);
+        });
        }));
       },Client14.snippetPiglet({
        Id:"",
        Title:"",
+       Url:"",
        MetaDescription:"",
        Description:"",
        DescriptionHtml:"",
@@ -1702,37 +1709,41 @@
      }),
      snippetPiglet:function(init)
      {
-      return Piglet1.WithSubmit(Pervasives.op_LessMultiplyGreater(Pervasives.op_LessMultiplyGreater(Pervasives.op_LessMultiplyGreater(Pervasives.op_LessMultiplyGreater(Pervasives.op_LessMultiplyGreater(Pervasives.op_LessMultiplyGreater(Piglet1.Return(function(id)
+      return Piglet1.WithSubmit(Pervasives.op_LessMultiplyGreater(Pervasives.op_LessMultiplyGreater(Pervasives.op_LessMultiplyGreater(Pervasives.op_LessMultiplyGreater(Pervasives.op_LessMultiplyGreater(Pervasives.op_LessMultiplyGreater(Pervasives.op_LessMultiplyGreater(Piglet1.Return(function(id)
       {
        return function(title)
        {
-        return function(metaDescription)
+        return function(url)
         {
-         return function(description)
+         return function(metaDescription)
          {
-          return function(descriptionHtml)
+          return function(description)
           {
-           return function(tags)
+           return function(descriptionHtml)
            {
-            return{
-             Id:id,
-             Title:title,
-             MetaDescription:metaDescription,
-             Description:description,
-             DescriptionHtml:descriptionHtml,
-             Tags:tags
+            return function(tags)
+            {
+             return{
+              Id:id,
+              Title:title,
+              Url:url,
+              MetaDescription:metaDescription,
+              Description:description,
+              DescriptionHtml:descriptionHtml,
+              Tags:tags
+             };
             };
            };
           };
          };
         };
        };
-      }),Piglet1.Yield(init.Id)),Piglet1.Yield(init.Title)),Piglet1.Yield(init.MetaDescription)),Piglet1.Yield(init.Description)),Piglet1.Yield(init.DescriptionHtml)),Piglet1.ManyInit(init.Tags,"",function(init1)
+      }),Piglet1.Yield(init.Id)),Piglet1.Yield(init.Title)),Piglet1.Yield(init.Url)),Piglet1.Yield(init.MetaDescription)),Piglet1.Yield(init.Description)),Piglet1.Yield(init.DescriptionHtml)),Piglet1.ManyInit(init.Tags,"",function(init1)
       {
        return Client14.tagPiglet(init1);
       })));
      },
-     snippetView:function(id,title,metaDescription,description,descriptionHtml,tags,submit)
+     snippetView:function(id,title,url,metaDescription,description,descriptionHtml,tags,submit)
      {
       return Operators1.add(Default.Div(List.ofArray([Default.Attr().Class("well col-md-4")])),List.ofArray([Operators1.add(Default.Div(List.ofArray([Default.Attr().Class("form-group")])),List.ofArray([Operators1.add(Controls1.input("text",function(x)
       {
@@ -1746,7 +1757,13 @@
       },function(x)
       {
        return x;
-      },title),List.ofArray([Default.Attr().Class("form-control"),Default.Attr().NewAttr("type","text"),HTML5.Attr().NewAttr("placeholder","Title")]))])),Operators1.add(Default.Div(List.ofArray([Default.Attr().Class("form-group")])),List.ofArray([Operators1.add(Controls1.TextArea(metaDescription),List.ofArray([Default.Attr().Class("form-control"),Default.Attr().NewAttr("type","text"),HTML5.Attr().NewAttr("placeholder","Meta Description")]))])),Operators1.add(Default.Div(List.ofArray([Default.Attr().Class("form-group")])),List.ofArray([Operators1.add(Controls1.TextArea(description),List.ofArray([Default.Attr().Class("form-control"),Default.Attr().NewAttr("type","text"),HTML5.Attr().NewAttr("placeholder","Description")]))])),Operators1.add(Default.Div(List.ofArray([Default.Attr().Class("form-group")])),List.ofArray([Operators1.add(Controls1.TextArea(descriptionHtml),List.ofArray([Default.Attr().Class("form-control"),Default.Attr().NewAttr("type","text"),HTML5.Attr().NewAttr("placeholder","Description HTML")]))])),Controls1.RenderMany(tags,function()
+      },title),List.ofArray([Default.Attr().Class("form-control"),Default.Attr().NewAttr("type","text"),HTML5.Attr().NewAttr("placeholder","Title")]))])),Operators1.add(Default.Div(List.ofArray([Default.Attr().Class("form-group")])),List.ofArray([Operators1.add(Controls1.input("text",function(x)
+      {
+       return x;
+      },function(x)
+      {
+       return x;
+      },url),List.ofArray([Default.Attr().Class("form-control"),Default.Attr().NewAttr("type","text"),HTML5.Attr().NewAttr("placeholder","Url")]))])),Operators1.add(Default.Div(List.ofArray([Default.Attr().Class("form-group")])),List.ofArray([Operators1.add(Controls1.TextArea(metaDescription),List.ofArray([Default.Attr().Class("form-control"),Default.Attr().NewAttr("type","text"),HTML5.Attr().NewAttr("placeholder","Meta Description")]))])),Operators1.add(Default.Div(List.ofArray([Default.Attr().Class("form-group")])),List.ofArray([Operators1.add(Controls1.TextArea(description),List.ofArray([Default.Attr().Class("form-control"),Default.Attr().NewAttr("type","text"),HTML5.Attr().NewAttr("placeholder","Description")]))])),Operators1.add(Default.Div(List.ofArray([Default.Attr().Class("form-group")])),List.ofArray([Operators1.add(Controls1.TextArea(descriptionHtml),List.ofArray([Default.Attr().Class("form-control"),Default.Attr().NewAttr("type","text"),HTML5.Attr().NewAttr("placeholder","Description HTML")]))])),Controls1.RenderMany(tags,function()
       {
        return function(tag)
        {

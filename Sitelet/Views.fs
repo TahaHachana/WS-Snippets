@@ -57,7 +57,7 @@ module Views =
             Templates.snippet
             (Snippet.title snippet)
             snippet.MetaDesc
-            (fun ctx -> Snippet.body snippet id)
+            (fun ctx -> Snippet.body snippet)
             Footer.elt
                                        
 //    let highlight =

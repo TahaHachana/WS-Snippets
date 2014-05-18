@@ -15,7 +15,7 @@ module Content =
     let snippetColumn snippet =    
         Div [Class "col-md-6 snippet"] -< [
             H3 [
-                A [HRef <| "/snippet/" + string snippet.SnipId] -< [
+                A [HRef <| "/snippet/" + string snippet.SnipId + "/" + snippet.Url] -< [
                     Text snippet.Title
                 ]
             ]
@@ -52,7 +52,7 @@ module Content =
             ]
                                 
         let snippetsSection =
-            let snippets =
+            let snippets = //[Div []]
                 Snippets.latest10()
                 |> Seq.toList
                 |> split 2
@@ -158,14 +158,14 @@ module Content =
                 Element.VerbatimContent snippet.DescHtml
             ]
 
-        let body snippet id =
+        let body snippet =
             Div [Class "container"] -< [
                 detailsDiv snippet
                 Div [Class "page-header"] -< [
                     H2 [Text "Demo"]
                 ]
                 IFrame [
-                    Src <| "/newpage/" + string id
+                    Src <| "/newpage/" + string snippet.SnipId
                     Scrolling "no"
                     Attributes.Style "width: 100%; border: none;"
                 ]
@@ -177,7 +177,7 @@ module Content =
                 Div [Class "page-header"] -< [
                     H2 [Text "Code"]
                 ]
-                code id
+                code snippet.SnipId
                 Div [Class "page-header"] -< [
                     H2 [Text "Tags"]
                 ]

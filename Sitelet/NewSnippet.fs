@@ -2,20 +2,20 @@
 
 open IntelliFactory.WebSharper
 
-//[<ReflectedDefinition>]
-type Snippet =
+[<ReflectedDefinition>]
+type NewSnippet =
     {
         Id : string
         Title : string
+        Url : string
         MetaDescription : string
         Description : string
         DescriptionHtml : string
 //        Code : string
-        Tags : string []
+        Tags : Tag []
     }
 
-//[<ReflectedDefinition>]
-type Tag = string
+and [<ReflectedDefinition>] Tag = string
 
 module Server =
     
@@ -26,15 +26,15 @@ module Server =
     open TankTop
     open TankTop.Dto
 
-    let insert id title metaDesc (desc:string) descHtml (tags:string []) = //(id, title, metaDesc, (desc : string), descHtml, (tags : string)) =
+    let insert id title url metaDesc (desc:string) descHtml (tags:string []) = //(id, title, metaDesc, (desc : string), descHtml, (tags : string)) =
         async {
             try
-                let desc' =
-                    match desc.Length with
-                    | length when length < 150 -> desc
-                    | _ -> desc.[..147] + "..."
+//                let desc' =
+//                    match desc.Length with
+//                    | length when length < 150 -> desc
+//                    | _ -> desc.[..147] + "..."
                 let tags' = tags |> Array.map (fun x -> x.ToUpper())
-                let snip = Snippet.New (int id) title metaDesc desc' descHtml tags' DateTime.Now
+                let snip = Snippet.New (int id) title url metaDesc desc descHtml tags' DateTime.Now
                 Snippets.insert snip
                 |> ignore
             with _ -> ()
@@ -46,24 +46,24 @@ module Server =
         regex.Replace(str, " ")
         |> fun x -> regex'.Replace(x, " ")
         
-    let client = TankTopClient AppSettings.indexdenUrl
 
     let addDoc id title desc =
         async {
             try
+                let client = TankTopClient AppSettings.indexdenUrl
                 let doc = Document id
                 let dict = Dictionary()
                 dict.Add("title", title)
                 dict.Add("description", desc)
                 doc.Fields <- dict
-                client.AddDocument("WSSnippets", doc)
+                client.AddDocument("Snippets", doc)
             with _ -> ()
         }
 
     [<Remote>]
     let addSnippet snippet =
         async {
-            do! insert snippet.Id snippet.Title snippet.MetaDescription snippet.Description snippet.DescriptionHtml snippet.Tags
+            do! insert snippet.Id snippet.Title snippet.Url snippet.MetaDescription snippet.Description snippet.DescriptionHtml snippet.Tags
             do! addDoc snippet.Id snippet.Title snippet.Description
         }
 
@@ -77,11 +77,12 @@ module Client =
         Piglet.Return id
         <*> Piglet.Yield init
 
-    let snippetPiglet (init:Snippet) =
-        Piglet.Return (fun id title metaDescription description descriptionHtml tags ->
+    let snippetPiglet (init:NewSnippet) =
+        Piglet.Return (fun id title url metaDescription description descriptionHtml tags ->
             {
                 Id = id
                 Title = title
+                Url = url
                 MetaDescription = metaDescription
                 Description = description
                 DescriptionHtml = descriptionHtml
@@ -91,6 +92,7 @@ module Client =
         )
         <*> Piglet.Yield init.Id
         <*> Piglet.Yield init.Title
+        <*> Piglet.Yield init.Url
         <*> Piglet.Yield init.MetaDescription
         <*> Piglet.Yield init.Description
         <*> Piglet.Yield init.DescriptionHtml
@@ -111,7 +113,7 @@ module Client =
         Button []
         |>! OnClick (fun _ _ -> writer.Trigger(Success ""))
 
-    let snippetView id title metaDescription description descriptionHtml tags submit =
+    let snippetView id title url metaDescription description descriptionHtml tags submit =
             Div [Attr.Class "well col-md-4"] -< [
                 Div [Attr.Class "form-group"] -< [
                     Controls.Input id -< [
@@ -126,6 +128,13 @@ module Client =
                         Attr.Class "form-control"
                         Attr.Type "text"
                         HTML5.Attr.PlaceHolder "Title"
+                    ]
+                ]
+                Div [Attr.Class "form-group"] -< [
+                    Controls.Input url -< [
+                        Attr.Class "form-control"
+                        Attr.Type "text"
+                        HTML5.Attr.PlaceHolder "Url"
                     ]
                 ]
                 Div [Attr.Class "form-group"] -< [
@@ -177,6 +186,7 @@ module Client =
             {
                 Id = ""
                 Title = ""
+                Url = ""
                 MetaDescription = ""
                 Description = ""
                 DescriptionHtml = ""
@@ -185,8 +195,9 @@ module Client =
             }
         |> Piglet.Run (fun snippet ->
             async {
-//                do! Server.addSnippet snippet
-                JavaScript.Log snippet
+                do! Server.addSnippet snippet
+                JavaScript.Alert "Done"
+//                JavaScript.Log snippet
             } |> Async.Start)
         |> Piglet.Render snippetView
 

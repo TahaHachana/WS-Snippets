@@ -21,17 +21,19 @@ type Snippet =
         _id      : ObjectId
         SnipId   : int
         Title    : string
+        Url : string
         MetaDesc : string
         Desc     : string
         DescHtml : string
         Tags     : string []
         Date     : DateTime
     }
-    static member New id title metaDesc desc descHtml tags date =
+    static member New id title url metaDesc desc descHtml tags date =
         {
             _id      = ObjectId.GenerateNewId()
             SnipId   = id
             Title    = title
+            Url = url
             MetaDesc = metaDesc
             Desc     = desc
             DescHtml = descHtml
@@ -39,7 +41,7 @@ type Snippet =
             Date     = date
         }
             
-let snippets  = collection<Snippet> "snippet"
+let snippets  = collection<Snippet> "snippets"
 let queryable = snippets.FindAll().AsQueryable()
 
 module Snippets =

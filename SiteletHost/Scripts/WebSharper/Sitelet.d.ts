@@ -395,10 +395,12 @@ declare module Website {
                                 (x: __ABBREV.__Piglets.Stream<string>): {
                                     (x: __ABBREV.__Piglets.Stream<string>): {
                                         (x: __ABBREV.__Piglets.Stream<string>): {
-                                            (x: __ABBREV.__Many.UnitStream<string, {
-                                                (x: __ABBREV.__Piglets.Stream<string>): _M1;
-                                            }, _M1>): {
-                                                (x: __ABBREV.__Piglets.Submitter<any>): _M2;
+                                            (x: __ABBREV.__Piglets.Stream<string>): {
+                                                (x: __ABBREV.__Many.UnitStream<string, {
+                                                    (x: __ABBREV.__Piglets.Stream<string>): _M1;
+                                                }, _M1>): {
+                                                    (x: __ABBREV.__Piglets.Submitter<any>): _M2;
+                                                };
                                             };
                                         };
                                     };
@@ -415,7 +417,7 @@ declare module Website {
                 (writer: __ABBREV.__Piglets.Writer<string>): __ABBREV.__Html.Element;
             };
             var snippetView : {
-                <_M1, _M2, _M3>(id: __ABBREV.__Piglets.Stream<string>, title: __ABBREV.__Piglets.Stream<string>, metaDescription: __ABBREV.__Piglets.Stream<string>, description: __ABBREV.__Piglets.Stream<string>, descriptionHtml: __ABBREV.__Piglets.Stream<string>, tags: __ABBREV.__Many.Stream<string, {
+                <_M1, _M2, _M3>(id: __ABBREV.__Piglets.Stream<string>, title: __ABBREV.__Piglets.Stream<string>, url: __ABBREV.__Piglets.Stream<string>, metaDescription: __ABBREV.__Piglets.Stream<string>, description: __ABBREV.__Piglets.Stream<string>, descriptionHtml: __ABBREV.__Piglets.Stream<string>, tags: __ABBREV.__Many.Stream<string, {
                     (x: __ABBREV.__Piglets.Stream<string>): __ABBREV.__Html.Element;
                 }, __ABBREV.__Html.Element, _M1, _M2>, submit: __ABBREV.__Piglets.Submitter<_M3>): __ABBREV.__Html.Element;
             };
@@ -423,9 +425,10 @@ declare module Website {
                 (): __ABBREV.__Html.Element;
             };
         }
-        interface Snippet {
+        interface NewSnippet {
             Id: string;
             Title: string;
+            Url: string;
             MetaDescription: string;
             Description: string;
             DescriptionHtml: string;
@@ -440,6 +443,7 @@ declare module Website {
             _id: any;
             SnipId: number;
             Title: string;
+            Url: string;
             MetaDesc: string;
             Desc: string;
             DescHtml: string;

@@ -33,7 +33,7 @@ module Content =
                         ]
                     ]
                     P [Class "text-center"] -< [
-                        Text "Snippets in database: 32"
+                        Text "Snippets in database: 30"
                     ]
 
             ]
@@ -274,6 +274,7 @@ module Content =
             ]
 
     module SearchUtils =
+
         let subStr (str:string) =
             match str.Length with
             | length when length < 150 -> str

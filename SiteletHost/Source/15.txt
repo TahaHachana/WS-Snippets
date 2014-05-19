@@ -1,46 +1,46 @@
-﻿<div style='margin: 0px; padding: 0px; font-family: Consolas; width: auto'><style type='text/css'>.fs-str {color: #d14;} .fs-key {color: blue;} .fs-com {color: green; font-style: italic;}</style><table><tr><td style='padding: 5px; vertical-align: top; border-right: 1px solid #ececec; color: rgb(160, 160, 160);'><span>1</span><br /><span>2</span><br /><span>3</span><br /><span>4</span><br /><span>5</span><br /><span>6</span><br /><span>7</span><br /><span>8</span><br /><span>9</span><br /><span>10</span><br /><span>11</span><br /><span>12</span><br /><span>13</span><br /><span>14</span><br /><span>15</span><br /><span>16</span><br /><span>17</span><br /><span>18</span><br /><span>19</span><br /><span>20</span><br /><span>21</span><br /><span>22</span><br /><span>23</span><br /><span>24</span><br /><span>25</span><br /><span>26</span><br /><span>27</span><br /><span>28</span><br /><span>29</span><br /><span>30</span><br /><span>31</span><br /><span>32</span><br /><span>33</span><br /><span>34</span><br /><span>35</span><br /><span>36</span><br /><span>37</span><br /><span>38</span><br /><span>39</span><br /><span>40</span><br /><span>41</span><br /><span>42</span><br /><span>43</span><br /><span>44</span><br /><span>45</span><br /><span>46</span></td><td style='vertical-align: top; padding: 5px;'><pre style='margin: 0px; background-color: white; border: none; padding: 0px; font-size: 14px; white-space: pre;'><span class='fs-key'>module </span>RPC =
-    <span class='fs-key'>open </span>IntelliFactory.WebSharper
+﻿module RPC =
+    open IntelliFactory.WebSharper
 
-    <span class='fs-com'>/// Server-side code.</span>
-    <span class='fs-key'>module </span><span class='fs-key'>private </span>Server =
-        <span class='fs-key'>open </span>System.Security.Cryptography
-        <span class='fs-key'>open </span>System.Text
+    /// Server-side code.
+    module private Server =
+        open System.Security.Cryptography
+        open System.Text
 
-        <span class='fs-com'>/// Computes the MD5 hash of a string.</span>
-        [&lt;Rpc&gt;]
-        <span class='fs-key'>let </span>md5 (data:string) =
+        /// Computes the MD5 hash of a string.
+        [<Rpc>]
+        let md5 (data:string) =
             async {
-                <span class='fs-key'>use </span>md5 = MD5.Create()
-                <span class='fs-key'>let </span>sb = StringBuilder()
+                use md5 = MD5.Create()
+                let sb = StringBuilder()
                 data.ToCharArray()
-                |&gt; Encoding.Unicode.GetBytes
-                |&gt; md5.ComputeHash
-                |&gt; Array.iter (<span class='fs-key'>fun </span>b -&gt; sb.Append(b.ToString(<span class='fs-str'>"X2"</span>)) |&gt; ignore)
-                <span class='fs-key'>return </span>sb.ToString()
+                |> Encoding.Unicode.GetBytes
+                |> md5.ComputeHash
+                |> Array.iter (fun b -> sb.Append(b.ToString("X2")) |> ignore)
+                return sb.ToString()
             }
 
-    <span class='fs-com'>/// Client-side code.</span>
-    [&lt;JavaScript&gt;]
-    <span class='fs-key'>module </span><span class='fs-key'>private </span>Client =
-        <span class='fs-key'>open </span>IntelliFactory.WebSharper.Html
+    /// Client-side code.
+    [<JavaScript>]
+    module private Client =
+        open IntelliFactory.WebSharper.Html
 
-        <span class='fs-key'>let </span>main() =
-            <span class='fs-key'>let </span>output = Div [Attr.Style <span class='fs-str'>"margin-top: 8px;"</span>]
-            <span class='fs-key'>let </span>input = Input [Attr.Type <span class='fs-str'>"text"</span>; HTML5.Attr.AutoFocus <span class='fs-str'>"autofocus"</span>; Attr.Class <span class='fs-str'>"form-control"</span>; Attr.Id <span class='fs-str'>"display"</span>]
-            Div [Attr.Class <span class='fs-str'>"form-inline"</span>] -&lt; [
+        let main() =
+            let output = Div [Attr.Style "margin-top: 8px;"]
+            let input = Input [Attr.Type "text"; HTML5.Attr.AutoFocus "autofocus"; Attr.Class "form-control"; Attr.Id "display"]
+            Div [Attr.Class "form-inline"] -< [
                 input
-                Button [Text <span class='fs-str'>"MD5"</span>; Attr.Class <span class='fs-str'>"btn btn-primary"</span>; Attr.Style <span class='fs-str'>"margin-left: 8px;"</span>]
-                <span class='fs-com'>// Click event listener to invoke the md5 server-side function asynchronously.</span>
-                |&gt;! OnClick (<span class='fs-key'>fun </span>_ _ -&gt;
+                Button [Text "MD5"; Attr.Class "btn btn-primary"; Attr.Style "margin-left: 8px;"]
+                // Click event listener to invoke the md5 server-side function asynchronously.
+                |>! OnClick (fun _ _ ->
                     async {
-                        <span class='fs-key'>let! </span>md5 = Server.md5 input.Value
-                        output.Text &lt;- md5
-                    } |&gt; Async.Start)                        
+                        let! md5 = Server.md5 input.Value
+                        output.Text <- md5
+                    } |> Async.Start)                        
                 output]
     
-    <span class='fs-com'>/// A control for serving the main pagelet.              </span>
-    <span class='fs-key'>type </span>Control() =
-        <span class='fs-key'>inherit </span>Web.Control()
+    /// A control for serving the main pagelet.              
+    type Control() =
+        inherit Web.Control()
 
-        [&lt;JavaScript&gt;]
-        <span class='fs-key'>override </span>__.Body = Client.main() :&gt; _</pre></td></tr></table></div>
+        [<JavaScript>]
+        override __.Body = Client.main() :> _

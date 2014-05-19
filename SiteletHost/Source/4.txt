@@ -1,7 +1,7 @@
-﻿<div style='margin: 0px; padding: 0px; font-family: Consolas; width: auto'><style type='text/css'>.fs-str {color: #d14;} .fs-key {color: blue;} .fs-com {color: green; font-style: italic;}</style><table><tr><td style='padding: 5px; vertical-align: top; border-right: 1px solid #ececec; color: rgb(160, 160, 160);'><span>1</span><br /><span>2</span><br /><span>3</span><br /><span>4</span><br /><span>5</span><br /><span>6</span><br /><span>7</span><br /><span>8</span><br /><span>9</span><br /><span>10</span><br /><span>11</span><br /><span>12</span><br /><span>13</span><br /><span>14</span><br /><span>15</span><br /><span>16</span><br /><span>17</span><br /><span>18</span><br /><span>19</span><br /><span>20</span><br /><span>21</span><br /><span>22</span><br /><span>23</span><br /><span>24</span><br /><span>25</span><br /><span>26</span><br /><span>27</span><br /><span>28</span><br /><span>29</span><br /><span>30</span><br /><span>31</span><br /><span>32</span><br /><span>33</span><br /><span>34</span><br /><span>35</span><br /><span>36</span><br /><span>37</span><br /><span>38</span><br /><span>39</span><br /><span>40</span><br /><span>41</span><br /><span>42</span><br /><span>43</span><br /><span>44</span><br /><span>45</span><br /><span>46</span><br /><span>47</span><br /><span>48</span><br /><span>49</span><br /><span>50</span><br /><span>51</span><br /><span>52</span><br /><span>53</span><br /><span>54</span><br /><span>55</span><br /><span>56</span><br /><span>57</span><br /><span>58</span><br /><span>59</span><br /><span>60</span><br /><span>61</span><br /><span>62</span><br /><span>63</span><br /><span>64</span><br /><span>65</span><br /><span>66</span><br /><span>67</span><br /><span>68</span><br /><span>69</span><br /><span>70</span><br /><span>71</span><br /><span>72</span><br /><span>73</span><br /><span>74</span><br /><span>75</span><br /><span>76</span><br /><span>77</span><br /><span>78</span><br /><span>79</span><br /><span>80</span><br /><span>81</span><br /><span>82</span><br /><span>83</span><br /><span>84</span><br /><span>85</span><br /><span>86</span><br /><span>87</span><br /><span>88</span><br /><span>89</span><br /><span>90</span><br /><span>91</span><br /><span>92</span><br /><span>93</span><br /><span>94</span><br /><span>95</span><br /><span>96</span><br /><span>97</span><br /><span>98</span><br /><span>99</span><br /><span>100</span><br /><span>101</span><br /><span>102</span><br /><span>103</span><br /><span>104</span><br /><span>105</span><br /><span>106</span><br /><span>107</span><br /><span>108</span><br /><span>109</span><br /><span>110</span><br /><span>111</span><br /><span>112</span><br /><span>113</span><br /><span>114</span><br /><span>115</span><br /><span>116</span><br /><span>117</span><br /><span>118</span><br /><span>119</span><br /><span>120</span><br /><span>121</span><br /><span>122</span><br /><span>123</span><br /><span>124</span><br /><span>125</span><br /><span>126</span><br /><span>127</span><br /><span>128</span><br /><span>129</span></td><td style='vertical-align: top; padding: 5px;'><pre style='margin: 0px; background-color: white; border: none; padding: 0px; font-size: 14px; white-space: pre;'><span class='fs-key'>module </span>TwitterWidget =
-    <span class='fs-key'>open </span>IntelliFactory.WebSharper
+﻿module TwitterWidget =
+    open IntelliFactory.WebSharper
 
-    <span class='fs-key'>type </span>Tweet =
+    type Tweet =
         {
             Avatar     : string
             Date       : string
@@ -11,7 +11,7 @@
             ScreenName : string
         }
 
-        <span class='fs-key'>static </span><span class='fs-key'>member </span>New avatar date html id name screenName =
+        static member New avatar date html id name screenName =
             {
                 Avatar     = avatar
                 Date       = date
@@ -21,31 +21,31 @@
                 ScreenName = screenName
             }
 
-    <span class='fs-key'>type </span>SearchResult = Failure | Success <span class='fs-key'>of </span>Tweet list
+    type SearchResult = Failure | Success of Tweet list
 
-    <span class='fs-com'>/// Server-side code.</span>
-    <span class='fs-key'>module </span><span class='fs-key'>private </span>Server =
-        <span class='fs-key'>open </span>TweetSharp
-        <span class='fs-key'>open </span>System
+    /// Server-side code.
+    module private Server =
+        open TweetSharp
+        open System
 
-        <span class='fs-com'>// Twitter authentication</span>
-        <span class='fs-key'>let </span>ts = TwitterService(Secret.consKey, Secret.consSecret)
+        // Twitter authentication
+        let ts = TwitterService(Secret.consKey, Secret.consSecret)
         ts.AuthenticateWith(Secret.token, Secret.tokenSecret)
 
-        <span class='fs-com'>// search options</span>
-        <span class='fs-key'>let </span>options = SearchOptions()
-        options.Q &lt;- <span class='fs-str'>"#fsharp"</span>
-        options.Count &lt;- Nullable 100
+        // search options
+        let options = SearchOptions()
+        options.Q <- "#fsharp"
+        options.Count <- Nullable 100
 
-        <span class='fs-com'>/// Returns the latest 100 "#fsharp" tweets.</span>
-        [&lt;Rpc&gt;]
-        <span class='fs-key'>let </span>fetchTweets() =
+        /// Returns the latest 100 "#fsharp" tweets.
+        [<Rpc>]
+        let fetchTweets() =
             async {
-                <span class='fs-key'>let </span>searchResult =
-                    <span class='fs-key'>try
-</span>                        ts.Search(options).Statuses
-                        |&gt; Seq.toList
-                        |&gt; List.map (<span class='fs-key'>fun </span>status -&gt;
+                let searchResult =
+                    try
+                        ts.Search(options).Statuses
+                        |> Seq.toList
+                        |> List.map (fun status ->
                             Tweet.New
                                 status.Author.ProfileImageUrl
                                 (status.CreatedDate.ToLongDateString())
@@ -53,77 +53,77 @@
                                 (status.Id.ToString())
                                 status.User.Name
                                 status.Author.ScreenName)
-                        |&gt; Success
-                    <span class='fs-key'>with </span>_ -&gt; Failure
-                <span class='fs-key'>return </span>searchResult }
+                        |> Success
+                    with _ -> Failure
+                return searchResult }
 
-    <span class='fs-com'>/// Client-side code.</span>
-    [&lt;JavaScript&gt;]
-    <span class='fs-key'>module </span><span class='fs-key'>private </span>Client =
-        <span class='fs-key'>open </span>IntelliFactory.WebSharper.Html
-        <span class='fs-key'>open </span>IntelliFactory.WebSharper.JQuery
+    /// Client-side code.
+    [<JavaScript>]
+    module private Client =
+        open IntelliFactory.WebSharper.Html
+        open IntelliFactory.WebSharper.JQuery
 
-        <span class='fs-com'>/// Creates an &lt;li&gt; containing the details of a tweet (screen name, creation date...).</span>
-        <span class='fs-key'>let </span>li tweet =
-            <span class='fs-key'>let </span>id = tweet.Id
-            <span class='fs-key'>let </span>name = tweet.Name
-            <span class='fs-key'>let </span>screenName = tweet.ScreenName
-            <span class='fs-key'>let </span>profileLink = <span class='fs-str'>"https://twitter.com/"</span> + screenName
-            <span class='fs-key'>let </span>replyLink = <span class='fs-str'>"https://twitter.com/intent/tweet?in_reply_to="</span> + id
-            <span class='fs-key'>let </span>retweetLink = <span class='fs-str'>"https://twitter.com/intent/retweet?tweet_id="</span>  + id
-            <span class='fs-key'>let </span>favoriteLink = <span class='fs-str'>"https://twitter.com/intent/favorite?tweet_id="</span> + id
-            <span class='fs-key'>let </span>p = P []
-            p.Html &lt;- tweet.Html
-            LI [Attr.Class <span class='fs-str'>"list-group-item"</span>] -&lt; [
+        /// Creates an <li> containing the details of a tweet (screen name, creation date...).
+        let li tweet =
+            let id = tweet.Id
+            let name = tweet.Name
+            let screenName = tweet.ScreenName
+            let profileLink = "https://twitter.com/" + screenName
+            let replyLink = "https://twitter.com/intent/tweet?in_reply_to=" + id
+            let retweetLink = "https://twitter.com/intent/retweet?tweet_id="  + id
+            let favoriteLink = "https://twitter.com/intent/favorite?tweet_id=" + id
+            let p = P []
+            p.Html <- tweet.Html
+            LI [Attr.Class "list-group-item"] -< [
                 Div [
-                    A [HRef profileLink; Attr.Class <span class='fs-str'>"profile-link"</span>; Attr.Target <span class='fs-str'>"_blank"</span>] -&lt; [
-                        Img [Src tweet.Avatar; Alt name; Attr.Class <span class='fs-str'>"avatar"</span>]
+                    A [HRef profileLink; Attr.Class "profile-link"; Attr.Target "_blank"] -< [
+                        Img [Src tweet.Avatar; Alt name; Attr.Class "avatar"]
                         Strong [Text name]
-                    ] -&lt; [Text &lt;| <span class='fs-str'>" @"</span> + screenName]
+                    ] -< [Text <| " @" + screenName]
                     Br []
                     Small [Text tweet.Date]
                     p
-                    Div [Attr.Class <span class='fs-str'>"tweet-actions"</span>] -&lt; [
-                        A [HRef replyLink; Attr.Class <span class='fs-str'>"tweet-action"</span>; Attr.Style <span class='fs-str'>"margin-right: 5px;"</span>] -&lt; [Text <span class='fs-str'>"Reply"</span>]
-                        A [HRef retweetLink; Attr.Class <span class='fs-str'>"tweet-action"</span>; Attr.Style <span class='fs-str'>"margin-right: 5px;"</span>] -&lt; [Text <span class='fs-str'>"Retweet"</span>]
-                        A [HRef favoriteLink; Attr.Class <span class='fs-str'>"tweet-action"</span>] -&lt; [Text <span class='fs-str'>"Favorite"</span>]
+                    Div [Attr.Class "tweet-actions"] -< [
+                        A [HRef replyLink; Attr.Class "tweet-action"; Attr.Style "margin-right: 5px;"] -< [Text "Reply"]
+                        A [HRef retweetLink; Attr.Class "tweet-action"; Attr.Style "margin-right: 5px;"] -< [Text "Retweet"]
+                        A [HRef favoriteLink; Attr.Class "tweet-action"] -< [Text "Favorite"]
                     ]
                 ]
             ]
 
-        <span class='fs-com'>/// Toggles the visibility of the reply, retweet and favorite links.</span>
-        <span class='fs-key'>let </span>toggleActionsVisibility() =
-            <span class='fs-key'>let </span>jquery = JQuery.Of <span class='fs-str'>".list-group-item"</span>
-            jquery.Mouseenter(<span class='fs-key'>fun </span>x _ -&gt; JQuery.Of(<span class='fs-str'>".tweet-actions"</span>, x).Css(<span class='fs-str'>"visibility"</span>, <span class='fs-str'>"visible"</span>).Ignore).Ignore
-            jquery.Mouseleave(<span class='fs-key'>fun </span>x _ -&gt; JQuery.Of(<span class='fs-str'>".tweet-actions"</span>, x).Css(<span class='fs-str'>"visibility"</span>, <span class='fs-str'>"hidden"</span>).Ignore).Ignore
+        /// Toggles the visibility of the reply, retweet and favorite links.
+        let toggleActionsVisibility() =
+            let jquery = JQuery.Of ".list-group-item"
+            jquery.Mouseenter(fun x _ -> JQuery.Of(".tweet-actions", x).Css("visibility", "visible").Ignore).Ignore
+            jquery.Mouseleave(fun x _ -> JQuery.Of(".tweet-actions", x).Css("visibility", "hidden").Ignore).Ignore
 
-        <span class='fs-com'>/// Opens the reply, retweet and favorite links in a modal dialog.</span>
-        <span class='fs-key'>let </span>handleTweetActions() =
-            <span class='fs-key'>let </span>jquery = JQuery.Of <span class='fs-str'>"a.tweet-action"</span>
-            jquery.Click(<span class='fs-key'>fun </span>elt event -&gt;
+        /// Opens the reply, retweet and favorite links in a modal dialog.
+        let handleTweetActions() =
+            let jquery = JQuery.Of "a.tweet-action"
+            jquery.Click(fun elt event ->
                 event.PreventDefault()
-                <span class='fs-key'>let </span>href = elt.GetAttribute <span class='fs-str'>"href"</span>
-                Html5.Window.Self.ShowModalDialog href |&gt; ignore).Ignore
+                let href = elt.GetAttribute "href"
+                Html5.Window.Self.ShowModalDialog href |> ignore).Ignore
 
-        <span class='fs-com'>/// Appends a &lt;div&gt; containing a list of tweets to the DOM.</span>
-        <span class='fs-key'>let </span>main() =
-            Div [Attr.Id <span class='fs-str'>"tweets"</span>]
-            |&gt;! OnAfterRender (<span class='fs-key'>fun </span>elt -&gt;
+        /// Appends a <div> containing a list of tweets to the DOM.
+        let main() =
+            Div [Attr.Id "tweets"]
+            |>! OnAfterRender (fun elt ->
                 async {
-                    <span class='fs-key'>let! </span>searchResults = Server.fetchTweets()
-                    <span class='fs-key'>match </span>searchResults <span class='fs-key'>with
-</span>                        | Failure -&gt; JavaScript.Alert <span class='fs-str'>"Failed to fetch the latest tweets."</span>
-                        | Success tweets -&gt;
-                            <span class='fs-key'>let </span>ul = UL [Attr.Class <span class='fs-str'>"list-group"</span>; Attr.Id <span class='fs-str'>"tweets-ul"</span>]
-                            tweets |&gt; List.iter (<span class='fs-key'>fun </span>tweet -&gt; ul.Append (li tweet))
+                    let! searchResults = Server.fetchTweets()
+                    match searchResults with
+                        | Failure -> JavaScript.Alert "Failed to fetch the latest tweets."
+                        | Success tweets ->
+                            let ul = UL [Attr.Class "list-group"; Attr.Id "tweets-ul"]
+                            tweets |> List.iter (fun tweet -> ul.Append (li tweet))
                             elt.Append ul
                             toggleActionsVisibility()
                             handleTweetActions() }
-                |&gt; Async.Start)
+                |> Async.Start)
 
-    <span class='fs-com'>/// A control for serving the main pagelet.</span>
-    <span class='fs-key'>type </span>Control() =
-        <span class='fs-key'>inherit </span>Web.Control()
+    /// A control for serving the main pagelet.
+    type Control() =
+        inherit Web.Control()
 
-        [&lt;JavaScript&gt;]
-        <span class='fs-key'>override </span>this.Body = Client.main() :&gt; _</pre></td></tr></table></div>
+        [<JavaScript>]
+        override this.Body = Client.main() :> _

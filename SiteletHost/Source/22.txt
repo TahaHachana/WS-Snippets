@@ -1,79 +1,79 @@
-﻿<div style='margin: 0px; padding: 0px; font-family: Consolas; width: auto'><style type='text/css'>.fs-str {color: #d14;} .fs-key {color: blue;} .fs-com {color: green; font-style: italic;}</style><table><tr><td style='padding: 5px; vertical-align: top; border-right: 1px solid #ececec; color: rgb(160, 160, 160);'><span>1</span><br /><span>2</span><br /><span>3</span><br /><span>4</span><br /><span>5</span><br /><span>6</span><br /><span>7</span><br /><span>8</span><br /><span>9</span><br /><span>10</span><br /><span>11</span><br /><span>12</span><br /><span>13</span><br /><span>14</span><br /><span>15</span><br /><span>16</span><br /><span>17</span><br /><span>18</span><br /><span>19</span><br /><span>20</span><br /><span>21</span><br /><span>22</span><br /><span>23</span><br /><span>24</span><br /><span>25</span><br /><span>26</span><br /><span>27</span><br /><span>28</span><br /><span>29</span><br /><span>30</span><br /><span>31</span><br /><span>32</span><br /><span>33</span><br /><span>34</span><br /><span>35</span><br /><span>36</span><br /><span>37</span><br /><span>38</span><br /><span>39</span><br /><span>40</span><br /><span>41</span><br /><span>42</span><br /><span>43</span><br /><span>44</span><br /><span>45</span><br /><span>46</span><br /><span>47</span><br /><span>48</span><br /><span>49</span><br /><span>50</span><br /><span>51</span><br /><span>52</span><br /><span>53</span><br /><span>54</span><br /><span>55</span><br /><span>56</span><br /><span>57</span><br /><span>58</span><br /><span>59</span><br /><span>60</span><br /><span>61</span><br /><span>62</span><br /><span>63</span><br /><span>64</span><br /><span>65</span><br /><span>66</span><br /><span>67</span><br /><span>68</span><br /><span>69</span><br /><span>70</span><br /><span>71</span><br /><span>72</span><br /><span>73</span><br /><span>74</span><br /><span>75</span><br /><span>76</span><br /><span>77</span><br /><span>78</span><br /><span>79</span></td><td style='vertical-align: top; padding: 5px;'><pre style='margin: 0px; background-color: white; border: none; padding: 0px; font-size: 14px; white-space: pre;'><span class='fs-key'>module </span>GeolocationOptions =
-    <span class='fs-key'>open </span>IntelliFactory.WebSharper
+﻿module GeolocationOptions =
+    open IntelliFactory.WebSharper
 
-    [&lt;JavaScript&gt;]
-    <span class='fs-key'>module </span>JS =
-        <span class='fs-key'>open </span>IntelliFactory.WebSharper.Html
-        <span class='fs-key'>open </span>IntelliFactory.WebSharper.Html5
+    [<JavaScript>]
+    module JS =
+        open IntelliFactory.WebSharper.Html
+        open IntelliFactory.WebSharper.Html5
 
-        <span class='fs-com'>/// Performs conversion to string and replaces the JS null with NA.</span>
-        <span class='fs-key'>let </span>toStr x =
+        /// Performs conversion to string and replaces the JS null with NA.
+        let toStr x =
             x.ToString()
-            |&gt; <span class='fs-key'>function
-</span>                | <span class='fs-str'>"null"</span> -&gt; <span class='fs-str'>"NA"</span>
-                | str    -&gt; str
+            |> function
+                | "null" -> "NA"
+                | str    -> str
 
-        <span class='fs-com'>/// Sets the text of the element with the specified id.</span>
-        <span class='fs-key'>let </span>setText id property =
-            <span class='fs-key'>let </span>propertyStr = toStr property
-            ById(id).TextContent &lt;- propertyStr
+        /// Sets the text of the element with the specified id.
+        let setText id property =
+            let propertyStr = toStr property
+            ById(id).TextContent <- propertyStr
 
-        <span class='fs-com'>/// Displays the properties of a position object.</span>
-        <span class='fs-key'>let </span>displayPosition (p : Position) =
-            <span class='fs-key'>let </span>coords = p.Coords
-            setText <span class='fs-str'>"longitude"</span> coords.Longitude
-            setText <span class='fs-str'>"latitude"</span>  coords.Latitude
-            setText <span class='fs-str'>"altitude"</span>  coords.Altitude
-            setText <span class='fs-str'>"accuracy"</span>  coords.Accuracy
-            setText <span class='fs-str'>"alt-acc"</span>   coords.AltitudeAccuracy
-            setText <span class='fs-str'>"heading"</span>   coords.Heading
-            setText <span class='fs-str'>"speed"</span>     coords.Speed
-            setText <span class='fs-str'>"timestamp"</span> p.Timestamp
+        /// Displays the properties of a position object.
+        let displayPosition (p : Position) =
+            let coords = p.Coords
+            setText "longitude" coords.Longitude
+            setText "latitude"  coords.Latitude
+            setText "altitude"  coords.Altitude
+            setText "accuracy"  coords.Accuracy
+            setText "alt-acc"   coords.AltitudeAccuracy
+            setText "heading"   coords.Heading
+            setText "speed"     coords.Speed
+            setText "timestamp" p.Timestamp
 
-        <span class='fs-com'>// Geolocation options</span>
-        <span class='fs-key'>let </span>options = Html5.PositionOptions()
-        options.EnableHighAccuracy &lt;- <span class='fs-key'>true
-</span>        options.MaximumAge         &lt;- 60000
-        options.Timeout            &lt;- 10000
+        // Geolocation options
+        let options = Html5.PositionOptions()
+        options.EnableHighAccuracy <- true
+        options.MaximumAge         <- 60000
+        options.Timeout            <- 10000
 
-        <span class='fs-com'>/// Calls the getCurrentPosition method asynchronously.</span>
-        <span class='fs-key'>let </span>trackPosition() =
+        /// Calls the getCurrentPosition method asynchronously.
+        let trackPosition() =
             async {
                 Window.Self.Navigator.Geolocation.GetCurrentPosition(
                     displayPosition,
-                    (<span class='fs-key'>fun </span>_ -&gt; ()),
+                    (fun _ -> ()),
                     options)
             }
 
-        <span class='fs-key'>let </span>tr thTxt tdId =
+        let tr thTxt tdId =
             TR [
                 TH [Text thTxt]
-                TD [Attr.Id tdId; Attr.Style <span class='fs-str'>"width: 250px;"</span>]
+                TD [Attr.Id tdId; Attr.Style "width: 250px;"]
             ]
 
-        <span class='fs-com'>/// Tracks the position of the user and displays its properties in a table.</span>
-        <span class='fs-key'>let </span>main() =
-            Div [Attr.Class <span class='fs-str'>"table-responsive"</span>] -&lt; [
-                Table [Attr.Class <span class='fs-str'>"table table-bordered"</span>; Attr.Id <span class='fs-str'>"geolocation-table"</span>] -&lt; [
-                    tr <span class='fs-str'>"Longitude"</span>         <span class='fs-str'>"longitude"</span>
-                    tr <span class='fs-str'>"Latitude"</span>          <span class='fs-str'>"latitude"</span>
-                    tr <span class='fs-str'>"Altitude"</span>          <span class='fs-str'>"altitude"</span>
-                    tr <span class='fs-str'>"Accuracy"</span>          <span class='fs-str'>"accuracy"</span>
-                    tr <span class='fs-str'>"Altitude Accuracy"</span> <span class='fs-str'>"alt-acc"</span>
-                    tr <span class='fs-str'>"Heading"</span>           <span class='fs-str'>"heading"</span>
-                    tr <span class='fs-str'>"Speed"</span>             <span class='fs-str'>"speed"</span>
-                    tr <span class='fs-str'>"Time Stamp"</span>        <span class='fs-str'>"timestamp"</span>
+        /// Tracks the position of the user and displays its properties in a table.
+        let main() =
+            Div [Attr.Class "table-responsive"] -< [
+                Table [Attr.Class "table table-bordered"; Attr.Id "geolocation-table"] -< [
+                    tr "Longitude"         "longitude"
+                    tr "Latitude"          "latitude"
+                    tr "Altitude"          "altitude"
+                    tr "Accuracy"          "accuracy"
+                    tr "Altitude Accuracy" "alt-acc"
+                    tr "Heading"           "heading"
+                    tr "Speed"             "speed"
+                    tr "Time Stamp"        "timestamp"
                 ]
-                Button [Attr.Class <span class='fs-str'>"btn btn-primary btn-large"</span>]
-                -- Text <span class='fs-str'>"Track My Location"</span>
-                |&gt;! OnClick (<span class='fs-key'>fun </span>_ _ -&gt;
+                Button [Attr.Class "btn btn-primary btn-large"]
+                -- Text "Track My Location"
+                |>! OnClick (fun _ _ ->
                     async { do! trackPosition() }
-                    |&gt; Async.Start)
+                    |> Async.Start)
             ]
     
-    <span class='fs-com'>/// A control for serving the main pagelet.                </span>
-    <span class='fs-key'>type </span>Control() =
-        <span class='fs-key'>inherit </span>Web.Control()
+    /// A control for serving the main pagelet.                
+    type Control() =
+        inherit Web.Control()
  
-        [&lt;JavaScript&gt;]
-        <span class='fs-key'>override </span>__.Body = JS.main() :&gt; _</pre></td></tr></table></div>
+        [<JavaScript>]
+        override __.Body = JS.main() :> _

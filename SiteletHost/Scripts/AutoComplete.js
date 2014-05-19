@@ -2,7 +2,7 @@
     $("#query").autocomplete({
         source: function (request, response) {
             $.ajax({
-                url: ("http://vuzupy.api.indexden.com/v1/indexes/WSSnippets/autocomplete?field=description&query=" + request.term),
+                url: ("http://vuzupy.api.indexden.com/v1/indexes/Snippets/autocomplete?field=description&query=" + request.term),
                 dataType: "jsonp",
                 data: {
                     featureClass: "P",

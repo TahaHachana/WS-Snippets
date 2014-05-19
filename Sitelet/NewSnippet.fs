@@ -47,11 +47,11 @@ module Server =
         |> fun x -> regex'.Replace(x, " ")
         
 
-    let addDoc id title desc =
+    let addDoc id url title desc =
         async {
             try
                 let client = TankTopClient AppSettings.indexdenUrl
-                let doc = Document id
+                let doc = Document(id + "/" + url)
                 let dict = Dictionary()
                 dict.Add("title", title)
                 dict.Add("description", desc)
@@ -64,7 +64,7 @@ module Server =
     let addSnippet snippet =
         async {
             do! insert snippet.Id snippet.Title snippet.Url snippet.MetaDescription snippet.Description snippet.DescriptionHtml snippet.Tags
-            do! addDoc snippet.Id snippet.Title snippet.Description
+            do! addDoc snippet.Id snippet.Url snippet.Title snippet.Description
         }
 
 [<JavaScript>]

@@ -1,41 +1,41 @@
-﻿<div style='margin: 0px; padding: 0px; font-family: Consolas; width: auto'><style type='text/css'>.fs-str {color: #d14;} .fs-key {color: blue;} .fs-com {color: green; font-style: italic;}</style><table><tr><td style='padding: 5px; vertical-align: top; border-right: 1px solid #ececec; color: rgb(160, 160, 160);'><span>1</span><br /><span>2</span><br /><span>3</span><br /><span>4</span><br /><span>5</span><br /><span>6</span><br /><span>7</span><br /><span>8</span><br /><span>9</span><br /><span>10</span><br /><span>11</span><br /><span>12</span><br /><span>13</span><br /><span>14</span><br /><span>15</span><br /><span>16</span><br /><span>17</span><br /><span>18</span><br /><span>19</span><br /><span>20</span><br /><span>21</span><br /><span>22</span><br /><span>23</span><br /><span>24</span><br /><span>25</span><br /><span>26</span><br /><span>27</span><br /><span>28</span><br /><span>29</span><br /><span>30</span><br /><span>31</span><br /><span>32</span><br /><span>33</span><br /><span>34</span><br /><span>35</span><br /><span>36</span><br /><span>37</span><br /><span>38</span><br /><span>39</span><br /><span>40</span><br /><span>41</span></td><td style='vertical-align: top; padding: 5px;'><pre style='margin: 0px; background-color: white; border: none; padding: 0px; font-size: 14px; white-space: pre;'><span class='fs-key'>module </span>Factorial =
-    <span class='fs-key'>open </span>IntelliFactory.WebSharper
+﻿module Factorial =
+    open IntelliFactory.WebSharper
 
-    <span class='fs-com'>/// Client-side code.</span>
-    [&lt;JavaScript&gt;]
-    <span class='fs-key'>module </span><span class='fs-key'>private </span>Client =
-        <span class='fs-key'>open </span>IntelliFactory.WebSharper.Html
+    /// Client-side code.
+    [<JavaScript>]
+    module private Client =
+        open IntelliFactory.WebSharper.Html
 
-        <span class='fs-com'>/// Computes the factorial of a number using recursion and pattern matching.</span>
-        <span class='fs-key'>let </span><span class='fs-key'>rec </span>factRec n =
-            <span class='fs-key'>match </span>n <span class='fs-key'>with
-</span>            | _ <span class='fs-key'>when </span>n &lt; 2 -&gt; 1
-            | _ -&gt; n * factRec (n - 1)
+        /// Computes the factorial of a number using recursion and pattern matching.
+        let rec factRec n =
+            match n with
+            | _ when n < 2 -> 1
+            | _ -> n * factRec (n - 1)
 
-        <span class='fs-com'>/// Computes the factorial of a number using the fold function from the Array module.</span>
-        <span class='fs-key'>let </span>factFold n = Array.fold (*) 1  [|1 .. n|]
+        /// Computes the factorial of a number using the fold function from the Array module.
+        let factFold n = Array.fold (*) 1  [|1 .. n|]
 
-        <span class='fs-key'>let </span>input = Input [Attr.Type <span class='fs-str'>"text"</span>; HTML5.Attr.AutoFocus <span class='fs-str'>"autofocus"</span>; Attr.Class <span class='fs-str'>"form-control"</span>; Attr.Id <span class='fs-str'>"factorial"</span>]
-        <span class='fs-key'>let </span>recSpan = Span []
-        <span class='fs-key'>let </span>foldSpan = Span []
-        <span class='fs-key'>let </span>button =
-            Button [Text <span class='fs-str'>"Factorial"</span>; Attr.Class <span class='fs-str'>"btn btn-primary"</span>; Attr.Style <span class='fs-str'>"margin-left: 8px;"</span>]
-            |&gt;! OnClick (<span class='fs-key'>fun </span>_ _ -&gt;
-                <span class='fs-key'>let </span>v = int input.Value
-                recSpan.Text &lt;- <span class='fs-str'>"Recursion: "</span> + string (factRec v)
-                foldSpan.Text &lt;- <span class='fs-str'>"Array.fold: "</span> + string (factFold v))
+        let input = Input [Attr.Type "text"; HTML5.Attr.AutoFocus "autofocus"; Attr.Class "form-control"; Attr.Id "factorial"]
+        let recSpan = Span []
+        let foldSpan = Span []
+        let button =
+            Button [Text "Factorial"; Attr.Class "btn btn-primary"; Attr.Style "margin-left: 8px;"]
+            |>! OnClick (fun _ _ ->
+                let v = int input.Value
+                recSpan.Text <- "Recursion: " + string (factRec v)
+                foldSpan.Text <- "Array.fold: " + string (factFold v))
 
-        <span class='fs-key'>let </span>main() =
+        let main() =
             Div [
-                Div [Attr.Class <span class='fs-str'>"form-inline"</span>]
-                    -&lt; [input; button]
-                Div [Attr.Style <span class='fs-str'>"margin-top: 8px;"</span>]
-                    -&lt; [recSpan; Br []; foldSpan]
+                Div [Attr.Class "form-inline"]
+                    -< [input; button]
+                Div [Attr.Style "margin-top: 8px;"]
+                    -< [recSpan; Br []; foldSpan]
             ]
 
-    <span class='fs-com'>/// A control for serving the main pagelet.</span>
-    <span class='fs-key'>type </span>Control() =
-        <span class='fs-key'>inherit </span>Web.Control()
+    /// A control for serving the main pagelet.
+    type Control() =
+        inherit Web.Control()
 
-        [&lt;JavaScript&gt;]
-        <span class='fs-key'>override </span>this.Body = Client.main() :&gt; _</pre></td></tr></table></div>
+        [<JavaScript>]
+        override this.Body = Client.main() :> _

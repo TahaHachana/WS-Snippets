@@ -23,9 +23,9 @@ module Search =
         
         let results q start =
             let q' = query q start
-            let searchResults = client.Search("WSSnippets", q')
+            let searchResults = client.Search("Snippets", q')
             let results =
-                client.Search("WSSnippets", q').Results
+                searchResults.Results
                 |> Seq.toArray
                 |> Array.map (fun x ->
                     let title = x.Snippets.["title"] |> function "" -> x.Fields.["title"] | t -> t

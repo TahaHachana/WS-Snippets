@@ -17,8 +17,8 @@ module NewPage =
             (fun ctx -> Div [Style "overflow: hidden;"] -< [control])
             (Div [])
 
-    let extjsContent control =
-        ExtjsSkin.withTemplate <| Div [Style "overflow: hidden;"] -< [control]
+//    let extjsContent control =
+//        ExtjsSkin.withTemplate <| Div [Style "overflow: hidden;"] -< [control]
 
     let cnts =
         [
@@ -48,11 +48,11 @@ module NewPage =
             content <| new Snippet24.Control()
             content <| new Snippet25.Control()
             content <| new Snippet26.Control()
-            content <| Div []
+//            content <| Div []
 //            extjsContent <| new Snippet27.Control()
             content <| new Snippet28.Control()
             content <| new Snippet29.Control()
-            content <| Div []
+//            content <| Div []
 //            content <| new Snippet30.Control()
             content <| new Snippet31.Control()
             content <| new Snippet32.Control()
@@ -62,6 +62,11 @@ module NewPage =
 
     let main =
         cnts
-        |> List.mapi (fun i cnt -> sitelet (i + 1) cnt) 
+        |> List.mapi (fun i cnt ->
+            match i with
+            | _ when i <= 26 -> sitelet (i + 1) cnt
+            | _ when i <= 29 -> sitelet (i + 2) cnt
+            | _ -> sitelet (i + 3) cnt
+        ) 
         |> Sitelet.Sum
         |> Sitelet.Shift "newpage"

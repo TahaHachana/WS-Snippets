@@ -1,25 +1,20 @@
-﻿namespace Website
+﻿module Sitelet.Model
 
-open IntelliFactory.WebSharper.Sitelets.Content
+type PageId = int
+type Path = string
+type Tag = string
+type Query = string
 
-module Model =
-
-    type PageId = int
-    type Path = string
-    type Tag = string
-    type Query = string
-
-    type Action =
-        | About
-        | Admin
-        | Error
-        | Home
-        | Login of Action option
-        | Logout
-        | [<CompiledName("snippet")>] Snippet of PageId * Path
-//        | Highlight
-        | [<CompiledName("tagged")>] Tagged of Tag
+type Action =
+    | About
+    | Admin
+    | Error
+    | Home
+    | Login of Action option
+    | Logout
+    | [<CompiledName("snippet")>] Snippet of PageId * Path
+    | [<CompiledName("tagged")>] Tagged of Tag
 //        | [<CompiledName("extjs")>] Extjs of PageId
-        | [<CompiledName("search")>] Search of Query * PageId
-        | Rss
-        | NewPage of int
+    | [<CompiledName("search")>] Search of Query * PageId
+    | Rss
+    | NewPage of int

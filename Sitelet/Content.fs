@@ -12,6 +12,22 @@ module Content =
     open Tags
     open Model
 
+    let subDescription (description:string) =
+        match description.Length with
+        | length when length < 150 -> description
+        | _ ->
+            let description' = description.[..150]
+            match description'.EndsWith "." with
+            | false ->
+                match description'.EndsWith " " with
+                | false ->
+                    let substrings = description'.Split ' '
+                    substrings.[.. (substrings.Length - 2)]
+                    |> String.concat " "
+                    |> fun x -> x + " ..."
+                | true -> description' + " ..."
+            | true -> description'
+        
     let snippetColumn snippet =    
         Div [Class "col-md-6 snippet"] -< [
             H3 [
@@ -19,7 +35,7 @@ module Content =
                     Text snippet.Title
                 ]
             ]
-            P [Text snippet.Desc]
+            P [Text <| subDescription snippet.Desc]
         ]
 
     module Footer =
@@ -52,7 +68,7 @@ module Content =
             ]
                                 
         let snippetsSection =
-            let snippets = //[Div []]
+            let snippets =
                 Snippets.latest10()
                 |> Seq.toList
                 |> split 2
@@ -275,13 +291,13 @@ module Content =
 
     module SearchUtils =
 
-        let subStr (str:string) =
-            match str.Length with
-            | length when length < 150 -> str
-            | _ -> str.[..147] + "..."
+//        let subStr (str:string) =
+//            match str.Length with
+//            | length when length < 150 -> str
+//            | _ -> str.[..147] + "..."
 
         let resultDiv (id, title, description) =
-            let description' = subStr description
+            let description' = subDescription description
             Div [
                 H3 [
                     A [HRef <| "/snippet/" + id] -< [

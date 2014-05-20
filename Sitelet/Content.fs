@@ -7,11 +7,32 @@ module Content =
     open IntelliFactory.WebSharper
     open IntelliFactory.WebSharper.Sitelets
     open IntelliFactory.WebSharper.Sitelets.Content
-    open Utils
     open Mongo
     open Tags
     open Model
 
+    let truncate count xs =
+        xs
+        |> Seq.truncate count
+        |> Seq.toList
+
+    let skip count xs =
+        xs
+        |> Seq.skip count
+        |> Seq.toList
+
+    let split count xs =        
+        let rec loop xs =
+            [
+                yield truncate count xs
+                match List.length xs <= count with
+                | false -> yield! loop <| skip count xs
+                | true -> ()
+            ]
+        loop xs
+
+    let link href text = A [HRef href] -< [Text text]
+    
     let subDescription (description:string) =
         match description.Length with
         | length when length < 150 -> description
@@ -314,16 +335,16 @@ module Content =
 
         let prevLi pageId queryStr =
             match pageId with
-            | 1 -> LI [Class "disabled"] -< [Utils.link "#" "«"]
-            | _ -> LI [Utils.link ("/search/" + queryStr + "/" + string (pageId - 1)) "«"]
+            | 1 -> LI [Class "disabled"] -< [link "#" "«"]
+            | _ -> LI [link ("/search/" + queryStr + "/" + string (pageId - 1)) "«"]
 
         let nextLi pageId pagesLength queryStr =
             match pageId with
             | _ when pageId = pagesLength ->
-                LI [Class "disabled"] -< [Utils.link "#" "»"]
+                LI [Class "disabled"] -< [link "#" "»"]
             | _ ->
                 LI [
-                    Utils.link
+                    link
                         ("/search/" + queryStr + "/" + string (pageId + 1))
                         "»"
                 ]
@@ -333,13 +354,13 @@ module Content =
             match x with
             | _ when x = pageId ->
                 LI [Class "active"] -< [
-                    Utils.link
+                    link
                         ("/search/" + queryStr + "/" + xStr)
                         xStr
                 ]
             | _ ->
                 LI [
-                    Utils.link
+                    link
                         ("/search/" + queryStr + "/" + string x)
                         xStr
                 ]

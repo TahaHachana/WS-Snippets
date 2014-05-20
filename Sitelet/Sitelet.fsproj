@@ -53,7 +53,6 @@
   </Choose>
   <Import Project="$(FSharpTargetsPath)" />
   <ItemGroup>
-    <Compile Include="Utils.fs" />
     <Compile Include="Skin.fs" />
     <Compile Include="AppSettings.fs" />
     <Compile Include="Model.fs" />
@@ -75,7 +74,6 @@
     <Compile Include="Js.fs" />
     <Compile Include="Html5.fs" />
     <Compile Include="Highlight.fs" />
-    <Compile Include="Tags.fs" />
     <Compile Include="Content.fs" />
     <Compile Include="Templates.fs" />
     <Compile Include="Views.fs" />

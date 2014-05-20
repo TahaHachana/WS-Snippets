@@ -1,4 +1,4 @@
-﻿namespace Website
+﻿module Sitelet.
 
 module Dependencies =
 //    open IntelliFactory.WebSharper

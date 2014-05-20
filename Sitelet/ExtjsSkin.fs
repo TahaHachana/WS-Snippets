@@ -1,4 +1,4 @@
-﻿namespace Website
+﻿module Sitelet.
 
 module ExtjsSkin =
     open System.Web

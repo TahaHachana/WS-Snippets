@@ -1,4 +1,4 @@
-﻿namespace Website
+﻿module Sitelet.
 
 module Content =
     open System.IO

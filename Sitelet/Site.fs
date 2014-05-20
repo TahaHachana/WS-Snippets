@@ -1,4 +1,4 @@
-﻿namespace Website
+﻿module Sitelet.
 
 open IntelliFactory.Html
 open IntelliFactory.WebSharper.Sitelets

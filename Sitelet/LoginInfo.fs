@@ -1,4 +1,4 @@
-﻿module Website.LoginInfo
+﻿module Sitelet.LoginInfo
 
 open System
 open IntelliFactory.Html
@@ -7,12 +7,13 @@ open Model
     
 let random url =
     let dateStr = Uri.EscapeUriString <| DateTime.Now.ToString()
-    url + "?d=" + Uri.EscapeUriString dateStr
+    url + "?d=" + dateStr
 
 let link href text =
-    A [HRef href; Class "pull-right"] -< [
-        Text text
-    ]
+    A [
+        HRef href
+        Class "pull-right"
+    ] -< [Text text]
 
 let elt (ctx: Context<_>) =
     let user = UserSession.GetLoggedInUser()
@@ -22,5 +23,5 @@ let elt (ctx: Context<_>) =
             link
                 (random <| ctx.Link Action.Logout)
                 <| "Log Out (" + userStr + ")"
-        | None      -> link "/login" "Login"
-    Div [Class "row"] -< [link]
+        | None -> link "/login" "Login"
+    Div [link]

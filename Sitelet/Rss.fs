@@ -1,4 +1,4 @@
-﻿namespace Website
+﻿module Sitelet.
 
 module Rss =
     open System

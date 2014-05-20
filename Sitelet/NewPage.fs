@@ -61,8 +61,8 @@ module NewPage =
         cnts
         |> List.mapi (fun i cnt ->
             match i with
-            | _ when i <= 26 -> sitelet (i + 1) cnt
-            | _ when i <= 29 -> sitelet (i + 2) cnt
+            | _ when i <= 25 -> sitelet (i + 1) cnt
+            | _ when i <= 27 -> sitelet (i + 2) cnt
             | _ -> sitelet (i + 3) cnt
         ) 
         |> Sitelet.Sum

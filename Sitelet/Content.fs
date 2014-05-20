@@ -88,11 +88,11 @@ module Content =
             ]
 
         let tagsBtns =
-            tags
+            Mongo.Snippets.tags()
             |> List.map (fun tag ->
-                A [HRef <| "/tagged/" + tag; Class "tag-link"] -< [
+                A [HRef <| "/tagged/" + tag.ToLower().Replace(' ', '-'); Class "tag-link"] -< [
                     Button [Class "btn btn-info btn-tag"] -< [
-                        Text <| tag.ToUpper()
+                        Text <| tag
                     ]
                 ])
 

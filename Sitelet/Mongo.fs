@@ -69,3 +69,13 @@ module Snippets =
                 where (x.SnipId = id)
                 head
         }
+
+    let tags() =
+        query {
+            for x in queryable do
+                select x.Tags
+        }
+        |> Seq.toArray
+        |> Array.concat
+        |> Seq.distinct
+        |> Seq.toList

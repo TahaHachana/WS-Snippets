@@ -55,10 +55,10 @@ module private Client =
             ]
             |>! OnKeyUp (fun elt key ->
                 match key.KeyCode with
-                    | 13 ->
-                        JQuery.Of("#query").Blur().Ignore
-                        JQuery.Of("#search-btn").Click().Ignore
-                    | _  -> ())
+                | 13 ->
+                    JQuery.Of("#query").Blur().Ignore
+                    JQuery.Of("#search-btn").Click().Ignore
+                | _  -> ())
             Span [Attr.Class "input-group-btn"] -< [
                 Controls.SubmitValidate submit -< [
                     Attr.Class "btn btn-primary"

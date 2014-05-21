@@ -153,7 +153,8 @@ module Login =
     let body action ctx =
         let link = link action ctx
         Div [Class "container"] -< [
-            new Login.Control(link)
+            new Login.Control(link) :> INode<_>
+            Div [Id "push"] :> _
         ]
 
 module Admin =
@@ -251,10 +252,7 @@ module Tagged =
         -< rows
 
     let body tagUpper tag =
-        Div [
-            Class "container"
-            Id "main"
-        ] -< [
+        Div [Class "container"] -< [
             Div [Class "page-header"] -< [
                     H1 [Text <| "Snippets tagged \"" + tagUpper + "\""]
             ]

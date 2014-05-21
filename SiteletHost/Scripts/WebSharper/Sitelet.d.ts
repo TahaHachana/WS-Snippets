@@ -1,4 +1,8 @@
-declare module Website {
+declare module Sitelet {
+    module Site {
+        interface Website {
+        }
+    }
     module Highlight {
         module Server {
             interface Token {
@@ -6,8 +10,147 @@ declare module Website {
         }
         interface Result {
         }
-        interface Control {
-            get_Body(): __ABBREV.__Html.IPagelet;
+    }
+    module Html5 {
+        module Snippet14 {
+            interface Control {
+                get_Body(): __ABBREV.__Html.IPagelet;
+            }
+            var btn : {
+                (txt: string): __ABBREV.__Html.Element;
+            };
+            var main : {
+                (): __ABBREV.__Html.Element;
+            };
+        }
+        module Snippet13 {
+            interface Control {
+                get_Body(): __ABBREV.__Html.IPagelet;
+            }
+        }
+        module Snippet12 {
+            interface Control {
+                get_Body(): __ABBREV.__Html.IPagelet;
+            }
+        }
+        module Snippet11 {
+            interface Control {
+                get_Body(): __ABBREV.__Html.IPagelet;
+            }
+        }
+        module Snippet10 {
+            module JS {
+                var toStr : {
+                    <_M1>(x: _M1): string;
+                };
+                var setText : {
+                    <_M1>(id: string, property: _M1): void;
+                };
+                var displayPosition : {
+                    (p: __ABBREV.__Html5.Position): void;
+                };
+                var tr : {
+                    (thTxt: string, tdId: string): __ABBREV.__Html.Element;
+                };
+                var main : {
+                    (): __ABBREV.__Html.Element;
+                };
+            }
+            interface Control {
+                get_Body(): __ABBREV.__Html.IPagelet;
+            }
+        }
+        module Snippet9 {
+            interface Control {
+                get_Body(): __ABBREV.__Html.IPagelet;
+            }
+            var main : {
+                (): __ABBREV.__Html.Element;
+            };
+        }
+        module Snippet8 {
+            interface Control {
+                get_Body(): __ABBREV.__Html.IPagelet;
+            }
+            var main : {
+                (): __ABBREV.__Html.Element;
+            };
+        }
+        module Snippet7 {
+            module Client {
+                var draw : {
+                    (ctx: __ABBREV.__Html5.CanvasRenderingContext2D): void;
+                };
+                var loop : {
+                    (ctx: __ABBREV.__Html5.CanvasRenderingContext2D): any;
+                };
+                var main : {
+                    (): __ABBREV.__Html.Element;
+                };
+            }
+            interface Control {
+                get_Body(): __ABBREV.__Html.IPagelet;
+            }
+        }
+        module Snippet6 {
+            interface Control {
+                get_Body(): __ABBREV.__Html.IPagelet;
+            }
+        }
+        module Snippet5 {
+            interface Control {
+                get_Body(): __ABBREV.__Html.IPagelet;
+            }
+        }
+        module Snippet4 {
+            module Client {
+                var log : {
+                    (text: string, color: string): void;
+                };
+                var append : {
+                    (id: string, btn: __ABBREV.__Html.Element): void;
+                };
+                var handleEvents : {
+                    (ws: __ABBREV.__Html5.WebSocket, disconnectBtn: __ABBREV.__Html.Element, sendBtn: __ABBREV.__Html.Element): void;
+                };
+                var connect : {
+                    (msgText: __ABBREV.__Html.Element): void;
+                };
+                var main : {
+                    (): __ABBREV.__Html.Element;
+                };
+            }
+            interface Control {
+                get_Body(): __ABBREV.__Html.IPagelet;
+            }
+        }
+        module Snippet3 {
+            module Client {
+                var main : {
+                    (): __ABBREV.__Html.Element;
+                };
+            }
+            interface Control {
+                get_Body(): __ABBREV.__Html.IPagelet;
+            }
+        }
+        module Snippet2 {
+            module Client {
+                var tr : {
+                    (td: string, _td_: string): __ABBREV.__Html.Element;
+                };
+                var main : {
+                    (): __ABBREV.__Html.Element;
+                };
+            }
+            interface Control {
+                get_Body(): __ABBREV.__Html.IPagelet;
+            }
+        }
+        module Snippet1 {
+            interface Control {
+                get_Body(): __ABBREV.__Html.IPagelet;
+            }
         }
     }
     module Js {
@@ -204,18 +347,13 @@ declare module Website {
         }
     }
     module Login {
-        module LoginInfo {
-            var New : {
-                (username: string, password: string): __ABBREV.__Login.LoginInfo;
-            };
-        }
         module Client {
             var loginPiglet : {
-                <_M1>(init: __ABBREV.__Login.LoginInfo): __ABBREV.__Piglets.Piglet<__ABBREV.__Login.LoginInfo, {
+                <_M1>(init: any): __ABBREV.__Piglets.Piglet<any, {
                     (x: {
                         (x: __ABBREV.__Piglets.Stream<string>): {
                             (x: __ABBREV.__Piglets.Stream<string>): {
-                                (x: __ABBREV.__Piglets.Submitter<__ABBREV.__Login.LoginInfo>): _M1;
+                                (x: __ABBREV.__Piglets.Submitter<any>): _M1;
                             };
                         };
                     }): _M1;
@@ -237,14 +375,6 @@ declare module Website {
         interface Control {
             get_Body(): __ABBREV.__Html.IPagelet;
         }
-    }
-    module Forkme {
-        interface Control {
-            get_Body(): __ABBREV.__Html.IPagelet;
-        }
-        var main : {
-            (): __ABBREV.__Html.Element;
-        };
     }
     module NewSnippet {
         module Client {
@@ -328,11 +458,6 @@ declare module Website {
         interface Action {
         }
     }
-    module ExtJsSkin {
-        interface Page {
-            Body: any;
-        }
-    }
     module Skin {
         interface DefaultPage {
             Title: string;
@@ -341,160 +466,15 @@ declare module Website {
             Footer: any;
         }
     }
-    interface Website {
-    }
-}
-declare module Html5 {
-    module Snippet14 {
-        interface Control {
-            get_Body(): __ABBREV.__Html.IPagelet;
-        }
-        var btn : {
-            (txt: string): __ABBREV.__Html.Element;
-        };
-        var main : {
-            (): __ABBREV.__Html.Element;
-        };
-    }
-    module Snippet13 {
-        interface Control {
-            get_Body(): __ABBREV.__Html.IPagelet;
-        }
-    }
-    module Snippet12 {
-        interface Control {
-            get_Body(): __ABBREV.__Html.IPagelet;
-        }
-    }
-    module Snippet11 {
-        interface Control {
-            get_Body(): __ABBREV.__Html.IPagelet;
-        }
-    }
-    module Snippet10 {
-        module JS {
-            var toStr : {
-                <_M1>(x: _M1): string;
-            };
-            var setText : {
-                <_M1>(id: string, property: _M1): void;
-            };
-            var displayPosition : {
-                (p: __ABBREV.__Html5.Position): void;
-            };
-            var tr : {
-                (thTxt: string, tdId: string): __ABBREV.__Html.Element;
-            };
-            var main : {
-                (): __ABBREV.__Html.Element;
-            };
-        }
-        interface Control {
-            get_Body(): __ABBREV.__Html.IPagelet;
-        }
-    }
-    module Snippet9 {
-        interface Control {
-            get_Body(): __ABBREV.__Html.IPagelet;
-        }
-        var main : {
-            (): __ABBREV.__Html.Element;
-        };
-    }
-    module Snippet8 {
-        interface Control {
-            get_Body(): __ABBREV.__Html.IPagelet;
-        }
-        var main : {
-            (): __ABBREV.__Html.Element;
-        };
-    }
-    module Snippet7 {
-        module Client {
-            var draw : {
-                (ctx: __ABBREV.__Html5.CanvasRenderingContext2D): void;
-            };
-            var loop : {
-                (ctx: __ABBREV.__Html5.CanvasRenderingContext2D): any;
-            };
-            var main : {
-                (): __ABBREV.__Html.Element;
-            };
-        }
-        interface Control {
-            get_Body(): __ABBREV.__Html.IPagelet;
-        }
-    }
-    module Snippet6 {
-        interface Control {
-            get_Body(): __ABBREV.__Html.IPagelet;
-        }
-    }
-    module Snippet5 {
-        interface Control {
-            get_Body(): __ABBREV.__Html.IPagelet;
-        }
-    }
-    module Snippet4 {
-        module Client {
-            var log : {
-                (text: string, color: string): void;
-            };
-            var append : {
-                (id: string, btn: __ABBREV.__Html.Element): void;
-            };
-            var handleEvents : {
-                (ws: __ABBREV.__Html5.WebSocket, disconnectBtn: __ABBREV.__Html.Element, sendBtn: __ABBREV.__Html.Element): void;
-            };
-            var connect : {
-                (msgText: __ABBREV.__Html.Element): void;
-            };
-            var main : {
-                (): __ABBREV.__Html.Element;
-            };
-        }
-        interface Control {
-            get_Body(): __ABBREV.__Html.IPagelet;
-        }
-    }
-    module Snippet3 {
-        module Client {
-            var main : {
-                (): __ABBREV.__Html.Element;
-            };
-        }
-        interface Control {
-            get_Body(): __ABBREV.__Html.IPagelet;
-        }
-    }
-    module Snippet2 {
-        module Client {
-            var tr : {
-                (td: string, _td_: string): __ABBREV.__Html.Element;
-            };
-            var main : {
-                (): __ABBREV.__Html.Element;
-            };
-        }
-        interface Control {
-            get_Body(): __ABBREV.__Html.IPagelet;
-        }
-    }
-    module Snippet1 {
-        interface Control {
-            get_Body(): __ABBREV.__Html.IPagelet;
-        }
-    }
 }
 declare module __ABBREV {
     
     export import __Html = IntelliFactory.WebSharper.Html;
-    export import __WebSharper = IntelliFactory.WebSharper;
     export import __Html5 = IntelliFactory.WebSharper.Html5;
+    export import __WebSharper = IntelliFactory.WebSharper;
     export import __List = IntelliFactory.WebSharper.List;
     export import __visualization = google.visualization;
     export import __Dom = IntelliFactory.WebSharper.Dom;
-    export import __Login = Website.Login;
     export import __Piglets = IntelliFactory.WebSharper.Piglets;
     export import __Many = IntelliFactory.WebSharper.Piglets.Many;
 }

@@ -75,7 +75,6 @@
     <Content Include="HTML\Admin.html" />
     <Content Include="HTML\Error.html" />
     <Content Include="HTML\ExtJS.html" />
-    <Content Include="HTML\Highlight.html" />
     <Content Include="HTML\Home.html" />
     <Content Include="HTML\Login.html" />
     <Content Include="HTML\NewPage.html" />

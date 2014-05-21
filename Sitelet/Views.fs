@@ -47,7 +47,7 @@ let error =
         Templates.error
         "Error · Page Not Found"
         ""
-        (fun ctx -> Div [])
+        (fun ctx -> Div [Id "push"])
         Footer.elt
 
 let snippet id path =

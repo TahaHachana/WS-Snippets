@@ -67,10 +67,10 @@ module Client =
                         Attr.Type "password"
                         HTML5.Attr.PlaceHolder "Password"
                     ]
-//                    |>! OnKeyDown (fun _ keyCode ->
-//                        match keyCode.KeyCode with
-//                        | 13 -> JQuery.Of("#submit-btn").Click().Ignore
-//                        | _  -> ())
+                    |>! OnKeyDown (fun _ keyCode ->
+                        match keyCode.KeyCode with
+                        | 13 -> JQuery.Of("#submit-btn").Click().Ignore
+                        | _  -> ())
                 ]
                 Controls.SubmitValidate submit -< [
                     Attr.Class "btn btn-primary"

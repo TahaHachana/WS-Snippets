@@ -1,4 +1,4 @@
-﻿module Website.Login
+﻿module Sitelet.Login
 
 open IntelliFactory.WebSharper
 
@@ -8,12 +8,6 @@ type LoginInfo =
         Username : string
         Password : string
     }
-
-    static member New username password =
-        {
-            Username = username
-            Password = password
-        }
 
 type Access = Denied | Granted
 
@@ -33,15 +27,27 @@ module Server =
 [<JavaScript>]
 module Client =
     open IntelliFactory.WebSharper.Html
+    open IntelliFactory.WebSharper.Html5
     open IntelliFactory.WebSharper.JQuery
     open IntelliFactory.WebSharper.Piglets
 
     let loginPiglet (init:LoginInfo) =
-        Piglet.Return (fun username password -> LoginInfo.New username password)
+        Piglet.Return (fun username password ->
+            {
+                Username = username
+                Password = password
+            }
+        )
         <*> (Piglet.Yield init.Username
-            |> Piglet.Validation.Is Piglet.Validation.NotEmpty "Please enter your username.")
+            |> Piglet.Validation.Is
+                Piglet.Validation.NotEmpty
+                "Please enter your username."
+            )
         <*> (Piglet.Yield init.Password
-            |> Piglet.Validation.Is Piglet.Validation.NotEmpty "Please enter your password.")
+            |> Piglet.Validation.Is
+                Piglet.Validation.NotEmpty
+                "Please enter your password."
+            )
         |> Piglet.WithSubmit
 
     let loginRender name password submit =
@@ -61,13 +67,14 @@ module Client =
                         Attr.Type "password"
                         HTML5.Attr.PlaceHolder "Password"
                     ]
-                    |>! OnKeyDown (fun _ keyCode ->
-                        match keyCode.KeyCode with
-                        | 13 -> JQuery.Of("#submit-btn").Click().Ignore
-                        | _  -> ())
+//                    |>! OnKeyDown (fun _ keyCode ->
+//                        match keyCode.KeyCode with
+//                        | 13 -> JQuery.Of("#submit-btn").Click().Ignore
+//                        | _  -> ())
                 ]
                 Controls.SubmitValidate submit -< [
-                    Attr.Class "btn btn-primary"; Attr.Id "submit-btn"
+                    Attr.Class "btn btn-primary"
+                    Attr.Id "submit-btn"
                 ]
             ]
 
@@ -78,7 +85,7 @@ module Client =
                 let! access = Server.login loginInfo
                 match access with
                 | Denied -> JavaScript.Alert "Login failed"
-                | Granted -> Html5.Window.Self.Location.Assign redirectUrl
+                | Granted -> Window.Self.Location.Assign redirectUrl
             } |> Async.Start)
         |> Piglet.Render loginRender
 

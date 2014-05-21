@@ -1,8 +1,8 @@
-﻿module Website.NewSnippet
+﻿module Sitelet.NewSnippet
 
 open IntelliFactory.WebSharper
 
-[<ReflectedDefinition>]
+//[<ReflectedDefinition>]
 type NewSnippet =
     {
         Id : string
@@ -11,11 +11,11 @@ type NewSnippet =
         MetaDescription : string
         Description : string
         DescriptionHtml : string
-//        Code : string
         Tags : Tag []
     }
 
-and [<ReflectedDefinition>] Tag = string
+//[<ReflectedDefinition>]
+and Tag = string
 
 module Server =
     
@@ -26,26 +26,15 @@ module Server =
     open TankTop
     open TankTop.Dto
 
-    let insert id title url metaDesc (desc:string) descHtml (tags:string []) = //(id, title, metaDesc, (desc : string), descHtml, (tags : string)) =
+    let insert id title url metaDesc desc descHtml (tags:string []) =
         async {
             try
-//                let desc' =
-//                    match desc.Length with
-//                    | length when length < 150 -> desc
-//                    | _ -> desc.[..147] + "..."
                 let tags' = tags |> Array.map (fun x -> x.ToUpper())
                 let snip = Snippet.New (int id) title url metaDesc desc descHtml tags' DateTime.Now
                 Snippets.insert snip
                 |> ignore
             with _ -> ()
         }
-
-    let stripSpaces str =
-        let regex = Regex("(\n|\r)", RegexOptions.Compiled)
-        let regex' = Regex(" {2,}", RegexOptions.Compiled)
-        regex.Replace(str, " ")
-        |> fun x -> regex'.Replace(x, " ")
-        
 
     let addDoc id url title desc =
         async {
@@ -86,7 +75,6 @@ module Client =
                 MetaDescription = metaDescription
                 Description = description
                 DescriptionHtml = descriptionHtml
-//                Code = code
                 Tags = tags
             }
         )
@@ -96,7 +84,6 @@ module Client =
         <*> Piglet.Yield init.MetaDescription
         <*> Piglet.Yield init.Description
         <*> Piglet.Yield init.DescriptionHtml
-//        <*> Piglet.Yield init.Code
         <*> Piglet.ManyInit init.Tags "" tagPiglet
         |> Piglet.WithSubmit
 
@@ -158,14 +145,6 @@ module Client =
                         HTML5.Attr.PlaceHolder "Description HTML"
                     ]
                 ]
-//                Div [Attr.Class "form-group"] -< [
-//                    Controls.TextArea code -< [
-//                        Attr.Class "form-control"
-//                        Attr.Type "text"
-//                        HTML5.Attr.Required "required"
-//                        HTML5.Attr.PlaceHolder "Password"
-//                    ]
-//                ]
                 Div [] |> Controls.RenderMany tags (fun _ tag ->
                     tagView tag
                 )
@@ -190,14 +169,12 @@ module Client =
                 MetaDescription = ""
                 Description = ""
                 DescriptionHtml = ""
-//                Code = ""
                 Tags = [|""|]
             }
         |> Piglet.Run (fun snippet ->
             async {
                 do! Server.addSnippet snippet
                 JavaScript.Alert "Done"
-//                JavaScript.Log snippet
             } |> Async.Start)
         |> Piglet.Render snippetView
 

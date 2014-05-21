@@ -58,11 +58,9 @@
     <Compile Include="Model.fs" />
     <Compile Include="LoginInfo.fs" />
     <Compile Include="Search.fs" />
-    <Compile Include="Index.fs" />
     <Compile Include="ExtjsSkin.fs" />
     <Compile Include="Mongo.fs" />
     <Compile Include="Rss.fs" />
-    <Compile Include="InsertSnippet.fs" />
     <Compile Include="NewSnippet.fs" />
     <Compile Include="Dependencies.fs" />
     <Compile Include="Forkme.fs" />

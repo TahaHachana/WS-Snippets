@@ -23,7 +23,7 @@ let about =
         Templates.about
         "About WebSharper Snippets"
         "WebSharper demos application built and maintained by Taha Hachana." 
-        (fun ctx -> Div [])
+        (fun ctx -> Div [Id "push"])
         Footer.elt
 
 let login actionOption =

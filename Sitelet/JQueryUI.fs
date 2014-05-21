@@ -1,4 +1,4 @@
-﻿module Website.JQueryUI
+﻿module Sitelet.JQueryUI
 
 open IntelliFactory.WebSharper
 open IntelliFactory.WebSharper.JQueryUI

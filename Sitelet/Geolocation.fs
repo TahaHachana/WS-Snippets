@@ -1,4 +1,4 @@
-﻿module Website.Geolocation
+﻿module Sitelet.Geolocation
 
 open IntelliFactory.WebSharper
 open IntelliFactory.WebSharper.Dom

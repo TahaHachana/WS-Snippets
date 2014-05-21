@@ -1,4 +1,4 @@
-﻿module Website.Google
+﻿module Sitelet.Google
 
 open IntelliFactory.WebSharper
 open IntelliFactory.WebSharper.Html

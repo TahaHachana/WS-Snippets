@@ -1,4 +1,4 @@
-﻿module Html5
+﻿module Sitelet.Html5
 
 open IntelliFactory.WebSharper
 open IntelliFactory.WebSharper.EcmaScript

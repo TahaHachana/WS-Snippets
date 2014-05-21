@@ -1,4 +1,4 @@
-﻿module Website.Js
+﻿module Sitelet.Js
 
 open IntelliFactory.WebSharper
 open IntelliFactory.WebSharper.Html

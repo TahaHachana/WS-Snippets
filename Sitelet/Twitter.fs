@@ -1,4 +1,4 @@
-﻿module Website.Twitter
+﻿module Sitelet.Twitter
 
 open IntelliFactory.WebSharper
 open IntelliFactory.WebSharper.Html

@@ -1,4 +1,4 @@
-﻿module Website.Mongo
+﻿module Sitelet.Mongo
 
 open System
 open System.Globalization

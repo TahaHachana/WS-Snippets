@@ -262,7 +262,7 @@ module Tagged =
             Div [Id "push"]
         ]
 
-module SearchUtils =
+module Search =
 
     let resultDiv (id, title, description) =
         let description' = subDescription description

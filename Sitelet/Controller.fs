@@ -26,9 +26,6 @@ let controller =
                 let snippet = Mongo.Snippets.byId id
                 Content.Redirect <| Snippet (id, snippet.Url)
             | _ -> Views.snippet id path
-//        | OldSnippet id ->
-//            let snippet = Mongo.Snippets.byId id
-//            Content.Redirect <| Snippet (id, snippet.Url)
         | Tagged tag     -> Views.tagged tag
 //            | Extjs pageId   -> Views.extjs pageId
         | Search (q, id) -> Views.search q id

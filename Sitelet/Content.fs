@@ -112,6 +112,7 @@ module Home =
 
     let tagsBtns =
         Mongo.Snippets.tags()
+        |> List.sort
         |> List.map (fun tag ->
             A [
                 HRef
@@ -198,19 +199,20 @@ module Snippet =
         ]
 
     let body snippet =
+        let newPage = "/newpage/" + string snippet.SnipId
         Div [Class "container"] -< [
             detailsDiv snippet
             Div [Class "page-header"] -< [
                 H2 [Text "Demo"]
             ]
             IFrame [
-                Src <| "/newpage/" + string snippet.SnipId
+                Src newPage
                 Scrolling "no"
                 Attributes.Style "width: 100%; border: none;"
             ]
             A [
-                HRef <| "/newpage/" + string id
-                Class "tag-link"
+                HRef newPage
+                Class "tag-link pull-right"
                 Target "_blank"
             ] -< [
                 Button [Class "btn btn-primary btn-tag"] -< [

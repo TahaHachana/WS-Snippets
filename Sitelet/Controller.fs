@@ -20,7 +20,15 @@ let controller =
         | Home           -> Views.home
         | Login action   -> Views.login action
         | Logout         -> logout()
-        | Snippet (id, path) -> Views.snippet id path
+        | Snippet (id, path) ->
+            match path with
+            | "" ->
+                let snippet = Mongo.Snippets.byId id
+                Content.Redirect <| Snippet (id, snippet.Url)
+            | _ -> Views.snippet id path
+//        | OldSnippet id ->
+//            let snippet = Mongo.Snippets.byId id
+//            Content.Redirect <| Snippet (id, snippet.Url)
         | Tagged tag     -> Views.tagged tag
 //            | Extjs pageId   -> Views.extjs pageId
         | Search (q, id) -> Views.search q id

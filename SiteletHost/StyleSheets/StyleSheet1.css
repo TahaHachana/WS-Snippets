@@ -61,104 +61,26 @@
 /* Search */
 #search-results {width: 50%;}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*#main {
-    padding-top: 70px;
-}*/
-
-
-
-
-/*.snippet {
-    margin-bottom: 20px;
-}*/
-
-/*#forkme {
-    position: fixed;
-    top: 0;
-    border: 0;
-    right: 0;
-}*/
-
-/*#snippet-details {
-    margin-bottom: 20px;
-}*/
-
-
-
-/*#code-textarea, #html-textarea {
-    overflow: scroll;
-    word-wrap: normal;
-    height: 300px;
+/* Sticky footer styles */
+html {
+    position: relative;
+    min-height: 100%;
 }
 
-#code-textarea {
-    margin-bottom: 30px;
+body {
+    /* Margin bottom by footer height */
+    margin-bottom: 100px;
 }
 
-#loader {
-    padding-top: 10px;
-    visibility: hidden;
-}
-
-#highlight-tabs {
-    height: 500px;
-}
-
-#html-preview {
-    height: 300px;
-    overflow: scroll;
-}
-
-.search-result-link {
-    font-size: large;
-}
-
-#source, #demo {
-    height: 450px;
-    overflow: auto;
-    padding-top: 10px;
-}
-
-#demo-tabs {
-    height: 500px;
-}
-
-#tags-div {
-    margin-top: 100px;
-}
-
-
-#addthis-control {
-    height: 30px;
-}
-
-.container .credit {
-    margin: 20px 0;
-}
-
-
-canvas {
-    border: 1px solid;
+#footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    height: 100px;
+    /*background-color: #f5f5f5;*/
+    padding-top: 20px;
+    border-top: 1px solid lightgray;
 }
 
 #location-table {
@@ -193,33 +115,7 @@ canvas {
 
 #clock {
     border: none;
-}*/
-
-/* Sticky footer styles */
-html {
-    position: relative;
-    min-height: 100%;
 }
-
-body {
-    /* Margin bottom by footer height */
-    margin-bottom: 100px;
-}
-
-#footer {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    /* Set the fixed height of the footer here */
-    height: 100px;
-    /*background-color: #f5f5f5;*/
-    padding-top: 20px;
-    border-top: 1px solid lightgray;
-}
-
-
-
-
 
 /* Twitter widget styles */
 .avatar {

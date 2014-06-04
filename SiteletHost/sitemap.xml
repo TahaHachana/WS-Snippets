@@ -1,84 +1,186 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>http://wssnippets.apphb.com/tagged/websocket</loc>
+    <loc>http://wssnippets.apphb.com/snippet/5/console-debugging</loc>
   </url>
   <url>
-    <loc>http://wssnippets.apphb.com/tagged/video</loc>
+    <loc>http://wssnippets.apphb.com/snippet/19/navigation-using-location-object</loc>
   </url>
   <url>
-    <loc>http://wssnippets.apphb.com/tagged/geolocation</loc>
+    <loc>http://wssnippets.apphb.com/snippet/18/jquery-ui-tabs</loc>
   </url>
   <url>
-    <loc>http://wssnippets.apphb.com/snippet/5</loc>
+    <loc>http://wssnippets.apphb.com/snippet/9/prompting-using-showmodaldialog</loc>
   </url>
   <url>
-    <loc>http://wssnippets.apphb.com/snippet/7</loc>
-  </url>
-  <url>
-    <loc>http://wssnippets.apphb.com/snippet/9</loc>
-  </url>
-  <url>
-    <loc>http://wssnippets.apphb.com/about</loc>
+    <loc>http://wssnippets.apphb.com/snippet/32/scheduling-timers-settimeout-cleartimeout</loc>
   </url>
   <url>
     <loc>http://wssnippets.apphb.com/</loc>
   </url>
   <url>
+    <loc>http://wssnippets.apphb.com/snippet/3/javascript-window-location-object</loc>
+  </url>
+  <url>
+    <loc>http://wssnippets.apphb.com/snippet/25/canvas-line-cap-styles</loc>
+  </url>
+  <url>
+    <loc>http://wssnippets.apphb.com/snippet/28/google-visualization-pie-chart</loc>
+  </url>
+  <url>
+    <loc>http://wssnippets.apphb.com/about</loc>
+  </url>
+  <url>
     <loc>http://wssnippets.apphb.com/rss</loc>
-  </url>
-  <url>
-    <loc>http://wssnippets.apphb.com/tagged/websharper</loc>
-  </url>
-  <url>
-    <loc>http://wssnippets.apphb.com/tagged/canvas</loc>
-  </url>
-  <url>
-    <loc>http://wssnippets.apphb.com/snippet/2</loc>
-  </url>
-  <url>
-    <loc>http://wssnippets.apphb.com/snippet/6</loc>
-  </url>
-  <url>
-    <loc>http://wssnippets.apphb.com/tagged/twitter</loc>
-  </url>
-  <url>
-    <loc>http://wssnippets.apphb.com/tagged/multimedia</loc>
-  </url>
-  <url>
-    <loc>http://wssnippets.apphb.com/tagged/location</loc>
-  </url>
-  <url>
-    <loc>http://wssnippets.apphb.com/snippet/1</loc>
-  </url>
-  <url>
-    <loc>http://wssnippets.apphb.com/snippet/8</loc>
-  </url>
-  <url>
-    <loc>http://wssnippets.apphb.com/snippet/3</loc>
   </url>
   <url>
     <loc>http://wssnippets.apphb.com/tagged/window</loc>
   </url>
   <url>
-    <loc>http://wssnippets.apphb.com/tagged/javascript</loc>
+    <loc>http://wssnippets.apphb.com/tagged/widget</loc>
   </url>
   <url>
-    <loc>http://wssnippets.apphb.com/snippet/4</loc>
+    <loc>http://wssnippets.apphb.com/tagged/websharper</loc>
+  </url>
+  <url>
+    <loc>http://wssnippets.apphb.com/tagged/visualization</loc>
+  </url>
+  <url>
+    <loc>http://wssnippets.apphb.com/tagged/video</loc>
+  </url>
+  <url>
+    <loc>http://wssnippets.apphb.com/tagged/twitter</loc>
+  </url>
+  <url>
+    <loc>http://wssnippets.apphb.com/snippet/31/navigation-within-browser-history</loc>
+  </url>
+  <url>
+    <loc>http://wssnippets.apphb.com/snippet/26/html5-audio</loc>
+  </url>
+  <url>
+    <loc>http://wssnippets.apphb.com/snippet/29/hello-google-maps</loc>
+  </url>
+  <url>
+    <loc>http://wssnippets.apphb.com/snippet/24/alert-window-interaction</loc>
+  </url>
+  <url>
+    <loc>http://wssnippets.apphb.com/snippet/1/websharper-hello-world</loc>
+  </url>
+  <url>
+    <loc>http://wssnippets.apphb.com/snippet/16/google-visualization-line-chart</loc>
+  </url>
+  <url>
+    <loc>http://wssnippets.apphb.com/snippet/20/canvas-rectangle-using-fillrect</loc>
+  </url>
+  <url>
+    <loc>http://wssnippets.apphb.com/snippet/13/hello-canvas</loc>
+  </url>
+  <url>
+    <loc>http://wssnippets.apphb.com/snippet/2/html5-logo-on-canvas</loc>
+  </url>
+  <url>
+    <loc>http://wssnippets.apphb.com/tagged/websocket</loc>
   </url>
   <url>
     <loc>http://wssnippets.apphb.com/tagged/jquery</loc>
   </url>
   <url>
+    <loc>http://wssnippets.apphb.com/snippet/21/native-html5-drag-drop</loc>
+  </url>
+  <url>
+    <loc>http://wssnippets.apphb.com/tagged/accordion</loc>
+  </url>
+  <url>
+    <loc>http://wssnippets.apphb.com/snippet/22/geolocation-options</loc>
+  </url>
+  <url>
+    <loc>http://wssnippets.apphb.com/snippet/15/rpc-mechanism</loc>
+  </url>
+  <url>
+    <loc>http://wssnippets.apphb.com/snippet/10/factorial</loc>
+  </url>
+  <url>
+    <loc>http://wssnippets.apphb.com/snippet/8/html5-websocket</loc>
+  </url>
+  <url>
+    <loc>http://wssnippets.apphb.com/snippet/17/animated-clock</loc>
+  </url>
+  <url>
     <loc>http://wssnippets.apphb.com/tagged/html5</loc>
   </url>
   <url>
-    <loc>http://wssnippets.apphb.com/tagged/connectivity</loc>
+    <loc>http://wssnippets.apphb.com/tagged/fsharp</loc>
+  </url>
+  <url>
+    <loc>http://wssnippets.apphb.com/tagged/chart</loc>
+  </url>
+  <url>
+    <loc>http://wssnippets.apphb.com/tagged/audio</loc>
+  </url>
+  <url>
+    <loc>http://wssnippets.apphb.com/tagged/history</loc>
+  </url>
+  <url>
+    <loc>http://wssnippets.apphb.com/snippet/23/jquery-ui-static-datepicker</loc>
+  </url>
+  <url>
+    <loc>http://wssnippets.apphb.com/snippet/4/twitter-widget</loc>
+  </url>
+  <url>
+    <loc>http://wssnippets.apphb.com/snippet/14/accordion-widget</loc>
+  </url>
+  <url>
+    <loc>http://wssnippets.apphb.com/tagged/drag-drop</loc>
+  </url>
+  <url>
+    <loc>http://wssnippets.apphb.com/tagged/canvas</loc>
+  </url>
+  <url>
+    <loc>http://wssnippets.apphb.com/snippet/6/geolocation-user-position</loc>
+  </url>
+  <url>
+    <loc>http://wssnippets.apphb.com/snippet/7/html5-video</loc>
+  </url>
+  <url>
+    <loc>http://wssnippets.apphb.com/snippet/12/calculator</loc>
+  </url>
+  <url>
+    <loc>http://wssnippets.apphb.com/snippet/11/dom-implementation-details</loc>
+  </url>
+  <url>
+    <loc>http://wssnippets.apphb.com/tagged/javascript</loc>
   </url>
   <url>
     <loc>http://wssnippets.apphb.com/tagged/html</loc>
   </url>
   <url>
     <loc>http://wssnippets.apphb.com/tagged/dom</loc>
+  </url>
+  <url>
+    <loc>http://wssnippets.apphb.com/tagged/connectivity</loc>
+  </url>
+  <url>
+    <loc>http://wssnippets.apphb.com/tagged/google</loc>
+  </url>
+  <url>
+    <loc>http://wssnippets.apphb.com/tagged/google-maps</loc>
+  </url>
+  <url>
+    <loc>http://wssnippets.apphb.com/tagged/geolocation</loc>
+  </url>
+  <url>
+    <loc>http://wssnippets.apphb.com/tagged/timer</loc>
+  </url>
+  <url>
+    <loc>http://wssnippets.apphb.com/tagged/rpc</loc>
+  </url>
+  <url>
+    <loc>http://wssnippets.apphb.com/tagged/multimedia</loc>
+  </url>
+  <url>
+    <loc>http://wssnippets.apphb.com/tagged/jquery-ui</loc>
+  </url>
+  <url>
+    <loc>http://wssnippets.apphb.com/tagged/location</loc>
   </url>
 </urlset>

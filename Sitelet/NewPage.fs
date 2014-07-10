@@ -51,6 +51,7 @@ let cnts =
 //            content <| new Snippet30.Control()
         content <| new Html5.Snippet14.Control()
         content <| new Js.Snippet9.Control()
+        content <| new JQuery.Snippet1.Control()
     ]
 
 let sitelet x cnt = Sitelet.Content (string x) (Action.NewPage x) cnt

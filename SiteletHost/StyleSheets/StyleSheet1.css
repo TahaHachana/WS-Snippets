@@ -196,3 +196,40 @@ body {
 #clear-btn {
     margin-left: 5px;
 }
+
+/* jQuery Image Slider */
+#jquery-slider-container {
+    position: relative;
+    width: 200px;
+    height: 200px;
+}
+
+#jquery-slider img {
+    position: absolute;
+    display: none;
+    border-radius: 3px;
+}
+
+#prev-slide, #next-slide {
+    position: absolute;
+    bottom: 10px;
+    padding: 5px 10px;
+    color: #000;
+    background: #FFF;
+    border-radius: 3px;
+    text-decoration: none;
+    opacity: 0.7;
+}
+
+#prev-slide:hover, #next-slide:hover {
+    opacity: 1;
+    cursor: pointer;
+}
+
+#prev-slide {
+    left: 10px;
+}
+
+#next-slide {
+    right: 10px;
+}

@@ -14,7 +14,7 @@
     <Name>Sitelet</Name>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
-    <NuGetPackageImportStamp>3c5ed2ff</NuGetPackageImportStamp>
+    <NuGetPackageImportStamp>9863cddb</NuGetPackageImportStamp>
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -63,6 +63,7 @@
     <Compile Include="Rss.fs" />
     <Compile Include="NewSnippet.fs" />
     <Compile Include="Login.fs" />
+    <Compile Include="JQuery.fs" />
     <Compile Include="JQueryUI.fs" />
     <Compile Include="Google.fs" />
     <Compile Include="Geolocation.fs" />
@@ -99,7 +100,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="IntelliFactory.WebSharper.Piglets">
-      <HintPath>..\packages\WebSharper.Piglets.0.1.77.136\lib\net40\IntelliFactory.WebSharper.Piglets.dll</HintPath>
+      <HintPath>..\packages\WebSharper.Piglets.0.1.88.147\lib\net40\IntelliFactory.WebSharper.Piglets.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="MongoDB.Bson">
@@ -144,9 +145,9 @@
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
-    <Error Condition="!Exists('..\packages\WebSharper.2.5.108.41\build\WebSharper.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\WebSharper.2.5.108.41\build\WebSharper.targets'))" />
+    <Error Condition="!Exists('..\packages\WebSharper.2.5.118.53\build\WebSharper.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\WebSharper.2.5.118.53\build\WebSharper.targets'))" />
   </Target>
-  <Import Project="..\packages\WebSharper.2.5.108.41\build\WebSharper.targets" Condition="Exists('..\packages\WebSharper.2.5.108.41\build\WebSharper.targets')" />
+  <Import Project="..\packages\WebSharper.2.5.118.53\build\WebSharper.targets" Condition="Exists('..\packages\WebSharper.2.5.118.53\build\WebSharper.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

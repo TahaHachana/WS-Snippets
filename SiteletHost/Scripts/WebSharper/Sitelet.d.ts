@@ -346,6 +346,13 @@ declare module Sitelet {
             }
         }
     }
+    module JQuery {
+        module Snippet1 {
+            interface Control {
+                get_Body(): __ABBREV.__Html.IPagelet;
+            }
+        }
+    }
     module Login {
         module Client {
             var loginPiglet : {

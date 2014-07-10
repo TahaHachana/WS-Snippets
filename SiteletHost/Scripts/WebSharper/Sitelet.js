@@ -1,6 +1,6 @@
 (function()
 {
- var Global=this,Runtime=this.IntelliFactory.Runtime,Sitelet,Geolocation,Snippet1,Client,String,WebSharper,Concurrency,window,Html,Default,List,Operators,EventsPervasives,document,google,visualization,DataTable,Google,Snippet11,Client1,LineChart,Seq,Snippet2,Client2,PieChart,Snippet3,Html5,Snippet12,Client3,HTML5,T,Snippet10,JS,Snippet121,Client4,Snippet14,Snippet21,Client5,Snippet31,Client6,WebSocket,Snippet4,Client7,Snippet5,Client8,Snippet6,Client9,Date,Math,Number,Snippet7,Clienta,Snippet8,Snippet9,JQueryUI,Snippet13,JS1,JQueryUI1,Tabs,Operators1,Datepicker,JavaScript,Js,Snippet22,Clientb,Arrays,Snippet32,Clientc,Snippet41,Clientd,Snippet51,Cliente,Snippet61,Clientf,jQuery,Remoting,Snippet71,Client10,Snippet81,JS2,Snippet91,JS3,clearTimeout,setTimeout,alert,Piglets,Piglet1,Login,Client11,Pervasives,Validation,Controls,Result,NewSnippet,Client12,Search,Client13,Twitter,Snippet15,Client14;
+ var Global=this,Runtime=this.IntelliFactory.Runtime,Sitelet,Geolocation,Snippet1,Client,String,WebSharper,Concurrency,window,Html,Default,List,Operators,EventsPervasives,document,google,visualization,DataTable,Google,Snippet11,Client1,LineChart,Seq,Snippet2,Client2,PieChart,Snippet3,Html5,Snippet12,Client3,HTML5,T,Snippet10,JS,Snippet121,Client4,Snippet14,Snippet21,Client5,Snippet31,Client6,WebSocket,Snippet4,Client7,Snippet5,Client8,Snippet6,Client9,Date,Math,Number,Snippet7,Clienta,Snippet8,Snippet9,JQuery,Snippet13,Js,Operators1,jQuery,setInterval,clearInterval,JQueryUI,Snippet15,JS1,JQueryUI1,Tabs,Datepicker,JavaScript,Js1,Snippet22,Clientb,Arrays,Snippet32,Clientc,Snippet41,Clientd,Snippet51,Cliente,Snippet61,Clientf,Remoting,Snippet71,Client10,Snippet81,JS2,Snippet91,JS3,clearTimeout,setTimeout,alert,Piglets,Piglet1,Login,Client11,Pervasives,Validation,Controls,Result,NewSnippet,Client12,Search,Client13,Twitter,Snippet16,Client14;
  Runtime.Define(Global,{
   Sitelet:{
    Geolocation:{
@@ -798,6 +798,85 @@
       ctx.fillStyle="blue";
       ctx.fillRect(50,50,300,100);
       return elt;
+     }
+    }
+   },
+   JQuery:{
+    Snippet1:{
+     Control:Runtime.Class({
+      get_Body:function()
+      {
+       return Js.main();
+      }
+     }),
+     Js:{
+      baseUrl:Runtime.Field(function()
+      {
+       return"http://placekitten.com/200/200?image=";
+      }),
+      fadeIn:function(jquery,selector)
+      {
+       return jquery.children(selector).fadeIn(1000);
+      },
+      main:function()
+      {
+       var x;
+       x=Operators.add(Default.Div(List.ofArray([Default.Attr().NewAttr("id","jquery-slider-container")])),List.ofArray([Operators.add(Default.Div(List.ofArray([Default.Attr().NewAttr("id","jquery-slider")])),Seq.toList(Seq.delay(function()
+       {
+        return Seq.map(function(x1)
+        {
+         var arg10;
+         arg10=Js.baseUrl()+Global.String(x1);
+         return Default.Img(List.ofArray([Default.Attr().NewAttr("src",arg10)]));
+        },Operators1.range(1,5));
+       }))),Default.A(List.ofArray([Default.Attr().NewAttr("id","prev-slide"),Default.Text("Prev")])),Default.A(List.ofArray([Default.Attr().NewAttr("id","next-slide"),Default.Text("Next")]))]));
+       Operators.OnAfterRender(function()
+       {
+        var slider,direction,f,timer;
+        slider=jQuery("#jquery-slider");
+        direction={
+         $:1
+        };
+        f=function(_arg20_)
+        {
+         return Js.scroll(slider,direction,_arg20_);
+        };
+        timer={
+         contents:setInterval(f,2000)
+        };
+        slider.children().first().show();
+        jQuery("#jquery-slider, #prev-slide, #next-slide").hover(function()
+        {
+         return clearInterval(timer.contents);
+        },function()
+        {
+         timer.contents=setInterval(f,2000);
+        });
+        return jQuery("#prev-slide, #next-slide").click(function(event)
+        {
+         var linkId;
+         linkId=this.getAttribute("id");
+         event.preventDefault();
+         return linkId==="prev-slide"?Js.scroll(slider,{
+          $:0
+         },null):f(null);
+        });
+       },x);
+       return x;
+      },
+      scroll:function(jquery,direction)
+      {
+       var activeSlide,index,_fadeIn_,slidesCount;
+       activeSlide=jquery.children(":visible");
+       index=activeSlide.index();
+       activeSlide.fadeOut(1000);
+       _fadeIn_=function(selector)
+       {
+        return Js.fadeIn(jquery,selector);
+       };
+       slidesCount=jquery.children().length;
+       return direction.$==0?index===0?_fadeIn_(":eq("+Global.String(slidesCount-1)+")"):_fadeIn_(":eq("+Global.String(index-1)+")"):index===slidesCount-1?_fadeIn_(":eq(0)"):_fadeIn_(":eq("+Global.String(index+1)+")");
+      }
      }
     }
    },
@@ -1825,33 +1904,38 @@
   Clienta=Runtime.Safe(Snippet7.Client);
   Snippet8=Runtime.Safe(Html5.Snippet8);
   Snippet9=Runtime.Safe(Html5.Snippet9);
+  JQuery=Runtime.Safe(Sitelet.JQuery);
+  Snippet13=Runtime.Safe(JQuery.Snippet1);
+  Js=Runtime.Safe(Snippet13.Js);
+  Operators1=Runtime.Safe(WebSharper.Operators);
+  jQuery=Runtime.Safe(Global.jQuery);
+  setInterval=Runtime.Safe(Global.setInterval);
+  clearInterval=Runtime.Safe(Global.clearInterval);
   JQueryUI=Runtime.Safe(Sitelet.JQueryUI);
-  Snippet13=Runtime.Safe(JQueryUI.Snippet1);
-  JS1=Runtime.Safe(Snippet13.JS);
+  Snippet15=Runtime.Safe(JQueryUI.Snippet1);
+  JS1=Runtime.Safe(Snippet15.JS);
   JQueryUI1=Runtime.Safe(WebSharper.JQueryUI);
   Tabs=Runtime.Safe(JQueryUI1.Tabs);
-  Operators1=Runtime.Safe(WebSharper.Operators);
   Datepicker=Runtime.Safe(JQueryUI1.Datepicker);
   JavaScript=Runtime.Safe(WebSharper.JavaScript);
-  Js=Runtime.Safe(Sitelet.Js);
-  Snippet22=Runtime.Safe(Js.Snippet2);
+  Js1=Runtime.Safe(Sitelet.Js);
+  Snippet22=Runtime.Safe(Js1.Snippet2);
   Clientb=Runtime.Safe(Snippet22.Client);
   Arrays=Runtime.Safe(WebSharper.Arrays);
-  Snippet32=Runtime.Safe(Js.Snippet3);
+  Snippet32=Runtime.Safe(Js1.Snippet3);
   Clientc=Runtime.Safe(Snippet32.Client);
-  Snippet41=Runtime.Safe(Js.Snippet4);
+  Snippet41=Runtime.Safe(Js1.Snippet4);
   Clientd=Runtime.Safe(Snippet41.Client);
-  Snippet51=Runtime.Safe(Js.Snippet5);
+  Snippet51=Runtime.Safe(Js1.Snippet5);
   Cliente=Runtime.Safe(Snippet51.Client);
-  Snippet61=Runtime.Safe(Js.Snippet6);
+  Snippet61=Runtime.Safe(Js1.Snippet6);
   Clientf=Runtime.Safe(Snippet61.Client);
-  jQuery=Runtime.Safe(Global.jQuery);
   Remoting=Runtime.Safe(WebSharper.Remoting);
-  Snippet71=Runtime.Safe(Js.Snippet7);
+  Snippet71=Runtime.Safe(Js1.Snippet7);
   Client10=Runtime.Safe(Snippet71.Client);
-  Snippet81=Runtime.Safe(Js.Snippet8);
+  Snippet81=Runtime.Safe(Js1.Snippet8);
   JS2=Runtime.Safe(Snippet81.JS);
-  Snippet91=Runtime.Safe(Js.Snippet9);
+  Snippet91=Runtime.Safe(Js1.Snippet9);
   JS3=Runtime.Safe(Snippet91.JS);
   clearTimeout=Runtime.Safe(Global.clearTimeout);
   setTimeout=Runtime.Safe(Global.setTimeout);
@@ -1869,14 +1953,15 @@
   Search=Runtime.Safe(Sitelet.Search);
   Client13=Runtime.Safe(Search.Client);
   Twitter=Runtime.Safe(Sitelet.Twitter);
-  Snippet15=Runtime.Safe(Twitter.Snippet1);
-  return Client14=Runtime.Safe(Snippet15.Client);
+  Snippet16=Runtime.Safe(Twitter.Snippet1);
+  return Client14=Runtime.Safe(Snippet16.Client);
  });
  Runtime.OnLoad(function()
  {
   Client12.form();
   Clientf.style();
   Clientf.loremIpsum();
+  Js.baseUrl();
   Client2.data();
   return;
  });

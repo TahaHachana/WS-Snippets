@@ -103,8 +103,14 @@ module Snippet3 =
         // Appends a video element to the DOM.
         let main() =
             let elt =
-                HTML5.Tags.Video [Attr.Height "360px"; Attr.Width "640px"] -< [
-                    HTML5.Tags.Source [Attr.Src "/Videos/madagascar.mp4"; Attr.Type "video/mp4"]                    
+                HTML5.Tags.Video [
+                    Attr.Height "360px"
+                    Attr.Width "640px"
+                ] -< [
+                    HTML5.Tags.Source [
+                        Attr.Src "/Videos/madagascar.mp4"
+                        Attr.Type "video/mp4"
+                    ]                    
                 ]
             let video = As<HTMLVideoElement> elt.Dom
             video.Autoplay <- false

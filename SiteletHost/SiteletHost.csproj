@@ -21,7 +21,7 @@
     <WebSharperProject>Web</WebSharperProject>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
-    <NuGetPackageImportStamp>34b0d630</NuGetPackageImportStamp>
+    <NuGetPackageImportStamp>102df8b2</NuGetPackageImportStamp>
     <TargetFrameworkProfile />
     <TypeScriptToolsVersion>1.0</TypeScriptToolsVersion>
   </PropertyGroup>
@@ -91,7 +91,14 @@
     <Content Include="Images\madagascar.jpg" />
     <Content Include="modal.html" />
     <Content Include="robots.txt" />
-    <Content Include="Scripts\*.*" />
+    <Content Include="Scripts\AutoComplete.js" />
+    <Content Include="Scripts\AutoComplete.js" />
+    <Content Include="Scripts\iframeResizer.contentWindow.min.js" />
+    <Content Include="Scripts\iframeResizer.contentWindow.min.js" />
+    <Content Include="Scripts\iframeResizer.min.js" />
+    <Content Include="Scripts\iframeResizer.min.js" />
+    <Content Include="Scripts\jquery-ui-1.10.3.custom.min.js" />
+    <Content Include="Scripts\jquery-ui-1.10.3.custom.min.js" />
     <Content Include="Scripts\WebSharper\IntelliFactory.Formlet.js" />
     <Content Include="Scripts\WebSharper\IntelliFactory.Formlet.min.js" />
     <Content Include="Scripts\WebSharper\IntelliFactory.JavaScript\Runtime.js" />
@@ -149,6 +156,7 @@
     <Content Include="Source\30.txt" />
     <Content Include="Source\31.txt" />
     <Content Include="Source\32.txt" />
+    <Content Include="Source\33.txt" />
     <Content Include="Source\4.txt" />
     <Content Include="Source\5.txt" />
     <Content Include="Source\6.txt" />
@@ -228,7 +236,7 @@
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
-    <Error Condition="!Exists('..\packages\WebSharper.2.5.108.41\build\WebSharper.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\WebSharper.2.5.108.41\build\WebSharper.targets'))" />
+    <Error Condition="!Exists('..\packages\WebSharper.2.5.118.53\build\WebSharper.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\WebSharper.2.5.118.53\build\WebSharper.targets'))" />
   </Target>
-  <Import Project="..\packages\WebSharper.2.5.108.41\build\WebSharper.targets" Condition="Exists('..\packages\WebSharper.2.5.108.41\build\WebSharper.targets')" />
+  <Import Project="..\packages\WebSharper.2.5.118.53\build\WebSharper.targets" Condition="Exists('..\packages\WebSharper.2.5.118.53\build\WebSharper.targets')" />
 </Project>

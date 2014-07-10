@@ -73,7 +73,7 @@ module Footer =
                     ]
                 ]
                 P [Class "text-center"] -< [
-                    Text "Snippets in database: 30"
+                    Text "Snippets in database: 31"
                 ]
         ]
 

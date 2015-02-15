@@ -259,14 +259,14 @@ declare module Sitelet {
     module Twitter {
         module Snippet1 {
             interface Tweet {
-                Avatar: string;
-                Date: string;
-                Html: string;
-                Id: string;
-                Name: string;
-                ScreenName: string;
-            }
-            interface SearchResult {
+                id: string;
+                screenName: string;
+                avatar: string;
+                statusAsHtml: string;
+                createdAt: string;
+                isRetweeted: boolean;
+                retweetedId: __ABBREV.__WebSharper.OptionProxy<string>;
+                retweetedScreenName: __ABBREV.__WebSharper.OptionProxy<string>;
             }
             interface Control {
                 get_Body(): __ABBREV.__Html.IPagelet;

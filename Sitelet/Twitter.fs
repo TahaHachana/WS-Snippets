@@ -1,95 +1,187 @@
 ﻿module Sitelet.Twitter
 
-open IntelliFactory.WebSharper
-open IntelliFactory.WebSharper.Html
-open System
-open System.Globalization
-open TweetSharp
-
 module Snippet1 =
-
-    module Culture =
-        let culture = CultureInfo.CreateSpecificCulture "en-US"
-        System.Threading.Thread.CurrentThread.CurrentCulture <- culture
 
     type Tweet =
         {
-            Avatar     : string
-            Date       : string
-            Html       : string
-            Id         : string
-            Name       : string
-            ScreenName : string
+            id : string
+            screenName : string
+            avatar: string
+            statusAsHtml : string
+            createdAt : string
+            isRetweeted : bool
+            retweetedId : string option
+            retweetedScreenName : string option
         }
 
-        static member New avatar date html id name screenName =
+    open IntelliFactory.WebSharper
+
+    module Server =
+
+        open LinqToTwitter
+        open System
+        open System.Collections.Generic
+
+        let entityDetails (entity:#EntityBase) formattedStr =
+            entity.Start,
+            entity.End,
+            formattedStr
+    
+        let hashTagDetails (hashTag:HashTagEntity) =
+            let format = "<a href=\"https://twitter.com/search?f=realtime&q=%23{0}\" target=\"_blank\">#{0}</a>"
+            entityDetails hashTag <| String.Format(format, hashTag.Tag)
+
+        let urlDetails (url:UrlEntity) =
+            let format = "<a href=\"{0}\" target=\"_blank\">{1}</a>"
+            entityDetails url <| String.Format(format, url.Url, url.DisplayUrl)
+
+        let userMentionDetails (userMention:UserMentionEntity) =
+            let format = "<a href=\"http://twitter.com/{0}\" target=\"_blank\">@{0}</a>"
+            entityDetails userMention <| String.Format(format, userMention.ScreenName)
+
+        let entityDetails' (entities:List<#EntityBase>) detailsFunc =
+            entities
+            |> Seq.toList
+            |> List.map detailsFunc
+
+        let statusEntities (status:Status) =
+            let entities = status.Entities
+            [
+                entityDetails' entities.HashTagEntities hashTagDetails
+                entityDetails' entities.UrlEntities urlDetails
+                entityDetails' entities.UserMentionEntities userMentionDetails
+            ]
+            |> List.concat
+            |> List.filter (fun (start, ``end`` , _) -> ``end`` - start <> 1)
+            |> List.sortBy (fun (start, _, _) -> start)
+
+        let skipTake (str:string) idx start =
+            str
+            |> Seq.skip idx
+            |> Seq.take (start - idx)
+            |> String.Concat
+
+        let formatEntities statusText entities =
+            let skipTake' = skipTake statusText
+            let rec f entities idx (acc:string) =
+                match entities with
+                | [(start, ``end``, str)] ->
+                    [
+                        acc
+                        skipTake' idx start
+                        str
+                        (statusText |> Seq.skip ``end`` |> String.Concat)
+                    ]
+                    |> String.Concat
+                | (start, ``end``, str) :: tail ->
+                    let acc' =
+                        [
+                            acc
+                            skipTake' idx start
+                            str
+                        ]
+                        |> String.Concat
+                    f tail ``end`` acc' 
+                | [] -> statusText
+            f entities 0 ""
+
+        let statusHtml (status:Status) =
+            status
+            |> statusEntities
+            |> formatEntities status.Text
+
+        let credStore =
+            SingleUserInMemoryCredentialStore(
+                ConsumerKey = AppSettings.consumerKey,
+                ConsumerSecret = AppSettings.consumerSecret,
+                AccessToken = AppSettings.token,
+                AccessTokenSecret = AppSettings.tokenSecret
+            )
+
+        let authorizer =
+            SingleUserAuthorizer(
+                CredentialStore = credStore,
+                SupportsCompression = true
+            )
+
+        let ``#fsharpSearch``() =
+            let context = new TwitterContext(authorizer)
+            query {
+                for x in context.Search do
+                    where (
+                        x.Type = SearchType.Search
+                        && x.Query = "#fsharp"
+                        && x.Count = 50
+                    )
+                    select x
+            }
+            |> fun x -> x.SingleOrDefaultAsync()
+            |> Async.AwaitTask
+                                    
+        let newTweet (status:Status) =
+            let retweetedStatus = status.RetweetedStatus
+            let retweeted =
+                match retweetedStatus.StatusID with
+                | 0UL -> false
+                | _ -> true
+            let retweetedScreenName =
+                match retweeted with
+                | false -> None
+                | true -> Some retweetedStatus.User.ScreenNameResponse
+            let retweetedId = 
+                match retweeted with
+                | false -> None
+                | true -> Some (string retweetedStatus.StatusID)
             {
-                Avatar     = avatar
-                Date       = date
-                Html       = html
-                Id         = id
-                Name       = name
-                ScreenName = screenName
+                id = string status.StatusID
+                screenName = status.User.ScreenNameResponse
+                avatar = status.User.ProfileImageUrl
+                statusAsHtml = statusHtml status
+                createdAt =
+                    status.CreatedAt.ToShortDateString()
+                    + " "
+                    + status.CreatedAt.ToShortTimeString()
+                isRetweeted = retweeted
+                retweetedId = retweetedId
+                retweetedScreenName = retweetedScreenName
             }
 
-    type SearchResult = Failure | Success of Tweet list
-
-    /// Server-side code.
-    module private Server =
-
-        // Twitter authentication
-        let ts = TwitterService(AppSettings.consumerKey, AppSettings.consumerSecret)
-        ts.AuthenticateWith(AppSettings.token, AppSettings.tokenSecret)
-
-        // search options
-        let options = SearchOptions()
-        options.Q <- "#fsharp"
-        options.Count <- Nullable 100
-
-        /// Returns the latest 100 "#fsharp" tweets.
-        [<Rpc>]
-        let fetchTweets() =
+        [<Remote>]
+        let latestTweets() =
             async {
-                let searchResult =
-                    try
-                        ts.Search(options).Statuses
-                        |> Seq.toList
-                        |> List.map (fun status ->
-                            Tweet.New
-                                status.Author.ProfileImageUrl
-                                (status.CreatedDate.ToLongDateString())
-                                status.TextAsHtml
-                                (status.Id.ToString())
-                                status.User.Name
-                                status.Author.ScreenName)
-                        |> Success
-                    with _ -> Failure
-                return searchResult }
+                try
+                    let! search = ``#fsharpSearch``()
+                    let statuses =
+                        search.Statuses.ToArray()
+                        |> Array.map newTweet
+                    return Some statuses
+                with _ -> return None
+            }
 
     /// Client-side code.
     [<JavaScript>]
     module private Client =
         open IntelliFactory.WebSharper.JQuery
+        open IntelliFactory.WebSharper.Html
 
         /// Creates an <li> containing the details of a tweet (screen name, creation date...).
         let li tweet =
-            let id = tweet.Id
-            let name = tweet.Name
-            let screenName = tweet.ScreenName
+            let id = tweet.id
+            let screenName = tweet.screenName
             let profileLink = "https://twitter.com/" + screenName
             let replyLink = "https://twitter.com/intent/tweet?in_reply_to=" + id
             let retweetLink = "https://twitter.com/intent/retweet?tweet_id="  + id
             let favoriteLink = "https://twitter.com/intent/favorite?tweet_id=" + id
             let p = P []
-            p.Html <- tweet.Html
+            p.Html <- tweet.statusAsHtml
             LI [Attr.Class "list-group-item"] -< [
                 Div [
                     A [HRef profileLink; Attr.Class "profile-link"; Attr.Target "_blank"] -< [
-                        Img [Src tweet.Avatar; Alt name; Attr.Class "avatar"]
-                        Strong [Text name]
-                    ] -< [Text <| " @" + screenName]
+                        Img [Src tweet.avatar; Alt screenName; Attr.Class "avatar"]
+                        Strong [Text screenName]
+                    ]
                     Br []
-                    Default.Small [Text tweet.Date]
+                    Default.Small [Text tweet.createdAt]
                     p
                     Div [Attr.Class "tweet-actions"] -< [
                         A [HRef replyLink; Attr.Class "tweet-action"; Attr.Style "margin-right: 5px;"] -< [Text "Reply"]
@@ -118,12 +210,12 @@ module Snippet1 =
             Div [Attr.Id "tweets"]
             |>! OnAfterRender (fun elt ->
                 async {
-                    let! searchResults = Server.fetchTweets()
+                    let! searchResults = Server.latestTweets()
                     match searchResults with
-                        | Failure -> JavaScript.Alert "Failed to fetch the latest tweets."
-                        | Success tweets ->
+                        | None -> JavaScript.Alert "Failed to fetch the latest tweets."
+                        | Some tweets ->
                             let ul = UL [Attr.Class "list-group"; Attr.Id "tweets-ul"]
-                            tweets |> List.iter (fun tweet -> ul.Append (li tweet))
+                            tweets |> Array.iter (fun tweet -> ul.Append (li tweet))
                             elt.Append ul
                             toggleActionsVisibility()
                             handleTweetActions() }
@@ -134,4 +226,4 @@ module Snippet1 =
         inherit Web.Control()
 
         [<JavaScript>]
-        override this.Body = Client.main() :> _
+        override __.Body = Client.main() :> _

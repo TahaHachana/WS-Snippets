@@ -1770,10 +1770,9 @@
       },
       li:function(tweet)
       {
-       var id,name,screenName,profileLink,replyLink,retweetLink,favoriteLink,p,arg10,arg101;
-       id=tweet.Id;
-       name=tweet.Name;
-       screenName=tweet.ScreenName;
+       var id,screenName,profileLink,replyLink,retweetLink,favoriteLink,p,arg10,arg101;
+       id=tweet.id;
+       screenName=tweet.screenName;
        profileLink="https://twitter.com/"+screenName;
        replyLink="https://twitter.com/intent/tweet?in_reply_to="+id;
        retweetLink="https://twitter.com/intent/retweet?tweet_id="+id;
@@ -1781,10 +1780,10 @@
        p=Default.P(Runtime.New(T,{
         $:0
        }));
-       p.set_Html(tweet.Html);
-       arg10=List.ofArray([Default.Text(name)]);
-       arg101=List.ofArray([Default.Text(tweet.Date)]);
-       return Operators.add(Default.LI(List.ofArray([Default.Attr().Class("list-group-item")])),List.ofArray([Default.Div(List.ofArray([Operators.add(Operators.add(Default.A(List.ofArray([Default.HRef(profileLink),Default.Attr().Class("profile-link"),Default.Attr().NewAttr("target","_blank")])),List.ofArray([Default.Img(List.ofArray([Default.Src(tweet.Avatar),Default.Alt(name),Default.Attr().Class("avatar")])),Default.Tags().NewTag("strong",arg10)])),List.ofArray([Default.Text(" @"+screenName)])),Default.Br(Runtime.New(T,{
+       p.set_Html(tweet.statusAsHtml);
+       arg10=List.ofArray([Default.Text(screenName)]);
+       arg101=List.ofArray([Default.Text(tweet.createdAt)]);
+       return Operators.add(Default.LI(List.ofArray([Default.Attr().Class("list-group-item")])),List.ofArray([Default.Div(List.ofArray([Operators.add(Default.A(List.ofArray([Default.HRef(profileLink),Default.Attr().Class("profile-link"),Default.Attr().NewAttr("target","_blank")])),List.ofArray([Default.Img(List.ofArray([Default.Src(tweet.avatar),Default.Alt(screenName),Default.Attr().Class("avatar")])),Default.Tags().NewTag("strong",arg10)])),Default.Br(Runtime.New(T,{
         $:0
        })),Default.Tags().NewTag("small",arg101),p,Operators.add(Default.Div(List.ofArray([Default.Attr().Class("tweet-actions")])),List.ofArray([Operators.add(Default.A(List.ofArray([Default.HRef(replyLink),Default.Attr().Class("tweet-action"),Default.Attr().NewAttr("style","margin-right: 5px;")])),List.ofArray([Default.Text("Reply")])),Operators.add(Default.A(List.ofArray([Default.HRef(retweetLink),Default.Attr().Class("tweet-action"),Default.Attr().NewAttr("style","margin-right: 5px;")])),List.ofArray([Default.Text("Retweet")])),Operators.add(Default.A(List.ofArray([Default.HRef(favoriteLink),Default.Attr().Class("tweet-action")])),List.ofArray([Default.Text("Favorite")]))]))]))]));
       },
@@ -1805,7 +1804,7 @@
            {
             tweets=arg101.$0;
             ul=Default.UL(List.ofArray([Default.Attr().Class("list-group"),Default.Attr().NewAttr("id","tweets-ul")]));
-            Seq.iter(function(tweet)
+            Arrays.iter(function(tweet)
             {
              return ul.AppendI(Client14.li(tweet));
             },tweets);

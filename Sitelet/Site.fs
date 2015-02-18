@@ -6,16 +6,23 @@ open IntelliFactory.WebSharper.Sitelets
 open Model
 open System.Text.RegularExpressions
 
+//let regMatch = Regex("/snippet/(\d+)(/.+)?").Match("/snippet/9/prompting-using-showmodaldialog")
+
 let RedirectRouter =
     let route (req:Http.Request) =
-        let regMatch = Regex("/snippet/(\d+)").Match req.Uri.LocalPath
+        let regMatch = Regex("/snippet/(\d+)(/.+)?").Match req.Uri.LocalPath
         match regMatch.Success with
         | false -> None
         | true ->
             let snippetId = regMatch.Groups.[1].Value |> int
             match snippetId with
-            | 27 | 30 -> Some Error
-            | _ -> Some <| Snippet (snippetId, "")
+            | 27 | 30 | 9 -> Some Error
+            | i ->
+                match regMatch.Groups.[2].Value with
+                | "" ->
+                    let snippet = Mongo.Snippets.byId i
+                    Some <| Redirect (i, snippet.Url)
+                | x -> Some <| Snippet (snippetId, x)
     Router.New route <| fun _ -> None
 
 let router : Router<Action> =
@@ -28,8 +35,8 @@ let router : Router<Action> =
             Login None , "/login"
             Rss        , "/rss"
         ]
-    <|> Router.Infer()
     <|> RedirectRouter
+    <|> Router.Infer()
 
 let main =
     {

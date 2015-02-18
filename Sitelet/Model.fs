@@ -19,3 +19,4 @@ type Action =
     | [<CompiledName("search")>] Search of Query * PageId
     | Rss
     | NewPage of int
+    | Redirect of int * string

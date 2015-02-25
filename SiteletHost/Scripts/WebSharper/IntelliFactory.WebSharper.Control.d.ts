@@ -1,6 +1,13 @@
 declare module IntelliFactory {
     module WebSharper {
         module Control {
+            module MailboxProcessor {
+                var Start : {
+                    (initial: {
+                        (x: __ABBREV.__Control.MailboxProcessor<any>): any;
+                    }, token: __ABBREV.__WebSharper.OptionProxy<__ABBREV.__WebSharper.CancellationTokenProxy>): __ABBREV.__Control.MailboxProcessor<any>;
+                };
+            }
             module EventModule {
                 var Choose : {
                     <_M1, _M2, _M3>(c: {
@@ -73,11 +80,43 @@ declare module IntelliFactory {
             }
             interface FSharpEvent<_T1> {
             }
+            interface IDelegateEventProxy<_T1> {
+                AddHandler(x0: _T1): void;
+                RemoveHandler(x0: _T1): void;
+            }
+            interface ChannelProxy<_T1> {
+            }
+            interface TimeoutExceptionProxy {
+            }
+            interface MailboxProcessor<_T1> {
+                Start(): void;
+                TryReceive(timeout: __ABBREV.__WebSharper.OptionProxy<number>): any;
+                Receive(timeout: __ABBREV.__WebSharper.OptionProxy<number>): any;
+                PostAndTryAsyncReply<_M1>(msgf: {
+                    (x: __ABBREV.__Control.ChannelProxy<_M1>): _T1;
+                }, timeout: __ABBREV.__WebSharper.OptionProxy<number>): any;
+                PostAndAsyncReply<_M1>(msgf: {
+                    (x: __ABBREV.__Control.ChannelProxy<_M1>): _T1;
+                }, timeout: __ABBREV.__WebSharper.OptionProxy<number>): any;
+                TryScan<_M1>(scanner: {
+                    (x: _T1): __ABBREV.__WebSharper.OptionProxy<any>;
+                }, timeout: __ABBREV.__WebSharper.OptionProxy<number>): any;
+                Scan<_M1>(scanner: {
+                    (x: _T1): __ABBREV.__WebSharper.OptionProxy<any>;
+                }, timeout: __ABBREV.__WebSharper.OptionProxy<number>): any;
+                startAsync(a: any): void;
+                resume(): void;
+                dequeue(): _T1;
+                get_Error(): any;
+                get_DefaultTimeout(): number;
+                set_DefaultTimeout(v: number): void;
+                get_CurrentQueueLength(): number;
+            }
         }
     }
 }
 declare module __ABBREV {
     
-    export import __WebSharper = IntelliFactory.WebSharper;
     export import __Control = IntelliFactory.WebSharper.Control;
+    export import __WebSharper = IntelliFactory.WebSharper;
 }

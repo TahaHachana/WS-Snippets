@@ -1,6 +1,6 @@
 (function()
 {
- var Global=this,Runtime=this.IntelliFactory.Runtime,WebSharper,Piglets,Choose,Stream,Reader,Collections,Dictionary,List,T,Enumerator,Seq,Operators,Stream1,Result,ConcreteReader,Id,ConcreteWriter,Html,Operators1,Default,EventsPervasives,Controls,Unchecked,jQuery,HtmlContainer,Arrays,ErrorMessage,Many,Stream2,Submitter,Operations,ResizeArray,ResizeArrayProxy,UnitStream,Piglet,Stream11,Piglet1,Pervasives,Validation,Concurrency,RegExp,Util,Reactive,HotStream;
+ var Global=this,Runtime=this.IntelliFactory.Runtime,WebSharper,Piglets,Choose,Stream,Reader,Collections,Dictionary,List,T,Enumerator,Seq,Operators,Stream1,Result,ConcreteReader,Id,ConcreteWriter,ConstReader,Disposable,Html,Operators1,Default,EventsPervasives,Controls,Unchecked,jQuery,HtmlContainer,Arrays,IntrinsicFunctionProxy,ErrorMessage,Many,Stream2,Submitter,Operations,ResizeArray,ResizeArrayProxy,UnitStream,Piglet,Stream11,Piglet1,Pervasives,Validation,Concurrency,RegExp,Util,Reactive,HotStream;
  Runtime.Define(Global,{
   IntelliFactory:{
    WebSharper:{
@@ -10,7 +10,7 @@
        Choice:function(c,f)
        {
         var renders,hasChild,_this=this;
-        renders=Dictionary.New21();
+        renders=Dictionary.New2();
         hasChild={
          contents:false
         };
@@ -85,7 +85,7 @@
         }),{
          $:0
         });
-        r.choiceSubscriptions=Dictionary.New21();
+        r.choiceSubscriptions=Dictionary.New2();
         r.subscriptions={
          contents:List.ofArray([r.chooser.stream.SubscribeImmediate(function(res)
          {
@@ -151,6 +151,26 @@
        var r;
        r=Runtime.New(this,{});
        r.trigger=trigger;
+       return r;
+      }
+     }),
+     ConstReader:Runtime.Class({
+      Subscribe:function()
+      {
+       return Disposable.New(function()
+       {
+       });
+      },
+      get_Latest:function()
+      {
+       return this.x;
+      }
+     },{
+      New:function(x)
+      {
+       var r;
+       r=Runtime.New(this,Reader.New((Id.next())(null)));
+       r.x=x;
        return r;
       }
      }),
@@ -428,7 +448,7 @@
        {
         return e.Body.selectedIndex>=0?stream.Trigger(Runtime.New(Result,{
          $:0,
-         $0:values1[e.Body.selectedIndex][0]
+         $0:(IntrinsicFunctionProxy.GetArray(values1,e.Body.selectedIndex))[0]
         })):null;
        };
        EventsPervasives.Events().OnChange(arg00,x);
@@ -455,7 +475,7 @@
             }
            else
             {
-             _this=elts[matchValue.$0];
+             _this=IntrinsicFunctionProxy.GetArray(elts,matchValue.$0);
              return _this["HtmlProvider@32"].SetAttribute(_this.Body,"selected","");
             }
           }
@@ -628,6 +648,20 @@
        };
       })
      },
+     Disposable:Runtime.Class({
+      Dispose:function()
+      {
+       return this.dispose.call(null,null);
+      }
+     },{
+      New:function(dispose)
+      {
+       var r;
+       r=Runtime.New(this,{});
+       r.dispose=dispose;
+       return r;
+      }
+     }),
      ErrorMessage:Runtime.Class({
       get_Message:function()
       {
@@ -858,7 +892,7 @@
         r.p=p;
         r.out=out;
         r.adder=adder;
-        r.streams=ResizeArrayProxy.New2();
+        r.streams=ResizeArrayProxy.New1();
         return r;
        }
       }),
@@ -1082,11 +1116,11 @@
           x=_arg1.$0;
           return Concurrency.Delay(function()
           {
-           return Concurrency.Bind(m(x),function(arg101)
+           return Concurrency.Bind(m(x),function(_arg2)
            {
             return Concurrency.Return(Runtime.New(Result,{
              $:0,
-             $0:arg101
+             $0:_arg2
             }));
            });
           });
@@ -1115,19 +1149,23 @@
        {
         return Concurrency.Start(Concurrency.Delay(function()
         {
-         return Concurrency.Bind(m(v),function(arg101)
+         return Concurrency.Bind(m(v),function(_arg1)
          {
-          return Concurrency.Return(out.Trigger(arg101));
+          return Concurrency.Return(out.Trigger(_arg1));
          });
-        }));
+        }),{
+         $:0
+        });
        });
        Concurrency.Start(Concurrency.Delay(function()
        {
-        return Concurrency.Bind(m(p.stream.get_Latest()),function(arg101)
+        return Concurrency.Bind(m(p.stream.get_Latest()),function(_arg2)
         {
-         return Concurrency.Return(out.Trigger(arg101));
+         return Concurrency.Return(out.Trigger(_arg2));
         });
-       }));
+       }),{
+        $:0
+       });
        return Runtime.New(Piglet,{
         stream:out,
         view:p.view
@@ -1533,6 +1571,17 @@
        return this.id;
       }
      },{
+      Const:function(x)
+      {
+       return ConstReader.New(Runtime.New(Result,{
+        $:0,
+        $0:x
+       }));
+      },
+      ConstResult:function(x)
+      {
+       return ConstReader.New(x);
+      },
       Map:function(f,r)
       {
        return Reader.MapResult(function(arg10)
@@ -1729,9 +1778,13 @@
      },{
       New:function(init,id)
       {
+       return Runtime.New(this,Stream1.New1(HotStream.New(init),id));
+      },
+      New1:function(s,id)
+      {
        var r;
        r=Runtime.New(this,Reader.New(id.$==0?(Id.next())(null):id.$0));
-       r.s=HotStream.New(init);
+       r.s=s;
        return r;
       }
      }),
@@ -1872,7 +1925,14 @@
         {
          r.input.Subscribe(function()
          {
-          return r.output.Trigger(Runtime.New(Result,{
+          var matchValue;
+          matchValue=r.output.get_Latest();
+          return matchValue.$==1?matchValue.$0.$==0?null:r.output.Trigger(Runtime.New(Result,{
+           $:1,
+           $0:Runtime.New(T,{
+            $:0
+           })
+          })):r.output.Trigger(Runtime.New(Result,{
            $:1,
            $0:Runtime.New(T,{
             $:0
@@ -1906,6 +1966,8 @@
   ConcreteReader=Runtime.Safe(Piglets.ConcreteReader);
   Id=Runtime.Safe(Piglets.Id);
   ConcreteWriter=Runtime.Safe(Piglets.ConcreteWriter);
+  ConstReader=Runtime.Safe(Piglets.ConstReader);
+  Disposable=Runtime.Safe(Piglets.Disposable);
   Html=Runtime.Safe(WebSharper.Html);
   Operators1=Runtime.Safe(Html.Operators);
   Default=Runtime.Safe(Html.Default);
@@ -1915,6 +1977,7 @@
   jQuery=Runtime.Safe(Global.jQuery);
   HtmlContainer=Runtime.Safe(Controls.HtmlContainer);
   Arrays=Runtime.Safe(WebSharper.Arrays);
+  IntrinsicFunctionProxy=Runtime.Safe(WebSharper.IntrinsicFunctionProxy);
   ErrorMessage=Runtime.Safe(Piglets.ErrorMessage);
   Many=Runtime.Safe(Piglets.Many);
   Stream2=Runtime.Safe(Many.Stream);
@@ -1938,6 +2001,7 @@
  {
   Runtime.Inherit(Stream,Reader);
   Runtime.Inherit(ConcreteReader,Reader);
+  Runtime.Inherit(ConstReader,Reader);
   Runtime.Inherit(Stream2,Reader);
   Runtime.Inherit(Stream2,Reader);
   Runtime.Inherit(UnitStream,Stream2);

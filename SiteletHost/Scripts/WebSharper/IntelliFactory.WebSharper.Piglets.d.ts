@@ -75,6 +75,12 @@ declare module IntelliFactory {
                         (x: _M1): __ABBREV.__Piglets.Result<any>;
                     }, r: __ABBREV.__Piglets.Reader<_M1>): __ABBREV.__Piglets.Reader<any>;
                 };
+                var Const : {
+                    (x: any): __ABBREV.__Piglets.Reader<any>;
+                };
+                var ConstResult : {
+                    (x: __ABBREV.__Piglets.Result<any>): __ABBREV.__Piglets.Reader<any>;
+                };
             }
             module Controls {
                 var input : {

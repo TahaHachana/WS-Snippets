@@ -288,6 +288,22 @@ declare module IntelliFactory {
                 <_M1, _M2, _M3>(arr1: _M1[], arr2: _M2[], arr3: _M3[]): any[];
             };
         }
+        module AsyncProxy {
+            var get_DefaultCancellationToken : {
+                (): __ABBREV.__WebSharper.CancellationTokenProxy;
+            };
+            var get_CancellationToken : {
+                (): any;
+            };
+        }
+        module CancellationTokenSource {
+            var CreateLinkedTokenSource1 : {
+                (tokens: __ABBREV.__WebSharper.CancellationTokenProxy[]): void;
+            };
+            var CreateLinkedTokenSource : {
+                (t1: __ABBREV.__WebSharper.CancellationTokenProxy, t2: __ABBREV.__WebSharper.CancellationTokenProxy): void;
+            };
+        }
         module Char {
             var GetNumericValue : {
                 (c: number): number;
@@ -309,6 +325,9 @@ declare module IntelliFactory {
             };
             var IsUpper : {
                 (c: number): boolean;
+            };
+            var Parse : {
+                (s: string): number;
             };
         }
         module List {
@@ -384,6 +403,9 @@ declare module IntelliFactory {
                         (x: _M2): boolean;
                     };
                 }, l1: __ABBREV.__List.T<_M1>, l2: __ABBREV.__List.T<_M2>): boolean;
+            };
+            var head : {
+                <_M1>(l: __ABBREV.__List.T<_M1>): _M1;
             };
             var init : {
                 <_M1>(s: number, f: {
@@ -516,6 +538,9 @@ declare module IntelliFactory {
                         (x: _M1): number;
                     };
                 }, l: __ABBREV.__List.T<_M1>): __ABBREV.__List.T<_M1>;
+            };
+            var tail : {
+                <_M1>(l: __ABBREV.__List.T<_M1>): __ABBREV.__List.T<_M1>;
             };
             var unzip : {
                 <_M1, _M2>(l: __ABBREV.__List.T<any>): any;
@@ -959,6 +984,21 @@ declare module IntelliFactory {
                 }, s: __ABBREV.__WebSharper.seq<_M1>): __ABBREV.__WebSharper.seq<_M1>;
             };
         }
+        module Control {
+            var createEvent : {
+                <_M1, _M2>(add: {
+                    (x: _M2): void;
+                }, remove: {
+                    (x: _M2): void;
+                }, create: {
+                    (x: {
+                        (x: __ABBREV.__WebSharper.ObjectProxy): {
+                            (x: _M1): void;
+                        };
+                    }): _M2;
+                }): any;
+            };
+        }
         module Queue {
             interface QueueProxy<_T1> {
             }
@@ -1164,11 +1204,29 @@ declare module IntelliFactory {
             };
         }
         module IntrinsicFunctionProxy {
+            var BoundsCheck : {
+                <_M1>(arr: _M1[], n: number): void;
+            };
+            var BoundsCheck2D : {
+                <_M1>(arr: any, n1: number, n2: number): void;
+            };
+            var SetArray : {
+                <_M1>(arr: _M1[], n: number, x: _M1): void;
+            };
+            var GetArray : {
+                <_M1>(arr: _M1[], n: number): _M1;
+            };
             var GetArraySub : {
                 <_M1>(arr: _M1[], start: number, len: number): _M1[];
             };
             var SetArraySub : {
                 <_M1>(arr: _M1[], start: number, len: number, src: _M1[]): void;
+            };
+            var GetArray2D : {
+                <_M1>(arr: any, n1: number, n2: number): _M1;
+            };
+            var SetArray2D : {
+                <_M1>(arr: any, n1: number, n2: number, x: _M1): void;
             };
             var Array2DZeroCreate : {
                 <_M1>(n: number, m: number): any;
@@ -1245,6 +1303,19 @@ declare module IntelliFactory {
         }
         interface AsyncProxy {
         }
+        interface CancellationTokenProxy {
+        }
+        interface ActionProxy {
+        }
+        interface CancellationTokenRegistrationProxy {
+            Dispose(): void;
+        }
+        interface CancellationTokenSource {
+            Cancel(): void;
+            Cancel1(throwOnFirstException: boolean): void;
+            CancelAfter(delay: number): void;
+            get_IsCancellationRequested(): boolean;
+        }
         interface AsyncBuilderProxy {
         }
         interface Char {
@@ -1265,9 +1336,21 @@ declare module IntelliFactory {
         }
         interface DoubleProxy {
         }
+        interface EnumProxy {
+        }
         interface ExceptionProxy {
         }
         interface MatchFailureExceptionProxy {
+        }
+        interface IndexOutOfRangeExceptionProxy {
+        }
+        interface OperationCanceledExceptionProxy {
+        }
+        interface ArgumentExceptionProxy {
+        }
+        interface InvalidOperationExceptionProxy {
+        }
+        interface AggregateException {
         }
         interface IDisposableProxy {
             Dispose(): void;
@@ -1293,6 +1376,8 @@ declare module IntelliFactory {
         interface Math {
         }
         interface OptionProxy<_T1> {
+        }
+        interface PrintfFormat {
         }
         interface TimeSpanProxy {
         }

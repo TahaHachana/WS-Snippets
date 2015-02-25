@@ -14,7 +14,7 @@
     <Name>Sitelet</Name>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
-    <NuGetPackageImportStamp>9863cddb</NuGetPackageImportStamp>
+    <NuGetPackageImportStamp>9cebdd49</NuGetPackageImportStamp>
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -84,19 +84,19 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="IntelliFactory.WebSharper.Google.Maps">
-      <HintPath>..\packages\WebSharper.Google.Maps.2.5.6.7\lib\net40\IntelliFactory.WebSharper.Google.Maps.dll</HintPath>
+      <HintPath>..\packages\WebSharper.Google.Maps.2.5.9.10\lib\net40\IntelliFactory.WebSharper.Google.Maps.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="IntelliFactory.WebSharper.Google.Visualization">
-      <HintPath>..\packages\WebSharper.Google.Visualization.2.5.4.186\lib\net40\IntelliFactory.WebSharper.Google.Visualization.dll</HintPath>
+      <HintPath>..\packages\WebSharper.Google.Visualization.2.5.9.191\lib\net40\IntelliFactory.WebSharper.Google.Visualization.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="IntelliFactory.WebSharper.JQueryUI">
-      <HintPath>..\packages\WebSharper.JQueryUi.2.5.6.185\lib\net40\IntelliFactory.WebSharper.JQueryUI.dll</HintPath>
+      <HintPath>..\packages\WebSharper.JQueryUi.2.5.10.189\lib\net40\IntelliFactory.WebSharper.JQueryUI.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="IntelliFactory.WebSharper.Piglets">
-      <HintPath>..\packages\WebSharper.Piglets.0.1.88.147\lib\net40\IntelliFactory.WebSharper.Piglets.dll</HintPath>
+      <HintPath>..\packages\WebSharper.Piglets.0.1.109.168\lib\net40\IntelliFactory.WebSharper.Piglets.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="LinqToTwitter.AspNet">
@@ -168,14 +168,14 @@
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
-    <Error Condition="!Exists('..\packages\WebSharper.2.5.118.53\build\WebSharper.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\WebSharper.2.5.118.53\build\WebSharper.targets'))" />
+    <Error Condition="!Exists('..\packages\WebSharper.2.5.134.72\build\WebSharper.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\WebSharper.2.5.134.72\build\WebSharper.targets'))" />
   </Target>
-  <Import Project="..\packages\WebSharper.2.5.118.53\build\WebSharper.targets" Condition="Exists('..\packages\WebSharper.2.5.118.53\build\WebSharper.targets')" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />
   <Target Name="EnsureBclBuildImported" BeforeTargets="BeforeBuild" Condition="'$(BclBuildImported)' == ''">
     <Error Condition="!Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" Text="This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=317567." HelpKeyword="BCLBUILD2001" />
     <Error Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" Text="The build restored NuGet packages. Build the project again to include these packages in the build. For more information, see http://go.microsoft.com/fwlink/?LinkID=317568." HelpKeyword="BCLBUILD2002" />
   </Target>
+  <Import Project="..\packages\WebSharper.2.5.134.72\build\WebSharper.targets" Condition="Exists('..\packages\WebSharper.2.5.134.72\build\WebSharper.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

@@ -47,7 +47,9 @@
           {
            return Concurrency.Return(null);
           });
-         }));
+         }),{
+          $:0
+         });
         };
        };
        EventsPervasives.Events().OnClick(arg00,x);
@@ -300,7 +302,9 @@
           {
            return Concurrency.Return(null);
           });
-         }));
+         }),{
+          $:0
+         });
         };
        };
        EventsPervasives.Events().OnClick(arg00,x);
@@ -746,7 +750,9 @@
        canvas.height=150;
        ctx=canvas.getContext("2d");
        Clienta.draw(ctx);
-       Concurrency.Start(Clienta.loop(ctx));
+       Concurrency.Start(Clienta.loop(ctx),{
+        $:0
+       });
        return elt;
       }
      },
@@ -1291,12 +1297,14 @@
         {
          return Concurrency.Start(Concurrency.Delay(function()
          {
-          return Concurrency.Bind(Remoting.Async("Sitelet:0",[input.get_Value()]),function(arg101)
+          return Concurrency.Bind(Remoting.Async("Sitelet:0",[input.get_Value()]),function(_arg11)
           {
-           output.set_Text(arg101);
+           output.set_Text(_arg11);
            return Concurrency.Return(null);
           });
-         }));
+         }),{
+          $:0
+         });
         };
        };
        EventsPervasives.Events().OnClick(arg00,x);
@@ -1465,9 +1473,9 @@
       {
        return Concurrency.Start(Concurrency.Delay(function()
        {
-        return Concurrency.Bind(Remoting.Async("Sitelet:2",[loginInfo]),function(arg101)
+        return Concurrency.Bind(Remoting.Async("Sitelet:2",[loginInfo]),function(_arg1)
         {
-         if(arg101.$==1)
+         if(_arg1.$==1)
           {
            window.location.assign(redirectUrl);
            return Concurrency.Return(null);
@@ -1478,7 +1486,9 @@
            return Concurrency.Return(null);
           }
         });
-       }));
+       }),{
+        $:0
+       });
       },Client11.loginPiglet({
        Username:"",
        Password:""
@@ -1593,7 +1603,9 @@
          alert("Done");
          return Concurrency.Return(null);
         });
-       }));
+       }),{
+        $:0
+       });
       },Client12.snippetPiglet({
        Id:"",
        Title:"",
@@ -1797,12 +1809,12 @@
         {
          var x1;
          x1=Remoting.Async("Sitelet:1",[]);
-         return Concurrency.Bind(x1,function(arg101)
+         return Concurrency.Bind(x1,function(_arg1)
          {
           var tweets,ul;
-          if(arg101.$==1)
+          if(_arg1.$==1)
            {
-            tweets=arg101.$0;
+            tweets=_arg1.$0;
             ul=Default.UL(List.ofArray([Default.Attr().Class("list-group"),Default.Attr().NewAttr("id","tweets-ul")]));
             Arrays.iter(function(tweet)
             {
@@ -1819,7 +1831,9 @@
             return Concurrency.Return(null);
            }
          });
-        }));
+        }),{
+         $:0
+        });
        },x);
        return x;
       },

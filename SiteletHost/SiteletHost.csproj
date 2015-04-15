@@ -20,7 +20,7 @@
     <IISExpressUseClassicPipelineMode />
     <WebSharperProject>Web</WebSharperProject>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
-    <NuGetPackageImportStamp>675a1e40</NuGetPackageImportStamp>
+    <NuGetPackageImportStamp>3854d1e6</NuGetPackageImportStamp>
     <TargetFrameworkProfile />
     <TypeScriptToolsVersion>1.0</TypeScriptToolsVersion>
   </PropertyGroup>
@@ -45,6 +45,10 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="IntelliFactory.Xml, Version=0.6.0.0, Culture=neutral, PublicKeyToken=dcd983dec8f76a71, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\WebSharper.3.0.46.130-rc1\lib\net40\IntelliFactory.Xml.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Newtonsoft.Json.6.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -55,6 +59,16 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Extensions">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.29\lib\net45\System.Net.Http.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Primitives, Version=4.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.29\lib\net45\System.Net.Http.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.Web.DynamicData" />
@@ -66,6 +80,45 @@
     <Reference Include="TankTop, Version=1.1.26.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\TankTop.1.1.26\lib\TankTop.dll</HintPath>
+    </Reference>
+    <Reference Include="WebSharper.Collections">
+      <HintPath>..\packages\WebSharper.3.0.46.130-rc1\lib\net40\WebSharper.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="WebSharper.Control">
+      <HintPath>..\packages\WebSharper.3.0.46.130-rc1\lib\net40\WebSharper.Control.dll</HintPath>
+    </Reference>
+    <Reference Include="WebSharper.Core">
+      <HintPath>..\packages\WebSharper.3.0.46.130-rc1\lib\net40\WebSharper.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="WebSharper.Core.JavaScript">
+      <HintPath>..\packages\WebSharper.3.0.46.130-rc1\lib\net40\WebSharper.Core.JavaScript.dll</HintPath>
+    </Reference>
+    <Reference Include="WebSharper.Html.Client">
+      <HintPath>..\packages\WebSharper.3.0.46.130-rc1\lib\net40\WebSharper.Html.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="WebSharper.Html.Server">
+      <HintPath>..\packages\WebSharper.3.0.46.130-rc1\lib\net40\WebSharper.Html.Server.dll</HintPath>
+    </Reference>
+    <Reference Include="WebSharper.InterfaceGenerator">
+      <HintPath>..\packages\WebSharper.3.0.46.130-rc1\lib\net40\WebSharper.InterfaceGenerator.dll</HintPath>
+    </Reference>
+    <Reference Include="WebSharper.JavaScript">
+      <HintPath>..\packages\WebSharper.3.0.46.130-rc1\lib\net40\WebSharper.JavaScript.dll</HintPath>
+    </Reference>
+    <Reference Include="WebSharper.JQuery">
+      <HintPath>..\packages\WebSharper.3.0.46.130-rc1\lib\net40\WebSharper.JQuery.dll</HintPath>
+    </Reference>
+    <Reference Include="WebSharper.Main">
+      <HintPath>..\packages\WebSharper.3.0.46.130-rc1\lib\net40\WebSharper.Main.dll</HintPath>
+    </Reference>
+    <Reference Include="WebSharper.Sitelets">
+      <HintPath>..\packages\WebSharper.3.0.46.130-rc1\lib\net40\WebSharper.Sitelets.dll</HintPath>
+    </Reference>
+    <Reference Include="WebSharper.Testing">
+      <HintPath>..\packages\WebSharper.3.0.46.130-rc1\lib\net40\WebSharper.Testing.dll</HintPath>
+    </Reference>
+    <Reference Include="WebSharper.Web">
+      <HintPath>..\packages\WebSharper.3.0.46.130-rc1\lib\net40\WebSharper.Web.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -98,36 +151,32 @@
     <Content Include="Scripts\iframeResizer.min.js" />
     <Content Include="Scripts\jquery-ui-1.10.3.custom.min.js" />
     <Content Include="Scripts\jquery-ui-1.10.3.custom.min.js" />
-    <Content Include="Scripts\WebSharper\IntelliFactory.Formlet.js" />
-    <Content Include="Scripts\WebSharper\IntelliFactory.Formlet.min.js" />
-    <Content Include="Scripts\WebSharper\IntelliFactory.JavaScript\Runtime.js" />
-    <Content Include="Scripts\WebSharper\IntelliFactory.JavaScript\Runtime.min.js" />
     <Content Include="Scripts\WebSharper\IntelliFactory.Reactive.js" />
     <Content Include="Scripts\WebSharper\IntelliFactory.Reactive.min.js" />
-    <Content Include="Scripts\WebSharper\IntelliFactory.WebSharper.Collections.js" />
-    <Content Include="Scripts\WebSharper\IntelliFactory.WebSharper.Collections.min.js" />
-    <Content Include="Scripts\WebSharper\IntelliFactory.WebSharper.Control.js" />
-    <Content Include="Scripts\WebSharper\IntelliFactory.WebSharper.Control.min.js" />
-    <Content Include="Scripts\WebSharper\IntelliFactory.WebSharper.Formlet.js" />
-    <Content Include="Scripts\WebSharper\IntelliFactory.WebSharper.Formlet.min.js" />
-    <Content Include="Scripts\WebSharper\IntelliFactory.WebSharper.Google.Visualization.js" />
-    <Content Include="Scripts\WebSharper\IntelliFactory.WebSharper.Google.Visualization.min.js" />
-    <Content Include="Scripts\WebSharper\IntelliFactory.WebSharper.Html.js" />
-    <Content Include="Scripts\WebSharper\IntelliFactory.WebSharper.Html.min.js" />
-    <Content Include="Scripts\WebSharper\IntelliFactory.WebSharper.JQueryUI.js" />
-    <Content Include="Scripts\WebSharper\IntelliFactory.WebSharper.JQueryUI.min.js" />
-    <Content Include="Scripts\WebSharper\IntelliFactory.WebSharper.js" />
-    <Content Include="Scripts\WebSharper\IntelliFactory.WebSharper.min.js" />
-    <Content Include="Scripts\WebSharper\IntelliFactory.WebSharper.Piglets.js" />
-    <Content Include="Scripts\WebSharper\IntelliFactory.WebSharper.Piglets.min.js" />
-    <Content Include="Scripts\WebSharper\IntelliFactory.WebSharper.Sitelets.js" />
-    <Content Include="Scripts\WebSharper\IntelliFactory.WebSharper.Sitelets.min.js" />
-    <Content Include="Scripts\WebSharper\IntelliFactory.WebSharper.Testing.js" />
-    <Content Include="Scripts\WebSharper\IntelliFactory.WebSharper.Testing.min.js" />
-    <Content Include="Scripts\WebSharper\IntelliFactory.WebSharper\Json.js" />
-    <Content Include="Scripts\WebSharper\IntelliFactory.WebSharper\Json.min.js" />
     <Content Include="Scripts\WebSharper\Sitelet.js" />
     <Content Include="Scripts\WebSharper\Sitelet.min.js" />
+    <Content Include="Scripts\WebSharper\WebSharper.Collections.js" />
+    <Content Include="Scripts\WebSharper\WebSharper.Collections.min.js" />
+    <Content Include="Scripts\WebSharper\WebSharper.Control.js" />
+    <Content Include="Scripts\WebSharper\WebSharper.Control.min.js" />
+    <Content Include="Scripts\WebSharper\WebSharper.Core.JavaScript\Runtime.js" />
+    <Content Include="Scripts\WebSharper\WebSharper.Core.JavaScript\Runtime.min.js" />
+    <Content Include="Scripts\WebSharper\WebSharper.Google.Visualization.js" />
+    <Content Include="Scripts\WebSharper\WebSharper.Google.Visualization.min.js" />
+    <Content Include="Scripts\WebSharper\WebSharper.Html.Client.js" />
+    <Content Include="Scripts\WebSharper\WebSharper.Html.Client.min.js" />
+    <Content Include="Scripts\WebSharper\WebSharper.JQueryUI.js" />
+    <Content Include="Scripts\WebSharper\WebSharper.JQueryUI.min.js" />
+    <Content Include="Scripts\WebSharper\WebSharper.Main.js" />
+    <Content Include="Scripts\WebSharper\WebSharper.Main.min.js" />
+    <Content Include="Scripts\WebSharper\WebSharper.Main\Json.js" />
+    <Content Include="Scripts\WebSharper\WebSharper.Main\Json.min.js" />
+    <Content Include="Scripts\WebSharper\WebSharper.Piglets.js" />
+    <Content Include="Scripts\WebSharper\WebSharper.Piglets.min.js" />
+    <Content Include="Scripts\WebSharper\WebSharper.Sitelets.js" />
+    <Content Include="Scripts\WebSharper\WebSharper.Sitelets.min.js" />
+    <Content Include="Scripts\WebSharper\WebSharper.Testing.js" />
+    <Content Include="Scripts\WebSharper\WebSharper.Testing.min.js" />
     <Content Include="sitemap.xml" />
     <Content Include="Source\1.txt" />
     <Content Include="Source\10.txt" />
@@ -202,6 +251,24 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="Scripts\WebSharper\IntelliFactory.Reactive.d.ts" />
+    <TypeScriptCompile Include="Scripts\WebSharper\Sitelet.d.ts" />
+    <TypeScriptCompile Include="Scripts\WebSharper\SiteletHost.d.ts" />
+    <TypeScriptCompile Include="Scripts\WebSharper\WebSharper.Collections.d.ts" />
+    <TypeScriptCompile Include="Scripts\WebSharper\WebSharper.Control.d.ts" />
+    <TypeScriptCompile Include="Scripts\WebSharper\WebSharper.Google.Maps.d.ts" />
+    <TypeScriptCompile Include="Scripts\WebSharper\WebSharper.Google.Visualization.d.ts" />
+    <TypeScriptCompile Include="Scripts\WebSharper\WebSharper.Html.Client.d.ts" />
+    <TypeScriptCompile Include="Scripts\WebSharper\WebSharper.JavaScript.d.ts" />
+    <TypeScriptCompile Include="Scripts\WebSharper\WebSharper.JQuery.d.ts" />
+    <TypeScriptCompile Include="Scripts\WebSharper\WebSharper.JQueryUI.d.ts" />
+    <TypeScriptCompile Include="Scripts\WebSharper\WebSharper.Main.d.ts" />
+    <TypeScriptCompile Include="Scripts\WebSharper\WebSharper.Piglets.d.ts" />
+    <TypeScriptCompile Include="Scripts\WebSharper\WebSharper.Sitelets.d.ts" />
+    <TypeScriptCompile Include="Scripts\WebSharper\WebSharper.Testing.d.ts" />
+    <TypeScriptCompile Include="Scripts\WebSharper\WebSharper.Web.d.ts" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
@@ -228,5 +295,13 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
-  <Import Project="..\packages\WebSharper.2.5.134.72\build\WebSharper.targets" Condition="Exists('..\packages\WebSharper.2.5.134.72\build\WebSharper.targets')" />
+  <Import Project="..\packages\WebSharper.3.0.46.130-rc1\build\WebSharper.targets" Condition="Exists('..\packages\WebSharper.3.0.46.130-rc1\build\WebSharper.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\WebSharper.3.0.46.130-rc1\build\WebSharper.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\WebSharper.3.0.46.130-rc1\build\WebSharper.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets'))" />
+  </Target>
+  <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
 </Project>

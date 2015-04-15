@@ -1,11 +1,11 @@
 ﻿module Html5Logo =
-    open IntelliFactory.WebSharper
+    open WebSharper
     
-    /// Client-side code.    
+    /// Client-side code.
     [<JavaScript>]
     module private Client =
-        open IntelliFactory.WebSharper.Html
-        open IntelliFactory.WebSharper.Html5
+        open WebSharper.JavaScript
+        open WebSharper.Html.Client
 
         /// Draws a shape formed by sub-paths that join a list of coordinates.
         let drawShape (ctx : CanvasRenderingContext2D) style moveTo coords =
@@ -35,7 +35,7 @@
 
         /// Draws the HTML5 logo on canvas.
         let main() =
-            let elt = HTML5.Tags.Canvas []
+            let elt = Canvas []
             let canvas  = As<CanvasElement> elt.Dom
             canvas.Height <- 400
             canvas.Width <- 600

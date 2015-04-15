@@ -1,8 +1,9 @@
 ﻿module StaticDatepicker =
-    open IntelliFactory.WebSharper
+    open WebSharper
+    open WebSharper.JQueryUI
             
     type Control() =
         inherit Web.Control()
  
         [<JavaScript>]
-        override __.Body = JQueryUI.Datepicker.New() :> _
+        override __.Body = Datepicker.New() :> _

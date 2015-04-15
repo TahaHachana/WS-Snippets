@@ -1,15 +1,15 @@
 ﻿module HelloCanvas =
-    open IntelliFactory.WebSharper
+    open WebSharper
 
     /// Client-side code.
     [<JavaScript>]
     module private Client =
-        open IntelliFactory.WebSharper.Html
-        open IntelliFactory.WebSharper.Html5
+        open WebSharper.Html.Client
+        open WebSharper.JavaScript
 
         /// Creates a canvas and draws the text "Hello Canvas" on it.
         let main() =
-            let elt = HTML5.Tags.Canvas [Text "The canvas element isn't supported by your browser."]
+            let elt = Canvas [Text "The canvas element isn't supported by your browser."]
             elt.SetStyle "border: 1px solid;"
             let canvas  = As<CanvasElement> elt.Dom
             canvas.Height <- 400

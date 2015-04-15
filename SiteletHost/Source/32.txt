@@ -1,24 +1,25 @@
 ﻿module Timers =
-    open IntelliFactory.WebSharper
-    open IntelliFactory.WebSharper.Html
+    open WebSharper
+    open WebSharper.Html.Client
+    open WebSharper.JavaScript
 
     [<JavaScript>]
     module JS =
 
         /// Schedules the dispaly of an alert box after 3 seconds.
         let timerHandle (btn:Element) =
-            JavaScript.SetTimeout
+            JS.SetTimeout
                 (fun () ->
                     btn.Remove()
                     ById("set-btn").RemoveAttribute "disabled"
-                    JavaScript.Alert "Timeout Expired")
+                    JS.Alert "Timeout Expired")
                 3000
 
         let clearBtn() =
             Button [
-                Attr.Class "btn btn-lg btn-warning"
-                Attr.Id "clear-btn"
-                Attr.Type "button"
+                Class "btn btn-lg btn-warning"
+                Id "clear-btn"
+                Type "button"
             ] -- Text "Clear Timeout"
                     
         let clearTimeout (btn:Element) handle =                    
@@ -27,7 +28,7 @@
                 // Remove the clear timeout button.
                 elt.Remove()
                 // Clear alert box timeout.
-                JavaScript.ClearTimeout handle
+                JS.ClearTimeout handle
                 ById("set-btn").RemoveAttribute "disabled")
             |> ignore
 
@@ -36,9 +37,9 @@
 
             let setBtn =
                 Button [
-                    Attr.Class "btn btn-lg btn-primary"
-                    Attr.Id "set-btn"
-                    Attr.Type "button"
+                    Class "btn btn-lg btn-primary"
+                    Id "set-btn"
+                    Type "button"
                 ] -- Text "Set Timeout"
                 |>! OnClick (fun elt _ ->
                     elt.SetAttribute("disabled", "disabled")

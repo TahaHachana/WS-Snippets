@@ -1,11 +1,11 @@
 ﻿module Accordion =
-    open IntelliFactory.WebSharper
+    open WebSharper
 
     /// Client-side code.
     [<JavaScript>]
     module Client =
-        open IntelliFactory.WebSharper.Html
-        open IntelliFactory.WebSharper.JQuery
+        open WebSharper.Html.Client
+        open WebSharper.JQuery
 
         let loremIpsum = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis elit lacus, commodo non posuere sit amet, sodales in risus. Donec et sagittis nisl, at blandit nisl. Cras fermentum libero et erat tincidunt, vel euismod justo elementum. Quisque eget augue quis arcu dictum sagittis. Duis in arcu vulputate lorem sagittis facilisis. In non justo quis metus aliquet luctus a id justo. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Fusce vitae augue sagittis, sodales diam id, blandit turpis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam tempor suscipit nibh vel mollis. Vestibulum eros lorem, pharetra quis varius in, lobortis at risus."
         
@@ -14,11 +14,11 @@
             
         /// Creates an accordion group.
         let accordionGroup num =
-            let accordionBody = Div [Attr.Style "display: none;"] -< [Div [Text loremIpsum]]
+            let accordionBody = Div [Style "display: none;"] -< [Div [Text loremIpsum]]
             let jq = JQuery.Of(accordionBody.Dom)
-            Div [Attr.Style style] -< [
+            Div [Style style] -< [
                 Div [
-                    Div [Attr.Class "btn-link"; Attr.Style "font-weight: bold;"]
+                    Div [Class "btn-link"; Style "font-weight: bold;"]
                     -< [Text <| "Collapsible Group " + string num]
                     // Toggle expanding and collapsing.
                     |>! OnClick (fun _ _ ->

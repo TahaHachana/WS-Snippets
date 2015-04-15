@@ -1,15 +1,15 @@
 ﻿module WebSocket =
-    open IntelliFactory.WebSharper
+    open WebSharper
 
     /// Client-side code.
     [<JavaScript>]
     module Client =
-        open IntelliFactory.WebSharper.Html
-        open IntelliFactory.WebSharper.Html5
+        open WebSharper.JavaScript
+        open WebSharper.Html.Client
 
         /// Appends a <p> element containing the specified text to the DOM.
         let log text color =
-            P [Text text; Attr.Style <| "color: " + color]
+            P [Text text; Style <| "color: " + color]
             |> (fun p -> ById("ws-log").AppendChild p.Dom)
             |> ignore
 
@@ -37,36 +37,36 @@
             ById("connect-btn").SetAttribute("disabled", "disabled")
             let ws = WebSocket "ws://echo.websocket.org"
             let sendBtn =
-                Button [Text "Send"; Attr.Class "btn btn-primary"]
+                Button [Text "Send"; Class "btn btn-primary"]
                 |>! OnClick (fun _ _ ->
                     let txt = msgText.Value
                     ws.Send txt
                     log ("Sent: " + txt) "black")
             let disconnectBtn =
-                Button [Text "Disconnect"; Attr.Class "btn btn-warning"]
+                Button [Text "Disconnect"; Class "btn btn-warning"]
                 |>! OnClick (fun _ _ -> ws.Close())
             handleEvents ws disconnectBtn sendBtn
 
         let main() =
-            let msgText = TextArea [Text "Hello WebSocket"; Attr.Id "msg"; Attr.Class "form-control"]
-            let logDiv = Div [Attr.Id "ws-log"]
-            Div [Attr.Class "row"] -< [
-                Div [Attr.Class "col-lg-4"] -< [
-                    Div [Attr.Style "margin-bottom: 10px;"; Attr.Id "btns"] -< [
-                        Button [Text "Connect"; Attr.Id "connect-btn"; Attr.Class "btn btn-success"; Attr.Style "margin-right: 10px;"]
+            let msgText = TextArea [Text "Hello WebSocket"; Id "msg"; Class "form-control"]
+            let logDiv = Div [Id "ws-log"]
+            Div [Class "row"] -< [
+                Div [Class "col-lg-4"] -< [
+                    Div [Style "margin-bottom: 10px;"; Id "btns"] -< [
+                        Button [Text "Connect"; Id "connect-btn"; Class "btn btn-success"; Style "margin-right: 10px;"]
                         |>! OnClick (fun _ _ -> connect msgText)
                     ]
-                    Div [Attr.Class "form-group"] -< [
-                        Label [Text "Message:"; Attr.Style "font-weight: bold;"]
+                    Div [Class "form-group"] -< [
+                        Label [Text "Message:"; Style "font-weight: bold;"]
                         msgText
                     ]
-                    Div [Attr.Id "send-btn"]
+                    Div [Id "send-btn"]
                 ]
-                Div [Attr.Class "col-lg-5"; Attr.Style "border-left: 1px solid lightgray;"] -< [
-                    Div [Attr.Style "margin-left: 20px;"] -< [
-                        Label [Text "Log:"; Attr.Style "font-weight: bold;"]
+                Div [Class "col-lg-5"; Style "border-left: 1px solid lightgray;"] -< [
+                    Div [Style "margin-left: 20px;"] -< [
+                        Label [Text "Log:"; Style "font-weight: bold;"]
                         logDiv
-                        Button [Text "Clear"; Attr.Style "margin-top: 10px;"; Attr.Class "btn btn-default"]
+                        Button [Text "Clear"; Style "margin-top: 10px;"; Class "btn btn-default"]
                         |>! OnClick (fun _ _ -> logDiv.Html <- "")
                     ]
                 ]

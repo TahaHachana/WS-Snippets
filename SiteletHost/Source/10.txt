@@ -1,10 +1,10 @@
 ﻿module Factorial =
-    open IntelliFactory.WebSharper
+    open WebSharper
 
     /// Client-side code.
     [<JavaScript>]
     module private Client =
-        open IntelliFactory.WebSharper.Html
+        open WebSharper.Html.Client
 
         /// Computes the factorial of a number using recursion and pattern matching.
         let rec factRec n =
@@ -15,11 +15,21 @@
         /// Computes the factorial of a number using the fold function from the Array module.
         let factFold n = Array.fold (*) 1  [|1 .. n|]
 
-        let input = Input [Attr.Type "text"; HTML5.Attr.AutoFocus "autofocus"; Attr.Class "form-control"; Attr.Id "factorial"]
+        let input =
+            Input [
+                Type "text"
+                AutoFocus "autofocus"
+                Class "form-control"
+                Id "factorial"
+            ]
         let recSpan = Span []
         let foldSpan = Span []
         let button =
-            Button [Text "Factorial"; Attr.Class "btn btn-primary"; Attr.Style "margin-left: 8px;"]
+            Button [
+                Text "Factorial"
+                Class "btn btn-primary"
+                Style "margin-left: 8px;"
+            ]
             |>! OnClick (fun _ _ ->
                 let v = int input.Value
                 recSpan.Text <- "Recursion: " + string (factRec v)
@@ -27,9 +37,9 @@
 
         let main() =
             Div [
-                Div [Attr.Class "form-inline"]
+                Div [Class "form-inline"]
                     -< [input; button]
-                Div [Attr.Style "margin-top: 8px;"]
+                Div [Style "margin-top: 8px;"]
                     -< [recSpan; Br []; foldSpan]
             ]
 

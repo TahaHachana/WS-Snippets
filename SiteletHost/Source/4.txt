@@ -12,7 +12,7 @@
             retweetedScreenName : string option
         }
 
-    open IntelliFactory.WebSharper
+    open WebSharper
 
     module Server =
 
@@ -159,8 +159,9 @@
     /// Client-side code.
     [<JavaScript>]
     module private Client =
-        open IntelliFactory.WebSharper.JQuery
-        open IntelliFactory.WebSharper.Html
+        open WebSharper.JQuery
+        open WebSharper.Html.Client
+        open WebSharper.JavaScript
 
         /// Creates an <li> containing the details of a tweet (screen name, creation date...).
         let li tweet =
@@ -172,19 +173,19 @@
             let favoriteLink = "https://twitter.com/intent/favorite?tweet_id=" + id
             let p = P []
             p.Html <- tweet.statusAsHtml
-            LI [Attr.Class "list-group-item"] -< [
+            LI [Class "list-group-item"] -< [
                 Div [
-                    A [HRef profileLink; Attr.Class "profile-link"; Attr.Target "_blank"] -< [
-                        Img [Src tweet.avatar; Alt screenName; Attr.Class "avatar"]
+                    A [HRef profileLink; Class "profile-link"; Target "_blank"] -< [
+                        Img [Src tweet.avatar; Alt screenName; Class "avatar"]
                         Strong [Text screenName]
                     ]
                     Br []
-                    Default.Small [Text tweet.createdAt]
+                    Small [Text tweet.createdAt]
                     p
-                    Div [Attr.Class "tweet-actions"] -< [
-                        A [HRef replyLink; Attr.Class "tweet-action"; Attr.Style "margin-right: 5px;"] -< [Text "Reply"]
-                        A [HRef retweetLink; Attr.Class "tweet-action"; Attr.Style "margin-right: 5px;"] -< [Text "Retweet"]
-                        A [HRef favoriteLink; Attr.Class "tweet-action"] -< [Text "Favorite"]
+                    Div [Class "tweet-actions"] -< [
+                        A [HRef replyLink; Class "tweet-action"; Style "margin-right: 5px;"] -< [Text "Reply"]
+                        A [HRef retweetLink; Class "tweet-action"; Style "margin-right: 5px;"] -< [Text "Retweet"]
+                        A [HRef favoriteLink; Class "tweet-action"] -< [Text "Favorite"]
                     ]
                 ]
             ]
@@ -201,18 +202,18 @@
             jquery.Click(fun elt event ->
                 event.PreventDefault()
                 let href = elt.GetAttribute "href"
-                Html5.Window.Self.ShowModalDialog href |> ignore).Ignore
+                JS.Window.ShowModalDialog href |> ignore).Ignore
 
         /// Appends a <div> containing a list of tweets to the DOM.
         let main() =
-            Div [Attr.Id "tweets"]
+            Div [Id "tweets"]
             |>! OnAfterRender (fun elt ->
                 async {
                     let! searchResults = Server.latestTweets()
                     match searchResults with
-                        | None -> JavaScript.Alert "Failed to fetch the latest tweets."
+                        | None -> JS.Alert "Failed to fetch the latest tweets."
                         | Some tweets ->
-                            let ul = UL [Attr.Class "list-group"; Attr.Id "tweets-ul"]
+                            let ul = UL [Class "list-group"; Id "tweets-ul"]
                             tweets |> Array.iter (fun tweet -> ul.Append (li tweet))
                             elt.Append ul
                             toggleActionsVisibility()

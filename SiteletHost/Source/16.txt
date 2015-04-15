@@ -1,12 +1,12 @@
 ﻿module GoogleVisLineChart =
-    open IntelliFactory.WebSharper
+    open WebSharper
 
     /// Client-side code.
     [<JavaScript>]
     module private Client =
-        open IntelliFactory.WebSharper.Google.Visualization
-        open IntelliFactory.WebSharper.Google.Visualization.Base
-        open IntelliFactory.WebSharper.Html
+        open WebSharper.Google.Visualization
+        open WebSharper.Google.Visualization.Base
+        open WebSharper.Html.Client
 
         /// Sets the value of a google visualization DataTable cell.
         let setCell (dataTable:DataTable) row column value =
@@ -14,9 +14,7 @@
             |> ignore
 
         /// Line chart options with custom title.
-        let options =
-            { Visualizations.LineChartOptions.Default with
-                title = "Company Performance" }
+        let options = LineChartOptions(title = "Company Performance")
 
         /// Chart data.
         let data =
@@ -40,9 +38,9 @@
             dataTable
 
         let main() =
-            Div [Attr.Style "width: 900px; height: 500px;"]
+            Div [Style "width: 900px; height: 500px;"]
             |>! OnAfterRender (fun elt ->
-                let geoMap = Visualizations.LineChart elt.Dom
+                let geoMap = LineChart elt.Dom
                 geoMap.draw(data, options))
     
     /// A control for serving the main pagelet.

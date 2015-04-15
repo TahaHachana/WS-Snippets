@@ -1,12 +1,12 @@
 ﻿module CanvasFillRect =
-    open IntelliFactory.WebSharper
-    open IntelliFactory.WebSharper.Html
-    open IntelliFactory.WebSharper.Html5
+    open WebSharper
+    open WebSharper.Html.Client
+    open WebSharper.JavaScript
 
     /// Draws a blue filled rectangle on a canvas element.
     [<JavaScript>]
     let private main() =
-        let elt = HTML5.Tags.Canvas [Text "The canvas element isn't supported by your browser."]
+        let elt = Canvas [Text "The canvas element isn't supported by your browser."]
         elt.SetStyle "border: 1px solid;"
         let canvas  = As<CanvasElement> elt.Dom
         canvas.Height <- 400

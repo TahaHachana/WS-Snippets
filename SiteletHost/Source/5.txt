@@ -1,35 +1,36 @@
 ﻿module ConsoleLog =
-    open IntelliFactory.WebSharper
+    open WebSharper
 
     /// Client-side code.
     [<JavaScript>]
     module private Client =
-        open IntelliFactory.WebSharper.Html
+        open WebSharper.Html.Client
+        open WebSharper.JavaScript
 
         /// Creates an input element.
         let inputElt _ =
             Input [
-                Attr.Class "form-control"
-                Attr.Type "text"
-                Attr.Value "Hello console!"
-                HTML5.Attr.AutoFocus "autofocus"
+                Class "form-control"
+                Type "text"
+                Value "Hello console!"
+                AutoFocus "autofocus"
             ]
 
         /// Creates a button that logs the value
         /// of the specified element when clicked.
         let logBtn (elt:Element) =
             Button [
-                Attr.Class "btn btn-primary"
-                Attr.Type "button"
+                Class "btn btn-primary"
+                Type "button"
             ]
             -- Text "Log"
-            |>! OnClick (fun _ _ -> JavaScript.Log elt.Value)
+            |>! OnClick (fun _ _ -> Console.Log elt.Value)
         
         let main() =
             let input = inputElt ()
-            Div [Attr.Id "console-log"] -< [
+            Div [Id "console-log"] -< [
                 Legend [Text "Log messages to the console"]
-                FieldSet [Attr.Class "form-group"] -< [
+                FieldSet [Class "form-group"] -< [
                     Label [Text "Message"]
                     input
                 ]

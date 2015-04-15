@@ -1,5 +1,5 @@
 ﻿module RPC =
-    open IntelliFactory.WebSharper
+    open WebSharper
 
     /// Server-side code.
     module private Server =
@@ -22,14 +22,20 @@
     /// Client-side code.
     [<JavaScript>]
     module private Client =
-        open IntelliFactory.WebSharper.Html
+        open WebSharper.Html.Client
 
         let main() =
-            let output = Div [Attr.Style "margin-top: 8px;"]
-            let input = Input [Attr.Type "text"; HTML5.Attr.AutoFocus "autofocus"; Attr.Class "form-control"; Attr.Id "display"]
-            Div [Attr.Class "form-inline"] -< [
+            let output = Div [Style "margin-top: 8px;"]
+            let input =
+                Input [
+                    Type "text"
+                    AutoFocus "autofocus"
+                    Class "form-control"
+                    Id "display"
+                ]
+            Div [Class "form-inline"] -< [
                 input
-                Button [Text "MD5"; Attr.Class "btn btn-primary"; Attr.Style "margin-left: 8px;"]
+                Button [Text "MD5"; Class "btn btn-primary"; Style "margin-left: 8px;"]
                 // Click event listener to invoke the md5 server-side function asynchronously.
                 |>! OnClick (fun _ _ ->
                     async {

@@ -1,10 +1,11 @@
 ﻿module GeolocationOptions =
-    open IntelliFactory.WebSharper
+    open WebSharper
 
     [<JavaScript>]
     module JS =
-        open IntelliFactory.WebSharper.Html
-        open IntelliFactory.WebSharper.Html5
+        open WebSharper.Html.Client
+        open WebSharper.JavaScript
+        open WebSharper.JavaScript.Geolocation
 
         /// Performs conversion to string and replaces the JS null with NA.
         let toStr x =
@@ -31,7 +32,7 @@
             setText "timestamp" p.Timestamp
 
         // Geolocation options
-        let options = Html5.PositionOptions()
+        let options = PositionOptions()
         options.EnableHighAccuracy <- true
         options.MaximumAge         <- 60000
         options.Timeout            <- 10000
@@ -39,7 +40,7 @@
         /// Calls the getCurrentPosition method asynchronously.
         let trackPosition() =
             async {
-                Window.Self.Navigator.Geolocation.GetCurrentPosition(
+                JS.Window.Navigator.Geolocation.GetCurrentPosition(
                     displayPosition,
                     (fun _ -> ()),
                     options)
@@ -48,13 +49,13 @@
         let tr thTxt tdId =
             TR [
                 TH [Text thTxt]
-                TD [Attr.Id tdId; Attr.Style "width: 250px;"]
+                TD [Id tdId; Style "width: 250px;"]
             ]
 
         /// Tracks the position of the user and displays its properties in a table.
         let main() =
-            Div [Attr.Class "table-responsive"] -< [
-                Table [Attr.Class "table table-bordered"; Attr.Id "geolocation-table"] -< [
+            Div [Class "table-responsive"] -< [
+                Table [Class "table table-bordered"; Id "geolocation-table"] -< [
                     tr "Longitude"         "longitude"
                     tr "Latitude"          "latitude"
                     tr "Altitude"          "altitude"
@@ -64,7 +65,7 @@
                     tr "Speed"             "speed"
                     tr "Time Stamp"        "timestamp"
                 ]
-                Button [Attr.Class "btn btn-primary btn-large"]
+                Button [Class "btn btn-primary btn-large"]
                 -- Text "Track My Location"
                 |>! OnClick (fun _ _ ->
                     async { do! trackPosition() }

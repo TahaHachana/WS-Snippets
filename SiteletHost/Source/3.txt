@@ -1,11 +1,12 @@
 ﻿module LocationObject =
-    open IntelliFactory.WebSharper
+    open WebSharper
 
     /// Client-side code.
     [<JavaScript>]
     module Client =
-        open IntelliFactory.WebSharper.Html
-        open IntelliFactory.WebSharper.Html5
+        open WebSharper.Html.Client
+        open WebSharper.JavaScript
+        open WebSharper.JavaScript.Geolocation
 
         /// Creates a <tr> element containing two <td> tags.
         let tr td td' =
@@ -16,9 +17,9 @@
 
         /// Displays the properties of the location object in a table.
         let main() =
-            let location = Window.Self.Location
-            Div [Attr.Class "table-responsive"] -< [
-                Table [Attr.Class "table table-striped"; Id "location-table"] -< [
+            let location = JS.Window.Location
+            Div [Class "table-responsive"] -< [
+                Table [Class "table table-striped"; Id "location-table"] -< [
                     // table headers
                     TR [TH [Text "Property"] ; TH [Text "Value"]]
                     // table row for each property

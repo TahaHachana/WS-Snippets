@@ -1,15 +1,16 @@
 ﻿module DomImplementation =
-    open IntelliFactory.WebSharper
+    open WebSharper
 
     /// Client-side code.
     [<JavaScript>]
     module Client =
-        open IntelliFactory.WebSharper.Html
+        open WebSharper.Html.Client
+        open WebSharper.JavaScript
 
         let th txt = TH [Text txt]
 
         let tr level =
-            let implementation = Dom.Document.Current.Implementation
+            let implementation = JS.Window.Document.Implementation
             ["Core"; "CSS"; "Events"; "HTML"; "Selectors-API"]
             |> List.map (fun feature ->
                 let rslt = implementation.HasFeature(feature, level)
@@ -18,9 +19,12 @@
 
         /// Displays DOM implementation information in a table.
         let main() =
-            Table [Attr.Class "table table-bordered table-striped"] -< [
-                TR [] -< List.map th ["Level"; "Core"; "CSS"; "Events"; "HTML"; "Selectors-API"]
-            ] -< List.map tr ["1.0"; "2.0"; "3.0"]
+            Table [Class "table table-bordered table-striped"]
+            -< [
+                TR []
+                -< List.map th ["Level"; "Core"; "CSS"; "Events"; "HTML"; "Selectors-API"]
+            ]
+            -< List.map tr ["1.0"; "2.0"; "3.0"]
 
     /// A control for serving the main pagelet.
     type Control() =

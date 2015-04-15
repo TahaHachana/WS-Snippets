@@ -1,15 +1,15 @@
 ﻿module Geolocation =
-    open IntelliFactory.WebSharper
+    open WebSharper
 
     /// Client-side code.
     [<JavaScript>]
     module Client =
-        open IntelliFactory.WebSharper.Dom
-        open IntelliFactory.WebSharper.Html
-        open IntelliFactory.WebSharper.Html5
+        open WebSharper.Html.Client
+        open WebSharper.JavaScript.Geolocation
+        open WebSharper.JavaScript
 
         /// Sets the text content of the element with the specified id.
-        let setText id txt = Document.Current.GetElementById(id).TextContent <- txt
+        let setText id txt = JS.Document.GetElementById(id).TextContent <- txt
 
         /// Performs conversion to string and replaces the JS null with NA.
         let toStr f = f.ToString() |> function "null" -> "NA" | x -> x
@@ -29,15 +29,15 @@
         // Calls the getCurrentPosition method asynchronously.
         let getPosition() =
             async {
-                Window.Self.Navigator.Geolocation.GetCurrentPosition display }
+                JS.Window.Navigator.Geolocation.GetCurrentPosition display }
 
-        let tr thTxt tdId = TR [TH [Text thTxt]; TD [Attr.Id tdId]]
+        let tr thTxt tdId = TR [TH [Text thTxt]; TD [Id tdId]]
 
         /// Tracks the position of the user and displays its properties in a table.
         let main() =
-            Div [Attr.Class "span6"] -< [
+            Div [Class "span6"] -< [
                 Tags.Style [Text "td { width: 250px; }"]
-                Table [Attr.Class "table table-striped table-bordered"] -< [
+                Table [Class "table table-striped table-bordered"] -< [
                     tr "Longitude"         "longitude"
                     tr "Latitude"          "latitude"
                     tr "Altitude"          "altitude"
@@ -47,7 +47,7 @@
                     tr "Speed"             "speed"
                     tr "Time Stamp"        "timestamp"
                 ]
-                Button [Text "Track My Location"; Attr.Class "btn btn-primary btn-large"]
+                Button [Text "Track My Location"; Class "btn btn-primary btn-large"]
                 |>! OnClick (fun _ _ ->
                     async { do! getPosition() }
                     |> Async.Start)

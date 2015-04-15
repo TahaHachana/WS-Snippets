@@ -1,14 +1,15 @@
 ﻿module SimpleMap =
-    open IntelliFactory.WebSharper
-    open IntelliFactory.WebSharper.Html
-    open IntelliFactory.WebSharper.Google.Maps
+    open WebSharper
+    open WebSharper.Html.Client
+    open WebSharper.Google.Maps
 
     [<JavaScript>]
     let map() =
-        Div [Attr.Id "map"]
+        Div [Id "map"]
         |>! OnAfterRender (fun elt ->
             let center = LatLng(21.427378, 39.814838)
-            let options = MapOptions(4, center, MapTypeId.ROADMAP)
+            let options = MapOptions(center, 4)
+            options.MapTypeId <- MapTypeId.ROADMAP
             Google.Maps.Map(elt.Dom, options)
             |> ignore)
 

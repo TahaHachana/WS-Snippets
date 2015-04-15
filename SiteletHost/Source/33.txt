@@ -1,10 +1,11 @@
-﻿open IntelliFactory.WebSharper
+﻿open WebSharper
 
 [<JavaScript>]
 module JQueryImageCarousel =
     
-    open IntelliFactory.WebSharper.Html
-    open IntelliFactory.WebSharper.JQuery
+    open WebSharper.Html.Client
+    open WebSharper.JQuery
+    open WebSharper.JavaScript
 
     type Direction = Backward | Forward
 
@@ -38,19 +39,19 @@ module JQueryImageCarousel =
     let baseUrl = "http://placekitten.com/200/200?image="
 
     let main () =
-        Div [Attr.Id "jquery-slider-container"] -< [
-            Div [Attr.Id "jquery-slider"] -< [
+        Div [Id "jquery-slider-container"] -< [
+            Div [Id "jquery-slider"] -< [
                 for x in 1 .. 5 do
                     yield Img [
-                        Attr.Src <| baseUrl + string x
+                        Src <| baseUrl + string x
                     ]
             ]
             A [
-                Attr.Id "prev-slide"
+                Id "prev-slide"
                 Text "Prev"
             ]
             A [
-                Attr.Id "next-slide"
+                Id "next-slide"
                 Text "Next"
             ]
         ]
@@ -59,15 +60,15 @@ module JQueryImageCarousel =
 
             // Image scrolling timer.
             let f = scroll slider Forward
-            let timer = ref <| JavaScript.SetInterval f 2000
+            let timer = ref <| JS.SetInterval f 2000
 
             // Display the first image.
             slider.Children().First().Show().Ignore
 
             // Pause on hover functionality.
             JQuery.Of("#jquery-slider, #prev-slide, #next-slide").Hover(
-                (fun _ _ -> JavaScript.ClearInterval(!timer)),
-                (fun _ _ -> timer := JavaScript.SetInterval f 2000)
+                (fun _ _ -> JS.ClearInterval(!timer)),
+                (fun _ _ -> timer := JS.SetInterval f 2000)
             ).Ignore
 
             // Allow the user to choose the active slide.

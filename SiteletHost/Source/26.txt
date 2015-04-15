@@ -1,14 +1,14 @@
 ﻿module HTML5Audio =
-    open IntelliFactory.WebSharper
-    open IntelliFactory.WebSharper.Html
-    open IntelliFactory.WebSharper.Html5
+    open WebSharper
+    open WebSharper.Html.Client
+    open WebSharper.JavaScript
 
     type Control() =
         inherit Web.Control()
 
         [<JavaScript>]
         override __.Body =
-            let elt = HTML5.Tags.Audio []
+            let elt = Audio []
             let audio = As<HTMLAudioElement> elt.Dom
             audio.Src <- "/AlFatiha.mp3"
             audio.Controls <- true

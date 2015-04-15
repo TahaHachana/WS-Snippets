@@ -1,25 +1,25 @@
 ﻿module HistoryNav =
-    open IntelliFactory.WebSharper
-    open IntelliFactory.WebSharper.Html
-    open IntelliFactory.WebSharper.Html5
+    open WebSharper
+    open WebSharper.Html.Client
+    open WebSharper.JavaScript
 
     [<JavaScript>]
     let btn txt =
         Button [
-            Attr.Class "btn btn-default"
-            Attr.Type "button"
+            Class "btn btn-default"
+            Type "button"
         ]
         -- Text txt
 
     [<JavaScript>]
     let main() =
-        Div [Attr.Class "btn-group btn-group-lg"] -< [
+        Div [Class "btn-group btn-group-lg"] -< [
             btn "Back"
-            |>! OnClick (fun _ _ -> Window.Self.History.Back())
+            |>! OnClick (fun _ _ -> JS.Window.History.Back())
             btn "Forward"
-            |>! OnClick (fun _ _ -> Window.Self.History.Forward())
+            |>! OnClick (fun _ _ -> JS.Window.History.Forward())
             btn "Go back 2 pages"
-            |>! OnClick (fun _ _ -> Window.Self.History.Go -2)
+            |>! OnClick (fun _ _ -> JS.Window.History.Go -2)
         ]
 
     type Control() =

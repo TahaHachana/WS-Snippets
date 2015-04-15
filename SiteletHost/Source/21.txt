@@ -1,21 +1,22 @@
 ﻿module DragDrop =
-    open IntelliFactory.WebSharper
-    open IntelliFactory.WebSharper.Html
+    open WebSharper
+    open WebSharper.Html.Client
+    open WebSharper.JavaScript
 
     [<JavaScript>]
     module JS =
         /// Creates a draggable <img> element.
         let img x =
             Img [
-                Attr.Class "cat-img"
-                Attr.Id <| "cat-" + x
-                Attr.Src <| "cat" + x + ".jpg"
-                HTML5.Attr.Draggable "true"
+                Class "cat-img"
+                Id <| "cat-" + x
+                Src <| "cat" + x + ".jpg"
+                Draggable "true"
             ]
         
         /// Wraps an <img> element inside a div.
         let imgDiv img =
-            Div [Attr.Class "col-lg-3 cat-img-div"]
+            Div [Class "col-lg-3 cat-img-div"]
             -< [img]
 
         /// Assigns the id of a dragged element to the specified reference cell.
@@ -60,14 +61,14 @@
         let main() =
             let idRef, img1, img2, img3 = ref "", img "1", img "2", img "3"
             let src =
-                Div [Attr.Class "row"; Attr.Id "src"] -< [
+                Div [Class "row"; Id "src"] -< [
                     imgDiv img1
                     imgDiv img2
                     imgDiv img3
                 ]
             let target =
-                Div [Attr.Id "target"] -< [
-                    P [Attr.Class "text-center"; Attr.Id "target-text"]
+                Div [Id "target"] -< [
+                    P [Class "text-center"; Id "target-text"]
                     -- Text "Drop image here"
                 ]
             List.iter (handleDragStart idRef) [img1; img2; img3]

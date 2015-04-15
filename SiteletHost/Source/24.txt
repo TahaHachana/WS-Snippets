@@ -1,14 +1,14 @@
 ﻿module WindowAlert =
-    open IntelliFactory.WebSharper
-    open IntelliFactory.WebSharper.Html
-    open IntelliFactory.WebSharper.Html5
+    open WebSharper
+    open WebSharper.Html.Client
+    open WebSharper.JavaScript
 
     type Control() =
         inherit Web.Control()
 
         [<JavaScript>]
         override __.Body =
-            Button [Attr.Class "btn btn-primary btn-lg"]
+            Button [Class "btn btn-primary btn-lg"]
             -- Text "Click me"
-            |>! OnClick (fun _ _ -> Window.Self.Alert "This is an alert dialog.")
+            |>! OnClick (fun _ _ -> JS.Window.Alert "This is an alert dialog.")
             :> _

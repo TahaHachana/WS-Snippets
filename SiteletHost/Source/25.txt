@@ -1,7 +1,7 @@
 ﻿module LineCap =
-    open IntelliFactory.WebSharper
-    open IntelliFactory.WebSharper.Html
-    open IntelliFactory.WebSharper.Html5
+    open WebSharper
+    open WebSharper.Html.Client
+    open WebSharper.JavaScript
 
     [<JavaScript>]
     module private Client =
@@ -14,7 +14,7 @@
             ctx.Stroke()
             
         let main() =
-            let elt = HTML5.Tags.Canvas []
+            let elt = Canvas []
             let canvas = As<CanvasElement> elt.Dom
             canvas.Height <- 400
             canvas.Width <- 600

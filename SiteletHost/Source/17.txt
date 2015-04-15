@@ -1,16 +1,15 @@
 ﻿module AnimatedClock =
-    open IntelliFactory.WebSharper
+    open WebSharper
 
     /// Client-side code.
     [<JavaScript>]
     module Client =
-        open IntelliFactory.WebSharper.Html
-        open IntelliFactory.WebSharper.Html5
-        open IntelliFactory.WebSharper.EcmaScript
+        open WebSharper.JavaScript
+        open WebSharper.Html.Client
 
         /// Draws the clock's shapes.
         let draw (ctx: CanvasRenderingContext2D) =
-            let now = new EcmaScript.Date()
+            let now = new Date()
             ctx.Save()
             ctx.ClearRect(0., 0., 150., 150.)
             ctx.Translate(75., 75.)
@@ -108,7 +107,7 @@
 
         /// Draws a clock on a <canvas> and starts the updates loop.
         let main() =
-            let elt = HTML5.Tags.Canvas []
+            let elt = Canvas []
             let canvas  = As<CanvasElement> elt.Dom
             canvas.Width <- 150
             canvas.Height <- 150

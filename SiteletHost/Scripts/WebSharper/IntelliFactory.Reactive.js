@@ -1,6 +1,6 @@
 (function()
 {
- var Global=this,Runtime=this.IntelliFactory.Runtime,Reactive,Disposable,HotStream,WebSharper,Control,FSharpEvent,Observer,Observable,Util,Collections,Dictionary,Operators,Seq,Reactive1,Reactive2,List,T;
+ var Global=this,Runtime=this.IntelliFactory.Runtime,IntelliFactory,Reactive,Disposable,HotStream,Control,FSharpEvent,Observer,Observable,Util,Collections,Dictionary,Operators,Seq,Reactive1,Reactive2,List,T;
  Runtime.Define(Global,{
   IntelliFactory:{
    Reactive:{
@@ -20,19 +20,23 @@
     HotStream:Runtime.Class({
      Subscribe:function(o)
      {
+      var _this;
       if(this.Latest.contents.$==1)
        {
         o.OnNext(this.Latest.contents.$0);
        }
-      return this.Event.event.Subscribe(o);
+      _this=this.Event;
+      return _this.event.Subscribe(o);
      },
      Trigger:function(v)
      {
+      var _this;
       this.Latest.contents={
        $:1,
        $0:v
       };
-      return this.Event.event.Trigger(v);
+      _this=this.Event;
+      return _this.event.Trigger(v);
      }
     },{
      New:function(x)
@@ -131,7 +135,7 @@
       return Observable.New(function(o)
       {
        var dict,index;
-       dict=Dictionary.New2();
+       dict=Dictionary.New12();
        index={
         contents:0
        };
@@ -527,22 +531,22 @@
  });
  Runtime.OnInit(function()
  {
-  Reactive=Runtime.Safe(Global.IntelliFactory.Reactive);
+  IntelliFactory=Runtime.Safe(Global.IntelliFactory);
+  Reactive=Runtime.Safe(IntelliFactory.Reactive);
   Disposable=Runtime.Safe(Reactive.Disposable);
   HotStream=Runtime.Safe(Reactive.HotStream);
-  WebSharper=Runtime.Safe(Global.IntelliFactory.WebSharper);
-  Control=Runtime.Safe(WebSharper.Control);
+  Control=Runtime.Safe(Global.WebSharper.Control);
   FSharpEvent=Runtime.Safe(Control.FSharpEvent);
   Observer=Runtime.Safe(Reactive.Observer);
   Observable=Runtime.Safe(Reactive.Observable);
-  Util=Runtime.Safe(WebSharper.Util);
-  Collections=Runtime.Safe(WebSharper.Collections);
+  Util=Runtime.Safe(Global.WebSharper.Util);
+  Collections=Runtime.Safe(Global.WebSharper.Collections);
   Dictionary=Runtime.Safe(Collections.Dictionary);
-  Operators=Runtime.Safe(WebSharper.Operators);
-  Seq=Runtime.Safe(WebSharper.Seq);
+  Operators=Runtime.Safe(Global.WebSharper.Operators);
+  Seq=Runtime.Safe(Global.WebSharper.Seq);
   Reactive1=Runtime.Safe(Reactive.Reactive);
   Reactive2=Runtime.Safe(Reactive1.Reactive);
-  List=Runtime.Safe(WebSharper.List);
+  List=Runtime.Safe(Global.WebSharper.List);
   return T=Runtime.Safe(List.T);
  });
  Runtime.OnLoad(function()

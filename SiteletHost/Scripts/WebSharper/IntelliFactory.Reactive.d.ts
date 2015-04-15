@@ -117,6 +117,6 @@ declare module IntelliFactory {
 declare module __ABBREV {
     
     export import __Reactive = IntelliFactory.Reactive;
-    export import __Control = IntelliFactory.WebSharper.Control;
-    export import __WebSharper = IntelliFactory.WebSharper;
+    export import __Control = WebSharper.Control;
+    export import __WebSharper = WebSharper;
 }

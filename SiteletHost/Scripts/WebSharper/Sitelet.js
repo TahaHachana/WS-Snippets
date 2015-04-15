@@ -1,6 +1,6 @@
 (function()
 {
- var Global=this,Runtime=this.IntelliFactory.Runtime,Sitelet,Geolocation,Snippet1,Client,String,WebSharper,Concurrency,window,Html,Default,List,Operators,EventsPervasives,document,google,visualization,DataTable,Google,Snippet11,Client1,LineChart,Seq,Snippet2,Client2,PieChart,Snippet3,Html5,Snippet12,Client3,HTML5,T,Snippet10,JS,Snippet121,Client4,Snippet14,Snippet21,Client5,Snippet31,Client6,WebSocket,Snippet4,Client7,Snippet5,Client8,Snippet6,Client9,Date,Math,Number,Snippet7,Clienta,Snippet8,Snippet9,JQuery,Snippet13,Js,Operators1,jQuery,setInterval,clearInterval,JQueryUI,Snippet15,JS1,JQueryUI1,Tabs,Datepicker,JavaScript,Js1,Snippet22,Clientb,Arrays,Snippet32,Clientc,Snippet41,Clientd,Snippet51,Cliente,Snippet61,Clientf,Remoting,Snippet71,Client10,Snippet81,JS2,Snippet91,JS3,clearTimeout,setTimeout,alert,Piglets,Piglet1,Login,Client11,Pervasives,Validation,Controls,Result,NewSnippet,Client12,Search,Client13,Twitter,Snippet16,Client14;
+ var Global=this,Runtime=this.IntelliFactory.Runtime,Sitelet,Geolocation,Snippet1,Client,String,window,Concurrency,List,Html,Client1,Tags,Operators,Attr,EventsPervasives,document,google,visualization,DataTable,Google,Snippet11,Client2,LineChart,Seq,Snippet2,Client3,PieChart,Snippet3,Html5,Snippet12,Client4,T,Snippet10,JS,Snippet121,Client5,Snippet14,Snippet21,Client6,Snippet31,Client7,WebSocket,Snippet4,Client8,Snippet5,Client9,Snippet6,Clienta,Date,Math,Number,Snippet7,Clientb,Snippet8,Snippet9,JQuery,Snippet13,Js,Operators1,jQuery,setInterval,clearInterval,JQueryUI,Snippet15,JS1,JQueryUI1,Tabs,Datepicker,console,Js1,Snippet22,Clientc,Arrays,Snippet32,Clientd,Snippet41,Cliente,Snippet51,Clientf,Snippet61,Client10,Remoting,AjaxRemotingProvider,Snippet71,Client11,Snippet81,JS2,Snippet91,JS3,clearTimeout,setTimeout,alert,Login,Client12,Piglets,Piglet,Pervasives,Validation,Controls,Result,NewSnippet,Client13,Search,Client14,Twitter,Snippet16,Client15;
  Runtime.Define(Global,{
   Sitelet:{
    Geolocation:{
@@ -20,40 +20,63 @@
        Client.setText("alt-acc",Client.toStr(coords.altitudeAccuracy));
        Client.setText("heading",Client.toStr(coords.heading));
        Client.setText("speed",Client.toStr(coords.speed));
-       return Client.setText("timestamp",p.timestamp.toString());
+       return Client.setText("timestamp",String(p.timestamp));
       },
       getPosition:function()
       {
-       return Concurrency.Delay(function()
+       var f;
+       f=function()
        {
         window.navigator.geolocation.getCurrentPosition(function(p)
         {
          return Client.display(p);
         });
         return Concurrency.Return(null);
-       });
+       };
+       return Concurrency.Delay(f);
       },
       main:function()
       {
-       var x,arg00;
-       x=Default.Button(List.ofArray([Default.Text("Track My Location"),Default.Attr().Class("btn btn-primary")]));
-       arg00=function()
+       var x,_this,x1,x2,_this1,_this2,x3,_this3,_this4,_this5,x4,_this6,_this7,x5,x6,_this8;
+       _this=Tags.Tags();
+       x1=List.ofArray([Tags.Tags().text("td {width: 200px;}")]);
+       _this1=Attr.Attr();
+       x2=List.ofArray([_this1.NewAttr("class","table-responsive")]);
+       _this2=Tags.Tags();
+       _this3=Attr.Attr();
+       _this4=Attr.Attr();
+       x3=List.ofArray([_this3.NewAttr("class","table table-bordered"),_this4.NewAttr("id","geolocation-table")]);
+       _this5=Tags.Tags();
+       _this6=Attr.Attr();
+       x4=List.ofArray([Tags.Tags().text("Track My Location"),_this6.NewAttr("class","btn btn-primary")]);
+       _this7=Tags.Tags();
+       x5=_this7.NewTag("button",x4);
+       x6=function()
        {
         return function()
         {
-         return Concurrency.Start(Concurrency.Delay(function()
+         var f,arg00,t;
+         f=function()
          {
-          return Concurrency.Bind(Client.getPosition(),function()
+          var x7,f1;
+          x7=Client.getPosition();
+          f1=function()
           {
            return Concurrency.Return(null);
-          });
-         }),{
+          };
+          return Concurrency.Bind(x7,f1);
+         };
+         arg00=Concurrency.Delay(f);
+         t={
           $:0
-         });
+         };
+         return Concurrency.Start(arg00,t);
         };
        };
-       EventsPervasives.Events().OnClick(arg00,x);
-       return Default.Div(List.ofArray([Default.Tags().NewTag("style",List.ofArray([Default.Text("td {width: 200px;}")])),Operators.add(Default.Div(List.ofArray([Default.Attr().Class("table-responsive")])),List.ofArray([Operators.add(Default.Table(List.ofArray([Default.Attr().Class("table table-bordered"),Default.Attr().NewAttr("id","geolocation-table")])),List.ofArray([Client.tr("Longitude","longitude"),Client.tr("Latitude","latitude"),Client.tr("Altitude","altitude"),Client.tr("Accuracy","accuracy"),Client.tr("Altitude Accuracy","alt-acc"),Client.tr("Heading","heading"),Client.tr("Speed","speed"),Client.tr("Time Stamp","timestamp")]))])),x]));
+       EventsPervasives.Events().OnClick(x6,x5);
+       x=List.ofArray([_this.NewTag("style",x1),Operators.add(_this2.NewTag("div",x2),List.ofArray([Operators.add(_this5.NewTag("table",x3),List.ofArray([Client.tr("Longitude","longitude"),Client.tr("Latitude","latitude"),Client.tr("Altitude","altitude"),Client.tr("Accuracy","accuracy"),Client.tr("Altitude Accuracy","alt-acc"),Client.tr("Heading","heading"),Client.tr("Speed","speed"),Client.tr("Time Stamp","timestamp")]))])),x5]);
+       _this8=Tags.Tags();
+       return _this8.NewTag("div",x);
       },
       setText:function(id,txt)
       {
@@ -67,7 +90,15 @@
       },
       tr:function(thTxt,tdId)
       {
-       return Default.TR(List.ofArray([Default.TH(List.ofArray([Default.Text(thTxt)])),Default.TD(List.ofArray([Default.Attr().NewAttr("id",tdId)]))]));
+       var x,x1,_this,x2,_this1,_this2,_this3;
+       x1=List.ofArray([Tags.Tags().text(thTxt)]);
+       _this=Tags.Tags();
+       _this1=Attr.Attr();
+       x2=List.ofArray([_this1.NewAttr("id",tdId)]);
+       _this2=Tags.Tags();
+       x=List.ofArray([_this.NewTag("th",x1),_this2.NewTag("td",x2)]);
+       _this3=Tags.Tags();
+       return _this3.NewTag("tr",x);
       }
      },
      Control:Runtime.Class({
@@ -83,33 +114,37 @@
      Client:{
       main:function()
       {
-       var options,dataTable,data,x;
-       options={};
-       options.title="Company Performance";
+       var options,dataTable,data,x,_this,_this1,x1;
+       options={
+        title:"Company Performance"
+       };
        dataTable=new DataTable();
        dataTable.addColumn("string","Year");
        dataTable.addColumn("number","Sales");
        dataTable.addColumn("number","Expenses");
        dataTable.addRows(4);
-       Client1.setCell(dataTable,0,0,"2004");
-       Client1.setCell(dataTable,1,0,"2005");
-       Client1.setCell(dataTable,2,0,"2006");
-       Client1.setCell(dataTable,3,0,"2007");
-       Client1.setCell(dataTable,0,1,1000);
-       Client1.setCell(dataTable,1,1,1170);
-       Client1.setCell(dataTable,2,1,660);
-       Client1.setCell(dataTable,3,1,1030);
-       Client1.setCell(dataTable,0,2,400);
-       Client1.setCell(dataTable,1,2,460);
-       Client1.setCell(dataTable,2,2,1120);
-       Client1.setCell(dataTable,3,2,540);
+       Client2.setCell(dataTable,0,0,"2004");
+       Client2.setCell(dataTable,1,0,"2005");
+       Client2.setCell(dataTable,2,0,"2006");
+       Client2.setCell(dataTable,3,0,"2007");
+       Client2.setCell(dataTable,0,1,1000);
+       Client2.setCell(dataTable,1,1,1170);
+       Client2.setCell(dataTable,2,1,660);
+       Client2.setCell(dataTable,3,1,1030);
+       Client2.setCell(dataTable,0,2,400);
+       Client2.setCell(dataTable,1,2,460);
+       Client2.setCell(dataTable,2,2,1120);
+       Client2.setCell(dataTable,3,2,540);
        data=dataTable;
-       x=Default.Div(List.ofArray([Default.Attr().NewAttr("style","width: 900px; height: 500px;")]));
+       _this=Attr.Attr();
+       x=List.ofArray([_this.NewAttr("style","width: 900px; height: 500px;")]);
+       _this1=Tags.Tags();
+       x1=_this1.NewTag("div",x);
        Operators.OnAfterRender(function(elt)
        {
-        return(new LineChart(elt.Body)).draw(data,options);
-       },x);
-       return x;
+        return(new LineChart(elt.Dom)).draw(data,options);
+       },x1);
+       return x1;
       },
       setCell:function(dataTable,row,column,value)
       {
@@ -119,7 +154,7 @@
      Control:Runtime.Class({
       get_Body:function()
       {
-       return Client1.main();
+       return Client2.main();
       }
      })
     },
@@ -131,37 +166,41 @@
       }),
       dataTable:function(data)
       {
-       var dataTable;
+       var dataTable,f;
        dataTable=new DataTable();
        dataTable.addColumn("string","Resource");
        dataTable.addColumn("number","Size");
        dataTable.addRows(5);
-       Seq.iteri(function(idx)
+       f=function(idx)
        {
-        return Runtime.Tupled(function(tupledArg)
+        return function(tupledArg)
         {
          var y;
          y=tupledArg[1];
          dataTable.setCell(idx,0,tupledArg[0]);
          return dataTable.setCell(idx,1,y);
-        });
-       },data);
+        };
+       };
+       Seq.iteri(f,data);
        return dataTable;
       },
       main:function()
       {
-       var x;
-       x=Default.Div(List.ofArray([Default.Attr().NewAttr("style","width: 900px; height: 500px;")]));
+       var x,_this,_this1,x1;
+       _this=Attr.Attr();
+       x=List.ofArray([_this.NewAttr("style","width: 900px; height: 500px;")]);
+       _this1=Tags.Tags();
+       x1=_this1.NewTag("div",x);
        Operators.OnAfterRender(function(elt)
        {
-        return Client2.pie(Client2.data(),elt.Body);
-       },x);
-       return x;
+        return Client3.pie(Client3.data(),elt.Dom);
+       },x1);
+       return x1;
       },
       pie:function(data,dom)
       {
        var dt,options;
-       dt=Client2.dataTable(data);
+       dt=Client3.dataTable(data);
        options={};
        options.title="Resources Breakdown";
        return(new PieChart(dom)).draw(dt,options);
@@ -170,7 +209,7 @@
      Control:Runtime.Class({
       get_Body:function()
       {
-       return Client2.main();
+       return Client3.main();
       }
      })
     },
@@ -183,16 +222,19 @@
      }),
      map:function()
      {
-      var x;
-      x=Default.Div(List.ofArray([Default.Attr().NewAttr("id","map")]));
+      var x,_this,_this1,x1;
+      _this=Attr.Attr();
+      x=List.ofArray([_this.NewAttr("id","map")]);
+      _this1=Tags.Tags();
+      x1=_this1.NewTag("div",x);
       Operators.OnAfterRender(function(elt)
       {
-       new google.maps.Map(elt.Body,{
+       new google.maps.Map(elt.Dom,{
         center:new google.maps.LatLng(21.427378,39.814838),
         zoom:4
        });
-      },x);
-      return x;
+      },x1);
+      return x1;
      }
     }
    },
@@ -204,51 +246,47 @@
        ctx.font="60px 'Gill Sans Ultra Bold'";
        ctx.fillText("HTML",40,60);
        ctx.translate(0,70);
-       Client3.drawShape(ctx,"#E34C26",44,255,List.ofArray([[22,5],[267,5],[244,255],[144,283]]));
-       Client3.drawShape(ctx,"#F06529",144,262,List.ofArray([[225,239],[244,25],[144,25]]));
-       Client3.drawShape(ctx,"#EBEBEB",144,118,List.ofArray([[103,118],[101,87],[144,87],[144,56],[67,56],[75,149],[144,149]]));
-       Client3.drawShape(ctx,"#EBEBEB",144,198,List.ofArray([[110,189],[108,164],[77,164],[81,212],[144,230]]));
-       Client3.drawShape(ctx,"#FFFFFF",144,118,List.ofArray([[144,149],[182,149],[178,189],[144,198],[144,230],[207,212],[215,118]]));
-       return Client3.drawShape(ctx,"#FFFFFF",144,56,List.ofArray([[144,87],[218,87],[221,56]]));
+       Client4.drawShape(ctx,"#E34C26",44,255,List.ofArray([[22,5],[267,5],[244,255],[144,283]]));
+       Client4.drawShape(ctx,"#F06529",144,262,List.ofArray([[225,239],[244,25],[144,25]]));
+       Client4.drawShape(ctx,"#EBEBEB",144,118,List.ofArray([[103,118],[101,87],[144,87],[144,56],[67,56],[75,149],[144,149]]));
+       Client4.drawShape(ctx,"#EBEBEB",144,198,List.ofArray([[110,189],[108,164],[77,164],[81,212],[144,230]]));
+       Client4.drawShape(ctx,"#FFFFFF",144,118,List.ofArray([[144,149],[182,149],[178,189],[144,198],[144,230],[207,212],[215,118]]));
+       return Client4.drawShape(ctx,"#FFFFFF",144,56,List.ofArray([[144,87],[218,87],[221,56]]));
       },
       drawShape:function(_,_1,_2,_3,_4)
       {
-       return((Runtime.Tupled(function(moveTo)
+       var moveTo,f;
+       moveTo=[_2,_3];
+       _.fillStyle=_1;
+       _.beginPath();
+       _.moveTo(moveTo[0],moveTo[1]);
+       f=function(tupledArg)
        {
-        return function(coords)
-        {
-         _.fillStyle=_1;
-         _.beginPath();
-         (Runtime.Tupled(function(tupledArg)
-         {
-          return _.moveTo(tupledArg[0],tupledArg[1]);
-         }))(moveTo);
-         Seq.iter(Runtime.Tupled(function(tupledArg)
-         {
-          return _.lineTo(tupledArg[0],tupledArg[1]);
-         }),coords);
-         _.closePath();
-         return _.fill();
-        };
-       }))([_2,_3]))(_4);
+        return _.lineTo(tupledArg[0],tupledArg[1]);
+       };
+       Seq.iter(f,_4);
+       _.closePath();
+       return _.fill();
       },
       main:function()
       {
-       var elt,canvas;
-       elt=HTML5.Tags().NewTag("canvas",Runtime.New(T,{
+       var x,_this,elt,canvas;
+       x=Runtime.New(T,{
         $:0
-       }));
-       canvas=elt.Body;
+       });
+       _this=Tags.Tags();
+       elt=_this.NewTag("canvas",x);
+       canvas=elt.Dom;
        canvas.height=400;
        canvas.width=600;
-       Client3.drawLogo(canvas.getContext("2d"));
+       Client4.drawLogo(canvas.getContext("2d"));
        return elt;
       }
      },
      Control:Runtime.Class({
       get_Body:function()
       {
-       return Client3.main();
+       return Client4.main();
       }
      })
     },
@@ -275,20 +313,34 @@
       },
       main:function()
       {
-       var options,x,arg00;
+       var options,x,_this,_this1,x1,_this2,_this3,_this4,x2,_this5,_this6,el,inner,x3,x4;
        options={
         enableHighAccuracy:true,
         maximumAge:60000,
         timeout:10000
        };
-       x=Operators.add(Default.Button(List.ofArray([Default.Attr().Class("btn btn-primary btn-large")])),List.ofArray([Default.Text("Track My Location")]));
-       arg00=function()
+       _this=Attr.Attr();
+       x=List.ofArray([_this.NewAttr("class","table-responsive")]);
+       _this1=Tags.Tags();
+       _this2=Attr.Attr();
+       _this3=Attr.Attr();
+       x1=List.ofArray([_this2.NewAttr("class","table table-bordered"),_this3.NewAttr("id","geolocation-table")]);
+       _this4=Tags.Tags();
+       _this5=Attr.Attr();
+       x2=List.ofArray([_this5.NewAttr("class","btn btn-primary btn-large")]);
+       _this6=Tags.Tags();
+       el=_this6.NewTag("button",x2);
+       inner=Tags.Tags().text("Track My Location");
+       x3=Operators.add(el,List.ofArray([inner]));
+       x4=function()
        {
         return function()
         {
-         return Concurrency.Start(Concurrency.Delay(function()
+         var f,arg00,t;
+         f=function()
          {
-          return Concurrency.Bind(Concurrency.Delay(function()
+          var f1,x5,f2;
+          f1=function()
           {
            window.navigator.geolocation.getCurrentPosition(function(p)
            {
@@ -298,17 +350,23 @@
             return null;
            },options);
            return Concurrency.Return(null);
-          }),function()
+          };
+          x5=Concurrency.Delay(f1);
+          f2=function()
           {
            return Concurrency.Return(null);
-          });
-         }),{
+          };
+          return Concurrency.Bind(x5,f2);
+         };
+         arg00=Concurrency.Delay(f);
+         t={
           $:0
-         });
+         };
+         return Concurrency.Start(arg00,t);
         };
        };
-       EventsPervasives.Events().OnClick(arg00,x);
-       return Operators.add(Default.Div(List.ofArray([Default.Attr().Class("table-responsive")])),List.ofArray([Operators.add(Default.Table(List.ofArray([Default.Attr().Class("table table-bordered"),Default.Attr().NewAttr("id","geolocation-table")])),List.ofArray([JS.tr("Longitude","longitude"),JS.tr("Latitude","latitude"),JS.tr("Altitude","altitude"),JS.tr("Accuracy","accuracy"),JS.tr("Altitude Accuracy","alt-acc"),JS.tr("Heading","heading"),JS.tr("Speed","speed"),JS.tr("Time Stamp","timestamp")])),x]));
+       EventsPervasives.Events().OnClick(x4,x3);
+       return Operators.add(_this1.NewTag("div",x),List.ofArray([Operators.add(_this4.NewTag("table",x1),List.ofArray([JS.tr("Longitude","longitude"),JS.tr("Latitude","latitude"),JS.tr("Altitude","altitude"),JS.tr("Accuracy","accuracy"),JS.tr("Altitude Accuracy","alt-acc"),JS.tr("Heading","heading"),JS.tr("Speed","speed"),JS.tr("Time Stamp","timestamp")])),x3]));
       },
       setText:function(id,property)
       {
@@ -325,7 +383,16 @@
       },
       tr:function(thTxt,tdId)
       {
-       return Default.TR(List.ofArray([Default.TH(List.ofArray([Default.Text(thTxt)])),Default.TD(List.ofArray([Default.Attr().NewAttr("id",tdId),Default.Attr().NewAttr("style","width: 250px;")]))]));
+       var x,x1,_this,x2,_this1,_this2,_this3,_this4;
+       x1=List.ofArray([Tags.Tags().text(thTxt)]);
+       _this=Tags.Tags();
+       _this1=Attr.Attr();
+       _this2=Attr.Attr();
+       x2=List.ofArray([_this1.NewAttr("id",tdId),_this2.NewAttr("style","width: 250px;")]);
+       _this3=Tags.Tags();
+       x=List.ofArray([_this.NewTag("th",x1),_this3.NewTag("td",x2)]);
+       _this4=Tags.Tags();
+       return _this4.NewTag("tr",x);
       }
      }
     },
@@ -333,17 +400,22 @@
      Control:Runtime.Class({
       get_Body:function()
       {
-       var x,arg00;
-       x=Operators.add(Default.Button(List.ofArray([Default.Attr().Class("btn btn-primary btn-lg")])),List.ofArray([Default.Text("Click me")]));
-       arg00=function()
+       var x,_this,_this1,el,inner,x1,x2;
+       _this=Attr.Attr();
+       x=List.ofArray([_this.NewAttr("class","btn btn-primary btn-lg")]);
+       _this1=Tags.Tags();
+       el=_this1.NewTag("button",x);
+       inner=Tags.Tags().text("Click me");
+       x1=Operators.add(el,List.ofArray([inner]));
+       x2=function()
        {
         return function()
         {
          return window.alert("This is an alert dialog.");
         };
        };
-       EventsPervasives.Events().OnClick(arg00,x);
-       return x;
+       EventsPervasives.Events().OnClick(x2,x1);
+       return x1;
       }
      })
     },
@@ -351,46 +423,38 @@
      Client:{
       lineTo:function(_,_1,_2,_3,_4,_5)
       {
-       return((Runtime.Tupled(function(coords)
-       {
-        return Runtime.Tupled(function(_coords_)
-        {
-         _.lineCap=_1;
-         _.beginPath();
-         (Runtime.Tupled(function(tupledArg)
-         {
-          return _.moveTo(tupledArg[0],tupledArg[1]);
-         }))(coords);
-         (Runtime.Tupled(function(tupledArg)
-         {
-          return _.lineTo(tupledArg[0],tupledArg[1]);
-         }))(_coords_);
-         return _.stroke();
-        });
-       }))([_2,_3]))([_4,_5]);
+       var coords,_coords_;
+       coords=[_2,_3];
+       _coords_=[_4,_5];
+       _.lineCap=_1;
+       _.beginPath();
+       _.moveTo(coords[0],coords[1]);
+       _.lineTo(_coords_[0],_coords_[1]);
+       return _.stroke();
       },
       main:function()
       {
-       var _this,elt,canvas,ctx;
-       _this=HTML5.Tags();
-       elt=_this.NewTag("canvas",Runtime.New(T,{
+       var x,_this,elt,canvas,ctx;
+       x=Runtime.New(T,{
         $:0
-       }));
-       canvas=elt.Body;
+       });
+       _this=Tags.Tags();
+       elt=_this.NewTag("canvas",x);
+       canvas=elt.Dom;
        canvas.height=400;
        canvas.width=600;
        ctx=canvas.getContext("2d");
        ctx.lineWidth=40;
-       Client4.lineTo(ctx,"butt",50,50,50,350);
-       Client4.lineTo(ctx,"round",250,50,250,350);
-       Client4.lineTo(ctx,"square",450,50,450,350);
+       Client5.lineTo(ctx,"butt",50,50,50,350);
+       Client5.lineTo(ctx,"round",250,50,250,350);
+       Client5.lineTo(ctx,"square",450,50,450,350);
        return elt;
       }
      },
      Control:Runtime.Class({
       get_Body:function()
       {
-       return Client4.main();
+       return Client5.main();
       }
      })
     },
@@ -398,11 +462,13 @@
      Control:Runtime.Class({
       get_Body:function()
       {
-       var elt,audio;
-       elt=HTML5.Tags().NewTag("audio",Runtime.New(T,{
+       var x,_this,elt,audio;
+       x=Runtime.New(T,{
         $:0
-       }));
-       audio=elt.Body;
+       });
+       _this=Tags.Tags();
+       elt=_this.NewTag("audio",x);
+       audio=elt.Dom;
        audio.src="/AlFatiha.mp3";
        audio.controls=true;
        return elt;
@@ -418,58 +484,88 @@
      }),
      btn:function(txt)
      {
-      return Operators.add(Default.Button(List.ofArray([Default.Attr().Class("btn btn-default"),Default.Attr().NewAttr("type","button")])),List.ofArray([Default.Text(txt)]));
+      var x,_this,_this1,_this2,el,inner;
+      _this=Attr.Attr();
+      _this1=Attr.Attr();
+      x=List.ofArray([_this.NewAttr("class","btn btn-default"),_this1.NewAttr("type","button")]);
+      _this2=Tags.Tags();
+      el=_this2.NewTag("button",x);
+      inner=Tags.Tags().text(txt);
+      return Operators.add(el,List.ofArray([inner]));
      },
      main:function()
      {
-      var x,arg00,x1,arg001,x2,arg002;
-      x=Snippet14.btn("Back");
-      arg00=function()
+      var x,_this,_this1,x1,x2,x3,x4,x5,x6;
+      _this=Attr.Attr();
+      x=List.ofArray([_this.NewAttr("class","btn-group btn-group-lg")]);
+      _this1=Tags.Tags();
+      x1=Snippet14.btn("Back");
+      x2=function()
       {
        return function()
        {
         return window.history.back();
        };
       };
-      EventsPervasives.Events().OnClick(arg00,x);
-      x1=Snippet14.btn("Forward");
-      arg001=function()
+      EventsPervasives.Events().OnClick(x2,x1);
+      x3=Snippet14.btn("Forward");
+      x4=function()
       {
        return function()
        {
         return window.history.forward();
        };
       };
-      EventsPervasives.Events().OnClick(arg001,x1);
-      x2=Snippet14.btn("Go back 2 pages");
-      arg002=function()
+      EventsPervasives.Events().OnClick(x4,x3);
+      x5=Snippet14.btn("Go back 2 pages");
+      x6=function()
       {
        return function()
        {
         return window.history.go(-2);
        };
       };
-      EventsPervasives.Events().OnClick(arg002,x2);
-      return Operators.add(Default.Div(List.ofArray([Default.Attr().Class("btn-group btn-group-lg")])),List.ofArray([x,x1,x2]));
+      EventsPervasives.Events().OnClick(x6,x5);
+      return Operators.add(_this1.NewTag("div",x),List.ofArray([x1,x3,x5]));
      }
     },
     Snippet2:{
      Client:{
       main:function()
       {
-       var location;
+       var location,x,_this,_this1,x1,_this2,_this3,_this4,x2,x3,_this5,x4,_this6,_this7;
        location=window.location;
-       return Operators.add(Default.Div(List.ofArray([Default.Attr().Class("table-responsive")])),List.ofArray([Operators.add(Default.Table(List.ofArray([Default.Attr().Class("table table-striped"),Default.Attr().NewAttr("id","location-table")])),List.ofArray([Default.TR(List.ofArray([Default.TH(List.ofArray([Default.Text("Property")])),Default.TH(List.ofArray([Default.Text("Value")]))])),Client5.tr("Hash",location.hash),Client5.tr("Host",location.host),Client5.tr("Hostname",location.hostname),Client5.tr("Href",location.href),Client5.tr("Pathname",location.pathname),Client5.tr("Port",location.port),Client5.tr("Protocol",location.protocol),Client5.tr("Search",location.search)]))]));
+       _this=Attr.Attr();
+       x=List.ofArray([_this.NewAttr("class","table-responsive")]);
+       _this1=Tags.Tags();
+       _this2=Attr.Attr();
+       _this3=Attr.Attr();
+       x1=List.ofArray([_this2.NewAttr("class","table table-striped"),_this3.NewAttr("id","location-table")]);
+       _this4=Tags.Tags();
+       x3=List.ofArray([Tags.Tags().text("Property")]);
+       _this5=Tags.Tags();
+       x4=List.ofArray([Tags.Tags().text("Value")]);
+       _this6=Tags.Tags();
+       x2=List.ofArray([_this5.NewTag("th",x3),_this6.NewTag("th",x4)]);
+       _this7=Tags.Tags();
+       return Operators.add(_this1.NewTag("div",x),List.ofArray([Operators.add(_this4.NewTag("table",x1),List.ofArray([_this7.NewTag("tr",x2),Client6.tr("Hash",location.hash),Client6.tr("Host",location.host),Client6.tr("Hostname",location.hostname),Client6.tr("Href",location.href),Client6.tr("Pathname",location.pathname),Client6.tr("Port",location.port),Client6.tr("Protocol",location.protocol),Client6.tr("Search",location.search)]))]));
       },
       tr:function(td,_td_)
       {
-       return Default.TR(List.ofArray([Default.TD(List.ofArray([Default.Text(td)])),Default.TD(List.ofArray([Default.Text(_td_)]))]));
+       var x,x1,_this,x2,_this1,_this2;
+       x1=List.ofArray([Tags.Tags().text(td)]);
+       _this=Tags.Tags();
+       x2=List.ofArray([Tags.Tags().text(_td_)]);
+       _this1=Tags.Tags();
+       x=List.ofArray([_this.NewTag("td",x1),_this1.NewTag("td",x2)]);
+       _this2=Tags.Tags();
+       return _this2.NewTag("tr",x);
       }
      },
      Control:Runtime.Class({
       get_Body:function()
       {
-       return Client5.main();
+       return Client6.main();
       }
      })
     },
@@ -477,9 +573,17 @@
      Client:{
       main:function()
       {
-       var elt,video;
-       elt=Operators.add(HTML5.Tags().NewTag("video",List.ofArray([Default.Attr().NewAttr("height","360px"),Default.Attr().NewAttr("width","640px")])),List.ofArray([HTML5.Tags().NewTag("source",List.ofArray([Default.Attr().NewAttr("src","/Videos/madagascar.mp4"),Default.Attr().NewAttr("type","video/mp4")]))]));
-       video=elt.Body;
+       var elt,x,_this,_this1,_this2,x1,_this3,_this4,_this5,video;
+       _this=Attr.Attr();
+       _this1=Attr.Attr();
+       x=List.ofArray([_this.NewAttr("height","360px"),_this1.NewAttr("width","640px")]);
+       _this2=Tags.Tags();
+       _this3=Attr.Attr();
+       _this4=Attr.Attr();
+       x1=List.ofArray([_this3.NewAttr("src","/Videos/madagascar.mp4"),_this4.NewAttr("type","video/mp4")]);
+       _this5=Tags.Tags();
+       elt=Operators.add(_this2.NewTag("video",x),List.ofArray([_this5.NewTag("source",x1)]));
+       video=elt.Dom;
        video.autoplay=false;
        video.controls=true;
        video.preload="metadata";
@@ -490,7 +594,7 @@
      Control:Runtime.Class({
       get_Body:function()
       {
-       return Client6.main();
+       return Client7.main();
       }
      })
     },
@@ -498,120 +602,150 @@
      Client:{
       append:function(id,btn)
       {
-       document.getElementById(id).appendChild(btn.Body);
+       document.getElementById(id).appendChild(btn.Dom);
       },
       connect:function(msgText)
       {
-       var ws,x,arg00,sendBtn,x1,arg001;
+       var ws,x,_this,_this1,x1,x2,sendBtn,x3,_this2,_this3,x4,x5;
        document.getElementById("connect-btn").setAttribute("disabled","disabled");
        ws=new WebSocket("ws://echo.websocket.org");
-       x=Default.Button(List.ofArray([Default.Text("Send"),Default.Attr().Class("btn btn-primary")]));
-       arg00=function()
+       _this=Attr.Attr();
+       x=List.ofArray([Tags.Tags().text("Send"),_this.NewAttr("class","btn btn-primary")]);
+       _this1=Tags.Tags();
+       x1=_this1.NewTag("button",x);
+       x2=function()
        {
         return function()
         {
          var txt;
          txt=msgText.get_Value();
          ws.send(txt);
-         return Client7.log("Sent: "+txt,"black");
+         return Client8.log("Sent: "+txt,"black");
         };
        };
-       EventsPervasives.Events().OnClick(arg00,x);
-       sendBtn=x;
-       x1=Default.Button(List.ofArray([Default.Text("Disconnect"),Default.Attr().Class("btn btn-warning")]));
-       arg001=function()
+       EventsPervasives.Events().OnClick(x2,x1);
+       sendBtn=x1;
+       _this2=Attr.Attr();
+       x3=List.ofArray([Tags.Tags().text("Disconnect"),_this2.NewAttr("class","btn btn-warning")]);
+       _this3=Tags.Tags();
+       x4=_this3.NewTag("button",x3);
+       x5=function()
        {
         return function()
         {
          return ws.close();
         };
        };
-       EventsPervasives.Events().OnClick(arg001,x1);
-       return Client7.handleEvents(ws,x1,sendBtn);
+       EventsPervasives.Events().OnClick(x5,x4);
+       return Client8.handleEvents(ws,x4,sendBtn);
       },
       handleEvents:function(ws,disconnectBtn,sendBtn)
       {
        ws.onerror=function()
        {
-        return Client7.log("Error","red");
+        return Client8.log("Error","red");
        };
        ws.onmessage=function(msg)
        {
-        return Client7.log("Received: "+String(msg.data),"blue");
+        return Client8.log("Received: "+String(msg.data),"blue");
        };
        ws.onopen=function()
        {
-        Client7.append("send-btn",sendBtn);
-        Client7.append("btns",disconnectBtn);
-        return Client7.log("Connected","green");
+        Client8.append("send-btn",sendBtn);
+        Client8.append("btns",disconnectBtn);
+        return Client8.log("Connected","green");
        };
        ws.onclose=function()
        {
         document.getElementById("connect-btn").removeAttribute("disabled");
-        sendBtn["HtmlProvider@32"].Remove(sendBtn.Body);
-        disconnectBtn["HtmlProvider@32"].Remove(disconnectBtn.Body);
-        return Client7.log("Disconnected","rgb(250, 167, 50)");
+        sendBtn["HtmlProvider@33"].Remove(sendBtn.get_Body());
+        disconnectBtn["HtmlProvider@33"].Remove(disconnectBtn.get_Body());
+        return Client8.log("Disconnected","rgb(250, 167, 50)");
        };
        return;
       },
       log:function(text,color)
       {
-       var p,arg10;
-       arg10="color: "+color;
-       p=Default.P(List.ofArray([Default.Text(text),Default.Attr().NewAttr("style",arg10)]));
-       document.getElementById("ws-log").appendChild(p.Body);
+       var x,arg00,_this,_this1,x1;
+       arg00="color: "+color;
+       _this=Attr.Attr();
+       x=List.ofArray([Tags.Tags().text(text),_this.NewAttr("style",arg00)]);
+       _this1=Tags.Tags();
+       x1=_this1.NewTag("p",x);
+       document.getElementById("ws-log").appendChild(x1.Dom);
        return;
       },
       main:function()
       {
-       var msgText,logDiv,x,arg00,arg10,arg101,x1,arg001;
-       msgText=Default.TextArea(List.ofArray([Default.Text("Hello WebSocket"),Default.Attr().NewAttr("id","msg"),Default.Attr().Class("form-control")]));
-       logDiv=Default.Div(List.ofArray([Default.Attr().NewAttr("id","ws-log")]));
-       x=Default.Button(List.ofArray([Default.Text("Connect"),Default.Attr().NewAttr("id","connect-btn"),Default.Attr().Class("btn btn-success"),Default.Attr().NewAttr("style","margin-right: 10px;")]));
-       arg00=function()
+       var x,_this,_this1,_this2,msgText,x1,_this3,_this4,logDiv,x2,_this5,_this6,x3,_this7,_this8,_this9,x4,_thisa,_thisb,_thisc,x5,_thisd,_thise,_thisf,_this10,x6,x7,x8,_this11,_this12,x9,_this13,_this14,xa,_this15,_this16,xb,_this17,_this18,_this19,_this1a,xc,_this1b,_this1c,xd,_this1d,_this1e,xe,_this1f,_this20,_this21,xf,x10;
+       _this=Attr.Attr();
+       _this1=Attr.Attr();
+       x=List.ofArray([Tags.Tags().text("Hello WebSocket"),_this.NewAttr("id","msg"),_this1.NewAttr("class","form-control")]);
+       _this2=Tags.Tags();
+       msgText=_this2.NewTag("textarea",x);
+       _this3=Attr.Attr();
+       x1=List.ofArray([_this3.NewAttr("id","ws-log")]);
+       _this4=Tags.Tags();
+       logDiv=_this4.NewTag("div",x1);
+       _this5=Attr.Attr();
+       x2=List.ofArray([_this5.NewAttr("class","row")]);
+       _this6=Tags.Tags();
+       _this7=Attr.Attr();
+       _this8=Attr.Attr();
+       x3=List.ofArray([_this7.NewAttr("class","col-lg-4"),_this8.NewAttr("id","ws-col-1")]);
+       _this9=Tags.Tags();
+       _thisa=Attr.Attr();
+       _thisb=Attr.Attr();
+       x4=List.ofArray([_thisa.NewAttr("style","margin-bottom: 10px;"),_thisb.NewAttr("id","btns")]);
+       _thisc=Tags.Tags();
+       _thisd=Attr.Attr();
+       _thise=Attr.Attr();
+       _thisf=Attr.Attr();
+       x5=List.ofArray([Tags.Tags().text("Connect"),_thisd.NewAttr("id","connect-btn"),_thise.NewAttr("class","btn btn-success"),_thisf.NewAttr("style","margin-right: 10px;")]);
+       _this10=Tags.Tags();
+       x6=_this10.NewTag("button",x5);
+       x7=function()
        {
         return function()
         {
-         return Client7.connect(msgText);
+         return Client8.connect(msgText);
         };
        };
-       EventsPervasives.Events().OnClick(arg00,x);
-       arg10=List.ofArray([Default.Text("Message:"),Default.Attr().NewAttr("style","font-weight: bold;")]);
-       arg101=List.ofArray([Default.Text("Log:"),Default.Attr().NewAttr("style","font-weight: bold;")]);
-       x1=Default.Button(List.ofArray([Default.Text("Clear"),Default.Attr().NewAttr("style","margin-top: 10px;"),Default.Attr().Class("btn btn-default")]));
-       arg001=function()
+       EventsPervasives.Events().OnClick(x7,x6);
+       _this11=Attr.Attr();
+       x8=List.ofArray([_this11.NewAttr("class","form-group")]);
+       _this12=Tags.Tags();
+       _this13=Attr.Attr();
+       x9=List.ofArray([Tags.Tags().text("Message:"),_this13.NewAttr("style","font-weight: bold;")]);
+       _this14=Tags.Tags();
+       _this15=Attr.Attr();
+       xa=List.ofArray([_this15.NewAttr("id","send-btn")]);
+       _this16=Tags.Tags();
+       _this17=Attr.Attr();
+       _this18=Attr.Attr();
+       _this19=Attr.Attr();
+       xb=List.ofArray([_this17.NewAttr("class","col-lg-5"),_this18.NewAttr("style","border-left: 1px solid lightgray;"),_this19.NewAttr("id","ws-col-1")]);
+       _this1a=Tags.Tags();
+       _this1b=Attr.Attr();
+       xc=List.ofArray([_this1b.NewAttr("style","margin-left: 20px;")]);
+       _this1c=Tags.Tags();
+       _this1d=Attr.Attr();
+       xd=List.ofArray([Tags.Tags().text("Log:"),_this1d.NewAttr("style","font-weight: bold;")]);
+       _this1e=Tags.Tags();
+       _this1f=Attr.Attr();
+       _this20=Attr.Attr();
+       xe=List.ofArray([Tags.Tags().text("Clear"),_this1f.NewAttr("style","margin-top: 10px;"),_this20.NewAttr("class","btn btn-default")]);
+       _this21=Tags.Tags();
+       xf=_this21.NewTag("button",xe);
+       x10=function()
        {
         return function()
         {
          return logDiv.set_Html("");
         };
        };
-       EventsPervasives.Events().OnClick(arg001,x1);
-       return Operators.add(Default.Div(List.ofArray([Default.Attr().Class("row")])),List.ofArray([Operators.add(Default.Div(List.ofArray([Default.Attr().Class("col-lg-4"),Default.Attr().NewAttr("id","ws-col-1")])),List.ofArray([Operators.add(Default.Div(List.ofArray([Default.Attr().NewAttr("style","margin-bottom: 10px;"),Default.Attr().NewAttr("id","btns")])),List.ofArray([x])),Operators.add(Default.Div(List.ofArray([Default.Attr().Class("form-group")])),List.ofArray([Default.Tags().NewTag("label",arg10),msgText])),Default.Div(List.ofArray([Default.Attr().NewAttr("id","send-btn")]))])),Operators.add(Default.Div(List.ofArray([Default.Attr().Class("col-lg-5"),Default.Attr().NewAttr("style","border-left: 1px solid lightgray;"),Default.Attr().NewAttr("id","ws-col-1")])),List.ofArray([Operators.add(Default.Div(List.ofArray([Default.Attr().NewAttr("style","margin-left: 20px;")])),List.ofArray([Default.Tags().NewTag("label",arg101),logDiv,x1]))]))]));
-      }
-     },
-     Control:Runtime.Class({
-      get_Body:function()
-      {
-       return Client7.main();
-      }
-     })
-    },
-    Snippet5:{
-     Client:{
-      main:function()
-      {
-       var x,arg00;
-       x=Default.Button(List.ofArray([Default.Text("Show Modal Dialog"),Default.Attr().Class("btn btn-primary")]));
-       arg00=function()
-       {
-        return function()
-        {
-         window.showModalDialog("/modal.html");
-        };
-       };
-       EventsPervasives.Events().OnClick(arg00,x);
-       return x;
+       EventsPervasives.Events().OnClick(x10,xf);
+       return Operators.add(_this6.NewTag("div",x2),List.ofArray([Operators.add(_this9.NewTag("div",x3),List.ofArray([Operators.add(_thisc.NewTag("div",x4),List.ofArray([x6])),Operators.add(_this12.NewTag("div",x8),List.ofArray([_this14.NewTag("label",x9),msgText])),_this16.NewTag("div",xa)])),Operators.add(_this1a.NewTag("div",xb),List.ofArray([Operators.add(_this1c.NewTag("div",xc),List.ofArray([_this1e.NewTag("label",xd),logDiv,xf]))]))]));
       }
      },
      Control:Runtime.Class({
@@ -621,14 +755,45 @@
       }
      })
     },
+    Snippet5:{
+     Client:{
+      main:function()
+      {
+       var x,_this,_this1,x1,x2;
+       _this=Attr.Attr();
+       x=List.ofArray([Tags.Tags().text("Show Modal Dialog"),_this.NewAttr("class","btn btn-primary")]);
+       _this1=Tags.Tags();
+       x1=_this1.NewTag("button",x);
+       x2=function()
+       {
+        return function()
+        {
+         window.showModalDialog("/modal.html");
+        };
+       };
+       EventsPervasives.Events().OnClick(x2,x1);
+       return x1;
+      }
+     },
+     Control:Runtime.Class({
+      get_Body:function()
+      {
+       return Client9.main();
+      }
+     })
+    },
     Snippet6:{
      Client:{
       main:function()
       {
-       var elt,canvas,ctx;
-       elt=HTML5.Tags().NewTag("canvas",List.ofArray([Default.Text("The canvas element isn't supported by your browser.")]));
-       elt["HtmlProvider@32"].SetStyle(elt.Body,"border: 1px solid;");
-       canvas=elt.Body;
+       var x,_this,elt,objectArg,arg00,canvas,ctx;
+       x=List.ofArray([Tags.Tags().text("The canvas element isn't supported by your browser.")]);
+       _this=Tags.Tags();
+       elt=_this.NewTag("canvas",x);
+       objectArg=elt["HtmlProvider@33"];
+       arg00=elt.get_Body();
+       objectArg.SetStyle(arg00,"border: 1px solid;");
+       canvas=elt.Dom;
        canvas.height=400;
        canvas.width=600;
        ctx=canvas.getContext("2d");
@@ -640,7 +805,7 @@
      Control:Runtime.Class({
       get_Body:function()
       {
-       return Client9.main();
+       return Clienta.main();
       }
      })
     },
@@ -648,7 +813,7 @@
      Client:{
       draw:function(ctx)
       {
-       var now,i,i1,sec,min,hr,hr1;
+       var now,forLoopVar,i,sec,min,hr,hr1;
        now=new Date();
        ctx.save();
        ctx.clearRect(0,0,150,150);
@@ -659,7 +824,7 @@
        ctx.fillStyle="white";
        ctx.lineWidth=8;
        ctx.save();
-       for(i=1;i<=12;i++){
+       for(forLoopVar=1;forLoopVar<=12;forLoopVar++){
         ctx.beginPath();
         ctx.rotate(Math.PI/6);
         ctx.moveTo(100,0);
@@ -669,8 +834,8 @@
        ctx.restore();
        ctx.save();
        ctx.lineWidth=5;
-       for(i1=0;i1<=59;i1++){
-        if(i1%5!==0)
+       for(i=0;i<=59;i++){
+        if(i%5!==0)
          {
           ctx.beginPath();
           ctx.moveTo(117,0);
@@ -729,37 +894,50 @@
       },
       loop:function(ctx)
       {
-       return Concurrency.Delay(function()
+       var f;
+       f=function()
        {
-        return Concurrency.Bind(Concurrency.Sleep(1000),function()
+        var x,f1;
+        x=Concurrency.Sleep(1000);
+        f1=function()
         {
-         Clienta.draw(ctx);
-         return Concurrency.Bind(Clienta.loop(ctx),function()
+         var x1,f2;
+         Clientb.draw(ctx);
+         x1=Clientb.loop(ctx);
+         f2=function()
          {
           return Concurrency.Return(null);
-         });
-        });
-       });
+         };
+         return Concurrency.Bind(x1,f2);
+        };
+        return Concurrency.Bind(x,f1);
+       };
+       return Concurrency.Delay(f);
       },
       main:function()
       {
-       var elt,canvas,ctx;
-       elt=HTML5.Tags().NewTag("canvas",List.ofArray([Default.Attr().NewAttr("id","clock")]));
-       canvas=elt.Body;
+       var x,_this,_this1,elt,canvas,ctx,computation,t;
+       _this=Attr.Attr();
+       x=List.ofArray([_this.NewAttr("id","clock")]);
+       _this1=Tags.Tags();
+       elt=_this1.NewTag("canvas",x);
+       canvas=elt.Dom;
        canvas.width=150;
        canvas.height=150;
        ctx=canvas.getContext("2d");
-       Clienta.draw(ctx);
-       Concurrency.Start(Clienta.loop(ctx),{
+       Clientb.draw(ctx);
+       computation=Clientb.loop(ctx);
+       t={
         $:0
-       });
+       };
+       Concurrency.Start(computation,t);
        return elt;
       }
      },
      Control:Runtime.Class({
       get_Body:function()
       {
-       return Clienta.main();
+       return Clientb.main();
       }
      })
     },
@@ -772,17 +950,22 @@
      }),
      main:function()
      {
-      var x,arg00;
-      x=Operators.add(Default.Button(List.ofArray([Default.Attr().Class("btn btn-primary btn-large")])),List.ofArray([Default.Text("Home Page")]));
-      arg00=function()
+      var x,_this,_this1,el,inner,x1,x2;
+      _this=Attr.Attr();
+      x=List.ofArray([_this.NewAttr("class","btn btn-primary btn-large")]);
+      _this1=Tags.Tags();
+      el=_this1.NewTag("button",x);
+      inner=Tags.Tags().text("Home Page");
+      x1=Operators.add(el,List.ofArray([inner]));
+      x2=function()
       {
        return function()
        {
         return window.parent.location.assign("/");
        };
       };
-      EventsPervasives.Events().OnClick(arg00,x);
-      return x;
+      EventsPervasives.Events().OnClick(x2,x1);
+      return x1;
      }
     },
     Snippet9:{
@@ -794,10 +977,14 @@
      }),
      main:function()
      {
-      var elt,canvas,ctx;
-      elt=HTML5.Tags().NewTag("canvas",List.ofArray([Default.Text("The canvas element isn't supported by your browser.")]));
-      elt["HtmlProvider@32"].SetStyle(elt.Body,"border: 1px solid;");
-      canvas=elt.Body;
+      var x,_this,elt,objectArg,arg00,canvas,ctx;
+      x=List.ofArray([Tags.Tags().text("The canvas element isn't supported by your browser.")]);
+      _this=Tags.Tags();
+      elt=_this.NewTag("canvas",x);
+      objectArg=elt["HtmlProvider@33"];
+      arg00=elt.get_Body();
+      objectArg.SetStyle(arg00,"border: 1px solid;");
+      canvas=elt.Dom;
       canvas.height=400;
       canvas.width=600;
       ctx=canvas.getContext("2d");
@@ -826,19 +1013,34 @@
       },
       main:function()
       {
-       var x;
-       x=Operators.add(Default.Div(List.ofArray([Default.Attr().NewAttr("id","jquery-slider-container")])),List.ofArray([Operators.add(Default.Div(List.ofArray([Default.Attr().NewAttr("id","jquery-slider")])),Seq.toList(Seq.delay(function()
+       var x,x1,_this,_this1,x2,_this2,_this3,x5,_this6,_this7,x6,_this8,_this9;
+       _this=Attr.Attr();
+       x1=List.ofArray([_this.NewAttr("id","jquery-slider-container")]);
+       _this1=Tags.Tags();
+       _this2=Attr.Attr();
+       x2=List.ofArray([_this2.NewAttr("id","jquery-slider")]);
+       _this3=Tags.Tags();
+       _this6=Attr.Attr();
+       x5=List.ofArray([_this6.NewAttr("id","prev-slide"),Tags.Tags().text("Prev")]);
+       _this7=Tags.Tags();
+       _this8=Attr.Attr();
+       x6=List.ofArray([_this8.NewAttr("id","next-slide"),Tags.Tags().text("Next")]);
+       _this9=Tags.Tags();
+       x=Operators.add(_this1.NewTag("div",x1),List.ofArray([Operators.add(_this3.NewTag("div",x2),Seq.toList(Seq.delay(function()
        {
-        return Seq.map(function(x1)
+        return Seq.map(function(x3)
         {
-         var arg10;
-         arg10=Js.baseUrl()+Global.String(x1);
-         return Default.Img(List.ofArray([Default.Attr().NewAttr("src",arg10)]));
+         var x4,arg00,_this4,_this5;
+         arg00=Js.baseUrl()+Global.String(x3);
+         _this4=Attr.Attr();
+         x4=List.ofArray([_this4.NewAttr("src",arg00)]);
+         _this5=Tags.Tags();
+         return _this5.NewTag("img",x4);
         },Operators1.range(1,5));
-       }))),Default.A(List.ofArray([Default.Attr().NewAttr("id","prev-slide"),Default.Text("Prev")])),Default.A(List.ofArray([Default.Attr().NewAttr("id","next-slide"),Default.Text("Next")]))]));
+       }))),_this7.NewTag("a",x5),_this9.NewTag("a",x6)]));
        Operators.OnAfterRender(function()
        {
-        var slider,direction,f,timer;
+        var slider,direction,f,value,timer,handlerOut;
         slider=jQuery("#jquery-slider");
         direction={
          $:1
@@ -847,17 +1049,25 @@
         {
          return Js.scroll(slider,direction,_arg20_);
         };
+        value=setInterval(f,2000);
         timer={
-         contents:setInterval(f,2000)
+         contents:value
         };
         slider.children().first().show();
-        jQuery("#jquery-slider, #prev-slide, #next-slide").hover(function()
+        handlerOut=function()
         {
-         return clearInterval(timer.contents);
-        },function()
+         return function()
+         {
+          timer.contents=setInterval(f,2000);
+         };
+        };
+        jQuery("#jquery-slider, #prev-slide, #next-slide").hover(Runtime.CreateFuncWithThis(function()
         {
-         timer.contents=setInterval(f,2000);
-        });
+         return function()
+         {
+          return clearInterval(timer.contents);
+         };
+        }),Runtime.CreateFuncWithThis(handlerOut));
         return jQuery("#prev-slide, #next-slide").click(function(event)
         {
          var linkId;
@@ -897,9 +1107,15 @@
      JS:{
       addTabBtn:function(tabs)
       {
-       var x,arg00;
-       x=Operators.add(Default.Button(List.ofArray([Default.Attr().Class("btn btn-success"),Default.Attr().NewAttr("style","margin-right: 8px;")])),List.ofArray([Default.Text("Add")]));
-       arg00=function()
+       var x,_this,_this1,_this2,el,inner,x1,x2;
+       _this=Attr.Attr();
+       _this1=Attr.Attr();
+       x=List.ofArray([_this.NewAttr("class","btn btn-success"),_this1.NewAttr("style","margin-right: 8px;")]);
+       _this2=Tags.Tags();
+       el=_this2.NewTag("button",x);
+       inner=Tags.Tags().text("Add");
+       x1=Operators.add(el,List.ofArray([inner]));
+       x2=function()
        {
         return function()
         {
@@ -908,23 +1124,34 @@
          return tabs.Add1(patternInput[1],patternInput[0]);
         };
        };
-       EventsPervasives.Events().OnClick(arg00,x);
-       return x;
+       EventsPervasives.Events().OnClick(x2,x1);
+       return x1;
       },
       main:function()
       {
-       var tabs;
-       tabs=Tabs.New2(List.map(function(x)
+       var x,tabs,x2,x3,_this,_this1,_this2;
+       x=List.map(function(x1)
        {
-        return JS1.tab(x);
-       },Seq.toList(Operators1.range(1,3))));
-       return Default.Div(List.ofArray([tabs,Operators.add(Default.Div(List.ofArray([Default.Attr().NewAttr("style","margin-top: 8px;")])),List.ofArray([JS1.addTabBtn(tabs),JS1.removeTabBtn(tabs)]))]));
+        return JS1.tab(x1);
+       },Seq.toList(Operators1.range(1,3)));
+       tabs=Tabs.New2(x);
+       _this=Attr.Attr();
+       x3=List.ofArray([_this.NewAttr("style","margin-top: 8px;")]);
+       _this1=Tags.Tags();
+       x2=List.ofArray([tabs,Operators.add(_this1.NewTag("div",x3),List.ofArray([JS1.addTabBtn(tabs),JS1.removeTabBtn(tabs)]))]);
+       _this2=Tags.Tags();
+       return _this2.NewTag("div",x2);
       },
       removeTabBtn:function(tabs)
       {
-       var x,arg00;
-       x=Operators.add(Default.Button(List.ofArray([Default.Attr().Class("btn btn-danger")])),List.ofArray([Default.Text("Remove")]));
-       arg00=function()
+       var x,_this,_this1,el,inner,x1,x2;
+       _this=Attr.Attr();
+       x=List.ofArray([_this.NewAttr("class","btn btn-danger")]);
+       _this1=Tags.Tags();
+       el=_this1.NewTag("button",x);
+       inner=Tags.Tags().text("Remove");
+       x1=Operators.add(el,List.ofArray([inner]));
+       x2=function()
        {
         return function()
         {
@@ -939,14 +1166,17 @@
          }
         };
        };
-       EventsPervasives.Events().OnClick(arg00,x);
-       return x;
+       EventsPervasives.Events().OnClick(x2,x1);
+       return x1;
       },
       tab:function(x)
       {
-       var xStr;
+       var xStr,x1,x2,_this;
        xStr=Global.String(x);
-       return["Header "+xStr,Default.Div(List.ofArray([Default.Text("Tab "+xStr+" content")]))];
+       x2="Tab "+xStr+" content";
+       x1=List.ofArray([Tags.Tags().text(x2)]);
+       _this=Tags.Tags();
+       return["Header "+xStr,_this.NewTag("div",x1)];
       }
      }
     },
@@ -964,7 +1194,10 @@
      Control:Runtime.Class({
       get_Body:function()
       {
-       return Default.H2(List.ofArray([Default.Text("Hello World!")]));
+       var x,_this;
+       x=List.ofArray([Tags.Tags().text("Hello World!")]);
+       _this=Tags.Tags();
+       return _this.NewTag("h2",x);
       }
      })
     },
@@ -972,36 +1205,58 @@
      Client:{
       inputElt:function()
       {
-       return Default.Input(List.ofArray([Default.Attr().Class("form-control"),Default.Attr().NewAttr("type","text"),Default.Attr().NewAttr("value","Hello console!"),HTML5.Attr().NewAttr("autofocus","autofocus")]));
+       var x,_this,_this1,_this2,_this3,_this4;
+       _this=Attr.Attr();
+       _this1=Attr.Attr();
+       _this2=Attr.Attr();
+       _this3=Attr.Attr();
+       x=List.ofArray([_this.NewAttr("class","form-control"),_this1.NewAttr("type","text"),_this2.NewAttr("value","Hello console!"),_this3.NewAttr("autofocus","autofocus")]);
+       _this4=Tags.Tags();
+       return _this4.NewTag("input",x);
       },
       logBtn:function(elt)
       {
-       var x,arg00;
-       x=Operators.add(Default.Button(List.ofArray([Default.Attr().Class("btn btn-primary"),Default.Attr().NewAttr("type","button")])),List.ofArray([Default.Text("Log")]));
-       arg00=function()
+       var x,_this,_this1,_this2,el,inner,x1,x2;
+       _this=Attr.Attr();
+       _this1=Attr.Attr();
+       x=List.ofArray([_this.NewAttr("class","btn btn-primary"),_this1.NewAttr("type","button")]);
+       _this2=Tags.Tags();
+       el=_this2.NewTag("button",x);
+       inner=Tags.Tags().text("Log");
+       x1=Operators.add(el,List.ofArray([inner]));
+       x2=function()
        {
         return function()
         {
-         return JavaScript.Log(elt.get_Value());
+         var a;
+         a=elt.get_Value();
+         return console?console.log(a):undefined;
         };
        };
-       EventsPervasives.Events().OnClick(arg00,x);
-       return x;
+       EventsPervasives.Events().OnClick(x2,x1);
+       return x1;
       },
       main:function()
       {
-       var input,arg10,arg101,arg102;
-       input=Clientb.inputElt(null);
-       arg10=List.ofArray([Default.Text("Log messages to the console")]);
-       arg101=List.ofArray([Default.Attr().Class("form-group")]);
-       arg102=List.ofArray([Default.Text("Message")]);
-       return Operators.add(Default.Div(List.ofArray([Default.Attr().NewAttr("id","console-log")])),List.ofArray([Default.Tags().NewTag("legend",arg10),Operators.add(Default.Tags().NewTag("fieldset",arg101),List.ofArray([Default.Tags().NewTag("label",arg102),input])),Clientb.logBtn(input)]));
+       var input,x,_this,_this1,x1,_this2,x2,_this3,_this4,x3,_this5;
+       input=Clientc.inputElt(null);
+       _this=Attr.Attr();
+       x=List.ofArray([_this.NewAttr("id","console-log")]);
+       _this1=Tags.Tags();
+       x1=List.ofArray([Tags.Tags().text("Log messages to the console")]);
+       _this2=Tags.Tags();
+       _this3=Attr.Attr();
+       x2=List.ofArray([_this3.NewAttr("class","form-group")]);
+       _this4=Tags.Tags();
+       x3=List.ofArray([Tags.Tags().text("Message")]);
+       _this5=Tags.Tags();
+       return Operators.add(_this1.NewTag("div",x),List.ofArray([_this2.NewTag("legend",x1),Operators.add(_this4.NewTag("fieldset",x2),List.ofArray([_this5.NewTag("label",x3),input])),Clientc.logBtn(input)]));
       }
      },
      Control:Runtime.Class({
       get_Body:function()
       {
-       return Clientb.main();
+       return Clientc.main();
       }
      })
     },
@@ -1019,70 +1274,58 @@
       },
       factRec:function(n)
       {
-       return n<2?1:n*Clientc.factRec(n-1);
+       return n<2?1:n*Clientd.factRec(n-1);
       },
       main:function()
       {
-       var input,recSpan,foldSpan,x,arg00,button;
-       input=Default.Input(List.ofArray([Default.Attr().NewAttr("type","text"),HTML5.Attr().NewAttr("autofocus","autofocus"),Default.Attr().Class("form-control"),Default.Attr().NewAttr("id","factorial")]));
-       recSpan=Default.Span(Runtime.New(T,{
+       var x,_this,_this1,_this2,_this3,_this4,input,x1,_this5,recSpan,x2,_this6,foldSpan,x3,_this7,_this8,_this9,x4,x5,button,x6,x7,_thisa,_thisb,x8,_thisc,_thisd,x9,_thise,_thisf;
+       _this=Attr.Attr();
+       _this1=Attr.Attr();
+       _this2=Attr.Attr();
+       _this3=Attr.Attr();
+       x=List.ofArray([_this.NewAttr("type","text"),_this1.NewAttr("autofocus","autofocus"),_this2.NewAttr("class","form-control"),_this3.NewAttr("id","factorial")]);
+       _this4=Tags.Tags();
+       input=_this4.NewTag("input",x);
+       x1=Runtime.New(T,{
         $:0
-       }));
-       foldSpan=Default.Span(Runtime.New(T,{
+       });
+       _this5=Tags.Tags();
+       recSpan=_this5.NewTag("span",x1);
+       x2=Runtime.New(T,{
         $:0
-       }));
-       x=Default.Button(List.ofArray([Default.Text("Factorial"),Default.Attr().Class("btn btn-primary"),Default.Attr().NewAttr("style","margin-left: 8px;")]));
-       arg00=function()
+       });
+       _this6=Tags.Tags();
+       foldSpan=_this6.NewTag("span",x2);
+       _this7=Attr.Attr();
+       _this8=Attr.Attr();
+       x3=List.ofArray([Tags.Tags().text("Factorial"),_this7.NewAttr("class","btn btn-primary"),_this8.NewAttr("style","margin-left: 8px;")]);
+       _this9=Tags.Tags();
+       x4=_this9.NewTag("button",x3);
+       x5=function()
        {
         return function()
         {
          var v;
          v=input.get_Value()<<0;
-         recSpan.set_Text("Recursion: "+Global.String(Clientc.factRec(v)));
-         return foldSpan.set_Text("Array.fold: "+Global.String(Clientc.factFold(v)));
+         recSpan.set_Text("Recursion: "+Global.String(Clientd.factRec(v)));
+         return foldSpan.set_Text("Array.fold: "+Global.String(Clientd.factFold(v)));
         };
        };
-       EventsPervasives.Events().OnClick(arg00,x);
-       button=x;
-       return Default.Div(List.ofArray([Operators.add(Default.Div(List.ofArray([Default.Attr().Class("form-inline")])),List.ofArray([input,button])),Operators.add(Default.Div(List.ofArray([Default.Attr().NewAttr("style","margin-top: 8px;")])),List.ofArray([recSpan,Default.Br(Runtime.New(T,{
+       EventsPervasives.Events().OnClick(x5,x4);
+       button=x4;
+       _thisa=Attr.Attr();
+       x7=List.ofArray([_thisa.NewAttr("class","form-inline")]);
+       _thisb=Tags.Tags();
+       _thisc=Attr.Attr();
+       x8=List.ofArray([_thisc.NewAttr("style","margin-top: 8px;")]);
+       _thisd=Tags.Tags();
+       x9=Runtime.New(T,{
         $:0
-       })),foldSpan]))]));
-      }
-     },
-     Control:Runtime.Class({
-      get_Body:function()
-      {
-       return Clientc.main();
-      }
-     })
-    },
-    Snippet4:{
-     Client:{
-      main:function()
-      {
-       return Operators.add(Operators.add(Default.Table(List.ofArray([Default.Attr().Class("table table-bordered table-striped"),Default.Attr().NewAttr("style","width: 900px;")])),List.ofArray([Operators.add(Default.TR(Runtime.New(T,{
-        $:0
-       })),List.map(function(txt)
-       {
-        return Clientd.th(txt);
-       },List.ofArray(["Level","Core","CSS","Events","HTML","Selectors-API"])))])),List.map(function(level)
-       {
-        return Clientd.tr(level);
-       },List.ofArray(["1.0","2.0","3.0"])));
-      },
-      th:function(txt)
-      {
-       return Default.TH(List.ofArray([Default.Text(txt)]));
-      },
-      tr:function(level)
-      {
-       var implementation,tds;
-       implementation=document.implementation;
-       tds=List.map(function(feature)
-       {
-        return Default.TD(List.ofArray([Default.Text(Global.String(implementation.hasFeature(feature,level)))]));
-       },List.ofArray(["Core","CSS","Events","HTML","Selectors-API"]));
-       return Operators.add(Default.TR(List.ofArray([Clientd.th(level)])),tds);
+       });
+       _thise=Tags.Tags();
+       x6=List.ofArray([Operators.add(_thisb.NewTag("div",x7),List.ofArray([input,button])),Operators.add(_thisd.NewTag("div",x8),List.ofArray([recSpan,_thise.NewTag("br",x9),foldSpan]))]);
+       _thisf=Tags.Tags();
+       return _thisf.NewTag("div",x6);
       }
      },
      Control:Runtime.Class({
@@ -1092,25 +1335,81 @@
       }
      })
     },
+    Snippet4:{
+     Client:{
+      main:function()
+      {
+       var x,_this,_this1,_this2,x1,_this3;
+       _this=Attr.Attr();
+       _this1=Attr.Attr();
+       x=List.ofArray([_this.NewAttr("class","table table-bordered table-striped"),_this1.NewAttr("style","width: 900px;")]);
+       _this2=Tags.Tags();
+       x1=Runtime.New(T,{
+        $:0
+       });
+       _this3=Tags.Tags();
+       return Operators.add(Operators.add(_this2.NewTag("table",x),List.ofArray([Operators.add(_this3.NewTag("tr",x1),List.map(function(txt)
+       {
+        return Cliente.th(txt);
+       },List.ofArray(["Level","Core","CSS","Events","HTML","Selectors-API"])))])),List.map(function(level)
+       {
+        return Cliente.tr(level);
+       },List.ofArray(["1.0","2.0","3.0"])));
+      },
+      th:function(txt)
+      {
+       var x,_this;
+       x=List.ofArray([Tags.Tags().text(txt)]);
+       _this=Tags.Tags();
+       return _this.NewTag("th",x);
+      },
+      tr:function(level)
+      {
+       var implementation,tds,x2,_this1;
+       implementation=document.implementation;
+       tds=List.map(function(feature)
+       {
+        var x,x1,_this;
+        x1=Global.String(implementation.hasFeature(feature,level));
+        x=List.ofArray([Tags.Tags().text(x1)]);
+        _this=Tags.Tags();
+        return _this.NewTag("td",x);
+       },List.ofArray(["Core","CSS","Events","HTML","Selectors-API"]));
+       x2=List.ofArray([Cliente.th(level)]);
+       _this1=Tags.Tags();
+       return Operators.add(_this1.NewTag("tr",x2),tds);
+      }
+     },
+     Control:Runtime.Class({
+      get_Body:function()
+      {
+       return Cliente.main();
+      }
+     })
+    },
     Snippet5:{
      Client:{
       btn:function(caption,action)
       {
-       var x,arg00;
-       x=Default.Button(List.ofArray([Default.Attr().Class("btn"),Default.Attr().NewAttr("style","margin: 3px; width: 45px;"),Default.Text(caption)]));
-       arg00=function()
+       var x,_this,_this1,_this2,x1,x2;
+       _this=Attr.Attr();
+       _this1=Attr.Attr();
+       x=List.ofArray([_this.NewAttr("class","btn"),_this1.NewAttr("style","margin: 3px; width: 45px;"),Tags.Tags().text(caption)]);
+       _this2=Tags.Tags();
+       x1=_this2.NewTag("button",x);
+       x2=function()
        {
         return function()
         {
          return action(null);
         };
        };
-       EventsPervasives.Events().OnClick(arg00,x);
-       return x;
+       EventsPervasives.Events().OnClick(x2,x1);
+       return x1;
       },
       main:function()
       {
-       var patternInput,op,oldNum,num,display,updateDisplay,c,ac,n,e,o,digit;
+       var patternInput,op,oldNum,num,x,_this,_this1,_this2,_this3,_this4,display,updateDisplay,c,ac,n,e,o,digit,x1,x2,_this5,x3,x5,_this6,x6,_this7,x7,_this8,x8,_this9,_thisa,_thisb;
        patternInput=[{
         contents:0
        },{
@@ -1123,7 +1422,13 @@
        op=patternInput[2];
        oldNum=patternInput[0];
        num=patternInput[1];
-       display=Default.Input(List.ofArray([Default.Attr().NewAttr("type","text"),Default.Attr().NewAttr("value","0"),Default.Attr().Class("form-control"),Default.Attr().NewAttr("id","display")]));
+       _this=Attr.Attr();
+       _this1=Attr.Attr();
+       _this2=Attr.Attr();
+       _this3=Attr.Attr();
+       x=List.ofArray([_this.NewAttr("type","text"),_this1.NewAttr("value","0"),_this2.NewAttr("class","form-control"),_this3.NewAttr("id","display")]);
+       _this4=Tags.Tags();
+       display=_this4.NewTag("input",x);
        updateDisplay=function()
        {
         return display.set_Value(Global.String(num.contents));
@@ -1186,53 +1491,67 @@
        };
        digit=function(n1)
        {
-        return Cliente.btn(Global.String(n1),function()
+        return Clientf.btn(Global.String(n1),function()
         {
          num.contents=10*num.contents+n1;
          return updateDisplay(null);
         });
        };
-       return Default.Div(List.ofArray([display,Default.Br(Runtime.New(T,{
+       x2=Runtime.New(T,{
         $:0
-       })),Default.Div(List.ofArray([digit(7),digit(8),digit(9),Cliente.btn("/",o(function(x)
+       });
+       _this5=Tags.Tags();
+       x5=Runtime.New(T,{
+        $:0
+       });
+       _this6=Tags.Tags();
+       x6=Runtime.New(T,{
+        $:0
+       });
+       _this7=Tags.Tags();
+       x7=Runtime.New(T,{
+        $:0
+       });
+       _this8=Tags.Tags();
+       x8=Runtime.New(T,{
+        $:0
+       });
+       _this9=Tags.Tags();
+       x3=List.ofArray([digit(7),digit(8),digit(9),Clientf.btn("/",o(function(x4)
        {
         return function(y)
         {
-         return x/y>>0;
+         return x4/y>>0;
         };
-       })),Default.Br(Runtime.New(T,{
-        $:0
-       })),digit(4),digit(5),digit(6),Cliente.btn("*",o(function(x)
+       })),_this6.NewTag("br",x5),digit(4),digit(5),digit(6),Clientf.btn("*",o(function(x4)
        {
         return function(y)
         {
-         return x*y;
+         return x4*y;
         };
-       })),Default.Br(Runtime.New(T,{
-        $:0
-       })),digit(1),digit(2),digit(3),Cliente.btn("-",o(function(x)
+       })),_this7.NewTag("br",x6),digit(1),digit(2),digit(3),Clientf.btn("-",o(function(x4)
        {
         return function(y)
         {
-         return x-y;
+         return x4-y;
         };
-       })),Default.Br(Runtime.New(T,{
-        $:0
-       })),digit(0),Cliente.btn("C",c),Cliente.btn("AC",ac),Cliente.btn("+",o(function(x)
+       })),_this8.NewTag("br",x7),digit(0),Clientf.btn("C",c),Clientf.btn("AC",ac),Clientf.btn("+",o(function(x4)
        {
         return function(y)
         {
-         return x+y;
+         return x4+y;
         };
-       })),Default.Br(Runtime.New(T,{
-        $:0
-       })),Cliente.btn("+/-",n),Cliente.btn("=",e)]))]));
+       })),_this9.NewTag("br",x8),Clientf.btn("+/-",n),Clientf.btn("=",e)]);
+       _thisa=Tags.Tags();
+       x1=List.ofArray([display,_this5.NewTag("br",x2),_thisa.NewTag("div",x3)]);
+       _thisb=Tags.Tags();
+       return _thisb.NewTag("div",x1);
       }
      },
      Control:Runtime.Class({
       get_Body:function()
       {
-       return Cliente.main();
+       return Clientf.main();
       }
      })
     },
@@ -1240,11 +1559,26 @@
      Client:{
       accordionGroup:function(num)
       {
-       var accordionBody,jq,x,arg00;
-       accordionBody=Operators.add(Default.Div(List.ofArray([Default.Attr().NewAttr("style","display: none;")])),List.ofArray([Default.Div(List.ofArray([Default.Text(Clientf.loremIpsum())]))]));
-       jq=jQuery(accordionBody.Body);
-       x=Operators.add(Default.Div(List.ofArray([Default.Attr().Class("btn-link"),Default.Attr().NewAttr("style","font-weight: bold;")])),List.ofArray([Default.Text("Collapsible Group "+Global.String(num))]));
-       arg00=function()
+       var accordionBody,x,_this,_this1,x1,x2,_this2,jq,x3,_this3,x4,_this4,x5,x6,x7,_this5,_this6,_this7,x8,x9,_this8;
+       _this=Attr.Attr();
+       x=List.ofArray([_this.NewAttr("style","display: none;")]);
+       _this1=Tags.Tags();
+       x2=Client10.loremIpsum();
+       x1=List.ofArray([Tags.Tags().text(x2)]);
+       _this2=Tags.Tags();
+       accordionBody=Operators.add(_this1.NewTag("div",x),List.ofArray([_this2.NewTag("div",x1)]));
+       jq=jQuery(accordionBody.Dom);
+       _this3=Attr.Attr();
+       x4=Client10.style();
+       x3=List.ofArray([_this3.NewAttr("style",x4)]);
+       _this4=Tags.Tags();
+       _this5=Attr.Attr();
+       _this6=Attr.Attr();
+       x7=List.ofArray([_this5.NewAttr("class","btn-link"),_this6.NewAttr("style","font-weight: bold;")]);
+       _this7=Tags.Tags();
+       x8="Collapsible Group "+Global.String(num);
+       x6=Operators.add(_this7.NewTag("div",x7),List.ofArray([Tags.Tags().text(x8)]));
+       x9=function()
        {
         return function()
         {
@@ -1255,8 +1589,10 @@
          });
         };
        };
-       EventsPervasives.Events().OnClick(arg00,x);
-       return Operators.add(Default.Div(List.ofArray([Default.Attr().NewAttr("style",Clientf.style())])),List.ofArray([Default.Div(List.ofArray([x])),accordionBody]));
+       EventsPervasives.Events().OnClick(x9,x6);
+       x5=List.ofArray([x6]);
+       _this8=Tags.Tags();
+       return Operators.add(_this4.NewTag("div",x3),List.ofArray([_this8.NewTag("div",x5),accordionBody]));
       },
       loremIpsum:Runtime.Field(function()
       {
@@ -1264,11 +1600,14 @@
       }),
       main:function()
       {
-       return Operators.add(Default.Div(Runtime.New(T,{
+       var x,_this;
+       x=Runtime.New(T,{
         $:0
-       })),List.map(function(num)
+       });
+       _this=Tags.Tags();
+       return Operators.add(_this.NewTag("div",x),List.map(function(num)
        {
-        return Clientf.accordionGroup(num);
+        return Client10.accordionGroup(num);
        },Seq.toList(Operators1.range(1,3))));
       },
       style:Runtime.Field(function()
@@ -1279,7 +1618,7 @@
      Control:Runtime.Class({
       get_Body:function()
       {
-       return Clientf.main();
+       return Client10.main();
       }
      })
     },
@@ -1287,34 +1626,57 @@
      Client:{
       main:function()
       {
-       var output,input,x,arg00;
-       output=Default.Div(List.ofArray([Default.Attr().NewAttr("style","margin-top: 8px;")]));
-       input=Default.Input(List.ofArray([Default.Attr().NewAttr("type","text"),HTML5.Attr().NewAttr("autofocus","autofocus"),Default.Attr().Class("form-control"),Default.Attr().NewAttr("id","display")]));
-       x=Default.Button(List.ofArray([Default.Text("MD5"),Default.Attr().Class("btn btn-primary"),Default.Attr().NewAttr("style","margin-left: 8px;")]));
-       arg00=function()
+       var x,_this,_this1,output,x1,_this2,_this3,_this4,_this5,_this6,input,x2,_this7,_this8,x3,_this9,_thisa,_thisb,x4,x5;
+       _this=Attr.Attr();
+       x=List.ofArray([_this.NewAttr("style","margin-top: 8px;")]);
+       _this1=Tags.Tags();
+       output=_this1.NewTag("div",x);
+       _this2=Attr.Attr();
+       _this3=Attr.Attr();
+       _this4=Attr.Attr();
+       _this5=Attr.Attr();
+       x1=List.ofArray([_this2.NewAttr("type","text"),_this3.NewAttr("autofocus","autofocus"),_this4.NewAttr("class","form-control"),_this5.NewAttr("id","display")]);
+       _this6=Tags.Tags();
+       input=_this6.NewTag("input",x1);
+       _this7=Attr.Attr();
+       x2=List.ofArray([_this7.NewAttr("class","form-inline")]);
+       _this8=Tags.Tags();
+       _this9=Attr.Attr();
+       _thisa=Attr.Attr();
+       x3=List.ofArray([Tags.Tags().text("MD5"),_this9.NewAttr("class","btn btn-primary"),_thisa.NewAttr("style","margin-left: 8px;")]);
+       _thisb=Tags.Tags();
+       x4=_thisb.NewTag("button",x3);
+       x5=function()
        {
         return function()
         {
-         return Concurrency.Start(Concurrency.Delay(function()
+         var f,arg00,t;
+         f=function()
          {
-          return Concurrency.Bind(Remoting.Async("Sitelet:0",[input.get_Value()]),function(_arg11)
+          var x6,f1;
+          x6=AjaxRemotingProvider.Async("Sitelet:0",[input.get_Value()]);
+          f1=function(_arg11)
           {
            output.set_Text(_arg11);
            return Concurrency.Return(null);
-          });
-         }),{
+          };
+          return Concurrency.Bind(x6,f1);
+         };
+         arg00=Concurrency.Delay(f);
+         t={
           $:0
-         });
+         };
+         return Concurrency.Start(arg00,t);
         };
        };
-       EventsPervasives.Events().OnClick(arg00,x);
-       return Operators.add(Default.Div(List.ofArray([Default.Attr().Class("form-inline")])),List.ofArray([input,x,output]));
+       EventsPervasives.Events().OnClick(x5,x4);
+       return Operators.add(_this8.NewTag("div",x2),List.ofArray([input,x4,output]));
       }
      },
      Control:Runtime.Class({
       get_Body:function()
       {
-       return Client10.main();
+       return Client11.main();
       }
      })
     },
@@ -1328,7 +1690,7 @@
      JS:{
       handleDragStart:function(idRef,elt)
       {
-       return elt.Body.addEventListener("dragstart",function()
+       return elt.Dom.addEventListener("dragstart",function()
        {
         idRef.contents=elt.get_Id();
        },false);
@@ -1336,18 +1698,28 @@
       handleDragging:function(elt,idRef)
       {
        var dom;
-       dom=elt.Body;
+       dom=elt.Dom;
        dom.addEventListener("dragenter",function(e)
        {
+        var objectArg,arg00,objectArg1,arg001;
         e.preventDefault();
-        elt["HtmlProvider@32"].SetCss(elt.Body,"background-color","lightgray");
-        return elt["HtmlProvider@32"].SetCss(elt.Body,"border","dotted");
+        objectArg=elt["HtmlProvider@33"];
+        arg00=elt.get_Body();
+        objectArg.SetCss(arg00,"background-color","lightgray");
+        objectArg1=elt["HtmlProvider@33"];
+        arg001=elt.get_Body();
+        return objectArg1.SetCss(arg001,"border","dotted");
        },false);
        dom.addEventListener("dragleave",function(e)
        {
+        var objectArg,arg00,objectArg1,arg001;
         e.preventDefault();
-        elt["HtmlProvider@32"].SetCss(elt.Body,"background-color","white");
-        return elt["HtmlProvider@32"].SetCss(elt.Body,"border","solid");
+        objectArg=elt["HtmlProvider@33"];
+        arg00=elt.get_Body();
+        objectArg.SetCss(arg00,"background-color","white");
+        objectArg1=elt["HtmlProvider@33"];
+        arg001=elt.get_Body();
+        return objectArg1.SetCss(arg001,"border","solid");
        },false);
        dom.addEventListener("dragover",function(e)
        {
@@ -1355,29 +1727,44 @@
        },false);
        return dom.addEventListener("drop",function(e)
        {
-        var nodeClone;
+        var nodeClone,objectArg,arg00,objectArg1,arg001;
         e.preventDefault();
         nodeClone=document.getElementById(idRef.contents).cloneNode(false);
         elt.set_Html("");
         elt.AppendN(nodeClone);
-        elt["HtmlProvider@32"].SetCss(elt.Body,"background-color","white");
-        return elt["HtmlProvider@32"].SetCss(elt.Body,"border","black solid");
+        objectArg=elt["HtmlProvider@33"];
+        arg00=elt.get_Body();
+        objectArg.SetCss(arg00,"background-color","white");
+        objectArg1=elt["HtmlProvider@33"];
+        arg001=elt.get_Body();
+        return objectArg1.SetCss(arg001,"border","black solid");
        },false);
       },
       img:function(x)
       {
-       var arg10,arg101;
-       arg10="cat-"+x;
-       arg101="/Images/cat"+x+".jpg";
-       return Default.Img(List.ofArray([Default.Attr().Class("cat-img"),Default.Attr().NewAttr("id",arg10),Default.Attr().NewAttr("src",arg101),HTML5.Attr().NewAttr("draggable","true")]));
+       var x1,_this,arg00,_this1,arg001,_this2,_this3,_this4;
+       _this=Attr.Attr();
+       arg00="cat-"+x;
+       _this1=Attr.Attr();
+       arg001="/Images/cat"+x+".jpg";
+       _this2=Attr.Attr();
+       _this3=Attr.Attr();
+       x1=List.ofArray([_this.NewAttr("class","cat-img"),_this1.NewAttr("id",arg00),_this2.NewAttr("src",arg001),_this3.NewAttr("draggable","true")]);
+       _this4=Tags.Tags();
+       return _this4.NewTag("img",x1);
       },
       imgDiv:function(img)
       {
-       return Operators.add(Default.Div(List.ofArray([Default.Attr().Class("col-lg-3 cat-img-div"),Default.Attr().NewAttr("style","width: auto;")])),List.ofArray([img]));
+       var x,_this,_this1,_this2;
+       _this=Attr.Attr();
+       _this1=Attr.Attr();
+       x=List.ofArray([_this.NewAttr("class","col-lg-3 cat-img-div"),_this1.NewAttr("style","width: auto;")]);
+       _this2=Tags.Tags();
+       return Operators.add(_this2.NewTag("div",x),List.ofArray([img]));
       },
       main:function()
       {
-       var patternInput,img3,img2,img1,idRef,src,target;
+       var patternInput,img3,img2,img1,idRef,src,x,_this,_this1,_this2,target,x1,_this3,_this4,x2,_this5,_this6,_this7,el,inner,f,l,x3,_this8;
        patternInput=[{
         contents:""
        },JS2.img("1"),JS2.img("2"),JS2.img("3")];
@@ -1385,14 +1772,31 @@
        img2=patternInput[2];
        img1=patternInput[1];
        idRef=patternInput[0];
-       src=Operators.add(Default.Div(List.ofArray([Default.Attr().Class("row"),Default.Attr().NewAttr("id","src")])),List.ofArray([JS2.imgDiv(img1),JS2.imgDiv(img2),JS2.imgDiv(img3)]));
-       target=Operators.add(Default.Div(List.ofArray([Default.Attr().NewAttr("id","target")])),List.ofArray([Operators.add(Default.P(List.ofArray([Default.Attr().Class("text-center"),Default.Attr().NewAttr("id","target-text")])),List.ofArray([Default.Text("Drop image here")]))]));
-       Seq.iter(function(elt)
+       _this=Attr.Attr();
+       _this1=Attr.Attr();
+       x=List.ofArray([_this.NewAttr("class","row"),_this1.NewAttr("id","src")]);
+       _this2=Tags.Tags();
+       src=Operators.add(_this2.NewTag("div",x),List.ofArray([JS2.imgDiv(img1),JS2.imgDiv(img2),JS2.imgDiv(img3)]));
+       _this3=Attr.Attr();
+       x1=List.ofArray([_this3.NewAttr("id","target")]);
+       _this4=Tags.Tags();
+       _this5=Attr.Attr();
+       _this6=Attr.Attr();
+       x2=List.ofArray([_this5.NewAttr("class","text-center"),_this6.NewAttr("id","target-text")]);
+       _this7=Tags.Tags();
+       el=_this7.NewTag("p",x2);
+       inner=Tags.Tags().text("Drop image here");
+       target=Operators.add(_this4.NewTag("div",x1),List.ofArray([Operators.add(el,List.ofArray([inner]))]));
+       f=function(elt)
        {
         return JS2.handleDragStart(idRef,elt);
-       },List.ofArray([img1,img2,img3]));
+       };
+       l=List.ofArray([img1,img2,img3]);
+       Seq.iter(f,l);
        JS2.handleDragging(target,idRef);
-       return Default.Div(List.ofArray([src,target]));
+       x3=List.ofArray([src,target]);
+       _this8=Tags.Tags();
+       return _this8.NewTag("div",x3);
       }
      }
     },
@@ -1406,49 +1810,69 @@
      JS:{
       clearBtn:function()
       {
-       return Operators.add(Default.Button(List.ofArray([Default.Attr().Class("btn btn-lg btn-warning"),Default.Attr().NewAttr("id","clear-btn"),Default.Attr().NewAttr("type","button")])),List.ofArray([Default.Text("Clear Timeout")]));
+       var x,_this,_this1,_this2,_this3,el,inner;
+       _this=Attr.Attr();
+       _this1=Attr.Attr();
+       _this2=Attr.Attr();
+       x=List.ofArray([_this.NewAttr("class","btn btn-lg btn-warning"),_this1.NewAttr("id","clear-btn"),_this2.NewAttr("type","button")]);
+       _this3=Tags.Tags();
+       el=_this3.NewTag("button",x);
+       inner=Tags.Tags().text("Clear Timeout");
+       return Operators.add(el,List.ofArray([inner]));
       },
       clearTimeout:function(btn,handle)
       {
-       var arg00;
-       arg00=function(elt)
+       var x;
+       x=function(elt)
        {
         return function()
         {
-         elt["HtmlProvider@32"].Remove(elt.Body);
+         elt["HtmlProvider@33"].Remove(elt.get_Body());
          clearTimeout(handle);
          return document.getElementById("set-btn").removeAttribute("disabled");
         };
        };
-       EventsPervasives.Events().OnClick(arg00,btn);
+       EventsPervasives.Events().OnClick(x,btn);
        return;
       },
       main:function()
       {
-       var btnsDiv,x,arg00;
-       btnsDiv=Default.Div(Runtime.New(T,{
+       var x,_this,btnsDiv,x1,_this1,_this2,_this3,_this4,el,inner,x2,x3,setBtn;
+       x=Runtime.New(T,{
         $:0
-       }));
-       x=Operators.add(Default.Button(List.ofArray([Default.Attr().Class("btn btn-lg btn-primary"),Default.Attr().NewAttr("id","set-btn"),Default.Attr().NewAttr("type","button")])),List.ofArray([Default.Text("Set Timeout")]));
-       arg00=function(elt)
+       });
+       _this=Tags.Tags();
+       btnsDiv=_this.NewTag("div",x);
+       _this1=Attr.Attr();
+       _this2=Attr.Attr();
+       _this3=Attr.Attr();
+       x1=List.ofArray([_this1.NewAttr("class","btn btn-lg btn-primary"),_this2.NewAttr("id","set-btn"),_this3.NewAttr("type","button")]);
+       _this4=Tags.Tags();
+       el=_this4.NewTag("button",x1);
+       inner=Tags.Tags().text("Set Timeout");
+       x2=Operators.add(el,List.ofArray([inner]));
+       x3=function(elt)
        {
         return function()
         {
-         var btn;
-         elt["HtmlProvider@32"].SetAttribute(elt.Body,"disabled","disabled");
+         var objectArg,arg00,btn;
+         objectArg=elt["HtmlProvider@33"];
+         arg00=elt.get_Body();
+         objectArg.SetAttribute(arg00,"disabled","disabled");
          btn=JS3.clearBtn();
          JS3.clearTimeout(btn,JS3.timerHandle(btn));
          return btnsDiv.AppendI(btn);
         };
        };
-       EventsPervasives.Events().OnClick(arg00,x);
-       return Operators.add(btnsDiv,List.ofArray([x]));
+       EventsPervasives.Events().OnClick(x3,x2);
+       setBtn=x2;
+       return Operators.add(btnsDiv,List.ofArray([setBtn]));
       },
       timerHandle:function(btn)
       {
        return setTimeout(function()
        {
-        btn["HtmlProvider@32"].Remove(btn.Body);
+        btn["HtmlProvider@33"].Remove(btn.get_Body());
         document.getElementById("set-btn").removeAttribute("disabled");
         return alert("Timeout Expired");
        },3000);
@@ -1460,20 +1884,28 @@
     Client:{
      form:function(redirectUrl)
      {
-      return Piglet1.Render(function(name)
+      var x;
+      x=Client12.loginPiglet({
+       Username:"",
+       Password:""
+      });
+      return Piglet.Render(function(name)
       {
        return function(password)
        {
         return function(submit)
         {
-         return Client11.loginRender(name,password,submit);
+         return Client12.loginRender(name,password,submit);
         };
        };
-      },Piglet1.Run(function(loginInfo)
+      },Piglet.Run(function(loginInfo)
       {
-       return Concurrency.Start(Concurrency.Delay(function()
+       var f,arg00,t;
+       f=function()
        {
-        return Concurrency.Bind(Remoting.Async("Sitelet:2",[loginInfo]),function(_arg1)
+        var x1,f1;
+        x1=AjaxRemotingProvider.Async("Sitelet:2",[loginInfo]);
+        f1=function(_arg1)
         {
          if(_arg1.$==1)
           {
@@ -1485,18 +1917,19 @@
            alert("Login failed");
            return Concurrency.Return(null);
           }
-        });
-       }),{
+        };
+        return Concurrency.Bind(x1,f1);
+       };
+       arg00=Concurrency.Delay(f);
+       t={
         $:0
-       });
-      },Client11.loginPiglet({
-       Username:"",
-       Password:""
-      })));
+       };
+       return Concurrency.Start(arg00,t);
+      },x));
      },
      loginPiglet:function(init)
      {
-      return Piglet1.WithSubmit(Pervasives.op_LessMultiplyGreater(Pervasives.op_LessMultiplyGreater(Piglet1.Return(function(username)
+      return Piglet.WithSubmit(Pervasives.op_LessMultiplyGreater(Pervasives.op_LessMultiplyGreater(Piglet.Return(function(username)
       {
        return function(password)
        {
@@ -1508,42 +1941,62 @@
       }),Validation.Is(function(value)
       {
        return Validation.NotEmpty(value);
-      },"Please enter your username.",Piglet1.Yield(init.Username))),Validation.Is(function(value)
+      },"Please enter your username.",Piglet.Yield(init.Username))),Validation.Is(function(value)
       {
        return Validation.NotEmpty(value);
-      },"Please enter your password.",Piglet1.Yield(init.Password))));
+      },"Please enter your password.",Piglet.Yield(init.Password))));
      },
      loginRender:function(name,password,submit)
      {
-      var x1,arg00;
-      x1=Operators.add(Controls.input("text",function(x)
+      var x,_this,_this1,_this2,x1,_this3,_this4,_this5,_this6,_this7,_this8,_this9,x3,_thisa,_thisb,x4,_thisc,_thisd,_thise,x5,_thisf,_this10;
+      _this=Attr.Attr();
+      _this1=Attr.Attr();
+      x=List.ofArray([_this.NewAttr("class","well"),_this1.NewAttr("id","login-form")]);
+      _this2=Tags.Tags();
+      _this3=Attr.Attr();
+      x1=List.ofArray([_this3.NewAttr("class","form-group")]);
+      _this4=Tags.Tags();
+      _this5=Attr.Attr();
+      _this6=Attr.Attr();
+      _this7=Attr.Attr();
+      _this8=Attr.Attr();
+      _this9=Attr.Attr();
+      _thisa=Attr.Attr();
+      x3=List.ofArray([_thisa.NewAttr("class","form-group")]);
+      _thisb=Tags.Tags();
+      _thisc=Attr.Attr();
+      _thisd=Attr.Attr();
+      _thise=Attr.Attr();
+      x4=Operators.add(Controls.input("text",function(x2)
       {
-       return x;
-      },function(x)
+       return x2;
+      },function(x2)
       {
-       return x;
-      },password),List.ofArray([Default.Attr().Class("form-control"),Default.Attr().NewAttr("type","password"),HTML5.Attr().NewAttr("placeholder","Password")]));
-      arg00=function()
+       return x2;
+      },password),List.ofArray([_thisc.NewAttr("class","form-control"),_thisd.NewAttr("type","password"),_thise.NewAttr("placeholder","Password")]));
+      x5=function()
       {
        return function(keyCode)
        {
         return keyCode.KeyCode===13?jQuery("#submit-btn").click():null;
        };
       };
-      EventsPervasives.Events().OnKeyDown(arg00,x1);
-      return Operators.add(Default.Div(List.ofArray([Default.Attr().Class("well"),Default.Attr().NewAttr("id","login-form")])),List.ofArray([Operators.add(Default.Div(List.ofArray([Default.Attr().Class("form-group")])),List.ofArray([Operators.add(Controls.input("text",function(x)
+      EventsPervasives.Events().OnKeyDown(x5,x4);
+      _thisf=Attr.Attr();
+      _this10=Attr.Attr();
+      return Operators.add(_this2.NewTag("div",x),List.ofArray([Operators.add(_this4.NewTag("div",x1),List.ofArray([Operators.add(Controls.input("text",function(x2)
       {
-       return x;
-      },function(x)
+       return x2;
+      },function(x2)
       {
-       return x;
-      },name),List.ofArray([Default.Attr().Class("form-control"),Default.Attr().NewAttr("type","text"),HTML5.Attr().NewAttr("autofocus","autofocus"),HTML5.Attr().NewAttr("required","required"),HTML5.Attr().NewAttr("placeholder","Username")]))])),Operators.add(Default.Div(List.ofArray([Default.Attr().Class("form-group")])),List.ofArray([x1])),Operators.add(Controls.SubmitValidate(submit),List.ofArray([Default.Attr().Class("btn btn-primary"),Default.Attr().NewAttr("id","submit-btn")]))]));
+       return x2;
+      },name),List.ofArray([_this5.NewAttr("class","form-control"),_this6.NewAttr("type","text"),_this7.NewAttr("autofocus","autofocus"),_this8.NewAttr("required","required"),_this9.NewAttr("placeholder","Username")]))])),Operators.add(_thisb.NewTag("div",x3),List.ofArray([x4])),Operators.add(Controls.SubmitValidate(submit),List.ofArray([_thisf.NewAttr("class","btn btn-primary"),_this10.NewAttr("id","submit-btn")]))]));
      }
     },
     Control:Runtime.Class({
      get_Body:function()
      {
-      return Client11.form(this.redirectUrl);
+      return Client12.form(this.redirectUrl);
      }
     })
    },
@@ -1551,11 +2004,13 @@
     Client:{
      Button:function(writer)
      {
-      var x,arg00;
-      x=Default.Button(Runtime.New(T,{
+      var x,_this,x1,x2;
+      x=Runtime.New(T,{
        $:0
-      }));
-      arg00=function()
+      });
+      _this=Tags.Tags();
+      x1=_this.NewTag("button",x);
+      x2=function()
       {
        return function()
        {
@@ -1565,12 +2020,22 @@
         }));
        };
       };
-      EventsPervasives.Events().OnClick(arg00,x);
-      return x;
+      EventsPervasives.Events().OnClick(x2,x1);
+      return x1;
      },
      form:Runtime.Field(function()
      {
-      return Piglet1.Render(function(id)
+      var x;
+      x=Client13.snippetPiglet({
+       Id:"",
+       Title:"",
+       Url:"",
+       MetaDescription:"",
+       Description:"",
+       DescriptionHtml:"",
+       Tags:[""]
+      });
+      return Piglet.Render(function(id)
       {
        return function(title)
        {
@@ -1586,7 +2051,7 @@
             {
              return function(submit)
              {
-              return Client12.snippetView(id,title,url,metaDescription,description,descriptionHtml,tags,submit);
+              return Client13.snippetView(id,title,url,metaDescription,description,descriptionHtml,tags,submit);
              };
             };
            };
@@ -1594,31 +2059,30 @@
          };
         };
        };
-      },Piglet1.Run(function(snippet)
+      },Piglet.Run(function(snippet)
       {
-       return Concurrency.Start(Concurrency.Delay(function()
+       var f,arg00,t;
+       f=function()
        {
-        return Concurrency.Bind(Remoting.Async("Sitelet:3",[snippet]),function()
+        var x1,f1;
+        x1=AjaxRemotingProvider.Async("Sitelet:3",[snippet]);
+        f1=function()
         {
          alert("Done");
          return Concurrency.Return(null);
-        });
-       }),{
+        };
+        return Concurrency.Bind(x1,f1);
+       };
+       arg00=Concurrency.Delay(f);
+       t={
         $:0
-       });
-      },Client12.snippetPiglet({
-       Id:"",
-       Title:"",
-       Url:"",
-       MetaDescription:"",
-       Description:"",
-       DescriptionHtml:"",
-       Tags:[""]
-      })));
+       };
+       return Concurrency.Start(arg00,t);
+      },x));
      }),
      snippetPiglet:function(init)
      {
-      return Piglet1.WithSubmit(Pervasives.op_LessMultiplyGreater(Pervasives.op_LessMultiplyGreater(Pervasives.op_LessMultiplyGreater(Pervasives.op_LessMultiplyGreater(Pervasives.op_LessMultiplyGreater(Pervasives.op_LessMultiplyGreater(Pervasives.op_LessMultiplyGreater(Piglet1.Return(function(id)
+      return Piglet.WithSubmit(Pervasives.op_LessMultiplyGreater(Pervasives.op_LessMultiplyGreater(Pervasives.op_LessMultiplyGreater(Pervasives.op_LessMultiplyGreater(Pervasives.op_LessMultiplyGreater(Pervasives.op_LessMultiplyGreater(Pervasives.op_LessMultiplyGreater(Piglet.Return(function(id)
       {
        return function(title)
        {
@@ -1647,63 +2111,118 @@
          };
         };
        };
-      }),Piglet1.Yield(init.Id)),Piglet1.Yield(init.Title)),Piglet1.Yield(init.Url)),Piglet1.Yield(init.MetaDescription)),Piglet1.Yield(init.Description)),Piglet1.Yield(init.DescriptionHtml)),Piglet1.ManyInit(init.Tags,"",function(init1)
+      }),Piglet.Yield(init.Id)),Piglet.Yield(init.Title)),Piglet.Yield(init.Url)),Piglet.Yield(init.MetaDescription)),Piglet.Yield(init.Description)),Piglet.Yield(init.DescriptionHtml)),Piglet.ManyInit(init.Tags,"",function(init1)
       {
-       return Client12.tagPiglet(init1);
+       return Client13.tagPiglet(init1);
       })));
      },
      snippetView:function(id,title,url,metaDescription,description,descriptionHtml,tags,submit)
      {
-      return Operators.add(Default.Div(List.ofArray([Default.Attr().Class("well col-md-4")])),List.ofArray([Operators.add(Default.Div(List.ofArray([Default.Attr().Class("form-group")])),List.ofArray([Operators.add(Controls.input("text",function(x)
+      var x,_this,_this1,x1,_this2,_this3,_this4,_this5,_this6,_this7,x3,_this8,_this9,_thisa,_thisb,_thisc,x4,_thisd,_thise,_thisf,_this10,_this11,x5,_this12,_this13,_this14,_this15,_this16,x6,_this17,_this18,_this19,_this1a,_this1b,x7,_this1c,_this1d,_this1e,_this1f,_this20,x8,_this21,x9,_this22,_this23,_this24,_this25;
+      _this=Attr.Attr();
+      x=List.ofArray([_this.NewAttr("class","well col-md-4")]);
+      _this1=Tags.Tags();
+      _this2=Attr.Attr();
+      x1=List.ofArray([_this2.NewAttr("class","form-group")]);
+      _this3=Tags.Tags();
+      _this4=Attr.Attr();
+      _this5=Attr.Attr();
+      _this6=Attr.Attr();
+      _this7=Attr.Attr();
+      _this8=Attr.Attr();
+      x3=List.ofArray([_this8.NewAttr("class","form-group")]);
+      _this9=Tags.Tags();
+      _thisa=Attr.Attr();
+      _thisb=Attr.Attr();
+      _thisc=Attr.Attr();
+      _thisd=Attr.Attr();
+      x4=List.ofArray([_thisd.NewAttr("class","form-group")]);
+      _thise=Tags.Tags();
+      _thisf=Attr.Attr();
+      _this10=Attr.Attr();
+      _this11=Attr.Attr();
+      _this12=Attr.Attr();
+      x5=List.ofArray([_this12.NewAttr("class","form-group")]);
+      _this13=Tags.Tags();
+      _this14=Attr.Attr();
+      _this15=Attr.Attr();
+      _this16=Attr.Attr();
+      _this17=Attr.Attr();
+      x6=List.ofArray([_this17.NewAttr("class","form-group")]);
+      _this18=Tags.Tags();
+      _this19=Attr.Attr();
+      _this1a=Attr.Attr();
+      _this1b=Attr.Attr();
+      _this1c=Attr.Attr();
+      x7=List.ofArray([_this1c.NewAttr("class","form-group")]);
+      _this1d=Tags.Tags();
+      _this1e=Attr.Attr();
+      _this1f=Attr.Attr();
+      _this20=Attr.Attr();
+      x8=Runtime.New(T,{
+       $:0
+      });
+      _this21=Tags.Tags();
+      _this22=Attr.Attr();
+      _this23=Attr.Attr();
+      _this24=Attr.Attr();
+      x9=List.ofArray([Operators.add(Client13.Button(tags.get_Add()),List.ofArray([Tags.Tags().text("New Tag"),_this22.NewAttr("class","btn btn-default")])),Operators.add(Controls.SubmitValidate(submit),List.ofArray([_this23.NewAttr("class","btn btn-primary"),_this24.NewAttr("id","submit-btn")]))]);
+      _this25=Tags.Tags();
+      return Operators.add(_this1.NewTag("div",x),List.ofArray([Operators.add(_this3.NewTag("div",x1),List.ofArray([Operators.add(Controls.input("text",function(x2)
       {
-       return x;
-      },function(x)
+       return x2;
+      },function(x2)
       {
-       return x;
-      },id),List.ofArray([Default.Attr().Class("form-control"),Default.Attr().NewAttr("type","text"),HTML5.Attr().NewAttr("autofocus","autofocus"),HTML5.Attr().NewAttr("placeholder","Id")]))])),Operators.add(Default.Div(List.ofArray([Default.Attr().Class("form-group")])),List.ofArray([Operators.add(Controls.input("text",function(x)
+       return x2;
+      },id),List.ofArray([_this4.NewAttr("class","form-control"),_this5.NewAttr("type","text"),_this6.NewAttr("autofocus","autofocus"),_this7.NewAttr("placeholder","Id")]))])),Operators.add(_this9.NewTag("div",x3),List.ofArray([Operators.add(Controls.input("text",function(x2)
       {
-       return x;
-      },function(x)
+       return x2;
+      },function(x2)
       {
-       return x;
-      },title),List.ofArray([Default.Attr().Class("form-control"),Default.Attr().NewAttr("type","text"),HTML5.Attr().NewAttr("placeholder","Title")]))])),Operators.add(Default.Div(List.ofArray([Default.Attr().Class("form-group")])),List.ofArray([Operators.add(Controls.input("text",function(x)
+       return x2;
+      },title),List.ofArray([_thisa.NewAttr("class","form-control"),_thisb.NewAttr("type","text"),_thisc.NewAttr("placeholder","Title")]))])),Operators.add(_thise.NewTag("div",x4),List.ofArray([Operators.add(Controls.input("text",function(x2)
       {
-       return x;
-      },function(x)
+       return x2;
+      },function(x2)
       {
-       return x;
-      },url),List.ofArray([Default.Attr().Class("form-control"),Default.Attr().NewAttr("type","text"),HTML5.Attr().NewAttr("placeholder","Url")]))])),Operators.add(Default.Div(List.ofArray([Default.Attr().Class("form-group")])),List.ofArray([Operators.add(Controls.TextArea(metaDescription),List.ofArray([Default.Attr().Class("form-control"),Default.Attr().NewAttr("type","text"),HTML5.Attr().NewAttr("placeholder","Meta Description")]))])),Operators.add(Default.Div(List.ofArray([Default.Attr().Class("form-group")])),List.ofArray([Operators.add(Controls.TextArea(description),List.ofArray([Default.Attr().Class("form-control"),Default.Attr().NewAttr("type","text"),HTML5.Attr().NewAttr("placeholder","Description")]))])),Operators.add(Default.Div(List.ofArray([Default.Attr().Class("form-group")])),List.ofArray([Operators.add(Controls.TextArea(descriptionHtml),List.ofArray([Default.Attr().Class("form-control"),Default.Attr().NewAttr("type","text"),HTML5.Attr().NewAttr("placeholder","Description HTML")]))])),Controls.RenderMany(tags,function()
+       return x2;
+      },url),List.ofArray([_thisf.NewAttr("class","form-control"),_this10.NewAttr("type","text"),_this11.NewAttr("placeholder","Url")]))])),Operators.add(_this13.NewTag("div",x5),List.ofArray([Operators.add(Controls.TextArea(metaDescription),List.ofArray([_this14.NewAttr("class","form-control"),_this15.NewAttr("type","text"),_this16.NewAttr("placeholder","Meta Description")]))])),Operators.add(_this18.NewTag("div",x6),List.ofArray([Operators.add(Controls.TextArea(description),List.ofArray([_this19.NewAttr("class","form-control"),_this1a.NewAttr("type","text"),_this1b.NewAttr("placeholder","Description")]))])),Operators.add(_this1d.NewTag("div",x7),List.ofArray([Operators.add(Controls.TextArea(descriptionHtml),List.ofArray([_this1e.NewAttr("class","form-control"),_this1f.NewAttr("type","text"),_this20.NewAttr("placeholder","Description HTML")]))])),Controls.RenderMany(tags,function()
       {
        return function(tag)
        {
-        return Client12.tagView(tag);
+        return Client13.tagView(tag);
        };
-      },Default.Div(Runtime.New(T,{
-       $:0
-      }))),Default.Div(List.ofArray([Operators.add(Client12.Button(tags.get_Add()),List.ofArray([Default.Text("New Tag"),Default.Attr().Class("btn btn-default")])),Operators.add(Controls.SubmitValidate(submit),List.ofArray([Default.Attr().Class("btn btn-primary"),Default.Attr().NewAttr("id","submit-btn")]))]))]));
+      },_this21.NewTag("div",x8)),_this25.NewTag("div",x9)]));
      },
      tagPiglet:function(init)
      {
-      return Pervasives.op_LessMultiplyGreater(Piglet1.Return(function(x)
+      return Pervasives.op_LessMultiplyGreater(Piglet.Return(function(x)
       {
        return x;
-      }),Piglet1.Yield(init));
+      }),Piglet.Yield(init));
      },
      tagView:function(tag)
      {
-      return Operators.add(Default.Div(List.ofArray([Default.Attr().Class("form-group")])),List.ofArray([Operators.add(Controls.input("text",function(x)
+      var x,_this,_this1,_this2,_this3,_this4;
+      _this=Attr.Attr();
+      x=List.ofArray([_this.NewAttr("class","form-group")]);
+      _this1=Tags.Tags();
+      _this2=Attr.Attr();
+      _this3=Attr.Attr();
+      _this4=Attr.Attr();
+      return Operators.add(_this1.NewTag("div",x),List.ofArray([Operators.add(Controls.input("text",function(x1)
       {
-       return x;
-      },function(x)
+       return x1;
+      },function(x1)
       {
-       return x;
-      },tag),List.ofArray([Default.Attr().Class("form-control"),Default.Attr().NewAttr("type","text"),HTML5.Attr().NewAttr("placeholder","Tag")]))]));
+       return x1;
+      },tag),List.ofArray([_this2.NewAttr("class","form-control"),_this3.NewAttr("type","text"),_this4.NewAttr("placeholder","Tag")]))]));
      }
     },
     Control:Runtime.Class({
      get_Body:function()
      {
-      return Client12.form();
+      return Client13.form();
      }
     })
    },
@@ -1711,38 +2230,45 @@
     Client:{
      main:function()
      {
-      return Piglet1.Render(function(queryString)
+      return Piglet.Render(function(queryString)
       {
        return function(submit)
        {
-        return Client13.view(queryString,submit);
+        return Client14.view(queryString,submit);
        };
-      },Piglet1.Run(function(queryString)
+      },Piglet.Run(function(queryString)
       {
        return window.location.assign("/search/"+Global.encodeURIComponent(queryString)+"/1");
-      },Client13.queryPiglet("")));
+      },Client14.queryPiglet("")));
      },
      queryPiglet:function(init)
      {
-      return Piglet1.WithSubmit(Validation.Is(function(value)
+      return Piglet.WithSubmit(Validation.Is(function(value)
       {
        return Validation.NotEmpty(value);
-      },"Please enter a search query.",Pervasives.op_LessMultiplyGreater(Piglet1.Return(function(x)
+      },"Please enter a search query.",Pervasives.op_LessMultiplyGreater(Piglet.Return(function(x)
       {
        return x;
-      }),Piglet1.Yield(init))));
+      }),Piglet.Yield(init))));
      },
      view:function(queryString,submit)
      {
-      var x,arg00;
-      x=Operators.add(Controls.input("text",function(x1)
+      var x,_this,_this1,x1,_this2,_this3,_this4,_this5,x3,x4,_this6,_this7,_this8,_this9,_thisa,_thisb,arg00;
+      _this=Attr.Attr();
+      x=List.ofArray([_this.NewAttr("class","input-group input-group-lg col-md-6 col-md-offset-3")]);
+      _this1=Tags.Tags();
+      _this2=Attr.Attr();
+      _this3=Attr.Attr();
+      _this4=Attr.Attr();
+      _this5=Attr.Attr();
+      x1=Operators.add(Controls.input("text",function(x2)
       {
-       return x1;
-      },function(x1)
+       return x2;
+      },function(x2)
       {
-       return x1;
-      },queryString),List.ofArray([Default.Attr().Class("form-control"),Default.Attr().NewAttr("id","query"),Default.Attr().NewAttr("type","text"),HTML5.Attr().NewAttr("autofocus","autofocus")]));
-      arg00=function()
+       return x2;
+      },queryString),List.ofArray([_this2.NewAttr("class","form-control"),_this3.NewAttr("id","query"),_this4.NewAttr("type","text"),_this5.NewAttr("autofocus","autofocus")]));
+      x3=function()
       {
        return function(key)
        {
@@ -1757,14 +2283,22 @@
          }
        };
       };
-      EventsPervasives.Events().OnKeyUp(arg00,x);
-      return Operators.add(Default.Div(List.ofArray([Default.Attr().Class("input-group input-group-lg col-md-6 col-md-offset-3")])),List.ofArray([x,Operators.add(Default.Span(List.ofArray([Default.Attr().Class("input-group-btn")])),List.ofArray([Operators.add(Controls.SubmitValidate(submit),List.ofArray([Default.Attr().Class("btn btn-primary"),Default.Attr().NewAttr("id","search-btn"),Default.Attr().NewAttr("value","Search"),HTML5.Attr().NewAttr("data-"+"loading-text","Please wait...")]))]))]));
+      EventsPervasives.Events().OnKeyUp(x3,x1);
+      _this6=Attr.Attr();
+      x4=List.ofArray([_this6.NewAttr("class","input-group-btn")]);
+      _this7=Tags.Tags();
+      _this8=Attr.Attr();
+      _this9=Attr.Attr();
+      _thisa=Attr.Attr();
+      _thisb=Attr.Attr();
+      arg00="data-"+"loading-text";
+      return Operators.add(_this1.NewTag("div",x),List.ofArray([x1,Operators.add(_this7.NewTag("span",x4),List.ofArray([Operators.add(Controls.SubmitValidate(submit),List.ofArray([_this8.NewAttr("class","btn btn-primary"),_this9.NewAttr("id","search-btn"),_thisa.NewAttr("value","Search"),_thisb.NewAttr(arg00,"Please wait...")]))]))]));
      }
     },
     Control:Runtime.Class({
      get_Body:function()
      {
-      return Client13.main();
+      return Client14.main();
      }
     })
    },
@@ -1782,47 +2316,95 @@
       },
       li:function(tweet)
       {
-       var id,screenName,profileLink,replyLink,retweetLink,favoriteLink,p,arg10,arg101;
+       var id,screenName,profileLink,replyLink,retweetLink,favoriteLink,x,_this,p,x1,_this1,_this2,x2,x3,_this3,_this4,_this5,_this6,x4,x5,_this7,_this8,_this9,_thisa,x6,_thisb,x7,_thisc,x8,x9,_thisd,xa,_thise,_thisf,xb,_this10,_this11,_this12,_this13,xc,_this14,_this15,_this16,_this17,xd,_this18,_this19,_this1a,_this1b;
        id=tweet.id;
        screenName=tweet.screenName;
        profileLink="https://twitter.com/"+screenName;
        replyLink="https://twitter.com/intent/tweet?in_reply_to="+id;
        retweetLink="https://twitter.com/intent/retweet?tweet_id="+id;
        favoriteLink="https://twitter.com/intent/favorite?tweet_id="+id;
-       p=Default.P(Runtime.New(T,{
+       x=Runtime.New(T,{
         $:0
-       }));
+       });
+       _this=Tags.Tags();
+       p=_this.NewTag("p",x);
        p.set_Html(tweet.statusAsHtml);
-       arg10=List.ofArray([Default.Text(screenName)]);
-       arg101=List.ofArray([Default.Text(tweet.createdAt)]);
-       return Operators.add(Default.LI(List.ofArray([Default.Attr().Class("list-group-item")])),List.ofArray([Default.Div(List.ofArray([Operators.add(Default.A(List.ofArray([Default.HRef(profileLink),Default.Attr().Class("profile-link"),Default.Attr().NewAttr("target","_blank")])),List.ofArray([Default.Img(List.ofArray([Default.Src(tweet.avatar),Default.Alt(screenName),Default.Attr().Class("avatar")])),Default.Tags().NewTag("strong",arg10)])),Default.Br(Runtime.New(T,{
+       _this1=Attr.Attr();
+       x1=List.ofArray([_this1.NewAttr("class","list-group-item")]);
+       _this2=Tags.Tags();
+       _this3=Attr.Attr();
+       _this4=Attr.Attr();
+       _this5=Attr.Attr();
+       x3=List.ofArray([_this3.NewAttr("href",profileLink),_this4.NewAttr("class","profile-link"),_this5.NewAttr("target","_blank")]);
+       _this6=Tags.Tags();
+       x5=tweet.avatar;
+       _this7=Attr.Attr();
+       _this8=Attr.Attr();
+       _this9=Attr.Attr();
+       x4=List.ofArray([_this7.NewAttr("src",x5),_this8.NewAttr("alt",screenName),_this9.NewAttr("class","avatar")]);
+       _thisa=Tags.Tags();
+       x6=List.ofArray([Tags.Tags().text(screenName)]);
+       _thisb=Tags.Tags();
+       x7=Runtime.New(T,{
         $:0
-       })),Default.Tags().NewTag("small",arg101),p,Operators.add(Default.Div(List.ofArray([Default.Attr().Class("tweet-actions")])),List.ofArray([Operators.add(Default.A(List.ofArray([Default.HRef(replyLink),Default.Attr().Class("tweet-action"),Default.Attr().NewAttr("style","margin-right: 5px;")])),List.ofArray([Default.Text("Reply")])),Operators.add(Default.A(List.ofArray([Default.HRef(retweetLink),Default.Attr().Class("tweet-action"),Default.Attr().NewAttr("style","margin-right: 5px;")])),List.ofArray([Default.Text("Retweet")])),Operators.add(Default.A(List.ofArray([Default.HRef(favoriteLink),Default.Attr().Class("tweet-action")])),List.ofArray([Default.Text("Favorite")]))]))]))]));
+       });
+       _thisc=Tags.Tags();
+       x9=tweet.createdAt;
+       x8=List.ofArray([Tags.Tags().text(x9)]);
+       _thisd=Tags.Tags();
+       _thise=Attr.Attr();
+       xa=List.ofArray([_thise.NewAttr("class","tweet-actions")]);
+       _thisf=Tags.Tags();
+       _this10=Attr.Attr();
+       _this11=Attr.Attr();
+       _this12=Attr.Attr();
+       xb=List.ofArray([_this10.NewAttr("href",replyLink),_this11.NewAttr("class","tweet-action"),_this12.NewAttr("style","margin-right: 5px;")]);
+       _this13=Tags.Tags();
+       _this14=Attr.Attr();
+       _this15=Attr.Attr();
+       _this16=Attr.Attr();
+       xc=List.ofArray([_this14.NewAttr("href",retweetLink),_this15.NewAttr("class","tweet-action"),_this16.NewAttr("style","margin-right: 5px;")]);
+       _this17=Tags.Tags();
+       _this18=Attr.Attr();
+       _this19=Attr.Attr();
+       xd=List.ofArray([_this18.NewAttr("href",favoriteLink),_this19.NewAttr("class","tweet-action")]);
+       _this1a=Tags.Tags();
+       x2=List.ofArray([Operators.add(_this6.NewTag("a",x3),List.ofArray([_thisa.NewTag("img",x4),_thisb.NewTag("strong",x6)])),_thisc.NewTag("br",x7),_thisd.NewTag("small",x8),p,Operators.add(_thisf.NewTag("div",xa),List.ofArray([Operators.add(_this13.NewTag("a",xb),List.ofArray([Tags.Tags().text("Reply")])),Operators.add(_this17.NewTag("a",xc),List.ofArray([Tags.Tags().text("Retweet")])),Operators.add(_this1a.NewTag("a",xd),List.ofArray([Tags.Tags().text("Favorite")]))]))]);
+       _this1b=Tags.Tags();
+       return Operators.add(_this2.NewTag("li",x1),List.ofArray([_this1b.NewTag("div",x2)]));
       },
       main:function()
       {
-       var x;
-       x=Default.Div(List.ofArray([Default.Attr().NewAttr("id","tweets")]));
+       var x,_this,_this1,x1;
+       _this=Attr.Attr();
+       x=List.ofArray([_this.NewAttr("id","tweets")]);
+       _this1=Tags.Tags();
+       x1=_this1.NewTag("div",x);
        Operators.OnAfterRender(function(elt)
        {
-        return Concurrency.Start(Concurrency.Delay(function()
+        var f,arg00,t;
+        f=function()
         {
-         var x1;
-         x1=Remoting.Async("Sitelet:1",[]);
-         return Concurrency.Bind(x1,function(_arg1)
+         var x2,f1;
+         x2=AjaxRemotingProvider.Async("Sitelet:1",[]);
+         f1=function(_arg1)
          {
-          var tweets,ul;
+          var tweets,x3,_this2,_this3,_this4,ul;
           if(_arg1.$==1)
            {
             tweets=_arg1.$0;
-            ul=Default.UL(List.ofArray([Default.Attr().Class("list-group"),Default.Attr().NewAttr("id","tweets-ul")]));
+            _this2=Attr.Attr();
+            _this3=Attr.Attr();
+            x3=List.ofArray([_this2.NewAttr("class","list-group"),_this3.NewAttr("id","tweets-ul")]);
+            _this4=Tags.Tags();
+            ul=_this4.NewTag("ul",x3);
             Arrays.iter(function(tweet)
             {
-             return ul.AppendI(Client14.li(tweet));
+             return ul.AppendI(Client15.li(tweet));
             },tweets);
             elt.AppendI(ul);
-            Client14.toggleActionsVisibility();
-            Client14.handleTweetActions();
+            Client15.toggleActionsVisibility();
+            Client15.handleTweetActions();
             return Concurrency.Return(null);
            }
           else
@@ -1830,12 +2412,16 @@
             alert("Failed to fetch the latest tweets.");
             return Concurrency.Return(null);
            }
-         });
-        }),{
+         };
+         return Concurrency.Bind(x2,f1);
+        };
+        arg00=Concurrency.Delay(f);
+        t={
          $:0
-        });
-       },x);
-       return x;
+        };
+        return Concurrency.Start(arg00,t);
+       },x1);
+       return x1;
       },
       toggleActionsVisibility:function()
       {
@@ -1854,7 +2440,7 @@
      Control:Runtime.Class({
       get_Body:function()
       {
-       return Client14.main();
+       return Client15.main();
       }
      })
     }
@@ -1868,84 +2454,85 @@
   Snippet1=Runtime.Safe(Geolocation.Snippet1);
   Client=Runtime.Safe(Snippet1.Client);
   String=Runtime.Safe(Global.String);
-  WebSharper=Runtime.Safe(Global.IntelliFactory.WebSharper);
-  Concurrency=Runtime.Safe(WebSharper.Concurrency);
   window=Runtime.Safe(Global.window);
-  Html=Runtime.Safe(WebSharper.Html);
-  Default=Runtime.Safe(Html.Default);
-  List=Runtime.Safe(WebSharper.List);
-  Operators=Runtime.Safe(Html.Operators);
-  EventsPervasives=Runtime.Safe(Html.EventsPervasives);
+  Concurrency=Runtime.Safe(Global.WebSharper.Concurrency);
+  List=Runtime.Safe(Global.WebSharper.List);
+  Html=Runtime.Safe(Global.WebSharper.Html);
+  Client1=Runtime.Safe(Html.Client);
+  Tags=Runtime.Safe(Client1.Tags);
+  Operators=Runtime.Safe(Client1.Operators);
+  Attr=Runtime.Safe(Client1.Attr);
+  EventsPervasives=Runtime.Safe(Client1.EventsPervasives);
   document=Runtime.Safe(Global.document);
   google=Runtime.Safe(Global.google);
   visualization=Runtime.Safe(google.visualization);
   DataTable=Runtime.Safe(visualization.DataTable);
   Google=Runtime.Safe(Sitelet.Google);
   Snippet11=Runtime.Safe(Google.Snippet1);
-  Client1=Runtime.Safe(Snippet11.Client);
+  Client2=Runtime.Safe(Snippet11.Client);
   LineChart=Runtime.Safe(visualization.LineChart);
-  Seq=Runtime.Safe(WebSharper.Seq);
+  Seq=Runtime.Safe(Global.WebSharper.Seq);
   Snippet2=Runtime.Safe(Google.Snippet2);
-  Client2=Runtime.Safe(Snippet2.Client);
+  Client3=Runtime.Safe(Snippet2.Client);
   PieChart=Runtime.Safe(visualization.PieChart);
   Snippet3=Runtime.Safe(Google.Snippet3);
   Html5=Runtime.Safe(Sitelet.Html5);
   Snippet12=Runtime.Safe(Html5.Snippet1);
-  Client3=Runtime.Safe(Snippet12.Client);
-  HTML5=Runtime.Safe(Default.HTML5);
+  Client4=Runtime.Safe(Snippet12.Client);
   T=Runtime.Safe(List.T);
   Snippet10=Runtime.Safe(Html5.Snippet10);
   JS=Runtime.Safe(Snippet10.JS);
   Snippet121=Runtime.Safe(Html5.Snippet12);
-  Client4=Runtime.Safe(Snippet121.Client);
+  Client5=Runtime.Safe(Snippet121.Client);
   Snippet14=Runtime.Safe(Html5.Snippet14);
   Snippet21=Runtime.Safe(Html5.Snippet2);
-  Client5=Runtime.Safe(Snippet21.Client);
+  Client6=Runtime.Safe(Snippet21.Client);
   Snippet31=Runtime.Safe(Html5.Snippet3);
-  Client6=Runtime.Safe(Snippet31.Client);
+  Client7=Runtime.Safe(Snippet31.Client);
   WebSocket=Runtime.Safe(Global.WebSocket);
   Snippet4=Runtime.Safe(Html5.Snippet4);
-  Client7=Runtime.Safe(Snippet4.Client);
+  Client8=Runtime.Safe(Snippet4.Client);
   Snippet5=Runtime.Safe(Html5.Snippet5);
-  Client8=Runtime.Safe(Snippet5.Client);
+  Client9=Runtime.Safe(Snippet5.Client);
   Snippet6=Runtime.Safe(Html5.Snippet6);
-  Client9=Runtime.Safe(Snippet6.Client);
+  Clienta=Runtime.Safe(Snippet6.Client);
   Date=Runtime.Safe(Global.Date);
   Math=Runtime.Safe(Global.Math);
   Number=Runtime.Safe(Global.Number);
   Snippet7=Runtime.Safe(Html5.Snippet7);
-  Clienta=Runtime.Safe(Snippet7.Client);
+  Clientb=Runtime.Safe(Snippet7.Client);
   Snippet8=Runtime.Safe(Html5.Snippet8);
   Snippet9=Runtime.Safe(Html5.Snippet9);
   JQuery=Runtime.Safe(Sitelet.JQuery);
   Snippet13=Runtime.Safe(JQuery.Snippet1);
   Js=Runtime.Safe(Snippet13.Js);
-  Operators1=Runtime.Safe(WebSharper.Operators);
+  Operators1=Runtime.Safe(Global.WebSharper.Operators);
   jQuery=Runtime.Safe(Global.jQuery);
   setInterval=Runtime.Safe(Global.setInterval);
   clearInterval=Runtime.Safe(Global.clearInterval);
   JQueryUI=Runtime.Safe(Sitelet.JQueryUI);
   Snippet15=Runtime.Safe(JQueryUI.Snippet1);
   JS1=Runtime.Safe(Snippet15.JS);
-  JQueryUI1=Runtime.Safe(WebSharper.JQueryUI);
+  JQueryUI1=Runtime.Safe(Global.WebSharper.JQueryUI);
   Tabs=Runtime.Safe(JQueryUI1.Tabs);
   Datepicker=Runtime.Safe(JQueryUI1.Datepicker);
-  JavaScript=Runtime.Safe(WebSharper.JavaScript);
+  console=Runtime.Safe(Global.console);
   Js1=Runtime.Safe(Sitelet.Js);
   Snippet22=Runtime.Safe(Js1.Snippet2);
-  Clientb=Runtime.Safe(Snippet22.Client);
-  Arrays=Runtime.Safe(WebSharper.Arrays);
+  Clientc=Runtime.Safe(Snippet22.Client);
+  Arrays=Runtime.Safe(Global.WebSharper.Arrays);
   Snippet32=Runtime.Safe(Js1.Snippet3);
-  Clientc=Runtime.Safe(Snippet32.Client);
+  Clientd=Runtime.Safe(Snippet32.Client);
   Snippet41=Runtime.Safe(Js1.Snippet4);
-  Clientd=Runtime.Safe(Snippet41.Client);
+  Cliente=Runtime.Safe(Snippet41.Client);
   Snippet51=Runtime.Safe(Js1.Snippet5);
-  Cliente=Runtime.Safe(Snippet51.Client);
+  Clientf=Runtime.Safe(Snippet51.Client);
   Snippet61=Runtime.Safe(Js1.Snippet6);
-  Clientf=Runtime.Safe(Snippet61.Client);
-  Remoting=Runtime.Safe(WebSharper.Remoting);
+  Client10=Runtime.Safe(Snippet61.Client);
+  Remoting=Runtime.Safe(Global.WebSharper.Remoting);
+  AjaxRemotingProvider=Runtime.Safe(Remoting.AjaxRemotingProvider);
   Snippet71=Runtime.Safe(Js1.Snippet7);
-  Client10=Runtime.Safe(Snippet71.Client);
+  Client11=Runtime.Safe(Snippet71.Client);
   Snippet81=Runtime.Safe(Js1.Snippet8);
   JS2=Runtime.Safe(Snippet81.JS);
   Snippet91=Runtime.Safe(Js1.Snippet9);
@@ -1953,29 +2540,29 @@
   clearTimeout=Runtime.Safe(Global.clearTimeout);
   setTimeout=Runtime.Safe(Global.setTimeout);
   alert=Runtime.Safe(Global.alert);
-  Piglets=Runtime.Safe(WebSharper.Piglets);
-  Piglet1=Runtime.Safe(Piglets.Piglet1);
   Login=Runtime.Safe(Sitelet.Login);
-  Client11=Runtime.Safe(Login.Client);
+  Client12=Runtime.Safe(Login.Client);
+  Piglets=Runtime.Safe(Global.WebSharper.Piglets);
+  Piglet=Runtime.Safe(Piglets.Piglet);
   Pervasives=Runtime.Safe(Piglets.Pervasives);
-  Validation=Runtime.Safe(Piglet1.Validation);
+  Validation=Runtime.Safe(Piglet.Validation);
   Controls=Runtime.Safe(Piglets.Controls);
   Result=Runtime.Safe(Piglets.Result);
   NewSnippet=Runtime.Safe(Sitelet.NewSnippet);
-  Client12=Runtime.Safe(NewSnippet.Client);
+  Client13=Runtime.Safe(NewSnippet.Client);
   Search=Runtime.Safe(Sitelet.Search);
-  Client13=Runtime.Safe(Search.Client);
+  Client14=Runtime.Safe(Search.Client);
   Twitter=Runtime.Safe(Sitelet.Twitter);
   Snippet16=Runtime.Safe(Twitter.Snippet1);
-  return Client14=Runtime.Safe(Snippet16.Client);
+  return Client15=Runtime.Safe(Snippet16.Client);
  });
  Runtime.OnLoad(function()
  {
-  Client12.form();
-  Clientf.style();
-  Clientf.loremIpsum();
+  Client13.form();
+  Client10.style();
+  Client10.loremIpsum();
   Js.baseUrl();
-  Client2.data();
+  Client3.data();
   return;
  });
 }());

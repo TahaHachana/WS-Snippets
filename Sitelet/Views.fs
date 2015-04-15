@@ -2,21 +2,19 @@
 
 open System.IO
 open System.Web
-open IntelliFactory.Html
-open IntelliFactory.WebSharper
-open IntelliFactory.WebSharper.Sitelets
+open WebSharper.Html.Server
+open WebSharper.Sitelets
 open Model
 open Mongo
 open Skin
-open Content
 
 let home =
     withTemplate<Action>
         Templates.home
         "WebSharper Snippets"
         "WebSharper code snippets with live demos."
-        (fun ctx -> Home.body)
-        Footer.elt
+        (fun ctx -> Content.Home.body)
+        Content.Footer.elt
 
 let about =
     withTemplate<Action>
@@ -24,23 +22,23 @@ let about =
         "About WebSharper Snippets"
         "WebSharper demos application built and maintained by Taha Hachana." 
         (fun ctx -> Div [Id "push"])
-        Footer.elt
+        Content.Footer.elt
 
 let login actionOption =
     withTemplate
         Templates.login
         "Login"
         ""
-        (fun ctx -> Login.body actionOption ctx)
-        Footer.elt
+        (fun ctx -> Content.Login.body actionOption ctx)
+        Content.Footer.elt
 
 let admin =
     withTemplate
         Templates.admin
         "Admin"
         ""
-        (fun ctx -> Admin.body ctx)
-        Footer.elt
+        (fun ctx -> Content.Admin.body ctx)
+        Content.Footer.elt
 
 let error =
     withTemplate<Action>
@@ -48,16 +46,16 @@ let error =
         "Error · Page Not Found"
         ""
         (fun ctx -> Div [Id "push"])
-        Footer.elt
+        Content.Footer.elt
 
 let snippet id path =
     let snippet = Mongo.Snippets.byId id
     withTemplate
         Templates.snippet
-        (Snippet.title snippet)
+        (Content.Snippet.title snippet)
         snippet.MetaDesc
-        (fun ctx -> Snippet.body snippet)
-        Footer.elt
+        (fun ctx -> Content.Snippet.body snippet)
+        Content.Footer.elt
                                        
 let tagged (tag:string) =
     let tagUpper = tag.ToUpper()
@@ -69,8 +67,8 @@ let tagged (tag:string) =
         Templates.tagged
         ("Snippets Tagged " + tagUpper)
         ("WebSharper code snippets and examples tagged " + tag' + ".")
-        (fun ctx -> Tagged.body tagUpper tag')
-        Footer.elt
+        (fun ctx -> Content.Tagged.body tagUpper tag')
+        Content.Footer.elt
 
 let search queryStr pageId =
     let queryStr' = HttpUtility.UrlDecode queryStr
@@ -79,8 +77,8 @@ let search queryStr pageId =
         Templates.search
         (queryStr' + "- Search Results")
         ""
-        (fun ctx -> Search.body results pageId matches queryStr)
-        Footer.elt
+        (fun ctx -> Content.Search.body results pageId matches queryStr)
+        Content.Footer.elt
 
 let rss : Content<Action> =
     let feed = Rss.rssFeed()

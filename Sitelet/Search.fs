@@ -1,6 +1,6 @@
 ﻿module Sitelet.Search
 
-open IntelliFactory.WebSharper
+open WebSharper
 
 module Server =
     open System
@@ -35,11 +35,10 @@ module Server =
 
 [<JavaScript>]
 module private Client =
-    open IntelliFactory.WebSharper.EcmaScript
-    open IntelliFactory.WebSharper.Html
-    open IntelliFactory.WebSharper.Html5
-    open IntelliFactory.WebSharper.JQuery
-    open IntelliFactory.WebSharper.Piglets
+    open WebSharper.JavaScript
+    open WebSharper.Html.Client
+    open WebSharper.JQuery
+    open WebSharper.Piglets
 
     type Query = string
 
@@ -51,9 +50,9 @@ module private Client =
                 Attr.Class "form-control"
                 Attr.Id "query"
                 Attr.Type "text"
-                HTML5.Attr.AutoFocus "autofocus"
+                AutoFocus "autofocus"
             ]
-            |>! OnKeyUp (fun elt key ->
+            |>! OnKeyUp (fun _ key ->
                 match key.KeyCode with
                 | 13 ->
                     JQuery.Of("#query").Blur().Ignore
@@ -64,7 +63,7 @@ module private Client =
                     Attr.Class "btn btn-primary"
                     Attr.Id "search-btn"
                     Attr.Value "Search"
-                    HTML5.Attr.Data "loading-text" "Please wait..."
+                    Attr.Data "loading-text" "Please wait..."
                 ]
             ]
         ]
@@ -80,8 +79,8 @@ module private Client =
     let main() =
         queryPiglet ""
         |> Piglet.Run (fun queryString ->
-            let queryString' = Global.EncodeURIComponent queryString
-            Window.Self.Location.Assign <| "/search/" + queryString' + "/1"
+            let queryString' = JS.EncodeURIComponent queryString
+            JS.Window.Location.Assign <| "/search/" + queryString' + "/1"
         )
         |> Piglet.Render view
 

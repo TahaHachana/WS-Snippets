@@ -1,6 +1,6 @@
 ﻿module Sitelet.NewSnippet
 
-open IntelliFactory.WebSharper
+open WebSharper
 
 //[<ReflectedDefinition>]
 type NewSnippet =
@@ -58,9 +58,9 @@ module Server =
 
 [<JavaScript>]
 module Client =
-    open IntelliFactory.WebSharper.Html
-    open IntelliFactory.WebSharper.JQuery
-    open IntelliFactory.WebSharper.Piglets
+    open WebSharper.Html.Client
+    open WebSharper.JavaScript
+    open WebSharper.Piglets
 
     let tagPiglet (init:Tag) =
         Piglet.Return id
@@ -92,7 +92,7 @@ module Client =
             Controls.Input tag -< [
                 Attr.Class "form-control"
                 Attr.Type "text"
-                HTML5.Attr.PlaceHolder "Tag"
+                Attr.PlaceHolder "Tag"
             ]
         ]
 
@@ -106,43 +106,43 @@ module Client =
                     Controls.Input id -< [
                         Attr.Class "form-control"
                         Attr.Type "text"
-                        HTML5.Attr.AutoFocus "autofocus"
-                        HTML5.Attr.PlaceHolder "Id"
+                        Attr.AutoFocus "autofocus"
+                        Attr.PlaceHolder "Id"
                     ]
                 ]
                 Div [Attr.Class "form-group"] -< [
                     Controls.Input title -< [
                         Attr.Class "form-control"
                         Attr.Type "text"
-                        HTML5.Attr.PlaceHolder "Title"
+                        Attr.PlaceHolder "Title"
                     ]
                 ]
                 Div [Attr.Class "form-group"] -< [
                     Controls.Input url -< [
                         Attr.Class "form-control"
                         Attr.Type "text"
-                        HTML5.Attr.PlaceHolder "Url"
+                        Attr.PlaceHolder "Url"
                     ]
                 ]
                 Div [Attr.Class "form-group"] -< [
                     Controls.TextArea metaDescription -< [
                         Attr.Class "form-control"
                         Attr.Type "text"
-                        HTML5.Attr.PlaceHolder "Meta Description"
+                        Attr.PlaceHolder "Meta Description"
                     ]
                 ]
                 Div [Attr.Class "form-group"] -< [
                     Controls.TextArea description -< [
                         Attr.Class "form-control"
                         Attr.Type "text"
-                        HTML5.Attr.PlaceHolder "Description"
+                        Attr.PlaceHolder "Description"
                     ]
                 ]
                 Div [Attr.Class "form-group"] -< [
                     Controls.TextArea descriptionHtml -< [
                         Attr.Class "form-control"
                         Attr.Type "text"
-                        HTML5.Attr.PlaceHolder "Description HTML"
+                        Attr.PlaceHolder "Description HTML"
                     ]
                 ]
                 Div [] |> Controls.RenderMany tags (fun _ tag ->
@@ -174,7 +174,7 @@ module Client =
         |> Piglet.Run (fun snippet ->
             async {
                 do! Server.addSnippet snippet
-                JavaScript.Alert "Done"
+                JS.Alert "Done"
             } |> Async.Start)
         |> Piglet.Render snippetView
 

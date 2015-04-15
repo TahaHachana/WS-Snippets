@@ -1,8 +1,8 @@
 ﻿module Sitelet.LoginInfo
 
 open System
-open IntelliFactory.Html
-open IntelliFactory.WebSharper.Sitelets
+open WebSharper.Html.Server
+open WebSharper.Sitelets
 open Model
     
 let random url =
@@ -16,7 +16,7 @@ let link href text =
     ] -< [Text text]
 
 let elt (ctx: Context<_>) =
-    let user = UserSession.GetLoggedInUser()
+    let user = async {return! ctx.UserSession.GetLoggedInUser()} |> Async.RunSynchronously
     let link =
         match user with
         | Some userStr ->

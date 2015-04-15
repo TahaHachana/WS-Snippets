@@ -1,6 +1,5 @@
 ﻿module Sitelet.Templates
 
-open IntelliFactory.WebSharper.Sitelets
 open Skin
 
 let home = makeDefaultTemplate "~/HTML/Home.html"

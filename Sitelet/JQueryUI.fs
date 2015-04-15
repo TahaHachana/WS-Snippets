@@ -1,8 +1,8 @@
 ﻿module Sitelet.JQueryUI
 
-open IntelliFactory.WebSharper
-open IntelliFactory.WebSharper.JQueryUI
-open IntelliFactory.WebSharper.Html
+open WebSharper
+open WebSharper.JQueryUI
+open WebSharper.Html.Client
 
 module Snippet1 =
 
@@ -32,7 +32,7 @@ module Snippet1 =
                 List.map tab [1 .. 3]
                 |> JQueryUI.Tabs.New
             Div [
-                tabs :> IPagelet
+                tabs :> Pagelet
                 Div [Attr.Style "margin-top: 8px;"] -< [
                     addTabBtn tabs
                     removeTabBtn tabs

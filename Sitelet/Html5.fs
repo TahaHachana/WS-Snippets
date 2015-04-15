@@ -1,9 +1,8 @@
 ﻿module Sitelet.Html5
 
-open IntelliFactory.WebSharper
-open IntelliFactory.WebSharper.EcmaScript
-open IntelliFactory.WebSharper.Html
-open IntelliFactory.WebSharper.Html5
+open WebSharper
+open WebSharper.Html.Client
+open WebSharper.JavaScript
 
 // HTML5 logo on canvas.
 module Snippet1 =
@@ -40,7 +39,7 @@ module Snippet1 =
 
         /// Draws the HTML5 logo on canvas.
         let main() =
-            let elt = HTML5.Tags.Canvas []
+            let elt = Canvas []
             let canvas  = As<CanvasElement> elt.Dom
             canvas.Height <- 400
             canvas.Width <- 600
@@ -70,9 +69,9 @@ module Snippet2 =
 
         /// Displays the properties of the location object in a table.
         let main() =
-            let location = Window.Self.Location
+            let location = JS.Window.Location
             Div [Attr.Class "table-responsive"] -< [
-                Default.Table [Attr.Class "table table-striped"; Attr.Id "location-table"] -< [
+                Table [Attr.Class "table table-striped"; Attr.Id "location-table"] -< [
                     // table headers
                     TR [TH [Text "Property"] ; TH [Text "Value"]]
                     // table row for each property
@@ -103,11 +102,11 @@ module Snippet3 =
         // Appends a video element to the DOM.
         let main() =
             let elt =
-                HTML5.Tags.Video [
+                Video [
                     Attr.Height "360px"
                     Attr.Width "640px"
                 ] -< [
-                    HTML5.Tags.Source [
+                    Source [
                         Attr.Src "/Videos/madagascar.mp4"
                         Attr.Type "video/mp4"
                     ]                    
@@ -209,14 +208,12 @@ module Snippet5 =
     /// Client-side code.
     [<JavaScript>]
     module private Client =
-        open IntelliFactory.WebSharper.Html
-        open IntelliFactory.WebSharper.Html5
 
         /// A button that displays a modal dialog when clicked.
         let main() =
             Button [Text "Show Modal Dialog"; Attr.Class "btn btn-primary"]
             |>! OnClick (fun _ _ ->
-                Window.Self.ShowModalDialog "/modal.html"
+                JS.Window.ShowModalDialog "/modal.html"
                 |> ignore)
 
     /// A control for serving the main pagelet.
@@ -234,7 +231,7 @@ module Snippet6 =
 
         /// Creates a canvas and draws the text "Hello Canvas" on it.
         let main() =
-            let elt = HTML5.Tags.Canvas [Text "The canvas element isn't supported by your browser."]
+            let elt = Canvas [Text "The canvas element isn't supported by your browser."]
             elt.SetStyle "border: 1px solid;"
             let canvas  = As<CanvasElement> elt.Dom
             canvas.Height <- 400
@@ -249,7 +246,7 @@ module Snippet6 =
         inherit Web.Control()
 
         [<JavaScript>]
-        override this.Body = Client.main() :> _
+        override __.Body = Client.main() :> _
 
 module Snippet7 =
 
@@ -259,7 +256,7 @@ module Snippet7 =
 
         /// Draws the clock's shapes.
         let draw (ctx: CanvasRenderingContext2D) =
-            let now = new EcmaScript.Date()
+            let now = new Date()
             ctx.Save()
             ctx.ClearRect(0., 0., 150., 150.)
             ctx.Translate(75., 75.)
@@ -271,7 +268,7 @@ module Snippet7 =
             ctx.Save()
 
             // Hour marks
-            for i in 1..12 do
+            for _ in 1..12 do
                 ctx.BeginPath()
                 ctx.Rotate(Math.PI / 6.)
                 ctx.MoveTo(100., 0.)
@@ -357,7 +354,7 @@ module Snippet7 =
 
         /// Draws a clock on a <canvas> and starts the updates loop.
         let main() =
-            let elt = HTML5.Tags.Canvas [Attr.Id "clock"]
+            let elt = Canvas [Attr.Id "clock"]
             let canvas  = As<CanvasElement> elt.Dom
             canvas.Width <- 150
             canvas.Height <- 150
@@ -380,7 +377,7 @@ module Snippet8 =
     let main() =
         Button [Attr.Class "btn btn-primary btn-large"]
         -- Text "Home Page"
-        |>! OnClick (fun _ _ -> Window.Self.Parent.Location.Assign "/")
+        |>! OnClick (fun _ _ -> JS.Window.Parent.Location.Assign "/")
 
     /// A control for serving the main pagelet.
     type Control() =
@@ -394,7 +391,7 @@ module Snippet9 =
     /// Draws a blue filled rectangle on a canvas element.
     [<JavaScript>]
     let private main() =
-        let elt = HTML5.Tags.Canvas [Text "The canvas element isn't supported by your browser."]
+        let elt = Canvas [Text "The canvas element isn't supported by your browser."]
         elt.SetStyle "border: 1px solid;"
         let canvas  = As<CanvasElement> elt.Dom
         canvas.Height <- 400
@@ -415,6 +412,7 @@ module Snippet10 =
 
     [<JavaScript>]
     module JS =
+        open WebSharper.JavaScript.Geolocation
 
         /// Performs conversion to string and replaces the JS null with NA.
         let toStr x =
@@ -450,7 +448,7 @@ module Snippet10 =
         let main() =
             // Geolocation options
             let options =
-                Html5.PositionOptions(
+                PositionOptions(
                     EnableHighAccuracy = true,
                     MaximumAge = 60000,
                     Timeout = 10000)
@@ -458,14 +456,14 @@ module Snippet10 =
             /// Calls the getCurrentPosition method asynchronously.
             let trackPosition() =
                 async {
-                    Window.Self.Navigator.Geolocation.GetCurrentPosition(
+                    JS.Window.Navigator.Geolocation.GetCurrentPosition(
                         displayPosition,
                         (fun _ -> ()),
                         options)
                 }
 
             Div [Attr.Class "table-responsive"] -< [
-                Default.Table [Attr.Class "table table-bordered"; Attr.Id "geolocation-table"] -< [
+                Table [Attr.Class "table table-bordered"; Attr.Id "geolocation-table"] -< [
                     tr "Longitude"         "longitude"
                     tr "Latitude"          "latitude"
                     tr "Altitude"          "altitude"
@@ -498,7 +496,7 @@ module Snippet11 =
         override __.Body =
             Button [Attr.Class "btn btn-primary btn-lg"]
             -- Text "Click me"
-            |>! OnClick (fun _ _ -> Window.Self.Alert "This is an alert dialog.")
+            |>! OnClick (fun _ _ -> JS.Window.Alert "This is an alert dialog.")
             :> _
 
 module Snippet12 =
@@ -514,7 +512,7 @@ module Snippet12 =
             ctx.Stroke()
             
         let main() =
-            let elt = HTML5.Tags.Canvas []
+            let elt = Canvas []
             let canvas = As<CanvasElement> elt.Dom
             canvas.Height <- 400
             canvas.Width <- 600
@@ -542,7 +540,7 @@ module Snippet13 =
 
         [<JavaScript>]
         override __.Body =
-            let elt = HTML5.Tags.Audio []
+            let elt = Audio []
             let audio = As<HTMLAudioElement> elt.Dom
             audio.Src <- "/AlFatiha.mp3"
             audio.Controls <- true
@@ -562,11 +560,11 @@ module Snippet14 =
     let main() =
         Div [Attr.Class "btn-group btn-group-lg"] -< [
             btn "Back"
-            |>! OnClick (fun _ _ -> Window.Self.History.Back())
+            |>! OnClick (fun _ _ -> JS.Window.History.Back())
             btn "Forward"
-            |>! OnClick (fun _ _ -> Window.Self.History.Forward())
+            |>! OnClick (fun _ _ -> JS.Window.History.Forward())
             btn "Go back 2 pages"
-            |>! OnClick (fun _ _ -> Window.Self.History.Go -2)
+            |>! OnClick (fun _ _ -> JS.Window.History.Go -2)
         ]
 
     type Control() =

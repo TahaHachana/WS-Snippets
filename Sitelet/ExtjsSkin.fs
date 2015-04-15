@@ -2,8 +2,8 @@
 
 do ()
 //    open System.Web
-//    open IntelliFactory.WebSharper.Sitelets
-//    open IntelliFactory.WebSharper.Sitelets
+//    open WebSharper.Sitelets
+//    open WebSharper.Sitelets
 //
 //    type private Page = { Body : Content.HtmlElement }
 //

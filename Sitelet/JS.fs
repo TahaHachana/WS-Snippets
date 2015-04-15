@@ -1,7 +1,8 @@
 ﻿module Sitelet.Js
 
-open IntelliFactory.WebSharper
-open IntelliFactory.WebSharper.Html
+open WebSharper
+open WebSharper.JavaScript
+open WebSharper.Html.Client
 open System.Text
 open System.Security.Cryptography
 
@@ -27,7 +28,7 @@ module Snippet2 =
                 Attr.Class "form-control"
                 Attr.Type "text"
                 Attr.Value "Hello console!"
-                HTML5.Attr.AutoFocus "autofocus"
+                AutoFocus "autofocus"
             ]
 
         /// Creates a button that logs the value
@@ -38,12 +39,12 @@ module Snippet2 =
                 Attr.Type "button"
             ]
             -- Text "Log"
-            |>! OnClick (fun _ _ -> JavaScript.Log elt.Value)
+            |>! OnClick (fun _ _ -> Console.Log elt.Value)
         
         let main() =
             let input = inputElt ()
             Div [Attr.Id "console-log"] -< [
-                Default.Legend [Text "Log messages to the console"]
+                Legend [Text "Log messages to the console"]
                 FieldSet [Attr.Class "form-group"] -< [
                     Label [Text "Message"]
                     input
@@ -74,7 +75,7 @@ module Snippet3 =
         let factFold n = Array.fold (*) 1  [|1 .. n|]
 
         let main() =
-            let input = Input [Attr.Type "text"; HTML5.Attr.AutoFocus "autofocus"; Attr.Class "form-control"; Attr.Id "factorial"]
+            let input = Input [Attr.Type "text"; AutoFocus "autofocus"; Attr.Class "form-control"; Attr.Id "factorial"]
             let recSpan = Span []
             let foldSpan = Span []
             let button =
@@ -102,12 +103,12 @@ module Snippet4 =
     /// Client-side code.
     [<JavaScript>]
     module Client =
-        open IntelliFactory.WebSharper.Html
+        open WebSharper.Html
 
         let th txt = TH [Text txt]
 
         let tr level =
-            let implementation = Dom.Document.Current.Implementation
+            let implementation = JS.Document.Implementation
             ["Core"; "CSS"; "Events"; "HTML"; "Selectors-API"]
             |> List.map (fun feature ->
                 let rslt = implementation.HasFeature(feature, level)
@@ -220,7 +221,7 @@ module Snippet6 =
     /// Client-side code.
     [<JavaScript>]
     module Client =
-        open IntelliFactory.WebSharper.JQuery
+        open WebSharper.JQuery
 
         let loremIpsum = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis elit lacus, commodo non posuere sit amet, sodales in risus. Donec et sagittis nisl, at blandit nisl. Cras fermentum libero et erat tincidunt, vel euismod justo elementum. Quisque eget augue quis arcu dictum sagittis. Duis in arcu vulputate lorem sagittis facilisis. In non justo quis metus aliquet luctus a id justo. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Fusce vitae augue sagittis, sodales diam id, blandit turpis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam tempor suscipit nibh vel mollis. Vestibulum eros lorem, pharetra quis varius in, lobortis at risus."
         
@@ -278,7 +279,7 @@ module Snippet7 =
 
         let main() =
             let output = Div [Attr.Style "margin-top: 8px;"]
-            let input = Input [Attr.Type "text"; HTML5.Attr.AutoFocus "autofocus"; Attr.Class "form-control"; Attr.Id "display"]
+            let input = Input [Attr.Type "text"; AutoFocus "autofocus"; Attr.Class "form-control"; Attr.Id "display"]
             Div [Attr.Class "form-inline"] -< [
                 input
                 Button [Text "MD5"; Attr.Class "btn btn-primary"; Attr.Style "margin-left: 8px;"]
@@ -307,7 +308,7 @@ module Snippet8 =
                 Attr.Class "cat-img"
                 Attr.Id <| "cat-" + x
                 Attr.Src <| "/Images/cat" + x + ".jpg"
-                HTML5.Attr.Draggable "true"
+                Draggable "true"
             ]
         
         /// Wraps an <img> element inside a div.
@@ -385,11 +386,11 @@ module Snippet9 =
 
         /// Schedules the dispaly of an alert box after 3 seconds.
         let timerHandle (btn:Element) =
-            JavaScript.SetTimeout
+            JS.SetTimeout
                 (fun () ->
                     btn.Remove()
                     ById("set-btn").RemoveAttribute "disabled"
-                    JavaScript.Alert "Timeout Expired")
+                    JS.Alert "Timeout Expired")
                 3000
 
         let clearBtn() =
@@ -405,7 +406,7 @@ module Snippet9 =
                 // Remove the clear timeout button.
                 elt.Remove()
                 // Clear alert box timeout.
-                JavaScript.ClearTimeout handle
+                JS.ClearTimeout handle
                 ById("set-btn").RemoveAttribute "disabled")
             |> ignore
 

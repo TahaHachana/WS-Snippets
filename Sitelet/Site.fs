@@ -1,12 +1,9 @@
 ﻿module Sitelet.Site
 
 open Controller
-open IntelliFactory.Html
-open IntelliFactory.WebSharper.Sitelets
+open WebSharper.Sitelets
 open Model
 open System.Text.RegularExpressions
-
-//let regMatch = Regex("/snippet/(\d+)(/.+)?").Match("/snippet/9/prompting-using-showmodaldialog")
 
 let RedirectRouter =
     let route (req:Http.Request) =
@@ -46,8 +43,8 @@ let main =
 
 type Website() =
     interface IWebsite<Action> with
-        member this.Sitelet = Sitelet.Sum [NewPage.main; main]
-        member this.Actions = []
+        member __.Sitelet = Sitelet.Sum [NewPage.main; main]
+        member __.Actions = []
 
 [<assembly: WebsiteAttribute(typeof<Website>)>]
 do ()

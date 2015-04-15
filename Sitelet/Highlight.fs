@@ -1,7 +1,5 @@
 ﻿module Sitelet.Highlight
 
-open IntelliFactory.WebSharper
-
 type Result = Error | Success of string
 
 module Server =

@@ -1,6 +1,6 @@
 ﻿module Sitelet.Login
 
-open IntelliFactory.WebSharper
+open WebSharper
 
 [<ReflectedDefinition>]
 type LoginInfo =
@@ -12,7 +12,7 @@ type LoginInfo =
 type Access = Denied | Granted
 
 module Server =
-    open IntelliFactory.WebSharper.Sitelets
+    open WebSharper.Web
 
     [<Remote>]
     let login loginInfo =
@@ -20,16 +20,16 @@ module Server =
             match loginInfo.Password = AppSettings.password with
             | false -> return Denied
             | true ->
-                UserSession.LoginUser loginInfo.Username
+                do! Remoting.GetContext().UserSession.LoginUser loginInfo.Username
                 return Granted
         }
 
 [<JavaScript>]
 module Client =
-    open IntelliFactory.WebSharper.Html
-    open IntelliFactory.WebSharper.Html5
-    open IntelliFactory.WebSharper.JQuery
-    open IntelliFactory.WebSharper.Piglets
+    open WebSharper.Html.Client
+    open WebSharper.JavaScript
+    open WebSharper.JQuery
+    open WebSharper.Piglets
 
     let loginPiglet (init:LoginInfo) =
         Piglet.Return (fun username password ->
@@ -56,16 +56,16 @@ module Client =
                     Controls.Input name -< [
                         Attr.Class "form-control"
                         Attr.Type "text"
-                        HTML5.Attr.AutoFocus "autofocus"
-                        HTML5.Attr.Required "required"
-                        HTML5.Attr.PlaceHolder "Username"
+                        Attr.AutoFocus "autofocus"
+                        Attr.Required "required"
+                        Attr.PlaceHolder "Username"
                     ]
                 ]
                 Div [Attr.Class "form-group"] -< [
                     Controls.Input password -< [
                         Attr.Class "form-control"
                         Attr.Type "password"
-                        HTML5.Attr.PlaceHolder "Password"
+                        Attr.PlaceHolder "Password"
                     ]
                     |>! OnKeyDown (fun _ keyCode ->
                         match keyCode.KeyCode with
@@ -84,8 +84,8 @@ module Client =
             async {
                 let! access = Server.login loginInfo
                 match access with
-                | Denied -> JavaScript.Alert "Login failed"
-                | Granted -> Window.Self.Location.Assign redirectUrl
+                | Denied -> JS.Alert "Login failed"
+                | Granted -> JS.Window.Location.Assign redirectUrl
             } |> Async.Start)
         |> Piglet.Render loginRender
 

@@ -1,17 +1,16 @@
 ﻿module Sitelet.NewPage
 
-open IntelliFactory.Html
-open IntelliFactory.WebSharper.Sitelets
+open WebSharper.Html.Server
+open WebSharper.Sitelets
 open Model
 open Skin
-open Content
 
 let content control = 
     withTemplate
         Templates.newPage
         ""
         ""
-        (fun ctx -> Div [control])
+        (fun _ -> Div [control])
         (Div [])
 
 //    let extjsContent control =

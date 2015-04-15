@@ -1,9 +1,9 @@
 ﻿module Sitelet.Geolocation
 
-open IntelliFactory.WebSharper
-open IntelliFactory.WebSharper.Dom
-open IntelliFactory.WebSharper.Html
-open IntelliFactory.WebSharper.Html5
+open WebSharper
+open WebSharper.JavaScript
+open WebSharper.Html.Client
+open WebSharper.JavaScript.Geolocation
 
 module Snippet1 =
 
@@ -12,7 +12,7 @@ module Snippet1 =
     module Client =
 
         /// Sets the text content of the element with the specified id.
-        let setText id txt = Document.Current.GetElementById(id).TextContent <- txt
+        let setText id txt = JS.Document.GetElementById(id).TextContent <- txt
 
         /// Performs conversion to string and replaces the JS null with NA.
         let toStr f = f.ToString() |> function "null" -> "NA" | x -> x
@@ -32,7 +32,7 @@ module Snippet1 =
         // Calls the getCurrentPosition method asynchronously.
         let getPosition() =
             async {
-                Window.Self.Navigator.Geolocation.GetCurrentPosition display }
+                JS.Window.Navigator.Geolocation.GetCurrentPosition display }
 
         let tr thTxt tdId = TR [TH [Text thTxt]; TD [Attr.Id tdId]]
 
@@ -41,7 +41,7 @@ module Snippet1 =
             Div [
                 Tags.Style [Text "td {width: 200px;}"]
                 Div [Attr.Class "table-responsive"] -< [
-                    Default.Table [Attr.Class "table table-bordered"; Attr.Id "geolocation-table"] -< [
+                    Table [Attr.Class "table table-bordered"; Attr.Id "geolocation-table"] -< [
                         tr "Longitude"         "longitude"
                         tr "Latitude"          "latitude"
                         tr "Altitude"          "altitude"

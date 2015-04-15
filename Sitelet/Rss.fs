@@ -12,7 +12,6 @@ let initFeed() =
     feed.Description <- TextSyndicationContent "Latest WebSharper code snippets and demos."
     feed
 
-
 // add datetime
 let genItems() =
     Mongo.Snippets.latest10()

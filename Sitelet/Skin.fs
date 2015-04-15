@@ -1,8 +1,8 @@
 ﻿module Sitelet.Skin
 
 open System.Web
-open IntelliFactory.WebSharper.Sitelets
-open IntelliFactory.WebSharper.Sitelets.Content
+open WebSharper.Sitelets
+open WebSharper.Sitelets.Content
 
 type DefaultPage =
     {

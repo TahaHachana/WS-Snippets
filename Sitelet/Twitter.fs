@@ -14,7 +14,7 @@ module Snippet1 =
             retweetedScreenName : string option
         }
 
-    open IntelliFactory.WebSharper
+    open WebSharper
 
     module Server =
 
@@ -161,8 +161,9 @@ module Snippet1 =
     /// Client-side code.
     [<JavaScript>]
     module private Client =
-        open IntelliFactory.WebSharper.JQuery
-        open IntelliFactory.WebSharper.Html
+        open WebSharper.JavaScript
+        open WebSharper.JQuery
+        open WebSharper.Html.Client
 
         /// Creates an <li> containing the details of a tweet (screen name, creation date...).
         let li tweet =
@@ -181,7 +182,7 @@ module Snippet1 =
                         Strong [Text screenName]
                     ]
                     Br []
-                    Default.Small [Text tweet.createdAt]
+                    Small [Text tweet.createdAt]
                     p
                     Div [Attr.Class "tweet-actions"] -< [
                         A [HRef replyLink; Attr.Class "tweet-action"; Attr.Style "margin-right: 5px;"] -< [Text "Reply"]
@@ -203,7 +204,7 @@ module Snippet1 =
             jquery.Click(fun elt event ->
                 event.PreventDefault()
                 let href = elt.GetAttribute "href"
-                Html5.Window.Self.ShowModalDialog href |> ignore).Ignore
+                JS.Window.ShowModalDialog href |> ignore).Ignore
 
         /// Appends a <div> containing a list of tweets to the DOM.
         let main() =
@@ -212,7 +213,7 @@ module Snippet1 =
                 async {
                     let! searchResults = Server.latestTweets()
                     match searchResults with
-                        | None -> JavaScript.Alert "Failed to fetch the latest tweets."
+                        | None -> JS.Alert "Failed to fetch the latest tweets."
                         | Some tweets ->
                             let ul = UL [Attr.Class "list-group"; Attr.Id "tweets-ul"]
                             tweets |> Array.iter (fun tweet -> ul.Append (li tweet))

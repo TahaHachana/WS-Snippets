@@ -1,14 +1,14 @@
 ﻿module Sitelet.JQuery
 
-open IntelliFactory.WebSharper
-open IntelliFactory.WebSharper.Html
-open IntelliFactory.WebSharper.JQuery
+open WebSharper
+open WebSharper.JavaScript
+open WebSharper.Html.Client
+open WebSharper.JQuery
 
 module Snippet1 =
 
     [<JavaScript>]
     module private Js =
-    
 
         type Direction = Backward | Forward
 
@@ -63,15 +63,15 @@ module Snippet1 =
 
                 // Image scrolling timer.
                 let f = scroll slider Forward
-                let timer = ref <| JavaScript.SetInterval f 2000
+                let timer = ref <| JS.SetInterval f 2000
 
                 // Display the first image.
                 slider.Children().First().Show().Ignore
 
                 // Pause on hover functionality.
                 JQuery.Of("#jquery-slider, #prev-slide, #next-slide").Hover(
-                    (fun _ _ -> JavaScript.ClearInterval(!timer)),
-                    (fun _ _ -> timer := JavaScript.SetInterval f 2000)
+                    (fun _ _ -> JS.ClearInterval(!timer)),
+                    (fun _ _ -> timer := JS.SetInterval f 2000)
                 ).Ignore
 
                 // Allow the user to choose the active slide.

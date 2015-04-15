@@ -1,15 +1,20 @@
 ﻿module Sitelet.Controller
 
-open IntelliFactory.WebSharper.Sitelets
+open WebSharper.Sitelets
 open Model
+open WebSharper.Web
 
 let private protect view =
-    match UserSession.GetLoggedInUser() with
+    let loggedInUser =
+        async {return! Remoting.GetContext().UserSession.GetLoggedInUser()}
+        |> Async.RunSynchronously
+    match loggedInUser with
         | None -> Content.Redirect <| Login None
         | _    -> view
 
 let private logout() =
-    UserSession.Logout ()
+    async {return! Remoting.GetContext().UserSession.Logout()}
+    |> Async.RunSynchronously
     Content.Redirect Home
     
 let controller =

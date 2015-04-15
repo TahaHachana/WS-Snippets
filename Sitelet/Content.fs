@@ -2,10 +2,9 @@
 
 open System.IO
 open System.Web
-open IntelliFactory.Html
-open IntelliFactory.WebSharper
-open IntelliFactory.WebSharper.Sitelets
-open IntelliFactory.WebSharper.Sitelets.Content
+open WebSharper.Html.Server
+open WebSharper.Sitelets
+open WebSharper.Sitelets.Content
 open Mongo
 open Tags
 open Model
@@ -62,7 +61,7 @@ let snippetColumn snippet =
 module Footer =
 
     let elt : HtmlElement =
-        HTML5.Footer [Id "footer"] -< [
+        Footer [Id "footer"] -< [
                 P [Class "text-center"] -< [
                     Text "Built with "
                     A [
@@ -86,7 +85,7 @@ module Home =
         ]  
 
     let searchSection =
-        HTML5.Section [Class "row"] -< [
+        Section [Class "row"] -< [
             new Search.Control()
         ]
                                 
@@ -96,7 +95,7 @@ module Home =
             |> Seq.toList
             |> split 2
             |> List.map (fun lst -> snippetsRow lst.[0] lst.[1])
-        HTML5.Section [Class "featured container"] -< [
+        Section [Class "featured container"] -< [
             yield H2 [
                 Text "Latest snippets "
                 A [HRef "/rss"] -< [
@@ -154,7 +153,7 @@ module Login =
     let body action ctx =
         let link = link action ctx
         Div [Class "container"] -< [
-            new Login.Control(link) :> INode<_>
+            new Login.Control(link) :> INode
             Div [Id "push"] :> _
         ]
 
@@ -162,7 +161,7 @@ module Admin =
 
     let body ctx =
         Div [Class "container"] -< [
-            LoginInfo.elt ctx :> INode<_>
+            LoginInfo.elt ctx :> INode
             new NewSnippet.Control() :> _
             Div [Id "push"] :> _
         ]
@@ -208,7 +207,7 @@ module Snippet =
             IFrame [
                 Src newPage
                 Scrolling "no"
-                Attributes.Style "width: 100%; border: none;"
+                Attr.Style "width: 100%; border: none;"
             ]
             A [
                 HRef newPage

@@ -1,10 +1,10 @@
 ﻿module Sitelet.Google
 
-open IntelliFactory.WebSharper
-open IntelliFactory.WebSharper.Html
-open IntelliFactory.WebSharper.Google.Maps
-open IntelliFactory.WebSharper.Google.Visualization
-open IntelliFactory.WebSharper.Google.Visualization.Base
+open WebSharper
+open WebSharper.Html.Client
+open WebSharper.Google.Maps
+open WebSharper.Google.Visualization
+open WebSharper.Google.Visualization.Base
 
 
 module Snippet1 =
@@ -21,8 +21,7 @@ module Snippet1 =
 
         let main() =
             // Line chart options with custom title.
-            let options = LineChartOptions()
-            options.title <- "Company Performance"
+            let options = LineChartOptions(title = "Company Performance")
 
             // Chart data.
             let data =
